@@ -101,7 +101,7 @@ class QtUiFileHandler(object):
     def ui_entry(self, attrs):
         self.buffer.append("")
         self.buffer.append("/*")
-        self.buffer.append(" * This file is auto generated. Extend it if you don't like it.")
+        self.buffer.append(" * This file is auto generated. If you'd like to \n * alter how things work, please extend it.")
         self.buffer.append(" */")
         self.buffer.append("")
 
