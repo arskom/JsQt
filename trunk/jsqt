@@ -1,6 +1,5 @@
 #!/bin/bash
 
-export PYTHONPATH=/home/plq/src/workspace-3.4/lib_py/:/home/plq/src/workspace-3.4/gys_client_js/qooxdoo/tool/pylib                      
 usage="Usage: $0 source_dir dest_dir base_namespace"
 
 if [ "$1" == "" ]; then
