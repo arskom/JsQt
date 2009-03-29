@@ -165,15 +165,15 @@ class QtUiFileHandler(object):
             raise Exception("layout '%s' is not handled yet." % class_name)
 
         layout = self.layout_handlers[layout_name](self, attrs.get("name"))
-        if (self.stack[ - 1].layout != None):
+        if (self.stack[-1].layout != None):
             self.stack.append(QWidget(self, attrs.get("name") + "_implicit_container"))
-            self.stack[ - 1].implicit = True
-            self.stack[ - 1].item_properties = self.item_attrs
+            self.stack[-1].implicit = True
+            self.stack[-1].item_properties = self.item_attrs
 
         else:
-            self.stack[ - 1].implicit = False
+            self.stack[-1].implicit = False
         
-        self.stack[ - 1].set_layout(layout)        
+        self.stack[-1].set_layout(layout)        
         
     def layout_exit(self):
         self.stack[-1].in_layout = False
@@ -190,10 +190,10 @@ class QtUiFileHandler(object):
     def widget_exit(self):
         if len(self.stack) == 0:
             return
-        elif self.stack[ - 1].parent != None:
-            self.stack[ - 1].parent.add_widget(self.stack[ - 1])
+        elif self.stack[-1].parent != None:
+            self.stack[-1].parent.add_widget(self.stack[-1])
 
-        self.stack[ - 1].close()
+        self.stack[-1].close()
         self.stack.pop()
 
     def spacer_exit(self):
@@ -253,7 +253,7 @@ class QtUiFileParser(sax.ContentHandler, QtUiFileHandler):
 
     def endElement(self, name):
         if not self.tag_exit_handlers.has_key(name):
-            self.stack[ - 1].tag_exit_handlers[name]()
+            self.stack[-1].tag_exit_handlers[name]()
         else:
             self.tag_exit_handlers[name]()
 
