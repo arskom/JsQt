@@ -20,6 +20,13 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
+version   = "0.1-alpha"
+copyright = "(c) Arskom Ltd."
+header_string = """
+JsQT %s
+%s
+""" % (version, copyright)
+
 class Base(object):
     __name = ""
     parent = None

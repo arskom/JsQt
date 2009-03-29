@@ -18,19 +18,15 @@
 # 
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # 
 
 import os
 import sys
 import stat
 
+import jsqt
 from gen import qx_08
-
-header_string="""
-JsQT v0.1-alpha
-(c) Arskom Ltd, 2009.
-"""
 
 def walktree (top = ".", depthfirst = False):
     names = os.listdir(top)
@@ -54,10 +50,10 @@ def usage():
     print "Usage:", sys.argv[0], "xml_input_path js_output_path root_namespace"
 
 def main(argv):
-    print header_string
+    print jsqt.header_string
 
     if len(argv) == 4:
-        if os.path.isdir(argv[1]) and os.path.isdir(argv[2]):
+        if os.path.isdir(argv[1]):
             for (basepath, children) in walktree(argv[1]):
                 for c in children:
                     if c[-3:] == '.ui':
@@ -73,7 +69,7 @@ def main(argv):
                         qx_08(ui_file_name, js_file_name, root_namespace)
         else:
             usage()
-            print '       First two arguments must be directories!'
+            print '       First argument must be a directory!'
             print
 
     else:
