@@ -23,44 +23,9 @@ developed by a friendly community.
 JsQT is still in its early stages of development, yet some promising
 results can be obtained for simple cases.
 
-What follows is practically the only documentation about the project.
-I hope that more will follow.
+Head over to
 
-Tutorial
-=========
+    http://code.google.com/p/jsqt/wiki/SampleUsage
 
-To get the sample .ui file working, you need to go over the following
-steps:
+to see how to create javascript code from the sample xml file.
 
-1. Download Qooxdoo source development kit from www.qooxdoo.org and 
-   unzip it to a path to your liking. Then create a sample qooxdoo 
-   project. Set the root namespace to be "sample". The documentation 
-   on how to do it can be found at: 
-
-       http://qooxdoo.org/documentation/0.8/helloworld
-   
-2. Go to the JsQT root directory and run:
-
-       python src/main.py xml class sample
-
-   You'll see a directory named "class". Put its contents to 
-   source/class directory in your Qooxdoo project root.
-
-3. The generated class is named "sample.draw.Add". You can paste the
-   following code to the source/class/sample/Application.js:
-
-       var sample_form = new sample.draw.Add();
-       var doc = this.getRoot();
-       doc.add(sample_form.getWidget(), {edge:0});
-
-   You should remove the default code from the Qooxdoo skeleton, if it
-   is still there.
-
-4. Run:
-
-        ./generate.py source
-
-   in the qooxdoo directory. For details on how to do it, refer to the
-   helloworld documentation above.
-       
-5. Point your browser to source/index.html to see the results.
