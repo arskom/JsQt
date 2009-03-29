@@ -44,6 +44,7 @@ class QPushButton(Widget):
         Widget.__init__(self, caller, name)
 
         self.register_handlers()
+        self.xmltext_handlers[("text", None, "string")] = self.set_text
 
     def set_text(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setLabel("%(text)s");' % {'self_name': self.name(), 'text': text})
@@ -55,6 +56,7 @@ class QLabel(Widget):
         Widget.__init__(self, caller, name)
 
         self.register_handlers()
+        self.xmltext_handlers[("text", None, "string")] = self.set_text
 
     def set_text(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setContent("%(text)s");' % {'self_name': self.name(), 'text': text})
@@ -66,6 +68,7 @@ class QLineEdit(Widget):
 
         self.register_handlers()
         self.xmltext_handlers[("echoMode", None, "enum")] = self.set_echoMode
+        self.xmltext_handlers[("text", None, "string")] = self.set_text
 
     def set_text(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setValue("%(text)s");' % {'self_name': self.name(), 'text': text})
@@ -81,6 +84,7 @@ class QTextEdit(Widget):
         Widget.__init__(self, caller, name)
 
         self.register_handlers()
+        self.xmltext_handlers[("text", None, "string")] = self.set_text
 
     def set_text(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setValue("%(text)s");' % {'self_name': self.name(), 'text': text})
@@ -91,6 +95,7 @@ class QCheckBox(Widget):
         Widget.__init__(self, caller, name)
 
         self.register_handlers()
+        self.xmltext_handlers[("text", None, "string")] = self.set_text
 
     def set_text(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setLabel("%(text)s");' % {'self_name': self.name(), 'text': text})
@@ -104,7 +109,7 @@ class QComboBox(Widget):
         self.xmltext_handlers[("text", None, "string")] = self.add_text
     
     def set_text(self, text, *args):
-        raise Exception("comboboxta add_text kullanilir")
+        raise Exception("add_text must be used with ComboBox")
 
     def add_text(self, text, *args):
         self.buffer.append('        this.%(self_name)s.add(new qx.ui.form.ListItem("%(text)s"));' % {'self_name': self.name(), 'text': text})
@@ -139,15 +144,4 @@ class QTableWidget(QAbstractItemView):
 
         self.register_handlers()
                         
-        self.tag_entry_handlers["column"] = self.column_entry
-        self.tag_exit_handlers["column"] = self.column_exit
-
-    def column_entry(self, attrs, *args):
-        self.buffer.append("        // WARNING: columns are ignored")
-        self.xmltext_handlers[("text", None, "string")] = self.set_text
-    def column_exit(self):
-        self.xmltext_handlers[("text", None, "string")] = Base.set_text
         
-    def set_text(self, text, *args):
-        pass
-
