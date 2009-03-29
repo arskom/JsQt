@@ -5,8 +5,23 @@ Introduction
 JsQT is a tool to compile QTDesigner's .ui files to javascript code, 
 which is initially targeted to work with the qooxdoo framework.
 
-It's still in its early stages of development, yet some promising
-results could be obtained for simple cases.
+Quoting the Qooxdoo web site:
+
+    qooxdoo is a comprehensive and innovative Ajax application 
+    framework. Leveraging object-oriented JavaScript allows 
+    developers to build impressive cross-browser applications. No 
+    HTML, CSS nor DOM knowledge is needed.
+
+    It includes a platform-independent development tool chain, a 
+    state-of-the-art GUI toolkit and an advanced client-server 
+    communication layer. It is open source under an LGPL/EPL dual 
+    license.
+
+So it's an exciting library to work with. It is being actively
+developed by a friendly community.
+
+JsQT is still in its early stages of development, yet some promising
+results can be obtained for simple cases.
 
 What follows is practically the only documentation about the project.
 I hope that more will follow.
