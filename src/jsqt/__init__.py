@@ -21,7 +21,7 @@
 #
 
 version   = "0.1-alpha"
-copyright = "(c) Arskom Ltd."
+copyright = "(c) 2009 Arskom Ltd."
 header_string = """
 JsQT %s
 %s
@@ -89,7 +89,8 @@ class Base(object):
         if self.type == None:
             return
         
-        js_inst_str = '        this.%(self_name)s = new %(self_type)s(); // %(internal_type)s' % {'self_name': self.name(), 'self_type': self.type, 'internal_type': self.__class__.__name__}
+        js_inst_str = '        this.%(self_name)s = new %(self_type)s(); // %(internal_type)s' % \
+            {'self_name': self.name(), 'self_type': self.type, 'internal_type': self.__class__.__name__}
 
         if self.inst_line == None:
             self.caller.members.add("%(self_name)s : null" % {'self_name' : self.name()})
@@ -169,22 +170,28 @@ class Base(object):
     def name(self):
         return self.__name    
     
+
     def set_readOnly(self, text, *args):
         self.buffer.append("        this.%(self_name)s.setReadOnly(%(text)s)" % { 'self_name' : self.name(), 'text': text })
         
     def set_current_property(self, name):
         self.current[0] = name
         
+
     def rect_entry(self, attrs, *args):
         self.current[1] = "rect"
+
     def rect_exit(self):
         self.current[1] = None
 
+
     def size_entry(self, attrs, *args):
         self.current[1] = "size"
+
     def size_exit(self):
         self.current[1] = None
     
+
     def prim_entry(self, attrs, what):
         """ Entry tag handler for the primitive data types """
         self.current[2] = what
@@ -193,21 +200,25 @@ class Base(object):
         if self.xmltext_handlers.has_key(t):
             self.xmltext_handler = self.xmltext_handlers[t]
         else:
-            self.buffer.append("        // WARNING: %s property is ignored" % str(t))
+            self.buffer.append("        // WARNING: %s: property is ignored" % str(t))
 
     def prim_exit(self):
         """ Exit tag handler for the primitive data types """
         self.xmltext_handler = None
         self.current[2] = None
 
+
     def x_text(self, text, *args):
         self.x = text
+
     def y_text(self, text, *args):
         self.y = text
+
     def w_text(self, text, *args):
-        self.buffer.append("        this.%s.setWidth(%s);" % (self.name(), text))
+        self.buffer.append("        // this.%s.setWidth(%s);" % (self.name(), text))
+
     def h_text(self, text, *args):
-        self.buffer.append("        this.%s.setHeight(%s);" % (self.name(), text))
+        self.buffer.append("        // this.%s.setHeight(%s);" % (self.name(), text))
 
 class Class(Base):
     def __init__(self, caller, name):

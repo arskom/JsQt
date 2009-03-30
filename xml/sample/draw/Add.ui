@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>490</width>
+    <width>533</width>
     <height>312</height>
    </rect>
   </property>
@@ -295,7 +295,6 @@
   <tabstop>edtMN</tabstop>
   <tabstop>comboSubAddress</tabstop>
   <tabstop>edtEmail</tabstop>
-  <tabstop>chkEmail</tabstop>
   <tabstop>comboTrackingMethod</tabstop>
   <tabstop>comboInterval</tabstop>
   <tabstop>chkLRITTest</tabstop>

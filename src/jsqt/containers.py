@@ -57,9 +57,6 @@ class QGroupBox(Container):
 
         self.xmltext_handlers[("title", None, "string")] = self.set_legend
     
-    def js_inst(self):
-        Container.js_inst(self)
-        
     def set_legend(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setLegend("%(text)s");' % {'self_name': self.name(), 'text': text})
 
@@ -81,22 +78,12 @@ class QMainWindow(Container):
         self.xmltext_handler = None
 
     def js_inst(self):
-        self.buffer.append('        var __cnt_h = new qx.ui.container.Composite(new qx.ui.layout.HBox(0));')
-        self.buffer.append('        this.setWidget(__cnt_h);')
-        self.buffer.append('')
-
         self.buffer.append('        this.%(self_name)s = new qx.ui.container.Composite(); // QMainWindow' % {'self_name': self.name()})
         self.caller.members.add("%(self_name)s : null" % {'self_name' : self.name()})
-
-        cnt_v = QVBoxLayout(self.caller, "__cnt_v")
-        self.buffer.append('        this.%(self_name)s.set({' % {'self_name': self.name()})
-        self.buffer.append('             alignY: "middle"')
-        self.buffer.append('            ,allowGrowY: false')
-        self.buffer.append('        });')
-        self.buffer.append('        __cnt_h.add(this.%(self_name)s, {flex:1});' % {'self_name': self.name()})
-        self.set_layout(cnt_v)
-
+        self.buffer.append('        this.setWidget(this.%(self_name)s);' % {'self_name': self.name()})
+        self.set_layout(QVBoxLayout(self.caller, "__cnt_v"))
         self.buffer.append('')
+
 
 class QWidget(Container):
     def __init__(self, caller, name, type = None):
@@ -109,11 +96,6 @@ class QWidget(Container):
         self.layout = None
         self.register_handlers()
         
-        if self.name() == "centralwidget":
-            self.buffer.append('        this.%(self_name)s.setAlignX("center");' % {'self_name': self.name()})
-            self.buffer.append('        this.centralwidget.setMaxWidth(0);')
-
-
     def set_text(self, text):
         self.buffer.append('        // how to set the title of a %(self_type)s?");' % {'self_type': self.__class__.__name__})
 
@@ -161,11 +143,13 @@ class QScrollArea(Container):
         self.xmltext_handlers[(u'horizontalScrollBarPolicy', None, u'enum')] = self.set_dummy
         self.xmltext_handlers[(u'widgetResizable', None, u'bool')] = self.set_dummy
     
+    #
     # quoting qooxdoo api docs:
     #     Note that this class can only have one child widget. 
     #     This container has a fixed layout, which cannot be changed.
     # 
-    # so set_layout does nothing.
+    # so set_layout here does nothing.
+    #
     def set_layout(self, layout):
         pass
 

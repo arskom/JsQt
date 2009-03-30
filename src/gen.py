@@ -232,11 +232,11 @@ class QtUiFileParser(sax.ContentHandler, QtUiFileHandler):
                         self.stack[-1].layout.xmltext_handler(text, tuple(self.stack[-1].current))
                     else:
                         # print " *",self.stack[-1].name(), type(self.stack[-1])
-                        self.buffer.append("        // WARNING: No property text handler found for %s" % str(tuple(self.stack[-1].current)))
+                        self.buffer.append("        // WARNING: %s: property text ignored" % str(tuple(self.stack[-1].current)))
                 else:
                     self.stack[-1].xmltext_handler(text, tuple(self.stack[-1].current))
             else:
-                pass # self.buffer.append("        /*\n         * WARNING: Ignoring text:\n%s\n\n         */" % text)
+                pass
         else:
             self.xmltext_handler(text)
 

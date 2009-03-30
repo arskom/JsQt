@@ -57,6 +57,13 @@ class QLabel(Widget):
 
         self.register_handlers()
         self.xmltext_handlers[("text", None, "string")] = self.set_text
+	
+    def js_inst(self):
+        Widget.js_inst(self)
+        self.buffer.append('        this.%(self_name)s.setAllowGrowX(false);' % {'self_name': self.name()})
+        self.buffer.append('        this.%(self_name)s.setAllowGrowY(false);' % {'self_name': self.name()})
+        self.buffer.append('        this.%(self_name)s.setAllowShrinkX(false);' % {'self_name': self.name()})
+        self.buffer.append('        this.%(self_name)s.setAllowShrinkY(false);' % {'self_name': self.name()})
 
     def set_text(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setContent("%(text)s");' % {'self_name': self.name(), 'text': text})
