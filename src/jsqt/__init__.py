@@ -59,8 +59,9 @@ class Base(object):
 
     type = None
 
-    def __init__(self, caller, name):
-        print "\t"+name
+    def __init__(self, caller, name, class_name):
+        # TODO: name validation
+
         self.__name = name
         if len(caller.stack) > 0:
             self.parent = caller.stack[-1]
@@ -73,12 +74,17 @@ class Base(object):
 
         self.in_layout = False
 
+        self.class_name = class_name
+
+        self.display()
         self.js_inst()
+
+    def display(self):
+        print "\t","  ok ",self.__name, self.class_name
 
     def close(self):
         pass
     
-
     def js_inst(self):
         """
             When called the first time, this function writes the instantiation line.
@@ -93,7 +99,7 @@ class Base(object):
             {'self_name': self.name(), 'self_type': self.type, 'internal_type': self.__class__.__name__}
 
         if self.inst_line == None:
-            self.caller.members.add("%(self_name)s : null" % {'self_name' : self.name()})
+            self.caller.add_member("%(self_name)s : null" % {'self_name' : self.name()})
             self.buffer.append('')
             self.buffer.append(js_inst_str)
             self.inst_line = len(self.buffer) - 1
@@ -105,8 +111,29 @@ class Base(object):
         self.tag_entry_handlers["rect"] = self.rect_entry
         self.tag_exit_handlers["rect"] = self.rect_exit
 
+        self.tag_entry_handlers["datetime"] = self.datetime_entry
+        self.tag_exit_handlers["datetime"] = self.datetime_exit
+
         self.tag_entry_handlers["size"] = self.size_entry
         self.tag_exit_handlers["size"] = self.size_exit
+
+        self.tag_entry_handlers["hour"] = self.prim_entry
+        self.tag_exit_handlers["hour"] = self.prim_exit
+
+        self.tag_entry_handlers["minute"] = self.prim_entry
+        self.tag_exit_handlers["minute"] = self.prim_exit
+
+        self.tag_entry_handlers["second"] = self.prim_entry
+        self.tag_exit_handlers["second"] = self.prim_exit
+
+        self.tag_entry_handlers["year"] = self.prim_entry
+        self.tag_exit_handlers["year"] = self.prim_exit
+
+        self.tag_entry_handlers["month"] = self.prim_entry
+        self.tag_exit_handlers["month"] = self.prim_exit
+
+        self.tag_entry_handlers["day"] = self.prim_entry
+        self.tag_exit_handlers["day"] = self.prim_exit
 
         self.tag_entry_handlers["string"] = self.prim_entry
         self.tag_exit_handlers["string"] = self.prim_exit
@@ -185,6 +212,13 @@ class Base(object):
         self.current[1] = None
 
 
+    def datetime_entry(self, attrs, *args):
+        self.current[1] = "datetime"
+
+    def datetime_exit(self):
+        self.current[1] = None
+
+
     def size_entry(self, attrs, *args):
         self.current[1] = "size"
 
@@ -215,14 +249,14 @@ class Base(object):
         self.y = text
 
     def w_text(self, text, *args):
-        self.buffer.append("        // this.%s.setWidth(%s);" % (self.name(), text))
+        self.buffer.append("        this.%s.setWidth(%s);" % (self.name(), text))
 
     def h_text(self, text, *args):
-        self.buffer.append("        // this.%s.setHeight(%s);" % (self.name(), text))
+        self.buffer.append("        this.%s.setHeight(%s);" % (self.name(), text))
 
 class Class(Base):
-    def __init__(self, caller, name):
-        Base.__init__(self, caller, name)
+    def __init__(self, caller, name, class_name):
+        Base.__init__(self, caller, name, class_name)
         
     def js_type(self):
         pass
@@ -236,4 +270,21 @@ class Class(Base):
     
     def add_widget(self, *args, **kwargs):
         pass
+
+class Dummy(Base):
+    def js_inst(self):
+        self.buffer.append('        // WARNING: %(class_name)s widget is not supported (yet?).' % {'class_name':self.class_name})
+
+    def display(self):
+        print "\t WARN", self.class_name, "is not supported (yet)."
+
+class NoQooxdooEquivalent(Dummy):
+    def register_handlers(self):
+        pass
+
+    def js_inst(self):
+        self.buffer.append('        // WARNING: %(class_name)s widget is not supported by Qooxdoo.' % {'class_name':self.class_name})
+
+    def display(self):
+        print "\t WARN", self.class_name, "is not supported by Qooxdoo."
 

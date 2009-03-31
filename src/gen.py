@@ -28,7 +28,7 @@ import jsqt
 from jsqt.containers import *
 from jsqt.widgets import *
 from jsqt.layouts import *
-from jsqt import Class
+from jsqt import Class, Dummy, NoQooxdooEquivalent
 
 class_name = ""
 
@@ -93,20 +93,23 @@ class QtUiFileHandler(object):
         self.class_handlers["QDialog"] = QDialog
         self.class_handlers["QWidget"] = QWidget
         
-        self.class_handlers["QDateTimeEdit"] = QLineEdit # FIXME: !!!
-        self.class_handlers["QDateEdit"] = QLineEdit     # FIXME: !!!
+        self.class_handlers["QDateTimeEdit"] = NoQooxdooEquivalent
+        self.class_handlers["QTimeEdit"] = NoQooxdooEquivalent
         
         self.class_handlers["QGraphicsView"] = QWidget   
         
         self.class_handlers["QTableWidget"] = QTableWidget
         self.class_handlers["QListWidget"] = QListWidget
         
+        self.class_handlers["QRadioButton"] = QRadioButton
         self.class_handlers["QPushButton"] = QPushButton
+        self.class_handlers["QDateEdit"] = QDateEdit
         self.class_handlers["QLineEdit"] = QLineEdit
         self.class_handlers["QTextEdit"] = QTextEdit
         self.class_handlers["QComboBox"] = QComboBox
         self.class_handlers["QCheckBox"] = QCheckBox
         self.class_handlers["QGroupBox"] = QGroupBox
+        self.class_handlers["QSpinBox"] = QSpinBox
         self.class_handlers["QLabel"] = QLabel
 
         self.class_handlers["Spacer"] = Spacer
@@ -121,7 +124,7 @@ class QtUiFileHandler(object):
         self.buffer.append("")
 
     def class_entry(self, attrs):
-        self.stack.append(Class(self, class_name))
+        self.stack.append(Class(self, class_name, "Class"))
 
     def property_entry(self, attrs):
         self.stack[-1].set_current_property(attrs.get("name"))
@@ -140,9 +143,11 @@ class QtUiFileHandler(object):
 
     def __widget_entry(self, class_name, name):
         if not self.class_handlers.has_key(class_name):
-            raise Exception("class '%s' is not handled yet." % class_name)
+            class_handler = Dummy
+        else:
+            class_handler = self.class_handlers[class_name]
 
-        tmp = self.class_handlers[class_name](self, name)
+        tmp = class_handler(self,name,class_name)
         
         if self.main_container == None:
             self.main_container = tmp
@@ -231,8 +236,8 @@ class QtUiFileParser(sax.ContentHandler, QtUiFileHandler):
                     if self.stack[-1].in_layout:
                         self.stack[-1].layout.xmltext_handler(text, tuple(self.stack[-1].current))
                     else:
-                        # print " *",self.stack[-1].name(), type(self.stack[-1])
-                        self.buffer.append("        // WARNING: %s: property text ignored" % str(tuple(self.stack[-1].current)))
+                        if not isinstance(self.stack[-1], Dummy):
+                            self.buffer.append("        // WARNING: %s: property text ignored" % str(tuple(self.stack[-1].current)))
                 else:
                     self.stack[-1].xmltext_handler(text, tuple(self.stack[-1].current))
             else:
@@ -242,7 +247,10 @@ class QtUiFileParser(sax.ContentHandler, QtUiFileHandler):
 
     def endDocument(self):
         self.flush_buffers()
-        
+
+    def add_member(self, what):
+        self.members.add(what)    
+
     def flush_buffers(self):
         self.buffer = []
         self.buffers.append(self.buffer)

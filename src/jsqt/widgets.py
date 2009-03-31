@@ -23,8 +23,8 @@
 from jsqt import Base
 
 class Widget(Base):        
-    def __init__(self, caller, name=""):
-        Base.__init__(self, caller, name)
+    def __init__(self, caller, name, class_name):
+        Base.__init__(self, caller, name, class_name)
 
     def set_geometry_x(self, x):
         self.x = x
@@ -39,9 +39,9 @@ class Widget(Base):
         return "widget"
 
 class QPushButton(Widget):
-    def __init__(self, caller, name):
+    def __init__(self, caller, name, class_name):
         self.type = "qx.ui.form.Button"
-        Widget.__init__(self, caller, name)
+        Widget.__init__(self, caller, name, class_name)
 
         self.register_handlers()
         self.xmltext_handlers[("text", None, "string")] = self.set_text
@@ -51,9 +51,9 @@ class QPushButton(Widget):
 
 
 class QLabel(Widget):
-    def __init__(self, caller, name):
+    def __init__(self, caller, name, class_name):
         self.type="qx.ui.basic.Label"
-        Widget.__init__(self, caller, name)
+        Widget.__init__(self, caller, name, class_name)
 
         self.register_handlers()
         self.xmltext_handlers[("text", None, "string")] = self.set_text
@@ -69,9 +69,9 @@ class QLabel(Widget):
         self.buffer.append('        this.%(self_name)s.setContent("%(text)s");' % {'self_name': self.name(), 'text': text})
 
 class QLineEdit(Widget):
-    def __init__(self, caller, name):
+    def __init__(self, caller, name, class_name):
         self.type="qx.ui.form.TextField"
-        Widget.__init__(self, caller, name)
+        Widget.__init__(self, caller, name, class_name)
 
         self.register_handlers()
         self.xmltext_handlers[("echoMode", None, "enum")] = self.set_echoMode
@@ -86,9 +86,9 @@ class QLineEdit(Widget):
             self.js_inst()
 
 class QTextEdit(Widget):
-    def __init__(self, caller, name):
+    def __init__(self, caller, name, class_name):
         self.type="qx.ui.form.TextArea"
-        Widget.__init__(self, caller, name)
+        Widget.__init__(self, caller, name, class_name)
 
         self.register_handlers()
         self.xmltext_handlers[("text", None, "string")] = self.set_text
@@ -96,59 +96,112 @@ class QTextEdit(Widget):
     def set_text(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setValue("%(text)s");' % {'self_name': self.name(), 'text': text})
     
-class QCheckBox(Widget):
-    def __init__(self, caller, name):
-        self.type="qx.ui.form.CheckBox"
-        Widget.__init__(self, caller, name)
+class QSpinBox(Widget):
+    def __init__(self, caller, name, class_name):
+        self.type="qx.ui.form.Spinner"
+        Widget.__init__(self, caller, name, class_name)
+
+        self.register_handlers()
+        self.xmltext_handlers[("text", None, "string")] = self.set_text
+        self.xmltext_handlers[(u'singleStep', None, u'number')] = self.set_single_step
+        self.xmltext_handlers[(u'maximum', None, u'number')] = self.set_max
+        self.xmltext_handlers[(u'minimum', None, u'number')] = self.set_min
+        self.xmltext_handlers[(u'value', None, u'number')] = self.set_text
+
+    def set_text(self, text, *args):
+        self.buffer.append('        this.%(self_name)s.setValue(%(text)s);' % {'self_name': self.name(), 'text': text})
+
+    def set_single_step(self, text, *args):
+        self.buffer.append('        this.%(self_name)s.setSingleStep(%(text)s);' % {'self_name': self.name(), 'text': text})
+
+    def set_min(self, text, *args):
+        self.buffer.append('        this.%(self_name)s.setMin(%(text)s);' % {'self_name': self.name(), 'text': text})
+
+    def set_max(self, text, *args):
+        self.buffer.append('        this.%(self_name)s.setMax(%(text)s);' % {'self_name': self.name(), 'text': text})
+    
+class QDateEdit(Widget):
+    def __init__(self, caller, name, class_name):
+        self.type="qx.ui.form.DateField"
+        Widget.__init__(self, caller, name, class_name)
 
         self.register_handlers()
         self.xmltext_handlers[("text", None, "string")] = self.set_text
 
     def set_text(self, text, *args):
+        self.buffer.append('        this.%(self_name)s.setValue("%(text)s");' % {'self_name': self.name(), 'text': text})
+    
+
+class QCheckBox(Widget):
+    def __init__(self, caller, name, class_name):
+        self.type="qx.ui.form.CheckBox"
+        Widget.__init__(self, caller, name, class_name)
+
+        self.register_handlers()
+        self.xmltext_handlers[("text", None, "string")] = self.set_text
+        self.xmltext_handlers[("checked", None, "bool")] = self.set_value
+
+    def set_text(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setLabel("%(text)s");' % {'self_name': self.name(), 'text': text})
 
+    def set_value(self, text, *args):
+        self.buffer.append('        this.%(self_name)s.setChecked(%(text)s);' % {'self_name': self.name(), 'text': text})
+
+class QRadioButton(Widget):
+    def __init__(self, caller, name, class_name):
+        self.type="qx.ui.form.RadioButton"
+        Widget.__init__(self, caller, name, class_name)
+
+        self.register_handlers()
+        self.xmltext_handlers[("text", None, "string")] = self.set_text
+        self.xmltext_handlers[("checked", None, "bool")] = self.set_value
+
+    def set_text(self, text, *args):
+        self.buffer.append('        this.%(self_name)s.setLabel("%(text)s");' % {'self_name': self.name(), 'text': text})
+
+    def set_value(self, text, *args):
+        self.buffer.append('        this.%(self_name)s.setChecked(%(text)s);' % {'self_name': self.name(), 'text': text})
+
 class QComboBox(Widget):
-    def __init__(self, caller, name):
+    def __init__(self, caller, name, class_name):
         self.type = "qx.ui.form.SelectBox"
-        Widget.__init__(self, caller, name)
+        Widget.__init__(self, caller, name, class_name)
 
         self.register_handlers()
         self.xmltext_handlers[("text", None, "string")] = self.add_text
     
     def set_text(self, text, *args):
-        raise Exception("add_text must be used with ComboBox")
+        raise Exception("With ComboBox, add_text must be used.")
 
     def add_text(self, text, *args):
         self.buffer.append('        this.%(self_name)s.add(new qx.ui.form.ListItem("%(text)s"));' % {'self_name': self.name(), 'text': text})
 
 class Spacer(Widget):
-    def __init__(self, caller, name):
+    def __init__(self, caller, name, class_name):
         self.type = "qx.ui.core.Spacer"
-        Widget.__init__(self, caller, name)
+        Widget.__init__(self, caller, name, class_name)
 
         self.register_handlers()
 
 class QAbstractItemView(Widget):
-    def __init__(self, caller, name):
-        Widget.__init__(self, caller, name)
+    def __init__(self, caller, name, class_name):
+        Widget.__init__(self, caller, name, class_name)
 
         self.xmltext_handlers[(u'selectionMode', None, u'enum')] = self.set_selection_mode    
 
     def set_selection_mode(self, mode, *args):
-        self.buffer.append("        //FIXME: this.%(self_name)s.getSelectionModel().setSelectionMode(qx.ui.table.selection.Model.%(mode)s);" % {"self_name": self.name(), "mode": mode})
+        self.buffer.append("        // FIXME: this.%(self_name)s.getSelectionModel().setSelectionMode(qx.ui.table.selection.Model.%(mode)s);" % {"self_name": self.name(), "mode": mode})
 
 class QListWidget(QAbstractItemView):
-    def __init__(self, caller, name):
+    def __init__(self, caller, name, class_name):
         self.type = "qx.ui.form.List"
-        QAbstractItemView.__init__(self, caller, name)
+        QAbstractItemView.__init__(self, caller, name, class_name)
 
         self.register_handlers()
 
 class QTableWidget(QAbstractItemView):
-    def __init__(self, caller, name):
+    def __init__(self, caller, name, class_name):
         self.type="qx.ui.table.Table"
-        QAbstractItemView.__init__(self, caller, name)
+        QAbstractItemView.__init__(self, caller, name, class_name)
 
         self.register_handlers()
-                        
-        
