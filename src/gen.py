@@ -234,7 +234,10 @@ class QtUiFileParser(sax.ContentHandler, QtUiFileHandler):
             if len(self.stack) > 0:
                 if self.stack[-1].xmltext_handler == None:
                     if self.stack[-1].in_layout:
-                        self.stack[-1].layout.xmltext_handler(text, tuple(self.stack[-1].current))
+                        if self.stack[-1].layout.xmltext_handler != None:
+                            self.stack[-1].layout.xmltext_handler(text, tuple(self.stack[-1].current))
+                        else:
+                            self.buffer.append("        // WARNING: %s: property text ignored" % str(tuple(self.stack[-1].layout.current)))
                     else:
                         if not isinstance(self.stack[-1], Dummy):
                             self.buffer.append("        // WARNING: %s: property text ignored" % str(tuple(self.stack[-1].current)))
