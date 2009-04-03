@@ -249,10 +249,10 @@ class Base(object):
         self.y = text
 
     def w_text(self, text, *args):
-        self.buffer.append("        this.%s.setWidth(%s);" % (self.name(), text))
+        self.buffer.append("        this.%(self_name)s.setWidth(%(text)s);" % {'self_name': self.name(), 'text': text})
 
     def h_text(self, text, *args):
-        self.buffer.append("        this.%s.setHeight(%s);" % (self.name(), text))
+        self.buffer.append("        this.%(self_name)s.setHeight(%(text)s);" % {'self_name': self.name(), 'text': text})
 
 class Class(Base):
     def __init__(self, caller, name, class_name):

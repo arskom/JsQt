@@ -46,6 +46,14 @@ class Container(Widget):
         
         self.children.append(widget)
         self.layout.add_widget(self, widget, **kwargs)
+
+class QWidget(Container):
+    def __init__(self, caller, name, class_name=""):
+        self.type = "qx.ui.container.Composite"
+        Container.__init__(self, caller, name, class_name)
+
+        self.layout = None
+        self.register_handlers()
         
 class QGroupBox(Container):
     def __init__(self, caller, name, class_name=""):
@@ -60,9 +68,6 @@ class QGroupBox(Container):
     def set_legend(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setLegend("%(text)s");' % {'self_name': self.name(), 'text': text})
 
-    def set_text(self, text, *args):
-        self.buffer.append('        // how to set the title of a %(self_type)s?");' % {'self_type': self.__class__.__name__})
-    
 class QMainWindow(Container):
     def __init__(self, caller, name, class_name=""):
         Container.__init__(self, caller, name, class_name)
@@ -82,18 +87,7 @@ class QMainWindow(Container):
         self.set_layout(QVBoxLayout(self.caller, "__cnt_v"))
         self.buffer.append('')
 
-
-class QWidget(Container):
-    def __init__(self, caller, name, class_name=""):
-        self.type = "qx.ui.container.Composite"
-        Container.__init__(self, caller, name, class_name)
-
-        self.layout = None
-        self.register_handlers()
         
-    def set_text(self, text):
-        self.buffer.append('        // how to set the title of a %(self_type)s?' % {'self_type': self.__class__.__name__})
-
 class QToolBar(Container):
     def __init__(self, caller, name, class_name=""):
         self.type = "qx.ui.toolbar.ToolBar"
@@ -101,18 +95,6 @@ class QToolBar(Container):
 
         self.layout = None
         self.register_handlers()
-
-class QDialog(Container):
-    def __init__(self, caller, name, class_name=""):
-        Container.__init__(self, caller, name, class_name)
-
-        self.layout = None
-
-        self.register_handlers()
-
-    def js_inst(self):
-        self.buffer.append('')
-        self.buffer.append('        // TODO: QDialog yeni window tanimlayacak ' % {'self_name': self.name()})
 
 class QScrollArea(Container):
     def __init__(self, caller, name, class_name=""):

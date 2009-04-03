@@ -90,7 +90,6 @@ class QtUiFileHandler(object):
         self.class_handlers["QToolBar"] = QToolBar
 
         self.class_handlers["QMainWindow"] = QMainWindow
-        self.class_handlers["QDialog"] = QDialog
         self.class_handlers["QWidget"] = QWidget
         
         self.class_handlers["QDateTimeEdit"] = NoQooxdooEquivalent
@@ -252,7 +251,7 @@ class QtUiFileParser(sax.ContentHandler, QtUiFileHandler):
         self.flush_buffers()
 
     def add_member(self, what):
-        self.members.add(what)    
+        self.members.add(what)
 
     def flush_buffers(self):
         self.buffer = []
