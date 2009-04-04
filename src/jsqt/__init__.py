@@ -262,11 +262,18 @@ class Class(Base):
         pass
 
 class Dummy(Base):
+
     def js_inst(self):
         self.buffer.append('        // WARNING: %(class_name)s widget is not supported (yet?).' % {'class_name':self.class_name})
 
     def display(self):
         print "\t WARN", self.class_name, "is not supported (yet?)."
+
+    def do_nothing(self,*args,**kwargs):
+        pass
+
+    set_layout = do_nothing
+    add_widget = do_nothing
 
 class NoQooxdooEquivalent(Dummy):
     def register_handlers(self):

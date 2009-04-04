@@ -33,11 +33,16 @@ class Container(Widget):
         self.in_layout = False
                         
     def set_layout(self, layout):
+        if isinstance(layout, Dummy):
+            return
         self.layout = layout
         self.buffer.append('        this.%(self_name)s.setLayout(this.%(layout_name)s);' % {'self_name': self.name(), 'layout_name': layout.name()})
         self.in_layout = True
 
     def add_widget(self, widget, **kwargs):
+        if isinstance(self.layout, Dummy):
+            return
+
         if self.layout == None:
             self.set_layout(CanvasLayout(self.caller, self.name() + "_implicit_container"))
         

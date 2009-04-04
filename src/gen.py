@@ -156,14 +156,20 @@ class QtUiFileHandler(object):
 
     def layout_entry(self, attrs):
         layout_name = attrs.get("class")
-        if not self.layout_handlers.has_key(layout_name):
-            raise Exception("layout '%s' is not handled yet." % class_name)
+        if self.layout_handlers.has_key(layout_name):
+            layout = self.layout_handlers[layout_name](self, attrs.get("name"))
+        else:
+            layout = None
 
-        layout = self.layout_handlers[layout_name](self, attrs.get("name"))
-        if (self.stack[-1].layout != None):
-            self.stack.append(QWidget(self, attrs.get("name") + "_implicit_container"))
-            self.stack[-1].implicit = True
-            self.stack[-1].item_properties = self.item_attrs
+        if self.stack[-1].layout != None:
+            if layout == None:
+                self.stack.append(Dummy(self, attrs.get("name") + "_absorber", layout_name))
+                self.stack[-1].implicit = True
+                self.stack[-1].item_properties = self.item_attrs
+            else:
+                self.stack.append(QWidget(self, attrs.get("name") + "_implicit_container"))
+                self.stack[-1].implicit = True
+                self.stack[-1].item_properties = self.item_attrs
 
         else:
             self.stack[-1].implicit = False
@@ -175,8 +181,9 @@ class QtUiFileHandler(object):
         self.stack[-1].close()
         
         if self.stack[-1].implicit:
-            self.stack[-1].layout.close()
-            self.stack[-1].parent.add_widget(self.stack[-1])
+            if not isinstance(self.stack[-1], Dummy):
+                self.stack[-1].layout.close()
+                self.stack[-1].parent.add_widget(self.stack[-1])
             self.stack.pop()
 
     def property_exit(self):
@@ -236,9 +243,11 @@ class QtUiFileParser(sax.ContentHandler, QtUiFileHandler):
                         print "\t\t",tuple(self.stack[-1].current),"is", text
                         self.stack[-1].layout.xmltext_handler(text, tuple(self.stack[-1].current))
                     else:
+                        print "\t\t",tuple(self.stack[-1].current),"is", text, "(ignored)"
                         self.buffer.append("        // WARNING: %s: property text (%s) ignored" % (str(tuple(self.stack[-1].layout.current)), text))
                 else:
                     if not isinstance(self.stack[-1], Dummy):
+                        print "\t\t",tuple(self.stack[-1].current),"is", text, "(ignored)"
                         self.buffer.append("        // WARNING: %s: property text (%s) ignored" % (str(tuple(self.stack[-1].current)), text))
             else:
                 print "\t\t",tuple(self.stack[-1].current),"is", text
