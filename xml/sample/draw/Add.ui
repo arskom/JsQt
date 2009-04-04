@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>582</width>
-    <height>416</height>
+    <width>708</width>
+    <height>438</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -15,351 +15,511 @@
   <widget class="QWidget" name="centralwidget" >
    <layout class="QHBoxLayout" name="horizontalLayout_3" >
     <item>
-     <widget class="QGroupBox" name="groupBox" >
-      <property name="maximumSize" >
-       <size>
-        <width>16777215</width>
-        <height>16777215</height>
-       </size>
+     <widget class="QTabWidget" name="tabWidget" >
+      <property name="currentIndex" >
+       <number>2</number>
       </property>
-      <property name="title" >
-       <string>Add</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout" >
-       <item row="0" column="0" >
-        <widget class="QLabel" name="lblCompany" >
-         <property name="text" >
-          <string>Company :</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2" >
-        <widget class="QLineEdit" name="edtCompany" >
-         <property name="readOnly" >
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0" >
-        <widget class="QLabel" name="lblName" >
-         <property name="text" >
-          <string>Name :</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2" >
-        <widget class="QLineEdit" name="edtName" />
-       </item>
-       <item row="2" column="0" >
-        <widget class="QLabel" name="lblIdentifers" >
-         <property name="text" >
-          <string>Identifiers:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2" >
-        <layout class="QHBoxLayout" name="horizontalLayout" >
-         <item>
-          <widget class="QLabel" name="lblIOWN" >
-           <property name="text" >
-            <string>OWN::</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="edtIOWN" />
-         </item>
-         <item>
-          <widget class="QLabel" name="lblTerminalSN" >
-           <property name="text" >
-            <string>S/N:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="edtTerminalSN" />
-         </item>
-        </layout>
-       </item>
-       <item row="3" column="0" >
-        <widget class="QLabel" name="lblDetails" >
-         <property name="text" >
-          <string>Details:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2" >
-        <layout class="QHBoxLayout" name="horizontalLayout_2" >
-         <item>
-          <widget class="QLabel" name="lblDNID" >
-           <property name="text" >
-            <string>ABC:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="edtDNID" >
-           <property name="minimumSize" >
-            <size>
-             <width>50</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="text" >
-            <string>0000</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lblMN" >
-           <property name="text" >
-            <string>MN:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="edtMN" >
-           <property name="minimumSize" >
-            <size>
-             <width>30</width>
-             <height>0</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lblSubAddress" >
-           <property name="text" >
-            <string>SA</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QComboBox" name="comboSubAddress" >
-           <property name="minimumSize" >
-            <size>
-             <width>80</width>
-             <height>0</height>
-            </size>
-           </property>
-           <item>
-            <property name="text" >
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text" >
-             <string>2</string>
-            </property>
-           </item>
-           <item>
-            <property name="text" >
-             <string>3</string>
-            </property>
-           </item>
-           <item>
-            <property name="text" >
-             <string>4</string>
-            </property>
-           </item>
-           <item>
-            <property name="text" >
-             <string>5</string>
-            </property>
-           </item>
-           <item>
-            <property name="text" >
-             <string>6</string>
-            </property>
-           </item>
-           <item>
-            <property name="text" >
-             <string>7</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="4" column="0" >
-        <widget class="QLabel" name="lblEmail" >
-         <property name="text" >
-          <string>Email:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0" >
-        <widget class="QLabel" name="lblTrackingMethod" >
-         <property name="text" >
-          <string>Method :</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="2" >
-        <layout class="QHBoxLayout" name="HLTrackingMethod" >
-         <item>
-          <widget class="QComboBox" name="comboTrackingMethod" />
-         </item>
-         <item>
-          <spacer name="horizontalSpacer" >
-           <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QLabel" name="lblInterval" >
-           <property name="text" >
-            <string>Interval</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QComboBox" name="comboInterval" />
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_2" >
-           <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item row="6" column="0" >
-        <widget class="QLabel" name="lblTest" >
-         <property name="text" >
-          <string>BJ Test:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="2" >
-        <layout class="QHBoxLayout" name="HLTest" >
-         <item>
-          <widget class="QCheckBox" name="chkLRITTest" >
-           <property name="text" >
-            <string>Start</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_2" >
-           <property name="text" >
-            <string>Now</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton" >
-           <property name="text" >
-            <string>Later</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="7" column="0" >
-        <widget class="QLabel" name="lblAnswerBack" >
-         <property name="text" >
-          <string>Answer Back :</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="2" >
-        <widget class="QLineEdit" name="edtAnswerBack" />
-       </item>
-       <item row="8" column="0" >
-        <widget class="QLabel" name="label" >
-         <property name="text" >
-          <string>Time &amp; Count:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="2" >
-        <layout class="QHBoxLayout" name="horizontalLayout_4" >
-         <item>
-          <widget class="QSpinBox" name="spinBox" >
-           <property name="minimum" >
-            <number>44</number>
-           </property>
-           <property name="maximum" >
-            <number>88</number>
-           </property>
-           <property name="singleStep" >
-            <number>4</number>
-           </property>
-           <property name="value" >
-            <number>55</number>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QDateEdit" name="dateEdit" >
-           <property name="dateTime" >
-            <datetime>
-             <hour>12</hour>
-             <minute>12</minute>
-             <second>0</second>
-             <year>2009</year>
-             <month>1</month>
-             <day>5</day>
-            </datetime>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="4" column="2" >
-        <layout class="QVBoxLayout" name="VLEmail" >
-         <item>
-          <widget class="QLineEdit" name="edtEmail" />
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_5" >
-           <item>
-            <widget class="QRadioButton" name="radioButton_4" >
+      <widget class="QWidget" name="tab" >
+       <attribute name="title" >
+        <string>Tab 1</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_6" >
+        <item>
+         <widget class="QGroupBox" name="groupBox" >
+          <property name="maximumSize" >
+           <size>
+            <width>16777215</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="title" >
+           <string>Add</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout" >
+           <item row="0" column="0" >
+            <widget class="QLabel" name="lblCompany" >
              <property name="text" >
-              <string>don't</string>
+              <string>Company :</string>
              </property>
             </widget>
            </item>
-           <item>
-            <widget class="QCheckBox" name="chkEmail" >
-             <property name="text" >
-              <string>No Email</string>
-             </property>
-             <property name="checked" >
+           <item row="0" column="2" >
+            <widget class="QLineEdit" name="edtCompany" >
+             <property name="readOnly" >
               <bool>true</bool>
              </property>
-             <property name="autoRepeat" >
-              <bool>false</bool>
+            </widget>
+           </item>
+           <item row="1" column="0" >
+            <widget class="QLabel" name="lblName" >
+             <property name="text" >
+              <string>Name :</string>
              </property>
             </widget>
            </item>
-           <item>
-            <widget class="QRadioButton" name="radioButton_3" >
+           <item row="1" column="2" >
+            <widget class="QLineEdit" name="edtName" />
+           </item>
+           <item row="2" column="0" >
+            <widget class="QLabel" name="lblIdentifers" >
              <property name="text" >
-              <string>do</string>
+              <string>Identifiers:</string>
              </property>
             </widget>
+           </item>
+           <item row="2" column="2" >
+            <layout class="QHBoxLayout" name="horizontalLayout" >
+             <item>
+              <widget class="QLabel" name="lblIOWN" >
+               <property name="text" >
+                <string>OWN::</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="edtIOWN" />
+             </item>
+             <item>
+              <widget class="QLabel" name="lblTerminalSN" >
+               <property name="text" >
+                <string>S/N:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="edtTerminalSN" />
+             </item>
+            </layout>
+           </item>
+           <item row="3" column="0" >
+            <widget class="QLabel" name="lblDetails" >
+             <property name="text" >
+              <string>Details:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2" >
+            <layout class="QHBoxLayout" name="horizontalLayout_2" >
+             <item>
+              <widget class="QLabel" name="lblDNID" >
+               <property name="text" >
+                <string>ABC:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="edtDNID" >
+               <property name="minimumSize" >
+                <size>
+                 <width>50</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text" >
+                <string>0000</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblMN" >
+               <property name="text" >
+                <string>MN:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="edtMN" >
+               <property name="minimumSize" >
+                <size>
+                 <width>30</width>
+                 <height>0</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblSubAddress" >
+               <property name="text" >
+                <string>SA</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboSubAddress" >
+               <property name="minimumSize" >
+                <size>
+                 <width>80</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <item>
+                <property name="text" >
+                 <string>1</string>
+                </property>
+               </item>
+               <item>
+                <property name="text" >
+                 <string>2</string>
+                </property>
+               </item>
+               <item>
+                <property name="text" >
+                 <string>3</string>
+                </property>
+               </item>
+               <item>
+                <property name="text" >
+                 <string>4</string>
+                </property>
+               </item>
+               <item>
+                <property name="text" >
+                 <string>5</string>
+                </property>
+               </item>
+               <item>
+                <property name="text" >
+                 <string>6</string>
+                </property>
+               </item>
+               <item>
+                <property name="text" >
+                 <string>7</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="4" column="0" >
+            <widget class="QLabel" name="lblEmail" >
+             <property name="text" >
+              <string>Email:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0" >
+            <widget class="QLabel" name="lblTrackingMethod" >
+             <property name="text" >
+              <string>Method :</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="2" >
+            <layout class="QHBoxLayout" name="HLTrackingMethod" >
+             <item>
+              <widget class="QComboBox" name="comboTrackingMethod" />
+             </item>
+             <item>
+              <spacer name="horizontalSpacer" >
+               <property name="orientation" >
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0" >
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblInterval" >
+               <property name="text" >
+                <string>Interval</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboInterval" />
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_2" >
+               <property name="orientation" >
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0" >
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item row="6" column="0" >
+            <widget class="QLabel" name="lblTest" >
+             <property name="text" >
+              <string>BJ Test:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="2" >
+            <layout class="QHBoxLayout" name="HLTest" >
+             <item>
+              <widget class="QCheckBox" name="chkLRITTest" >
+               <property name="text" >
+                <string>Start</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="radioButton_2" >
+               <property name="text" >
+                <string>Now</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="radioButton" >
+               <property name="text" >
+                <string>Later</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="7" column="0" >
+            <widget class="QLabel" name="lblAnswerBack" >
+             <property name="text" >
+              <string>Answer Back :</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="2" >
+            <widget class="QLineEdit" name="edtAnswerBack" />
+           </item>
+           <item row="8" column="0" >
+            <widget class="QLabel" name="label" >
+             <property name="text" >
+              <string>Time &amp; Count:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="2" >
+            <layout class="QHBoxLayout" name="horizontalLayout_4" >
+             <item>
+              <widget class="QSpinBox" name="spinBox" >
+               <property name="minimum" >
+                <number>44</number>
+               </property>
+               <property name="maximum" >
+                <number>88</number>
+               </property>
+               <property name="singleStep" >
+                <number>4</number>
+               </property>
+               <property name="value" >
+                <number>55</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QDateEdit" name="dateEdit" >
+               <property name="dateTime" >
+                <datetime>
+                 <hour>12</hour>
+                 <minute>12</minute>
+                 <second>0</second>
+                 <year>2009</year>
+                 <month>1</month>
+                 <day>5</day>
+                </datetime>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="4" column="2" >
+            <layout class="QVBoxLayout" name="VLEmail" >
+             <item>
+              <widget class="QLineEdit" name="edtEmail" />
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_5" >
+               <item>
+                <widget class="QRadioButton" name="radioButton_4" >
+                 <property name="text" >
+                  <string>don't</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="chkEmail" >
+                 <property name="text" >
+                  <string>No Email</string>
+                 </property>
+                 <property name="checked" >
+                  <bool>true</bool>
+                 </property>
+                 <property name="autoRepeat" >
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioButton_3" >
+                 <property name="text" >
+                  <string>do</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
            </item>
           </layout>
-         </item>
-        </layout>
-       </item>
-      </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2" >
+       <attribute name="title" >
+        <string>Tab 2</string>
+       </attribute>
+       <widget class="QCheckBox" name="checkBox" >
+        <property name="geometry" >
+         <rect>
+          <x>180</x>
+          <y>180</y>
+          <width>81</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text" >
+         <string>CheckBox</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="radioButton_5" >
+        <property name="geometry" >
+         <rect>
+          <x>130</x>
+          <y>290</y>
+          <width>91</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="text" >
+         <string>RadioButton</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton" >
+        <property name="geometry" >
+         <rect>
+          <x>180</x>
+          <y>120</y>
+          <width>75</width>
+          <height>26</height>
+         </rect>
+        </property>
+        <property name="text" >
+         <string>PushButton</string>
+        </property>
+       </widget>
+       <widget class="QDialogButtonBox" name="buttonBox" >
+        <property name="geometry" >
+         <rect>
+          <x>310</x>
+          <y>240</y>
+          <width>160</width>
+          <height>26</height>
+         </rect>
+        </property>
+        <property name="standardButtons" >
+         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_3" >
+       <attribute name="title" >
+        <string>Page</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout" >
+        <item>
+         <widget class="QScrollArea" name="scrollArea" >
+          <property name="widgetResizable" >
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents" >
+           <property name="geometry" >
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>664</width>
+             <height>372</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_2" >
+            <item>
+             <widget class="QGroupBox" name="groupBox_2" >
+              <property name="title" >
+               <string>GroupBox</string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_3" >
+               <item>
+                <layout class="QGridLayout" name="gridLayout_2" >
+                 <item row="0" column="0" >
+                  <widget class="QPushButton" name="pushButton_2" >
+                   <property name="text" >
+                    <string>PushButton</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1" >
+                  <widget class="QTabWidget" name="tabWidget_2" >
+                   <property name="currentIndex" >
+                    <number>0</number>
+                   </property>
+                   <widget class="QWidget" name="tab_4" >
+                    <attribute name="title" >
+                     <string>Tab 1</string>
+                    </attribute>
+                    <widget class="QPushButton" name="pushButton_3" >
+                     <property name="geometry" >
+                      <rect>
+                       <x>230</x>
+                       <y>90</y>
+                       <width>75</width>
+                       <height>26</height>
+                      </rect>
+                     </property>
+                     <property name="text" >
+                      <string>PushButton</string>
+                     </property>
+                    </widget>
+                   </widget>
+                   <widget class="QWidget" name="tab_5" >
+                    <attribute name="title" >
+                     <string>Tab 2</string>
+                    </attribute>
+                    <widget class="QCheckBox" name="checkBox_2" >
+                     <property name="geometry" >
+                      <rect>
+                       <x>100</x>
+                       <y>100</y>
+                       <width>81</width>
+                       <height>21</height>
+                      </rect>
+                     </property>
+                     <property name="text" >
+                      <string>CheckBox</string>
+                     </property>
+                    </widget>
+                   </widget>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>

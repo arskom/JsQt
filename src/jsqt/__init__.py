@@ -28,43 +28,38 @@ JsQT %s
 """ % (version, copyright)
 
 class Base(object):
-    __name = ""
-    parent = None
-    children = []
-    buffer = None
-    caller = None
-    implicit = False
-    
-    inst_line = None
-    
-    tag_entry_handlers = {}
-    tag_exit_handlers = {}
-    xmltext_handlers = {}
-    xmltext_handler = None
-    
-    #
-    # The three fields here represent:
-    # [0]: the property name
-    # [1]: a complex data type, None if the data type is simple
-    # [2]: a primitive data type.
-    #
-    # A complex data type is one that contains more than one primitive
-    # entries. for example <rect> tag has four primitive entries under
-    # a property.
-    #
-    current = [None, None, None]
-        
-    text_handler = None
-    item_properties = None
-
     type = None
-
     def __init__(self, caller, name, class_name):
         # TODO: name validation
-
+        self.children = []
         self.__name = name
         if len(caller.stack) > 0:
             self.parent = caller.stack[-1]
+        else:
+            self.parent = None
+
+        self.inst_line = None    
+
+        #
+        # The three fields here represent:
+        # [0]: the property name
+        # [1]: a complex data type, None if the data type is simple
+        # [2]: a primitive data type.
+        #
+        # A complex data type is one that contains more than one primitive
+        # entries. for example <rect> tag has four primitive entries under
+        # a property.
+        #
+        self.current = [None, None, None]
+        
+        self.text_handler = None
+        self.item_properties = None
+
+
+        self.tag_entry_handlers = {}
+        self.tag_exit_handlers = {}
+        self.xmltext_handlers = {}
+        self.xmltext_handler = None
 
         self.caller = caller
         self.buffer = caller.buffer
@@ -90,7 +85,7 @@ class Base(object):
             When called the first time, this function writes the instantiation line.
             When called more than once, it overwrites the previous instantiation. It
             is useful when a property value in Qt is represented with a different 
-            widget in Qx.
+            widget in Qooxdoo.
         """
         if self.type == None:
             return
@@ -189,18 +184,12 @@ class Base(object):
         self.xmltext_handlers[("sizeHint", "size", "width")] = self.w_text
         self.xmltext_handlers[("sizeHint", "size", "height")] = self.h_text
 
-        self.xmltext_handlers[("readOnly", None, "bool")] = self.set_readOnly
-
     def get_type(self):
         return self.__class__.__name__
 
     def name(self):
         return self.__name    
     
-
-    def set_readOnly(self, text, *args):
-        self.buffer.append("        this.%(self_name)s.setReadOnly(%(text)s)" % { 'self_name' : self.name(), 'text': text })
-        
     def set_current_property(self, name):
         self.current[0] = name
         
@@ -257,11 +246,12 @@ class Base(object):
 class Class(Base):
     def __init__(self, caller, name, class_name):
         Base.__init__(self, caller, name, class_name)
+        self.xmltext_handler = self.__xmltext_handler
         
     def js_type(self):
         pass
         
-    def xmltext_handler(self, text, *args):
+    def __xmltext_handler(self, text, *args):
         self.buffer.append('qx.Class.define("%(class_name)s", { extend : qx.core.Object ' % { "class_name": self.name() })
         self.buffer.append('    ,properties : {');
         self.buffer.append('        widget : { check : "Object" }');
@@ -276,7 +266,7 @@ class Dummy(Base):
         self.buffer.append('        // WARNING: %(class_name)s widget is not supported (yet?).' % {'class_name':self.class_name})
 
     def display(self):
-        print "\t WARN", self.class_name, "is not supported (yet)."
+        print "\t WARN", self.class_name, "is not supported (yet?)."
 
 class NoQooxdooEquivalent(Dummy):
     def register_handlers(self):

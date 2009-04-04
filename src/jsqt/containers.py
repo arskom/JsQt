@@ -32,9 +32,6 @@ class Container(Widget):
         
         self.in_layout = False
                         
-    def set_window_title(self, text):
-        self.buffer.append('        // this.%(self_name)s.setWindowTitle("%(text)s"); // TODO:' % {'self_name': self.name(), 'text': str(text)})
-    
     def set_layout(self, layout):
         self.layout = layout
         self.buffer.append('        this.%(self_name)s.setLayout(this.%(layout_name)s);' % {'self_name': self.name(), 'layout_name': layout.name()})
@@ -54,6 +51,11 @@ class QWidget(Container):
 
         self.layout = None
         self.register_handlers()
+        self.xmltext_handlers[("title", None, "string")] = self.set_title_text
+
+    def set_title_text(self, text, *args):
+        self.title_text = text
+
         
 class QGroupBox(Container):
     def __init__(self, caller, name, class_name=""):
@@ -128,9 +130,26 @@ class QTabWidget(Container):
         self.register_handlers()
 
     def add_widget(self, widget, **kwargs):
-        self.children.append(widget)
-        widget.type = "qx.ui.tabview.Page"
-        widget.js_inst()
-        self.buffer.append('        this.%(self_name)s.add(this.%(widget_name)s);' % {'self_name': self.name(), 'widget_name': widget.name()})
+        page=QxTabPage(self.caller, self.name() + "_" + widget.name() + "_tab_page")
+        page.add_widget(widget)
+        self.children.append(page)
+        self.buffer.append('        this.%(self_name)s.add(this.%(page_name)s);' % {'self_name': self.name(), 'page_name': page.name()})
         
+class QxTabPage(Container):
+    def __init__(self, caller, name, class_name=""):
+        self.type = "qx.ui.tabview.Page"
+        Container.__init__(self, caller, name, class_name)
+
+        self.layout = None
+        self.register_handlers()
+
+    def add_widget(self, widget, **kwargs):
+        if len(self.children) > 0:
+            print self.children
+            raise Exception("qx.ui.tabview.Page should have only one child!")
+
+        self.buffer.append('        this.%(self_name)s.setLayout(new qx.ui.layout.Canvas());' % {'self_name': self.name(), 'widget_name': widget.name()})
+        self.buffer.append('        this.%(self_name)s.add(this.%(widget_name)s,{edge:0});' % {'self_name': self.name(), 'widget_name': widget.name()})
+        self.buffer.append('        this.%(self_name)s.setLabel("%(widget_text)s");' % {'self_name': self.name(), 'widget_text': widget.title_text})
+
 

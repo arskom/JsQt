@@ -76,14 +76,20 @@ class QLineEdit(Widget):
         self.register_handlers()
         self.xmltext_handlers[("echoMode", None, "enum")] = self.set_echoMode
         self.xmltext_handlers[("text", None, "string")] = self.set_text
+        self.xmltext_handlers[("readOnly", None, "bool")] = self.set_readOnly
 
     def set_text(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setValue("%(text)s");' % {'self_name': self.name(), 'text': text})
-    
+
+    def set_readOnly(self, text, *args):
+        self.buffer.append("        this.%(self_name)s.setReadOnly(%(text)s)" % { 'self_name' : self.name(), 'text': text })        
+
     def set_echoMode(self, text, *args):
         if text == "QLineEdit::Password":
             self.type = "qx.ui.form.PasswordField"
             self.js_inst()
+        else:
+            self.buffer.append("// WARNING: %s property value %s not handled!" % (("echoMode", None, "enum"), text) )
 
 class QTextEdit(Widget):
     def __init__(self, caller, name, class_name):

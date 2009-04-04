@@ -229,23 +229,20 @@ class QtUiFileParser(sax.ContentHandler, QtUiFileHandler):
     def characters(self, text):
         if text.isspace():
             return
-        if self.xmltext_handler == None:
-            if len(self.stack) > 0:
-                if self.stack[-1].xmltext_handler == None:
-                    if self.stack[-1].in_layout:
-                        if self.stack[-1].layout.xmltext_handler != None:
-                            self.stack[-1].layout.xmltext_handler(text, tuple(self.stack[-1].current))
-                        else:
-                            self.buffer.append("        // WARNING: %s: property text ignored" % str(tuple(self.stack[-1].layout.current)))
+        if len(self.stack) > 0:
+            if self.stack[-1].xmltext_handler == None:
+                if self.stack[-1].in_layout:
+                    if self.stack[-1].layout.xmltext_handler != None:
+                        print "\t\t",tuple(self.stack[-1].current),"is", text
+                        self.stack[-1].layout.xmltext_handler(text, tuple(self.stack[-1].current))
                     else:
-                        if not isinstance(self.stack[-1], Dummy):
-                            self.buffer.append("        // WARNING: %s: property text ignored" % str(tuple(self.stack[-1].current)))
+                        self.buffer.append("        // WARNING: %s: property text (%s) ignored" % (str(tuple(self.stack[-1].layout.current)), text))
                 else:
-                    self.stack[-1].xmltext_handler(text, tuple(self.stack[-1].current))
+                    if not isinstance(self.stack[-1], Dummy):
+                        self.buffer.append("        // WARNING: %s: property text (%s) ignored" % (str(tuple(self.stack[-1].current)), text))
             else:
-                pass
-        else:
-            self.xmltext_handler(text)
+                print "\t\t",tuple(self.stack[-1].current),"is", text
+                self.stack[-1].xmltext_handler(text, tuple(self.stack[-1].current))
 
     def endDocument(self):
         self.flush_buffers()
