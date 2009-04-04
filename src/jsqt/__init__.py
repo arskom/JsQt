@@ -20,7 +20,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
-version   = "0.1-alpha"
+version   = "trunk"
 copyright = "(c) 2009 Arskom Ltd."
 header_string = """
 JsQT %s
