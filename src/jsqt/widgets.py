@@ -98,7 +98,7 @@ class QLineEdit(Widget):
         self.buffer.append('        this.%(self_name)s.setValue("%(text)s");' % {'self_name': self.name(), 'text': text})
 
     def set_readOnly(self, text, *args):
-        self.buffer.append("        this.%(self_name)s.setReadOnly(%(text)s)" % { 'self_name' : self.name(), 'text': text })        
+        self.buffer.append("        this.%(self_name)s.setReadOnly(%(text)s);" % { 'self_name' : self.name(), 'text': text })        
 
     def set_echoMode(self, text, *args):
         if text == "QLineEdit::Password":
