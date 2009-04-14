@@ -65,8 +65,7 @@ class QVBoxLayout(Layout):
         if isinstance(widget, Dummy):
             return
 
-        self.buffer.append('        this.%(container_name)s.add(this.%(widget_name)s,{flex:1});' % {'container_name': container.name(), 'widget_name': widget.name()})
-
+        self.buffer.append('        this.%(container_name)s.add(this.%(widget_name)s,{flex:1});' % {'container_name': container.name(), 'widget_name': widget.name()})        
 class QHBoxLayout(Layout):
     def __init__(self, caller, name, class_name=""):
         self.type = "qx.ui.layout.HBox"
@@ -99,19 +98,19 @@ class QGridLayout(Layout):
 
         row = widget.item_properties.get("row")
         column = widget.item_properties.get("column")
-
+        
         self.buffer.append('        this.%(container_name)s.add(this.%(widget_name)s, {row: %(row)s, column: %(col)s });' % {
              'container_name': container.name()
             ,'widget_name': widget.name()
             ,'row': row
             ,'col': column
         })
-
-        if not row in self.row_flex_flags:
-            self.buffer.append('        this.%(self_name)s.setRowFlex(%(row)s, 1);' % { 'self_name': self.name(), 'row': row } )
-            self.row_flex_flags.add(row)
-
+        
         if not column in self.column_flex_flags:
             self.buffer.append('        this.%(self_name)s.setColumnFlex(%(column)s, 1);' % { 'self_name': self.name(), 'column': column } )
             self.column_flex_flags.add(column)
-
+        
+        if not row in self.row_flex_flags:
+            self.buffer.append('        this.%(self_name)s.setRowFlex(%(row)s, 1);' % { 'self_name': self.name(), 'row': row } )
+            self.row_flex_flags.add(row)
+                

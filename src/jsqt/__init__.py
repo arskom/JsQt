@@ -29,6 +29,7 @@ JsQT %s
 
 class Base(object):
     type = None
+    
     def __init__(self, caller, name, class_name):
         # TODO: name validation
         self.children = []
@@ -55,7 +56,9 @@ class Base(object):
         self.text_handler = None
         self.item_properties = None
 
-
+        self.vsize_type = None
+        self.hsize_type = None
+    
         self.tag_entry_handlers = {}
         self.tag_exit_handlers = {}
         self.xmltext_handlers = {}
@@ -70,11 +73,14 @@ class Base(object):
         self.in_layout = False
 
         self.class_name = class_name
-
+        
         self.display()
         self.js_inst()
 
     def display(self):
+        """
+        This is the function that is called when showing the progresss report.
+        """
         print "\t","  ok ",self.__name, self.class_name
 
     def close(self):
@@ -184,6 +190,17 @@ class Base(object):
         self.xmltext_handlers[("sizeHint", "size", "width")] = self.w_text
         self.xmltext_handlers[("sizeHint", "size", "height")] = self.h_text
 
+        self.xmltext_handlers[("minimumSize", "size", "width")] = self.set_minimum_width
+        self.xmltext_handlers[("minimumSize", "size", "height")] = self.set_minimum_height        
+        self.xmltext_handlers[("maximumSize", "size", "width")] = self.set_maximum_width
+        self.xmltext_handlers[("maximumSize", "size", "height")] = self.set_maximum_height
+
+        self.xmltext_handlers[("bottomMargin", None, "number")] = self.set_margin_bottom
+        self.xmltext_handlers[("leftMargin", None, "number")] = self.set_margin_left
+        self.xmltext_handlers[("rightMargin", None, "number")] = self.set_margin_right
+        self.xmltext_handlers[("topMargin", None, "number")] = self.set_margin_top
+        self.xmltext_handlers[("margin", None, "number")] = self.set_margin
+        
     def get_type(self):
         return self.__class__.__name__
 
@@ -193,6 +210,11 @@ class Base(object):
     def set_current_property(self, name):
         self.current[0] = name
         
+    def set_current_vsize(self, vsize):     
+        self.vsize_type = vsize
+        
+    def set_current_hsize(self, hsize):     
+        self.hsize_type = hsize
 
     def rect_entry(self, attrs, *args):
         self.current[1] = "rect"
@@ -242,7 +264,27 @@ class Base(object):
 
     def h_text(self, text, *args):
         self.buffer.append("        this.%(self_name)s.setHeight(%(text)s);" % {'self_name': self.name(), 'text': text})
+        
+    def set_minimum_width(self, minWidth, *args):
+        self.buffer.append('        this.%(self_name)s.set({minWidth: %(minWidth)s});' % {'self_name': self.name(), 'minWidth': minWidth})
+    def set_minimum_height(self, minHeight, *args):       
+        self.buffer.append('        this.%(self_name)s.set({minHeight: %(minHeight)s});' % {'self_name': self.name(), 'minHeight': minHeight})        
+    def set_maximum_width(self, maxWidth, *args):       
+        self.buffer.append('        this.%(self_name)s.set({maxWidth: %(maxWidth)s});' % {'self_name': self.name(), 'maxWidth': maxWidth})
+    def set_maximum_height(self, maxHeight, *args):       
+        self.buffer.append('        this.%(self_name)s.set({maxHeight: %(maxHeight)s});' % {'self_name': self.name(), 'maxHeight': maxHeight})        
 
+    def set_margin_bottom(self, marginBottom, *args):       
+        self.buffer.append('        this.%(self_name)s.set({marginBottom: %(marginBottom)s});' % {'self_name': self.name(), 'marginBottom': marginBottom})
+    def set_margin_left(self, marginLeft, *args):       
+        self.buffer.append('        this.%(self_name)s.set({marginLeft: %(marginLeft)s});' % {'self_name': self.name(), 'marginLeft': marginLeft})
+    def set_margin_right(self, marginRight, *args):       
+        self.buffer.append('        this.%(self_name)s.set({marginRight: %(marginRight)s});' % {'self_name': self.name(), 'marginRight': marginRight})
+    def set_margin_top(self, marginTop, *args):       
+        self.buffer.append('        this.%(self_name)s.set({marginTop: %(marginTop)s});' % {'self_name': self.name(), 'marginTop': marginTop})        
+    def set_margin(self, margin, *args):
+        self.buffer.append('        this.%(self_name)s.set({margin: %(margin)s});' % {'self_name': self.name(), 'margin': margin})
+    
 class Class(Base):
     def __init__(self, caller, name, class_name):
         Base.__init__(self, caller, name, class_name)

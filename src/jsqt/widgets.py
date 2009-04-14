@@ -49,7 +49,6 @@ class QPushButton(Widget):
     def set_text(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setLabel("%(text)s");' % {'self_name': self.name(), 'text': text})
 
-
 class QLabel(Widget):
     def __init__(self, caller, name, class_name):
         self.type="qx.ui.basic.Label"
@@ -112,7 +111,7 @@ class QSpinBox(Widget):
         self.xmltext_handlers[(u'singleStep', None, u'number')] = self.set_single_step
         self.xmltext_handlers[(u'maximum', None, u'number')] = self.set_max
         self.xmltext_handlers[(u'minimum', None, u'number')] = self.set_min
-        self.xmltext_handlers[(u'value', None, u'number')] = self.set_text
+        self.xmltext_handlers[(u'value', None, u'number')] = self.set_text        
 
     def set_text(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setValue(%(text)s);' % {'self_name': self.name(), 'text': text})

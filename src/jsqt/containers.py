@@ -56,11 +56,13 @@ class QWidget(Container):
 
         self.layout = None
         self.register_handlers()
-        self.xmltext_handlers[("title", None, "string")] = self.set_title_text
-
+        self.xmltext_handlers[("title", None, "string")] = self.set_title_text       
+        
     def set_title_text(self, text, *args):
         self.title_text = text
-
+        
+class QFrame(QWidget):
+    pass
         
 class QGroupBox(Container):
     def __init__(self, caller, name, class_name=""):
@@ -69,7 +71,6 @@ class QGroupBox(Container):
         
         self.layout = None
         self.register_handlers()
-
         self.xmltext_handlers[("title", None, "string")] = self.set_legend
     
     def set_legend(self, text, *args):
@@ -111,7 +112,7 @@ class QScrollArea(Container):
         self.layout = None
 
         self.register_handlers()
-        
+
     #
     # quoting qooxdoo api docs:
     #     Note that this class can only have one child widget. 
