@@ -43,7 +43,7 @@ class QPushButton(Widget):
         vsize_type = 'Fixed'
         hsize_type = 'Expanding'
     class qx_defaults(Widget.qx_defaults):
-        vsize_type = 'Fixed'
+        vsize_type = 'Expanding'
         hsize_type = 'Expanding'
 
     def __init__(self, caller, name, class_name):
