@@ -39,6 +39,13 @@ class Widget(Base):
         return "widget"
 
 class QPushButton(Widget):
+    class qt_defaults(Widget.qt_defaults):
+        vsize_type = 'Fixed'
+        hsize_type = 'Expanding'
+    class qx_defaults(Widget.qx_defaults):
+        vsize_type = 'Fixed'
+        hsize_type = 'Expanding'
+
     def __init__(self, caller, name, class_name):
         self.type = "qx.ui.form.Button"
         Widget.__init__(self, caller, name, class_name)
@@ -50,6 +57,13 @@ class QPushButton(Widget):
         self.buffer.append('        this.%(self_name)s.setLabel("%(text)s");' % {'self_name': self.name(), 'text': text})
 
 class QLabel(Widget):
+    class qt_defaults(Widget.qt_defaults):
+        vsize_type = 'Expanding'
+        hsize_type = 'Expanding'
+    class qx_defaults(Widget.qx_defaults):
+        vsize_type = 'Fixed'
+        hsize_type = 'Fixed'
+    
     def __init__(self, caller, name, class_name):
         self.type="qx.ui.basic.Label"
         Widget.__init__(self, caller, name, class_name)
@@ -59,15 +73,18 @@ class QLabel(Widget):
 	
     def js_inst(self):
         Widget.js_inst(self)
-        self.buffer.append('        this.%(self_name)s.setAllowGrowX(false);' % {'self_name': self.name()})
-        self.buffer.append('        this.%(self_name)s.setAllowGrowY(false);' % {'self_name': self.name()})
-        self.buffer.append('        this.%(self_name)s.setAllowShrinkX(false);' % {'self_name': self.name()})
-        self.buffer.append('        this.%(self_name)s.setAllowShrinkY(false);' % {'self_name': self.name()})
 
     def set_text(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setContent("%(text)s");' % {'self_name': self.name(), 'text': text})
 
 class QLineEdit(Widget):
+    class qt_defaults(Widget.qt_defaults):
+        vsize_type = 'Fixed'
+        hsize_type = 'Expanding'
+    class qx_defaults(Widget.qx_defaults):
+        vsize_type = 'Fixed'
+        hsize_type = 'Expanding'
+
     def __init__(self, caller, name, class_name):
         self.type="qx.ui.form.TextField"
         Widget.__init__(self, caller, name, class_name)
@@ -91,6 +108,13 @@ class QLineEdit(Widget):
             self.buffer.append("// WARNING: %s property value %s not handled!" % (("echoMode", None, "enum"), text) )
 
 class QTextEdit(Widget):
+    class qt_defaults(Widget.qt_defaults):
+        vsize_type = 'Fixed'
+        hsize_type = 'Expanding'
+    class qx_defaults(Widget.qx_defaults):
+        vsize_type = 'Fixed'
+        hsize_type = 'Expanding'
+
     def __init__(self, caller, name, class_name):
         self.type="qx.ui.form.TextArea"
         Widget.__init__(self, caller, name, class_name)
@@ -102,6 +126,13 @@ class QTextEdit(Widget):
         self.buffer.append('        this.%(self_name)s.setValue("%(text)s");' % {'self_name': self.name(), 'text': text})
     
 class QSpinBox(Widget):
+    class qt_defaults(Widget.qt_defaults):
+        vsize_type = 'Fixed'
+        hsize_type = 'Expanding'
+    class qx_defaults(Widget.qx_defaults):
+        vsize_type = 'Expanding'
+        hsize_type = 'Expanding'
+
     def __init__(self, caller, name, class_name):
         self.type="qx.ui.form.Spinner"
         Widget.__init__(self, caller, name, class_name)
@@ -126,6 +157,13 @@ class QSpinBox(Widget):
         self.buffer.append('        this.%(self_name)s.setMax(%(text)s);' % {'self_name': self.name(), 'text': text})
     
 class QDateEdit(Widget):
+    class qt_defaults(Widget.qt_defaults):
+        vsize_type = 'Fixed'
+        hsize_type = 'Expanding'
+    class qx_defaults(Widget.qx_defaults):
+        vsize_type = 'Expanding'
+        hsize_type = 'Expanding'
+
     def __init__(self, caller, name, class_name):
         self.type="qx.ui.form.DateField"
         Widget.__init__(self, caller, name, class_name)
@@ -135,9 +173,15 @@ class QDateEdit(Widget):
 
     def set_text(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setValue("%(text)s");' % {'self_name': self.name(), 'text': text})
-    
 
 class QCheckBox(Widget):
+    class qt_defaults(Widget.qt_defaults):
+        vsize_type = 'Fixed'
+        hsize_type = 'Expanding'
+    class qx_defaults(Widget.qx_defaults):
+        vsize_type = 'Fixed'
+        hsize_type = 'Expanding'
+
     def __init__(self, caller, name, class_name):
         self.type="qx.ui.form.CheckBox"
         Widget.__init__(self, caller, name, class_name)
@@ -153,6 +197,13 @@ class QCheckBox(Widget):
         self.buffer.append('        this.%(self_name)s.setChecked(%(text)s);' % {'self_name': self.name(), 'text': text})
 
 class QRadioButton(Widget):
+    class qt_defaults(Widget.qt_defaults):
+        vsize_type = 'Fixed'
+        hsize_type = 'Expanding'
+    class qx_defaults(Widget.qx_defaults):
+        vsize_type = 'Fixed'
+        hsize_type = 'Expanding'
+
     def __init__(self, caller, name, class_name):
         self.type="qx.ui.form.RadioButton"
         Widget.__init__(self, caller, name, class_name)
@@ -168,6 +219,14 @@ class QRadioButton(Widget):
         self.buffer.append('        this.%(self_name)s.setChecked(%(text)s);' % {'self_name': self.name(), 'text': text})
 
 class QComboBox(Widget):
+    class qt_defaults(Widget.qt_defaults):
+        vsize_type = 'Fixed'
+        hsize_type = 'Expanding'
+    class qx_defaults(Widget.qx_defaults):
+        vsize_type = 'Expanding'
+        hsize_type = 'Expanding'
+        
+
     def __init__(self, caller, name, class_name):
         self.type = "qx.ui.form.SelectBox"
         Widget.__init__(self, caller, name, class_name)

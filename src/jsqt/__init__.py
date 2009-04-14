@@ -29,6 +29,13 @@ JsQT %s
 
 class Base(object):
     type = None
+    class qt_defaults:
+        vsize_type = 'Expanding'
+        hsize_type = 'Expanding'
+
+    class qx_defaults:
+        vsize_type = 'Expanding'
+        hsize_type = 'Expanding'
     
     def __init__(self, caller, name, class_name):
         # TODO: name validation
@@ -76,6 +83,8 @@ class Base(object):
         
         self.display()
         self.js_inst()
+        self.init_defaults()
+        self.bridge_defaults()
 
     def display(self):
         """
@@ -108,12 +117,30 @@ class Base(object):
         else:
             self.buffer[self.inst_line] = js_inst_str 
 
+    def init_defaults(self): # FIXME: should be done introspectively
+        self.vsize_type = self.qt_defaults.vsize_type
+        self.hsize_type = self.qt_defaults.hsize_type
+        
+    def bridge_defaults(self):
+        if self.vsize_type != self.qx_defaults.vsize_type:
+            self.set_vsizepolicy()
+            self.vsize_type = self.qx_defaults.vsize_type
+            
+        if self.hsize_type != self.qx_defaults.hsize_type:
+            self.set_hsizepolicy()
+            self.hsize_type = self.qx_defaults.hsize_type
+
+        self.vsize_type
+
     def register_handlers(self):
         self.tag_entry_handlers["rect"] = self.rect_entry
         self.tag_exit_handlers["rect"] = self.rect_exit
 
         self.tag_entry_handlers["datetime"] = self.datetime_entry
         self.tag_exit_handlers["datetime"] = self.datetime_exit
+
+        self.tag_entry_handlers["sizepolicy"] = self.sizepolicy_entry  
+        self.tag_exit_handlers["sizepolicy"] = self.sizepolicy_exit
 
         self.tag_entry_handlers["size"] = self.size_entry
         self.tag_exit_handlers["size"] = self.size_exit
@@ -210,18 +237,33 @@ class Base(object):
     def set_current_property(self, name):
         self.current[0] = name
         
-    def set_current_vsize(self, vsize):     
-        self.vsize_type = vsize
-        
-    def set_current_hsize(self, hsize):     
-        self.hsize_type = hsize
-
     def rect_entry(self, attrs, *args):
         self.current[1] = "rect"
 
     def rect_exit(self):
         self.current[1] = None
 
+    def set_vsizepolicy(self):
+        if self.vsize_type == 'Fixed':
+            self.buffer.append("        this.%(self_name)s.setAllowGrowY(false);" % {'self_name': self.name()})
+        else: 
+            self.buffer.append("        this.%(self_name)s.setAllowGrowY(true);" % {'self_name': self.name()})
+
+    def set_hsizepolicy(self):
+        if self.hsize_type == 'Fixed':
+            self.buffer.append("        this.%(self_name)s.setAllowGrowX(false);" % {'self_name': self.name()})
+        else: 
+            self.buffer.append("        this.%(self_name)s.setAllowGrowX(true);" % {'self_name': self.name()})
+
+
+    def sizepolicy_entry(self, attrs, *args):
+        self.vsize_type = attrs.get("vsizetype")
+        self.hsize_type = attrs.get("hsizetype")
+        self.set_vsizepolicy()
+        self.set_hsizepolicy()
+        
+    def sizepolicy_exit(self):
+        pass
 
     def datetime_entry(self, attrs, *args):
         self.current[1] = "datetime"
@@ -266,24 +308,28 @@ class Base(object):
         self.buffer.append("        this.%(self_name)s.setHeight(%(text)s);" % {'self_name': self.name(), 'text': text})
         
     def set_minimum_width(self, minWidth, *args):
-        self.buffer.append('        this.%(self_name)s.set({minWidth: %(minWidth)s});' % {'self_name': self.name(), 'minWidth': minWidth})
-    def set_minimum_height(self, minHeight, *args):       
-        self.buffer.append('        this.%(self_name)s.set({minHeight: %(minHeight)s});' % {'self_name': self.name(), 'minHeight': minHeight})        
-    def set_maximum_width(self, maxWidth, *args):       
-        self.buffer.append('        this.%(self_name)s.set({maxWidth: %(maxWidth)s});' % {'self_name': self.name(), 'maxWidth': maxWidth})
-    def set_maximum_height(self, maxHeight, *args):       
-        self.buffer.append('        this.%(self_name)s.set({maxHeight: %(maxHeight)s});' % {'self_name': self.name(), 'maxHeight': maxHeight})        
+        if int(minWidth) > 0:
+            self.buffer.append('        this.%(self_name)s.setMinWidth(%(minWidth)s);' % {'self_name': self.name(), 'minWidth': minWidth})
+    def set_minimum_height(self, minHeight, *args):
+        if int(minHeight) > 0:       
+            self.buffer.append('        this.%(self_name)s.setMinHeight(%(minHeight)s);' % {'self_name': self.name(), 'minHeight': minHeight})        
+    def set_maximum_width(self, maxWidth, *args):
+        if int(maxWidth) < 16777215:       
+            self.buffer.append('        this.%(self_name)s.setMaxWidth(%(maxWidth)s);' % {'self_name': self.name(), 'maxWidth': maxWidth})
+    def set_maximum_height(self, maxHeight, *args):
+        if int(maxHeight) < 16777215:
+            self.buffer.append('        this.%(self_name)s.setMaxHeight(%(maxHeight)s);' % {'self_name': self.name(), 'maxHeight': maxHeight})        
 
     def set_margin_bottom(self, marginBottom, *args):       
-        self.buffer.append('        this.%(self_name)s.set({marginBottom: %(marginBottom)s});' % {'self_name': self.name(), 'marginBottom': marginBottom})
+        self.buffer.append('        this.%(self_name)s.setMarginBottom(%(marginBottom)s);' % {'self_name': self.name(), 'marginBottom': marginBottom})
     def set_margin_left(self, marginLeft, *args):       
-        self.buffer.append('        this.%(self_name)s.set({marginLeft: %(marginLeft)s});' % {'self_name': self.name(), 'marginLeft': marginLeft})
+        self.buffer.append('        this.%(self_name)s.setMarginLeft(%(marginLeft)s);' % {'self_name': self.name(), 'marginLeft': marginLeft})
     def set_margin_right(self, marginRight, *args):       
-        self.buffer.append('        this.%(self_name)s.set({marginRight: %(marginRight)s});' % {'self_name': self.name(), 'marginRight': marginRight})
+        self.buffer.append('        this.%(self_name)s.setMarginRight(%(marginRight)s);' % {'self_name': self.name(), 'marginRight': marginRight})
     def set_margin_top(self, marginTop, *args):       
-        self.buffer.append('        this.%(self_name)s.set({marginTop: %(marginTop)s});' % {'self_name': self.name(), 'marginTop': marginTop})        
+        self.buffer.append('        this.%(self_name)s.setMarginTop(%(marginTop)s);' % {'self_name': self.name(), 'marginTop': marginTop})        
     def set_margin(self, margin, *args):
-        self.buffer.append('        this.%(self_name)s.set({margin: %(margin)s});' % {'self_name': self.name(), 'margin': margin})
+        self.buffer.append('        this.%(self_name)s.setMargin(%(margin)s);' % {'self_name': self.name(), 'margin': margin})
     
 class Class(Base):
     def __init__(self, caller, name, class_name):

@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>753</width>
+    <width>629</width>
     <height>484</height>
    </rect>
   </property>
@@ -88,7 +88,14 @@
             </widget>
            </item>
            <item row="1" column="2" >
-            <widget class="QLineEdit" name="edtName" />
+            <widget class="QLineEdit" name="edtName" >
+             <property name="sizePolicy" >
+              <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
            </item>
            <item row="2" column="0" >
             <widget class="QLabel" name="lblIdentifers" >
@@ -323,12 +330,26 @@
            <item row="8" column="0" >
             <widget class="QLabel" name="label" >
              <property name="text" >
-              <string>Time &amp; Count:</string>
+              <string>Date &amp; Count:</string>
              </property>
             </widget>
            </item>
            <item row="8" column="2" >
             <layout class="QHBoxLayout" name="horizontalLayout_4" >
+             <item>
+              <widget class="QDateEdit" name="dateEdit" >
+               <property name="dateTime" >
+                <datetime>
+                 <hour>12</hour>
+                 <minute>12</minute>
+                 <second>0</second>
+                 <year>2009</year>
+                 <month>1</month>
+                 <day>5</day>
+                </datetime>
+               </property>
+              </widget>
+             </item>
              <item>
               <widget class="QSpinBox" name="spinBox" >
                <property name="minimum" >
@@ -342,20 +363,6 @@
                </property>
                <property name="value" >
                 <number>55</number>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QDateEdit" name="dateEdit" >
-               <property name="dateTime" >
-                <datetime>
-                 <hour>12</hour>
-                 <minute>12</minute>
-                 <second>0</second>
-                 <year>2009</year>
-                 <month>1</month>
-                 <day>5</day>
-                </datetime>
                </property>
               </widget>
              </item>
@@ -476,7 +483,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>709</width>
+             <width>585</width>
              <height>417</height>
             </rect>
            </property>
@@ -569,8 +576,8 @@
                          <rect>
                           <x>0</x>
                           <y>0</y>
-                          <width>535</width>
-                          <height>357</height>
+                          <width>431</width>
+                          <height>355</height>
                          </rect>
                         </property>
                         <layout class="QVBoxLayout" name="verticalLayout_5" >

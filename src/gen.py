@@ -56,10 +56,7 @@ class QtUiFileHandler(object):
         self.buffers.append(self.buffer)
         self.xmltext_handler = None
         self.js_file = open(js_file_name, 'w')
-       
- #       self.tag_entry_handlers["sizepolicy"] = self.sizepolicy_entry  
- #       self.tag_exit_handlers["sizepolicy"] = self.sizepolicy_exit
-       
+              
         self.tag_entry_handlers["property"] = self.property_entry  
         self.tag_exit_handlers["property"] = self.property_exit
         self.tag_entry_handlers["attribute"] = self.property_entry
@@ -128,10 +125,6 @@ class QtUiFileHandler(object):
 
     def class_entry(self, attrs):
         self.stack.append(Class(self, class_name, "Class"))
-
-#    def sizepolicy_entry(self, attrs):
-#        self.stack[-1].set_current_vsize(str(attrs.get("vsizetype")))
-#        self.stack[-1].set_current_hsize(str(attrs.get("hsizetype")))
 
     def property_entry(self, attrs):
         self.stack[-1].set_current_property(attrs.get("name"))
