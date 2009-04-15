@@ -49,6 +49,24 @@ class Container(Widget):
         self.children.append(widget)
         self.layout.add_widget(self, widget, **kwargs)
 
+    def close(self):
+        for c in self.children:
+            if c.vsize_type == 'Expanding':
+                self.vsize_type = 'Expanding'
+                print '\t\tvsize expanding:', c.name()
+                break
+            elif c.vsize_type == 'Fixed':
+                self.vsize_type = 'Fixed'
+        
+        for c in self.children:
+            if c.hsize_type == 'Expanding':
+                print '\t\thsize expanding:', c.name()
+                self.hsize_type = 'Expanding'
+                break
+            elif c.hsize_type == 'Fixed':
+                self.hsize_type = 'Fixed'
+        
+
 class QWidget(Container):
     def __init__(self, caller, name, class_name=""):
         self.type = "qx.ui.container.Composite"

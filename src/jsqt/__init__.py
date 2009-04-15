@@ -118,19 +118,19 @@ class Base(object):
             self.buffer[self.inst_line] = js_inst_str 
 
     def init_defaults(self): # FIXME: should be done introspectively
-        self.vsize_type = self.qt_defaults.vsize_type
-        self.hsize_type = self.qt_defaults.hsize_type
+        self.vsize_type = self.qx_defaults.vsize_type
+        self.hsize_type = self.qx_defaults.hsize_type
         
     def bridge_defaults(self):
-        if self.vsize_type != self.qx_defaults.vsize_type:
+        if self.vsize_type != self.qt_defaults.vsize_type:
+            self.vsize_type = self.qt_defaults.vsize_type
             self.set_vsizepolicy()
-            self.vsize_type = self.qx_defaults.vsize_type
             
-        if self.hsize_type != self.qx_defaults.hsize_type:
+        if self.hsize_type != self.qt_defaults.hsize_type:
+            self.hsize_type = self.qt_defaults.hsize_type
             self.set_hsizepolicy()
-            self.hsize_type = self.qx_defaults.hsize_type
 
-        self.vsize_type
+        print self.name(),self.vsize_type
 
     def register_handlers(self):
         self.tag_entry_handlers["rect"] = self.rect_entry
@@ -331,6 +331,16 @@ class Base(object):
     def set_margin(self, margin, *args):
         self.buffer.append('        this.%(self_name)s.setMargin(%(margin)s);' % {'self_name': self.name(), 'margin': margin})
     
+    def set_geometry_x(self, x):
+        self.x = x
+    def set_geometry_y(self, y):
+        self.y = y
+    def set_geometry_w(self, w):
+        self.buffer.append('        this.%(self_name)s.setWidth(%(width)s);' % {'self_name': self.name(), 'width': w})
+    def set_geometry_h(self, h):
+        self.buffer.append('        this.%(self_name)s.setHeight(%(width)s);' % {'self_name': self.name(), 'width': h})
+
+
 class Class(Base):
     def __init__(self, caller, name, class_name):
         Base.__init__(self, caller, name, class_name)
@@ -350,7 +360,6 @@ class Class(Base):
         pass
 
 class Dummy(Base):
-
     def js_inst(self):
         self.buffer.append('        // WARNING: %(class_name)s widget is not supported (yet?).' % {'class_name':self.class_name})
 

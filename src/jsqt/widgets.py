@@ -26,15 +26,6 @@ class Widget(Base):
     def __init__(self, caller, name, class_name):
         Base.__init__(self, caller, name, class_name)
 
-    def set_geometry_x(self, x):
-        self.x = x
-    def set_geometry_y(self, y):
-        self.y = y
-    def set_geometry_w(self, w):
-        self.buffer.append('        this.%(self_name)s.setWidth(%(width)s);' % {'self_name': self.name(), 'width': w})
-    def set_geometry_h(self, h):
-        self.buffer.append('        this.%(self_name)s.setHeight(%(width)s);' % {'self_name': self.name(), 'width': h})
-
     def get_tag(self):
         return "widget"
 
@@ -58,11 +49,11 @@ class QPushButton(Widget):
 
 class QLabel(Widget):
     class qt_defaults(Widget.qt_defaults):
-        vsize_type = 'Expanding'
-        hsize_type = 'Expanding'
-    class qx_defaults(Widget.qx_defaults):
         vsize_type = 'Fixed'
         hsize_type = 'Fixed'
+    class qx_defaults(Widget.qx_defaults):
+        vsize_type = 'Expanding'
+        hsize_type = 'Expanding'
     
     def __init__(self, caller, name, class_name):
         self.type="qx.ui.basic.Label"
@@ -246,7 +237,16 @@ class Spacer(Widget):
         Widget.__init__(self, caller, name, class_name)
 
         self.register_handlers()
-
+        self.xmltext_handlers[(u'orientation', None, u'enum')] = self.orientation_handler
+        
+    def orientation_handler(self, text, *args):
+        if text == 'Qt::Horizontal':
+            self.vsize_type = 'Fixed'
+            self.hsize_type = 'Expanding'
+        elif text == 'QT::Vertical':
+            self.vsize_type = 'Expanding'
+            self.hsize_type = 'Fixed'
+        
 class QAbstractItemView(Widget):
     def __init__(self, caller, name, class_name):
         Widget.__init__(self, caller, name, class_name)

@@ -34,8 +34,8 @@ class Layout(Base):
     def init_defaults(self):
         Base.init_defaults(self)
 
-        self.spacing_x = self.qt_defaults.spacing_x
-        self.spacing_y = self.qt_defaults.spacing_y
+        self.spacing_x = self.qx_defaults.spacing_x
+        self.spacing_y = self.qx_defaults.spacing_y
 
     def __init__(self, caller, name, class_name):
         if len(caller.stack) > 0:
@@ -43,7 +43,7 @@ class Layout(Base):
         if name == "":
             name = self.parent.name() + "_" + self.__class__.__name__.lower()
         Base.__init__(self, caller, name, class_name)
-               
+                       
 class CanvasLayout(Layout):
     implicit = False
 
@@ -78,9 +78,9 @@ class QVBoxLayout(Layout):
     def bridge_defaults(self):
         Layout.bridge_defaults(self)
         
-        if self.spacing_y != self.qx_defaults.spacing_y:
+        if self.spacing_y != self.qt_defaults.spacing_y:
+            self.spacing_y = self.qt_defaults.spacing_y
             self.buffer.append('        this.%(self_name)s.setSpacing(%(val)s);' % {'self_name': self.name(), 'val': self.qt_defaults.spacing_y})
-            self.spacing_y = self.qx_defaults.spacing_y
 
     def add_widget(self, container, widget, **kwargs):
         if isinstance(widget, Dummy):
@@ -99,9 +99,9 @@ class QHBoxLayout(Layout):
     def bridge_defaults(self):
         Layout.bridge_defaults(self)
         
-        if self.spacing_x != self.qx_defaults.spacing_x:
+        if self.spacing_x != self.qt_defaults.spacing_x:
+            self.spacing_x = self.qt_defaults.spacing_x
             self.buffer.append('        this.%(self_name)s.setSpacing(%(val)s);' % {'self_name': self.name(), 'val': self.qt_defaults.spacing_x})
-            self.spacing_x = self.qx_defaults.spacing_x
             
     def add_widget(self, container, widget, **kwargs):
         if isinstance(widget, Dummy):
@@ -122,13 +122,13 @@ class QGridLayout(Layout):
     def bridge_defaults(self):
         Layout.bridge_defaults(self)
         
-        if self.spacing_x != self.qx_defaults.spacing_x:
+        if self.spacing_x != self.qt_defaults.spacing_x:
+            self.spacing_x = self.qt_defaults.spacing_x
             self.buffer.append('        this.%(self_name)s.setSpacingX(%(val)s);' % {'self_name': self.name(), 'val': self.qt_defaults.spacing_x})
-            self.spacing_x = self.qx_defaults.spacing_x
             
-        if self.spacing_y != self.qx_defaults.spacing_y:
-            self.buffer.append('        this.%(self_name)s.setSpacingY(%(val)s);' % {'self_name': self.name(), 'val': self.qt_defaults.spacing_y})
+        if self.spacing_y != self.qt_defaults.spacing_y:
             self.spacing_y = self.qx_defaults.spacing_y
+            self.buffer.append('        this.%(self_name)s.setSpacingY(%(val)s);' % {'self_name': self.name(), 'val': self.qt_defaults.spacing_y})
 
     def add_widget(self, container, widget, **kwargs):
         if isinstance(widget, Dummy):
