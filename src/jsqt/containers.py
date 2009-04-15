@@ -53,20 +53,16 @@ class Container(Widget):
         for c in self.children:
             if c.vsize_type == 'Expanding' and self.vsize_type_property != 'Fixed':
                 self.vsize_type = 'Expanding'
-                print '\t\t',self.name(),'vsize expanding:', c.name()
                 break
             elif c.vsize_type == 'Fixed':
                 self.vsize_type = 'Fixed'
-                print '\t\t',self.name(),'vsize fixed:', c.name()
         
         for c in self.children:
             if c.hsize_type == 'Expanding' and self.hsize_type_property != 'Fixed':
-                print '\t\t',self.name(),'hsize expanding:', c.name()
                 self.hsize_type = 'Expanding'
                 break
             elif c.hsize_type == 'Fixed':
                 self.hsize_type = 'Fixed'
-                print '\t\t',self.name(),'hsize fixed:', c.name()
                 
         self.set_vsizepolicy()
         self.set_hsizepolicy()
