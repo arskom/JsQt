@@ -59,6 +59,9 @@ class QLabel(Widget):
         self.type="qx.ui.basic.Label"
         Widget.__init__(self, caller, name, class_name)
 
+        self.buffer.append('        this.%(self_name)s.setAllowShrinkX(false);' % {'self_name': self.name()})
+        self.buffer.append('        this.%(self_name)s.setAllowShrinkY(false);' % {'self_name': self.name()})
+
         self.register_handlers()
         self.xmltext_handlers[("text", None, "string")] = self.set_text
 	
