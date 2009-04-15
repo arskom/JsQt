@@ -187,9 +187,6 @@ class QtUiFileHandler(object):
                 self.stack[-1].parent.add_widget(self.stack[-1])
             self.stack.pop()
 
-#    def sizepolicy_exit(self):      
-#        return  
-
     def property_exit(self):
         self.stack[-1].set_current_property(None)
 

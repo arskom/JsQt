@@ -65,6 +65,8 @@ class Base(object):
 
         self.vsize_type = None
         self.hsize_type = None
+        self.vsize_type_property = None
+        self.hsize_type_property = None
     
         self.tag_entry_handlers = {}
         self.tag_exit_handlers = {}
@@ -129,8 +131,6 @@ class Base(object):
         if self.hsize_type != self.qt_defaults.hsize_type:
             self.hsize_type = self.qt_defaults.hsize_type
             self.set_hsizepolicy()
-
-        print self.name(),self.vsize_type
 
     def register_handlers(self):
         self.tag_entry_handlers["rect"] = self.rect_entry
@@ -259,6 +259,10 @@ class Base(object):
     def sizepolicy_entry(self, attrs, *args):
         self.vsize_type = attrs.get("vsizetype")
         self.hsize_type = attrs.get("hsizetype")
+        
+        self.vsize_type_property = attrs.get("vsizetype")
+        self.hsize_type_property = attrs.get("hsizetype")
+        
         self.set_vsizepolicy()
         self.set_hsizepolicy()
         

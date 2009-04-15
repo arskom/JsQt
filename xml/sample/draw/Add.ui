@@ -24,12 +24,12 @@
       </property>
       <property name="maximumSize" >
        <size>
-        <width>800</width>
+        <width>1200</width>
         <height>16777215</height>
        </size>
       </property>
       <property name="currentIndex" >
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab" >
        <attribute name="title" >
@@ -483,8 +483,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>585</width>
-             <height>417</height>
+             <width>569</width>
+             <height>463</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2" >
@@ -568,6 +568,12 @@
                     <layout class="QVBoxLayout" name="verticalLayout_6" >
                      <item>
                       <widget class="QScrollArea" name="scrollArea_2" >
+                       <property name="sizePolicy" >
+                        <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
                        <property name="widgetResizable" >
                         <bool>true</bool>
                        </property>

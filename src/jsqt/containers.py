@@ -51,20 +51,25 @@ class Container(Widget):
 
     def close(self):
         for c in self.children:
-            if c.vsize_type == 'Expanding':
+            if c.vsize_type == 'Expanding' and self.vsize_type_property != 'Fixed':
                 self.vsize_type = 'Expanding'
-                print '\t\tvsize expanding:', c.name()
+                print '\t\t',self.name(),'vsize expanding:', c.name()
                 break
             elif c.vsize_type == 'Fixed':
                 self.vsize_type = 'Fixed'
+                print '\t\t',self.name(),'vsize fixed:', c.name()
         
         for c in self.children:
-            if c.hsize_type == 'Expanding':
-                print '\t\thsize expanding:', c.name()
+            if c.hsize_type == 'Expanding' and self.hsize_type_property != 'Fixed':
+                print '\t\t',self.name(),'hsize expanding:', c.name()
                 self.hsize_type = 'Expanding'
                 break
             elif c.hsize_type == 'Fixed':
                 self.hsize_type = 'Fixed'
+                print '\t\t',self.name(),'hsize fixed:', c.name()
+                
+        self.set_vsizepolicy()
+        self.set_hsizepolicy()
         
 
 class QWidget(Container):
@@ -83,6 +88,13 @@ class QFrame(QWidget):
     pass
         
 class QGroupBox(Container):
+    class qt_defaults:
+        vsize_type = 'Fixed'
+        hsize_type = 'Fixed'
+    class qx_defaults:
+        vsize_type = 'Expanding'
+        hsize_type = 'Expanding'
+        
     def __init__(self, caller, name, class_name=""):
         self.type = "qx.ui.groupbox.GroupBox"
         Widget.__init__(self, caller, name, class_name)
@@ -142,9 +154,18 @@ class QScrollArea(Container):
         pass
 
     def add_widget(self, widget, **kwargs):
+        if len(self.children)>0:
+            raise Exception("QScrollArea can have one child widget")
         self.children.append(widget)
         self.buffer.append("        this.%(self_name)s.add(this.%(widget_name)s);" % {'self_name': self.name(), 'widget_name': widget.name()})
-
+    
+    def close(self):
+        self.children[0].vsize_type = 'Expanding'
+        self.children[0].hsize_type = 'Expanding'
+        self.children[0].set_vsizepolicy()
+        self.children[0].set_hsizepolicy()
+        Container.close(self)
+    
 class QTabWidget(Container):
     def __init__(self, caller, name, class_name=""):
         self.type = "qx.ui.tabview.TabView"
