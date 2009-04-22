@@ -102,8 +102,9 @@ class QLineEdit(Widget):
         self.xmltext_handlers[("text", None, "string")] = self.set_text
         self.xmltext_handlers[("readOnly", None, "bool")] = self.set_readOnly
 
-    def set_text(self, text, *args):
-        self.buffer.append('        this.%(self_name)s.setValue("%(text)s");' % {'self_name': self.name(), 'text': text})
+    def close(self):
+        if len(self.text)>0:
+            self.buffer.append('        this.%(self_name)s.setValue("%(text)s");' % {'self_name': self.name(), 'text': self.text})
 
     def set_readOnly(self, text, *args):
         self.buffer.append("        this.%(self_name)s.setReadOnly(%(text)s);" % { 'self_name' : self.name(), 'text': text })        
@@ -130,8 +131,9 @@ class QTextEdit(Widget):
         self.register_handlers()
         self.xmltext_handlers[("text", None, "string")] = self.set_text
 
-    def set_text(self, text, *args):
-        self.buffer.append('        this.%(self_name)s.setValue("%(text)s");' % {'self_name': self.name(), 'text': text})
+    def close(self):
+        if len(self.text)>0:
+            self.buffer.append('        this.%(self_name)s.setValue("%(text)s");' % {'self_name': self.name(), 'text': self.text})
     
 class QSpinBox(Widget):
     class qt_defaults(Widget.qt_defaults):
@@ -152,8 +154,9 @@ class QSpinBox(Widget):
         self.xmltext_handlers[(u'minimum', None, u'number')] = self.set_min
         self.xmltext_handlers[(u'value', None, u'number')] = self.set_text        
 
-    def set_text(self, text, *args):
-        self.buffer.append('        this.%(self_name)s.setValue(%(text)s);' % {'self_name': self.name(), 'text': text})
+    def close(self):
+        if len(self.text)>0:
+            self.buffer.append('        this.%(self_name)s.setValue(%(text)s);' % {'self_name': self.name(), 'text': self.text})
 
     def set_single_step(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setSingleStep(%(text)s);' % {'self_name': self.name(), 'text': text})
@@ -179,8 +182,9 @@ class QDateEdit(Widget):
         self.register_handlers()
         self.xmltext_handlers[("text", None, "string")] = self.set_text
 
-    def set_text(self, text, *args):
-        self.buffer.append('        this.%(self_name)s.setValue("%(text)s");' % {'self_name': self.name(), 'text': text})
+    def close(self):
+        if len(self.text)>0:
+            self.buffer.append('        this.%(self_name)s.setValue("%(text)s");' % {'self_name': self.name(), 'text': self.text})
 
 class QCheckBox(Widget):
     class qt_defaults(Widget.qt_defaults):
@@ -198,8 +202,9 @@ class QCheckBox(Widget):
         self.xmltext_handlers[("text", None, "string")] = self.set_text
         self.xmltext_handlers[("checked", None, "bool")] = self.set_value
 
-    def set_text(self, text, *args):
-        self.buffer.append('        this.%(self_name)s.setLabel("%(text)s");' % {'self_name': self.name(), 'text': text})
+    def close(self):
+        if len(self.text)>0:
+            self.buffer.append('        this.%(self_name)s.setLabel("%(text)s");' % {'self_name': self.name(), 'text': self.text})
 
     def set_value(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setChecked(%(text)s);' % {'self_name': self.name(), 'text': text})
@@ -220,8 +225,9 @@ class QRadioButton(Widget):
         self.xmltext_handlers[("text", None, "string")] = self.set_text
         self.xmltext_handlers[("checked", None, "bool")] = self.set_value
 
-    def set_text(self, text, *args):
-        self.buffer.append('        this.%(self_name)s.setLabel("%(text)s");' % {'self_name': self.name(), 'text': text})
+    def close(self):
+        if len(self.text)>0:
+            self.buffer.append('        this.%(self_name)s.setLabel("%(text)s");' % {'self_name': self.name(), 'text': self.text})
 
     def set_value(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setChecked(%(text)s);' % {'self_name': self.name(), 'text': text})
@@ -234,7 +240,6 @@ class QComboBox(Widget):
         vsize_type = 'Expanding'
         hsize_type = 'Expanding'
         
-
     def __init__(self, caller, name, class_name):
         self.type = "qx.ui.form.SelectBox"
         Widget.__init__(self, caller, name, class_name)
