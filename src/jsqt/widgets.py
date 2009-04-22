@@ -25,9 +25,13 @@ from jsqt import Base
 class Widget(Base):        
     def __init__(self, caller, name, class_name):
         Base.__init__(self, caller, name, class_name)
+        self.text = ""
 
     def get_tag(self):
         return "widget"
+
+    def set_text(self, text, *args):
+        self.text += text
 
 class QPushButton(Widget):
     class qt_defaults(Widget.qt_defaults):
@@ -64,12 +68,22 @@ class QLabel(Widget):
 
         self.register_handlers()
         self.xmltext_handlers[("text", None, "string")] = self.set_text
-	
+	self.xmltext_handlers[(u'textFormat', None, u'enum')] = self.set_text_format
+        self.textFormat = "Qt::RichText"
+
+
     def js_inst(self):
         Widget.js_inst(self)
 
-    def set_text(self, text, *args):
-        self.buffer.append('        this.%(self_name)s.setContent("%(text)s");' % {'self_name': self.name(), 'text': text})
+    def close(self):
+        if len(self.text)>0:
+            self.buffer.append('        this.%(self_name)s.setContent("%(text)s");' % {'self_name': self.name(), 'text': self.text})
+
+        if self.textFormat == "Qt::RichText":
+            self.buffer.append('        this.%(self_name)s.setRich(true);' % {'self_name': self.name()})
+
+    def set_text_format(self, textFormat, *args):
+        self.textFormat = textFormat
 
 class QLineEdit(Widget):
     class qt_defaults(Widget.qt_defaults):
@@ -246,7 +260,7 @@ class Spacer(Widget):
         if text == 'Qt::Horizontal':
             self.vsize_type = 'Fixed'
             self.hsize_type = 'Expanding'
-        elif text == 'QT::Vertical':
+        elif text == 'Qt::Vertical':
             self.vsize_type = 'Expanding'
             self.hsize_type = 'Fixed'
         

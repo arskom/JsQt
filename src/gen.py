@@ -84,6 +84,7 @@ class QtUiFileHandler(object):
         self.layout_handlers["QVBoxLayout"] = QVBoxLayout 
         self.layout_handlers["QHBoxLayout"] = QHBoxLayout
         self.layout_handlers["QGridLayout"] = QGridLayout
+        self.layout_handlers["QFormLayout"] = QFormLayout
         
         self.class_handlers["QScrollArea"] = QScrollArea
         self.class_handlers["QTabWidget"] = QTabWidget

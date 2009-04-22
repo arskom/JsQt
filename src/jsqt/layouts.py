@@ -157,4 +157,8 @@ class QGridLayout(Layout):
                 print "\t\t\trow expanding_widget:", widget.name()
                 self.buffer.append('        this.%(self_name)s.setRowFlex(%(row)s, 1);' % { 'self_name': self.name(), 'row': row } )
                 self.row_flex_flags.add(row)
+
+class QFormLayout(QGridLayout):
+    pass
+
                 
