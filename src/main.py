@@ -26,7 +26,7 @@ import sys
 import stat
 
 import jsqt
-from gen import qx_08
+from jsqt.parser import qx_08
 
 def walktree (top = ".", depthfirst = False):
     names = os.listdir(top)
