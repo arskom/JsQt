@@ -22,7 +22,7 @@
 
 from jsqt import Base
 
-class Widget(Base):        
+class Widget(Base):
     def __init__(self, caller, name, class_name):
         Base.__init__(self, caller, name, class_name)
         self.text = ""
@@ -77,7 +77,7 @@ class QLabel(Widget):
 
     def close(self):
         if len(self.text)>0:
-            self.buffer.append('        this.%(self_name)s.setContent("%(text)s");' % {'self_name': self.name(), 'text': self.text})
+            self.buffer.append('        this.%(self_name)s.setValue("%(text)s");' % {'self_name': self.name(), 'text': self.text})
 
         if self.textFormat == "Qt::RichText":
             self.buffer.append('        this.%(self_name)s.setRich(true);' % {'self_name': self.name()})
