@@ -84,10 +84,10 @@ class QFrame(QWidget):
     pass
 
 class QGroupBox(Container):
-    class qt_defaults:
+    class qt_defaults(Container.qt_defaults):
         vsize_type = 'Fixed'
         hsize_type = 'Fixed'
-    class qx_defaults:
+    class qx_defaults(Container.qt_defaults):
         vsize_type = 'Expanding'
         hsize_type = 'Expanding'
 

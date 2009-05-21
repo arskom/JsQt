@@ -64,7 +64,6 @@ class CanvasLayout(Layout):
             return
 
         container.children.append(widget)
-
         self.buffer.append('        this.%(container_name)s.add(this.%(widget_name)s,{%(props)s});' % {'container_name': container.name(), 'widget_name': widget.name(), 'props': ', '.join(props)})
 
 class QVBoxLayout(Layout):

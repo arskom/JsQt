@@ -23,12 +23,49 @@
 from jsqt import Base
 
 class Widget(Base):
+    class qt_defaults(Base.qt_defaults):
+        margin_top = '1'
+        margin_bottom = '1'
+        margin_left = '1'
+        margin_right = '1'
+
+    class qx_defaults(Base.qx_defaults):
+        margin_top = '0'
+        margin_bottom = '0'
+        margin_left = '0'
+        margin_right = '0'
+
+    def get_tag(self):
+        return "widget"
+
     def __init__(self, caller, name, class_name):
         Base.__init__(self, caller, name, class_name)
         self.text = ""
 
-    def get_tag(self):
-        return "widget"
+    def init_defaults(self):
+        Base.init_defaults(self)
+
+        self.margin_top = self.qx_defaults.margin_top
+        self.margin_bottom = self.qx_defaults.margin_bottom
+        self.margin_left = self.qx_defaults.margin_left
+        self.margin_right = self.qx_defaults.margin_right
+
+    def bridge_defaults(self):
+        if self.margin_top != self.qt_defaults.margin_top:
+            self.margin_top = self.qt_defaults.margin_top
+            self.buffer.append('        this.%(self_name)s.setMarginTop(%(val)s);' % {'self_name': self.name(), 'val': self.qt_defaults.margin_top})
+
+        if self.margin_bottom != self.qt_defaults.margin_bottom:
+            self.margin_bottom = self.qt_defaults.margin_bottom
+            self.buffer.append('        this.%(self_name)s.setMarginBottom(%(val)s);' % {'self_name': self.name(), 'val': self.qt_defaults.margin_bottom})
+
+        if self.margin_left != self.qt_defaults.margin_left:
+            self.margin_left = self.qt_defaults.margin_left
+            self.buffer.append('        this.%(self_name)s.setMarginLeft(%(val)s);' % {'self_name': self.name(), 'val': self.qt_defaults.margin_left})
+
+        if self.margin_right != self.qt_defaults.margin_right:
+            self.margin_right = self.qt_defaults.margin_right
+            self.buffer.append('        this.%(self_name)s.setMarginRight(%(val)s);' % {'self_name': self.name(), 'val': self.qt_defaults.margin_right})
 
     def set_text(self, text, *args):
         self.text += text
