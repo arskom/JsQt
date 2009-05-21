@@ -29,9 +29,9 @@ class Container(Widget):
 
     def __init__(self, caller, name, class_name):
         Widget.__init__(self, caller, name, class_name)
-        
+
         self.in_layout = False
-                        
+
     def set_layout(self, layout):
         if isinstance(layout, Dummy):
             return
@@ -45,7 +45,7 @@ class Container(Widget):
 
         if self.layout == None:
             self.set_layout(CanvasLayout(self.caller, self.name() + "_implicit_container"))
-        
+
         self.children.append(widget)
         self.layout.add_widget(self, widget, **kwargs)
 
@@ -56,17 +56,17 @@ class Container(Widget):
                 break
             elif c.vsize_type == 'Fixed':
                 self.vsize_type = 'Fixed'
-        
+
         for c in self.children:
             if c.hsize_type == 'Expanding' and self.hsize_type_property != 'Fixed':
                 self.hsize_type = 'Expanding'
                 break
             elif c.hsize_type == 'Fixed':
                 self.hsize_type = 'Fixed'
-                
+
         self.set_vsizepolicy()
         self.set_hsizepolicy()
-        
+
 
 class QWidget(Container):
     def __init__(self, caller, name, class_name=""):
@@ -75,14 +75,14 @@ class QWidget(Container):
 
         self.layout = None
         self.register_handlers()
-        self.xmltext_handlers[("title", None, "string")] = self.set_title_text       
-        
+        self.xmltext_handlers[("title", None, "string")] = self.set_title_text
+
     def set_title_text(self, text, *args):
         self.title_text = text
-        
+
 class QFrame(QWidget):
     pass
-        
+
 class QGroupBox(Container):
     class qt_defaults:
         vsize_type = 'Fixed'
@@ -90,15 +90,15 @@ class QGroupBox(Container):
     class qx_defaults:
         vsize_type = 'Expanding'
         hsize_type = 'Expanding'
-        
+
     def __init__(self, caller, name, class_name=""):
         self.type = "qx.ui.groupbox.GroupBox"
         Widget.__init__(self, caller, name, class_name)
-        
+
         self.layout = None
         self.register_handlers()
         self.xmltext_handlers[("title", None, "string")] = self.set_legend
-    
+
     def set_legend(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setLegend("%(text)s");' % {'self_name': self.name(), 'text': text})
 
@@ -121,7 +121,7 @@ class QMainWindow(Container):
         self.set_layout(QVBoxLayout(self.caller, "__cnt_v"))
         self.buffer.append('')
 
-        
+
 class QToolBar(Container):
     def __init__(self, caller, name, class_name=""):
         self.type = "qx.ui.toolbar.ToolBar"
@@ -141,9 +141,9 @@ class QScrollArea(Container):
 
     #
     # quoting qooxdoo api docs:
-    #     Note that this class can only have one child widget. 
+    #     Note that this class can only have one child widget.
     #     This container has a fixed layout, which cannot be changed.
-    # 
+    #
     # so set_layout here does nothing.
     #
     def set_layout(self, layout):
@@ -154,14 +154,14 @@ class QScrollArea(Container):
             raise Exception("QScrollArea can have one child widget")
         self.children.append(widget)
         self.buffer.append("        this.%(self_name)s.add(this.%(widget_name)s);" % {'self_name': self.name(), 'widget_name': widget.name()})
-    
+
     def close(self):
         self.children[0].vsize_type = 'Expanding'
         self.children[0].hsize_type = 'Expanding'
         self.children[0].set_vsizepolicy()
         self.children[0].set_hsizepolicy()
         Container.close(self)
-    
+
 class QTabWidget(Container):
     def __init__(self, caller, name, class_name=""):
         self.type = "qx.ui.tabview.TabView"
@@ -175,7 +175,7 @@ class QTabWidget(Container):
         page.add_widget(widget)
         self.children.append(page)
         self.buffer.append('        this.%(self_name)s.add(this.%(page_name)s);' % {'self_name': self.name(), 'page_name': page.name()})
-        
+
 class QxTabPage(Container):
     def __init__(self, caller, name, class_name=""):
         self.type = "qx.ui.tabview.Page"

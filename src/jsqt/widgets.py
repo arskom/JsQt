@@ -58,7 +58,7 @@ class QLabel(Widget):
     class qx_defaults(Widget.qx_defaults):
         vsize_type = 'Expanding'
         hsize_type = 'Expanding'
-    
+
     def __init__(self, caller, name, class_name):
         self.type="qx.ui.basic.Label"
         Widget.__init__(self, caller, name, class_name)
@@ -107,7 +107,7 @@ class QLineEdit(Widget):
             self.buffer.append('        this.%(self_name)s.setValue("%(text)s");' % {'self_name': self.name(), 'text': self.text})
 
     def set_readOnly(self, text, *args):
-        self.buffer.append("        this.%(self_name)s.setReadOnly(%(text)s);" % { 'self_name' : self.name(), 'text': text })        
+        self.buffer.append("        this.%(self_name)s.setReadOnly(%(text)s);" % { 'self_name' : self.name(), 'text': text })
 
     def set_echoMode(self, text, *args):
         if text == "QLineEdit::Password":
@@ -134,7 +134,7 @@ class QTextEdit(Widget):
     def close(self):
         if len(self.text)>0:
             self.buffer.append('        this.%(self_name)s.setValue("%(text)s");' % {'self_name': self.name(), 'text': self.text})
-    
+
 class QSpinBox(Widget):
     class qt_defaults(Widget.qt_defaults):
         vsize_type = 'Fixed'
@@ -152,7 +152,7 @@ class QSpinBox(Widget):
         self.xmltext_handlers[(u'singleStep', None, u'number')] = self.set_single_step
         self.xmltext_handlers[(u'maximum', None, u'number')] = self.set_max
         self.xmltext_handlers[(u'minimum', None, u'number')] = self.set_min
-        self.xmltext_handlers[(u'value', None, u'number')] = self.set_text        
+        self.xmltext_handlers[(u'value', None, u'number')] = self.set_text
 
     def close(self):
         if len(self.text)>0:
@@ -166,7 +166,7 @@ class QSpinBox(Widget):
 
     def set_max(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setMax(%(text)s);' % {'self_name': self.name(), 'text': text})
-    
+
 class QDateEdit(Widget):
     class qt_defaults(Widget.qt_defaults):
         vsize_type = 'Fixed'
@@ -239,14 +239,14 @@ class QComboBox(Widget):
     class qx_defaults(Widget.qx_defaults):
         vsize_type = 'Expanding'
         hsize_type = 'Expanding'
-        
+
     def __init__(self, caller, name, class_name):
         self.type = "qx.ui.form.SelectBox"
         Widget.__init__(self, caller, name, class_name)
 
         self.register_handlers()
         self.xmltext_handlers[("text", None, "string")] = self.add_text
-    
+
     def set_text(self, text, *args):
         raise Exception("With ComboBox, add_text must be used.")
 
@@ -260,7 +260,7 @@ class Spacer(Widget):
 
         self.register_handlers()
         self.xmltext_handlers[(u'orientation', None, u'enum')] = self.orientation_handler
-        
+
     def orientation_handler(self, text, *args):
         if text == 'Qt::Horizontal':
             self.vsize_type = 'Fixed'
@@ -268,12 +268,12 @@ class Spacer(Widget):
         elif text == 'Qt::Vertical':
             self.vsize_type = 'Expanding'
             self.hsize_type = 'Fixed'
-        
+
 class QAbstractItemView(Widget):
     def __init__(self, caller, name, class_name):
         Widget.__init__(self, caller, name, class_name)
 
-        self.xmltext_handlers[(u'selectionMode', None, u'enum')] = self.set_selection_mode    
+        self.xmltext_handlers[(u'selectionMode', None, u'enum')] = self.set_selection_mode
 
     def set_selection_mode(self, mode, *args):
         self.buffer.append("        // FIXME: this.%(self_name)s.getSelectionModel().setSelectionMode(qx.ui.table.selection.Model.%(mode)s);" % {"self_name": self.name(), "mode": mode})

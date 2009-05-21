@@ -40,15 +40,15 @@ class_name = ""
 class QtUiFileHandler(object):
     members = set()
     buffers = []
-    
+
     tag_entry_handlers = {}
     tag_exit_handlers = {}
-    
+
     stack = []
     class_handlers = {}
     layout_handlers = {}
     item_attrs = None
-    
+
     main_container = None
 
     def __init__(self, js_file_name):
@@ -56,8 +56,8 @@ class QtUiFileHandler(object):
         self.buffers.append(self.buffer)
         self.xmltext_handler = None
         self.js_file = open(js_file_name, 'w')
-              
-        self.tag_entry_handlers["property"] = self.property_entry  
+
+        self.tag_entry_handlers["property"] = self.property_entry
         self.tag_exit_handlers["property"] = self.property_exit
         self.tag_entry_handlers["attribute"] = self.property_entry
         self.tag_exit_handlers["attribute"] = self.property_exit
@@ -67,7 +67,7 @@ class QtUiFileHandler(object):
 
         self.tag_entry_handlers["widget"] = self.widget_entry
         self.tag_exit_handlers["widget"] = self.widget_exit
-        
+
         self.tag_entry_handlers["layout"] = self.layout_entry
         self.tag_exit_handlers["layout"] = self.layout_exit
 
@@ -81,11 +81,11 @@ class QtUiFileHandler(object):
         self.tag_exit_handlers["ui"] = self.ui_exit
 
         # widget definitions
-        self.layout_handlers["QVBoxLayout"] = QVBoxLayout 
+        self.layout_handlers["QVBoxLayout"] = QVBoxLayout
         self.layout_handlers["QHBoxLayout"] = QHBoxLayout
         self.layout_handlers["QGridLayout"] = QGridLayout
         self.layout_handlers["QFormLayout"] = QFormLayout
-        
+
         self.class_handlers["QScrollArea"] = QScrollArea
         self.class_handlers["QTabWidget"] = QTabWidget
         self.class_handlers["QToolBar"] = QToolBar
@@ -93,15 +93,15 @@ class QtUiFileHandler(object):
         self.class_handlers["QMainWindow"] = QMainWindow
         self.class_handlers["QWidget"] = QWidget
         self.class_handlers["QFrame"] = QWidget
-        
+
         self.class_handlers["QDateTimeEdit"] = NoQooxdooEquivalent
         self.class_handlers["QTimeEdit"] = NoQooxdooEquivalent
-        
-        self.class_handlers["QGraphicsView"] = QWidget   
-        
+
+        self.class_handlers["QGraphicsView"] = QWidget
+
         self.class_handlers["QTableWidget"] = QTableWidget
         self.class_handlers["QListWidget"] = QListWidget
-        
+
         self.class_handlers["QRadioButton"] = QRadioButton
         self.class_handlers["QPushButton"] = QPushButton
         self.class_handlers["QDateEdit"] = QDateEdit
@@ -129,7 +129,7 @@ class QtUiFileHandler(object):
 
     def property_entry(self, attrs):
         self.stack[-1].set_current_property(attrs.get("name"))
-        
+
     def widget_entry(self, attrs):
         self.__widget_entry(attrs.get("class"), attrs.get("name"))
 
@@ -149,7 +149,7 @@ class QtUiFileHandler(object):
             class_handler = self.class_handlers[class_name]
 
         tmp = class_handler(self,name,class_name)
-        
+
         if self.main_container == None:
             self.main_container = tmp
 
@@ -175,13 +175,13 @@ class QtUiFileHandler(object):
 
         else:
             self.stack[-1].implicit = False
-        
-        self.stack[-1].set_layout(layout)        
-        
+
+        self.stack[-1].set_layout(layout)
+
     def layout_exit(self):
         self.stack[-1].in_layout = False
         self.stack[-1].close()
-        
+
         if self.stack[-1].implicit:
             if not isinstance(self.stack[-1], Dummy):
                 self.stack[-1].layout.close()
@@ -208,7 +208,7 @@ class QtUiFileHandler(object):
 
     def ui_exit(self):
         pass
-    
+
 class QtUiFileParser(sax.ContentHandler, QtUiFileHandler):
     def __init__(self, js_file_name):
         QtUiFileHandler.__init__(self, js_file_name)
@@ -264,14 +264,14 @@ class QtUiFileParser(sax.ContentHandler, QtUiFileHandler):
     def flush_buffers(self):
         self.buffer = []
         self.buffers.append(self.buffer)
-        if not isinstance(self.main_container, QMainWindow): 
+        if not isinstance(self.main_container, QMainWindow):
             self.buffer.append("        this.setWidget(%(self_parent)s);" % {'self_parent': self.main_container.name})
         self.buffer.append("    }")
         self.buffer.append("    ,members : {")
         self.buffer.append(''.join(["        ", "\n        ,".join(self.members)]))
         self.buffer.append("    }")
         self.buffer.append("});")
-        
+
         for b in self.buffers:
             self.js_file.write('\n'.join([bb.encode('utf8') for bb in b]))
             self.js_file.write('\n')
@@ -282,7 +282,7 @@ class QtUiFileParser(sax.ContentHandler, QtUiFileHandler):
 
 def qx_08(ui_file_name, js_file_name, root_namespace):
     global class_name
-    
+
     f = open(js_file_name, 'w')
     class_name = js_file_name[js_file_name.rfind(root_namespace):].replace("//", "/").replace("/", ".")[0:-3]
     print js_file_name
@@ -297,4 +297,4 @@ def qx_08(ui_file_name, js_file_name, root_namespace):
     # Pass a file to be parsed, and pass the handler to be registered
     # to receive SAX events.
     sax.parse(ui_file_name, handler)
-    
+

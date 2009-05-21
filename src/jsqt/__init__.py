@@ -36,7 +36,7 @@ class Base(object):
     class qx_defaults:
         vsize_type = 'Expanding'
         hsize_type = 'Expanding'
-    
+
     def __init__(self, caller, name, class_name):
         # TODO: name validation
         self.children = []
@@ -46,7 +46,7 @@ class Base(object):
         else:
             self.parent = None
 
-        self.inst_line = None    
+        self.inst_line = None
 
         #
         # The three fields here represent:
@@ -59,7 +59,7 @@ class Base(object):
         # a property.
         #
         self.current = [None, None, None]
-        
+
         self.text_handler = None
         self.item_properties = None
 
@@ -67,7 +67,7 @@ class Base(object):
         self.hsize_type = None
         self.vsize_type_property = None
         self.hsize_type_property = None
-    
+
         self.tag_entry_handlers = {}
         self.tag_exit_handlers = {}
         self.xmltext_handlers = {}
@@ -75,14 +75,14 @@ class Base(object):
 
         self.caller = caller
         self.buffer = caller.buffer
-                
+
         self.implicit = False
         self.inst_line = None
 
         self.in_layout = False
 
         self.class_name = class_name
-        
+
         self.display()
         self.js_inst()
         self.init_defaults()
@@ -96,17 +96,17 @@ class Base(object):
 
     def close(self):
         pass
-    
+
     def js_inst(self):
         """
             When called the first time, this function writes the instantiation line.
             When called more than once, it overwrites the previous instantiation. It
-            is useful when a property value in Qt is represented with a different 
+            is useful when a property value in Qt is represented with a different
             widget in Qooxdoo.
         """
         if self.type == None:
             return
-        
+
         js_inst_str = '        this.%(self_name)s = new %(self_type)s(); // %(internal_type)s' % \
             {'self_name': self.name(), 'self_type': self.type, 'internal_type': self.__class__.__name__}
 
@@ -117,17 +117,17 @@ class Base(object):
             self.inst_line = len(self.buffer) - 1
 
         else:
-            self.buffer[self.inst_line] = js_inst_str 
+            self.buffer[self.inst_line] = js_inst_str
 
     def init_defaults(self): # FIXME: should be done introspectively
         self.vsize_type = self.qx_defaults.vsize_type
         self.hsize_type = self.qx_defaults.hsize_type
-        
+
     def bridge_defaults(self):
         if self.vsize_type != self.qt_defaults.vsize_type:
             self.vsize_type = self.qt_defaults.vsize_type
             self.set_vsizepolicy()
-            
+
         if self.hsize_type != self.qt_defaults.hsize_type:
             self.hsize_type = self.qt_defaults.hsize_type
             self.set_hsizepolicy()
@@ -139,7 +139,7 @@ class Base(object):
         self.tag_entry_handlers["datetime"] = self.datetime_entry
         self.tag_exit_handlers["datetime"] = self.datetime_exit
 
-        self.tag_entry_handlers["sizepolicy"] = self.sizepolicy_entry  
+        self.tag_entry_handlers["sizepolicy"] = self.sizepolicy_entry
         self.tag_exit_handlers["sizepolicy"] = self.sizepolicy_exit
 
         self.tag_entry_handlers["size"] = self.size_entry
@@ -168,7 +168,7 @@ class Base(object):
 
         self.tag_entry_handlers["x"] = self.prim_entry
         self.tag_exit_handlers["x"] = self.prim_exit
-        
+
         self.tag_entry_handlers["y"] = self.prim_entry
         self.tag_exit_handlers["y"] = self.prim_exit
 
@@ -183,7 +183,7 @@ class Base(object):
 
         self.tag_entry_handlers["verstretch"] = self.prim_entry
         self.tag_exit_handlers["verstretch"] = self.prim_exit
-        
+
         self.tag_entry_handlers["enum"] = self.prim_entry
         self.tag_exit_handlers["enum"] = self.prim_exit
 
@@ -218,7 +218,7 @@ class Base(object):
         self.xmltext_handlers[("sizeHint", "size", "height")] = self.h_text
 
         self.xmltext_handlers[("minimumSize", "size", "width")] = self.set_minimum_width
-        self.xmltext_handlers[("minimumSize", "size", "height")] = self.set_minimum_height        
+        self.xmltext_handlers[("minimumSize", "size", "height")] = self.set_minimum_height
         self.xmltext_handlers[("maximumSize", "size", "width")] = self.set_maximum_width
         self.xmltext_handlers[("maximumSize", "size", "height")] = self.set_maximum_height
 
@@ -227,16 +227,16 @@ class Base(object):
         self.xmltext_handlers[("rightMargin", None, "number")] = self.set_margin_right
         self.xmltext_handlers[("topMargin", None, "number")] = self.set_margin_top
         self.xmltext_handlers[("margin", None, "number")] = self.set_margin
-        
+
     def get_type(self):
         return self.__class__.__name__
 
     def name(self):
-        return self.__name    
-    
+        return self.__name
+
     def set_current_property(self, name):
         self.current[0] = name
-        
+
     def rect_entry(self, attrs, *args):
         self.current[1] = "rect"
 
@@ -246,26 +246,26 @@ class Base(object):
     def set_vsizepolicy(self):
         if self.vsize_type == 'Fixed':
             self.buffer.append("        this.%(self_name)s.setAllowGrowY(false);" % {'self_name': self.name()})
-        else: 
+        else:
             self.buffer.append("        this.%(self_name)s.setAllowGrowY(true);" % {'self_name': self.name()})
 
     def set_hsizepolicy(self):
         if self.hsize_type == 'Fixed':
             self.buffer.append("        this.%(self_name)s.setAllowGrowX(false);" % {'self_name': self.name()})
-        else: 
+        else:
             self.buffer.append("        this.%(self_name)s.setAllowGrowX(true);" % {'self_name': self.name()})
 
 
     def sizepolicy_entry(self, attrs, *args):
         self.vsize_type = attrs.get("vsizetype")
         self.hsize_type = attrs.get("hsizetype")
-        
+
         self.vsize_type_property = attrs.get("vsizetype")
         self.hsize_type_property = attrs.get("hsizetype")
-        
+
         self.set_vsizepolicy()
         self.set_hsizepolicy()
-        
+
     def sizepolicy_exit(self):
         pass
 
@@ -281,7 +281,7 @@ class Base(object):
 
     def size_exit(self):
         self.current[1] = None
-    
+
 
     def prim_entry(self, attrs, what):
         """ Entry tag handler for the primitive data types """
@@ -310,31 +310,31 @@ class Base(object):
 
     def h_text(self, text, *args):
         self.buffer.append("        this.%(self_name)s.setHeight(%(text)s);" % {'self_name': self.name(), 'text': text})
-        
+
     def set_minimum_width(self, minWidth, *args):
         if int(minWidth) > 0:
             self.buffer.append('        this.%(self_name)s.setMinWidth(%(minWidth)s);' % {'self_name': self.name(), 'minWidth': minWidth})
     def set_minimum_height(self, minHeight, *args):
-        if int(minHeight) > 0:       
-            self.buffer.append('        this.%(self_name)s.setMinHeight(%(minHeight)s);' % {'self_name': self.name(), 'minHeight': minHeight})        
+        if int(minHeight) > 0:
+            self.buffer.append('        this.%(self_name)s.setMinHeight(%(minHeight)s);' % {'self_name': self.name(), 'minHeight': minHeight})
     def set_maximum_width(self, maxWidth, *args):
-        if int(maxWidth) < 16777215:       
+        if int(maxWidth) < 16777215:
             self.buffer.append('        this.%(self_name)s.setMaxWidth(%(maxWidth)s);' % {'self_name': self.name(), 'maxWidth': maxWidth})
     def set_maximum_height(self, maxHeight, *args):
         if int(maxHeight) < 16777215:
-            self.buffer.append('        this.%(self_name)s.setMaxHeight(%(maxHeight)s);' % {'self_name': self.name(), 'maxHeight': maxHeight})        
+            self.buffer.append('        this.%(self_name)s.setMaxHeight(%(maxHeight)s);' % {'self_name': self.name(), 'maxHeight': maxHeight})
 
-    def set_margin_bottom(self, marginBottom, *args):       
+    def set_margin_bottom(self, marginBottom, *args):
         self.buffer.append('        this.%(self_name)s.setMarginBottom(%(marginBottom)s);' % {'self_name': self.name(), 'marginBottom': marginBottom})
-    def set_margin_left(self, marginLeft, *args):       
+    def set_margin_left(self, marginLeft, *args):
         self.buffer.append('        this.%(self_name)s.setMarginLeft(%(marginLeft)s);' % {'self_name': self.name(), 'marginLeft': marginLeft})
-    def set_margin_right(self, marginRight, *args):       
+    def set_margin_right(self, marginRight, *args):
         self.buffer.append('        this.%(self_name)s.setMarginRight(%(marginRight)s);' % {'self_name': self.name(), 'marginRight': marginRight})
-    def set_margin_top(self, marginTop, *args):       
-        self.buffer.append('        this.%(self_name)s.setMarginTop(%(marginTop)s);' % {'self_name': self.name(), 'marginTop': marginTop})        
+    def set_margin_top(self, marginTop, *args):
+        self.buffer.append('        this.%(self_name)s.setMarginTop(%(marginTop)s);' % {'self_name': self.name(), 'marginTop': marginTop})
     def set_margin(self, margin, *args):
         self.buffer.append('        this.%(self_name)s.setMargin(%(margin)s);' % {'self_name': self.name(), 'margin': margin})
-    
+
     def set_geometry_x(self, x):
         self.x = x
     def set_geometry_y(self, y):
@@ -349,17 +349,17 @@ class Class(Base):
     def __init__(self, caller, name, class_name):
         Base.__init__(self, caller, name, class_name)
         self.xmltext_handler = self.__xmltext_handler
-        
+
     def js_type(self):
         pass
-        
+
     def __xmltext_handler(self, text, *args):
         self.buffer.append('qx.Class.define("%(class_name)s", { extend : qx.core.Object ' % { "class_name": self.name() })
         self.buffer.append('    ,properties : {');
         self.buffer.append('        widget : { check : "Object" }');
         self.buffer.append('    }');
         self.buffer.append('    ,construct : function () {');
-    
+
     def add_widget(self, *args, **kwargs):
         pass
 
