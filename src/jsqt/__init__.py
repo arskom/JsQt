@@ -354,7 +354,7 @@ class Class(Base):
         pass
 
     def __xmltext_handler(self, text, *args):
-        self.buffer.append('qx.Class.define("%(class_name)s", { extend : qx.core.Object ' % { "class_name": self.name() })
+        self.buffer.append('qx.Class.define("%(class_name)s", { type : "abstract", extend : qx.core.Object ' % { "class_name": self.name() })
         self.buffer.append('    ,properties : {');
         self.buffer.append('        widget : { check : "Object" }');
         self.buffer.append('    }');
