@@ -3,7 +3,7 @@
 #
 # This file is part of JsQT.
 #
-# Copyright (C) 2009 Arskom Ltd. www.arskom.com.tr
+# Copyright (C) 200JsQt Arskom Ltd. www.arskom.com.tr
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -72,7 +72,6 @@ class QVBoxLayout(Layout):
         Layout.__init__(self, caller, name, class_name)
 
         self.register_handlers()
-        self.buffer.append('        this.%(self_name)s.setSpacing(9);' % {'self_name': self.name()})
 
     def bridge_defaults(self):
         Layout.bridge_defaults(self)

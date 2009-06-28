@@ -1,7 +1,7 @@
 # encoding: utf8
 
 #
-# This file is part of JsQT.
+# This file is part of JsQt.
 #
 # Copyright (C) 2009 Arskom Ltd. www.arskom.com.tr
 #

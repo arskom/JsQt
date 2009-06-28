@@ -1,7 +1,7 @@
 # encoding: utf8
 
 #
-# This file is part of JsQT.
+# This file is part of JsQt.
 #
 # Copyright (C) 2009 Arskom Ltd. www.arskom.com.tr
 #
@@ -328,3 +328,31 @@ class QTableWidget(QAbstractItemView):
         QAbstractItemView.__init__(self, caller, name, class_name)
 
         self.register_handlers()
+        
+    def js_inst(self):
+        """
+            When called the first time, this function writes the instantiation line.
+            When called more than once, it overwrites the previous instantiation. It
+            is useful when a property value in Qt is represented with a different
+            widget in Qooxdoo.
+        """
+        if self.type == None:
+            return
+
+        js_inst_str = '''
+        this.%(self_name)s = new %(self_type)s(null,{
+            tableColumnModel : function(obj) {
+                return new qx.ui.table.columnmodel.Resize(obj);
+            }
+        }); // %(internal_type)s''' % {
+            'self_name': self.name(), 'self_type': self.type, 'internal_type': self.__class__.__name__
+        }
+
+        if self.inst_line == None:
+            self.caller.add_member("%(self_name)s : null" % {'self_name' : self.name()})
+            self.buffer.append('')
+            self.buffer.append(js_inst_str)
+            self.inst_line = len(self.buffer) - 1
+
+        else:
+            self.buffer[self.inst_line] = js_inst_str
