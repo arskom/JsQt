@@ -265,7 +265,7 @@ class QtUiFileParser(sax.ContentHandler, QtUiFileHandler):
         self.buffer = []
         self.buffers.append(self.buffer)
         if not isinstance(self.main_container, QMainWindow):
-            self.buffer.append("        this.setWidget(%(self_parent)s);" % {'self_parent': self.main_container.name})
+            self.buffer.append("        this.setWidget(%(self_parent)s);" % {'self_parent': self.main_container.name()})
         self.buffer.append("    }")
         self.buffer.append("    ,members : {")
         self.buffer.append(''.join(["        ", "\n        ,".join(self.members)]))
