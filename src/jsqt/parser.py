@@ -30,6 +30,13 @@ from jsqt.widgets import *
 from jsqt.layouts import *
 from jsqt import Class, Dummy, NoQooxdooEquivalent
 
+try:
+    from orderedset import OrderedSet
+    JsQtSet=OrderedSet
+except: # < python-2.6
+    JsQtSet=set
+    pass
+
 class_name = ""
 
 #
@@ -38,7 +45,7 @@ class_name = ""
 #
 
 class QtUiFileHandler(object):
-    members = set()
+    members = JsQtSet()
     buffers = []
 
     tag_entry_handlers = {}

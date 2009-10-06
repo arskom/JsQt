@@ -374,7 +374,6 @@ class Dummy(Base):
         pass
 
     def __getattr__(self,attr,default=None):
-        print attr
         pass
 
     set_layout = do_nothing
