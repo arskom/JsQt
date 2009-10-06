@@ -373,6 +373,10 @@ class Dummy(Base):
     def do_nothing(self,*args,**kwargs):
         pass
 
+    def __getattr__(self,attr,default=None):
+        print attr
+        pass
+
     set_layout = do_nothing
     add_widget = do_nothing
 
