@@ -133,100 +133,83 @@ class Base(object):
             self.set_hsizepolicy()
 
     def register_handlers(self):
-        self.tag_entry_handlers["rect"] = self.rect_entry
-        self.tag_exit_handlers["rect"] = self.rect_exit
+        tag_entry_handlers={
+            "rect": self.rect_entry,
+            "datetime": self.datetime_entry,
+            "sizepolicy": self.sizepolicy_entry,
+            "size": self.size_entry,
+            "hour": self.prim_entry,
+            "minute": self.prim_entry,
+            "second": self.prim_entry,
+            "year": self.prim_entry,
+            "month": self.prim_entry,
+            "day": self.prim_entry,
+            "string": self.prim_entry,
+            "x": self.prim_entry,
+            "y": self.prim_entry,
+            "width": self.prim_entry,
+            "height": self.prim_entry,
+            "horstretch": self.prim_entry,
+            "verstretch": self.prim_entry,
+            "enum": self.prim_entry,
+            "set": self.prim_entry,
+            "pointsize": self.prim_entry,
+            "family": self.prim_entry,
+            "weight": self.prim_entry,
+            "bold": self.prim_entry,
+            "bool": self.prim_entry,
+            "number": self.prim_entry,
+        }
 
-        self.tag_entry_handlers["datetime"] = self.datetime_entry
-        self.tag_exit_handlers["datetime"] = self.datetime_exit
-
-        self.tag_entry_handlers["sizepolicy"] = self.sizepolicy_entry
-        self.tag_exit_handlers["sizepolicy"] = self.sizepolicy_exit
-
-        self.tag_entry_handlers["size"] = self.size_entry
-        self.tag_exit_handlers["size"] = self.size_exit
-
-        self.tag_entry_handlers["hour"] = self.prim_entry
-        self.tag_exit_handlers["hour"] = self.prim_exit
-
-        self.tag_entry_handlers["minute"] = self.prim_entry
-        self.tag_exit_handlers["minute"] = self.prim_exit
-
-        self.tag_entry_handlers["second"] = self.prim_entry
-        self.tag_exit_handlers["second"] = self.prim_exit
-
-        self.tag_entry_handlers["year"] = self.prim_entry
-        self.tag_exit_handlers["year"] = self.prim_exit
-
-        self.tag_entry_handlers["month"] = self.prim_entry
-        self.tag_exit_handlers["month"] = self.prim_exit
-
-        self.tag_entry_handlers["day"] = self.prim_entry
-        self.tag_exit_handlers["day"] = self.prim_exit
-
-        self.tag_entry_handlers["string"] = self.prim_entry
-        self.tag_exit_handlers["string"] = self.prim_exit
-
-        self.tag_entry_handlers["x"] = self.prim_entry
-        self.tag_exit_handlers["x"] = self.prim_exit
-
-        self.tag_entry_handlers["y"] = self.prim_entry
-        self.tag_exit_handlers["y"] = self.prim_exit
-
-        self.tag_entry_handlers["width"] = self.prim_entry
-        self.tag_exit_handlers["width"] = self.prim_exit
-
-        self.tag_entry_handlers["height"] = self.prim_entry
-        self.tag_exit_handlers["height"] = self.prim_exit
-
-        self.tag_entry_handlers["horstretch"] = self.prim_entry
-        self.tag_exit_handlers["horstretch"] = self.prim_exit
-
-        self.tag_entry_handlers["verstretch"] = self.prim_entry
-        self.tag_exit_handlers["verstretch"] = self.prim_exit
-
-        self.tag_entry_handlers["enum"] = self.prim_entry
-        self.tag_exit_handlers["enum"] = self.prim_exit
-
-        self.tag_entry_handlers["set"] = self.prim_entry
-        self.tag_exit_handlers["set"] = self.prim_exit
-
-        self.tag_entry_handlers["pointsize"] = self.prim_entry
-        self.tag_exit_handlers["pointsize"] = self.prim_exit
-
-        self.tag_entry_handlers["family"] = self.prim_entry
-        self.tag_exit_handlers["family"] = self.prim_exit
-
-        self.tag_entry_handlers["weight"] = self.prim_entry
-        self.tag_exit_handlers["weight"] = self.prim_exit
-
-        self.tag_entry_handlers["bold"] = self.prim_entry
-        self.tag_exit_handlers["bold"] = self.prim_exit
-
-        self.tag_entry_handlers["bool"] = self.prim_entry
-        self.tag_exit_handlers["bool"] = self.prim_exit
-
-        self.tag_entry_handlers["number"] = self.prim_entry
-        self.tag_exit_handlers["number"] = self.prim_exit
+        self.tag_exit_handlers = {
+            "horstretch": self.prim_exit,
+            "sizepolicy": self.sizepolicy_exit,
+            "datetime": self.datetime_exit,
+            "minute": self.prim_exit,
+            "string": self.prim_exit,
+            "second": self.prim_exit,
+            "height": self.prim_exit,
+            "width": self.prim_exit,
+            "month": self.prim_exit,
+            "hour": self.prim_exit,
+            "rect": self.rect_exit,
+            "size": self.size_exit,
+            "year": self.prim_exit,
+            "day": self.prim_exit,
+            "x": self.prim_exit,
+            "y": self.prim_exit,
+            "number": self.prim_exit,
+            "bool": self.prim_exit,
+            "bold": self.prim_exit,
+            "weight": self.prim_exit,
+            "family": self.prim_exit,
+            "enum": self.prim_exit,
+            "verstretch": self.prim_exit,
+            "set": self.prim_exit,
+            "pointsize": self.prim_exit,
+        }
 
         # property handlers
-        self.xmltext_handlers[("geometry", "rect", "x")] = self.x_text
-        self.xmltext_handlers[("geometry", "rect", "y")] = self.y_text
-        self.xmltext_handlers[("geometry", "rect", "width")] = self.w_text
-        self.xmltext_handlers[("geometry", "rect", "height")] = self.h_text
+        self.xmltext_handlers = {
+            ("geometry", "rect", "x"):  self.x_text,
+            ("geometry", "rect", "y"):  self.y_text,
+            ("geometry", "rect", "width"):  self.w_text,
+            ("geometry", "rect", "height"):  self.h_text,
 
-        self.xmltext_handlers[("sizeHint", "size", "width")] = self.w_text
-        self.xmltext_handlers[("sizeHint", "size", "height")] = self.h_text
+            ("sizeHint", "size", "width"):  self.w_text,
+            ("sizeHint", "size", "height"):  self.h_text,
 
-        self.xmltext_handlers[("minimumSize", "size", "width")] = self.set_minimum_width
-        self.xmltext_handlers[("minimumSize", "size", "height")] = self.set_minimum_height
-        self.xmltext_handlers[("maximumSize", "size", "width")] = self.set_maximum_width
-        self.xmltext_handlers[("maximumSize", "size", "height")] = self.set_maximum_height
+            ("minimumSize", "size", "width"):  self.set_minimum_width,
+            ("minimumSize", "size", "height"):  self.set_minimum_height,
+            ("maximumSize", "size", "width"):  self.set_maximum_width,
+            ("maximumSize", "size", "height"):  self.set_maximum_height,
 
-        self.xmltext_handlers[("bottomMargin", None, "number")] = self.set_margin_bottom
-        self.xmltext_handlers[("leftMargin", None, "number")] = self.set_margin_left
-        self.xmltext_handlers[("rightMargin", None, "number")] = self.set_margin_right
-        self.xmltext_handlers[("topMargin", None, "number")] = self.set_margin_top
-        self.xmltext_handlers[("margin", None, "number")] = self.set_margin
+            ("bottomMargin", None, "number"):  self.set_margin_bottom,
+            ("leftMargin", None, "number"):  self.set_margin_left,
+            ("rightMargin", None, "number"):  self.set_margin_right,
+            ("topMargin", None, "number"):  self.set_margin_top,
+            ("margin", None, "number"):  self.set_margin,
+        }
 
     def get_type(self):
         return self.__class__.__name__

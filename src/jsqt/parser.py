@@ -20,10 +20,42 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
+
+import sys
+
+# http://codespeak.net/lxml/tutorial.html
+
+# the ultra-portable etree import
+try:
+    from lxml import etree
+    print("running with lxml.etree")
+except ImportError:
+    try: # Python 2.5
+        import xml.etree.cElementTree as etree
+        print("running with cElementTree on Python 2.5+")
+    except ImportError:
+        try: # Python 2.5
+            import xml.etree.ElementTree as etree
+            print("running with ElementTree on Python 2.5+")
+        except ImportError:
+            try: # normal cElementTree install
+                import cElementTree as etree
+                print("running with cElementTree")
+            except ImportError:
+                try: # normal ElementTree install
+                    import elementtree.ElementTree as etree
+                    print("running with ElementTree")
+                except ImportError:
+                    print("Failed to import ElementTree from any known place")
+
 import string
-from xml import sax
 
 import jsqt
+import lang
+import lang.il_objects
+import lang.lang_objects
+import lang.dialects
+import lang.dialects.qooxdoo
 
 from jsqt.containers import *
 from jsqt.widgets import *
@@ -38,270 +70,114 @@ except: # < python-2.6
     pass
 
 class_name = ""
+layout_dict = {
+    "QVBoxLayout": QVBoxLayout,
+    "QHBoxLayout": QHBoxLayout,
+    "QGridLayout": QGridLayout,
+    "QFormLayout": QFormLayout,
+}
 
-#
-# This class is where the xml tag and widget handlers are
-# registered.
-#
+widget_dict = {
+    "QScrollArea": QScrollArea,
+    "QTabWidget": QTabWidget,
+    "QToolBar": QToolBar,
 
-class QtUiFileHandler(object):
-    members = JsQtSet()
-    buffers = []
+    "QMainWindow": QMainWindow,
+    "QWidget": QWidget,
+    "QFrame": QWidget,
 
-    tag_entry_handlers = {}
-    tag_exit_handlers = {}
+    "QDateTimeEdit": NoQooxdooEquivalent,
+    "QTimeEdit": NoQooxdooEquivalent,
 
-    stack = []
-    class_handlers = {}
-    layout_handlers = {}
-    item_attrs = None
+    "QGraphicsView": QWidget,
 
-    main_container = None
+    "QTableWidget": QTableWidget,
+    "QListWidget": QListWidget,
 
-    def __init__(self, js_file_name):
-        self.buffer = []
-        self.buffers.append(self.buffer)
-        self.xmltext_handler = None
-        self.js_file = open(js_file_name, 'w')
+    "QRadioButton": QRadioButton,
+    "QPushButton": QPushButton,
+    "QDateEdit": QDateEdit,
+    "QLineEdit": QLineEdit,
+    "QTextEdit": QTextEdit,
+    "QComboBox": QComboBox,
+    "QCheckBox": QCheckBox,
+    "QGroupBox": QGroupBox,
+    "QSpinBox": QSpinBox,
+    "QLabel": QLabel,
 
-        self.tag_entry_handlers["property"] = self.property_entry
-        self.tag_exit_handlers["property"] = self.property_exit
-        self.tag_entry_handlers["attribute"] = self.property_entry
-        self.tag_exit_handlers["attribute"] = self.property_exit
+    "Spacer": Spacer,
+    "Class": Class,
+}
 
-        self.tag_entry_handlers["spacer"] = self.spacer_entry
-        self.tag_exit_handlers["spacer"] = self.spacer_exit
+class UiParser(object):
+    def __init__(self,object_name):
+        if len(object_name) == 0:
+            raise Exception("Empty object_name not allowed")
+        self.custom_widgets = {}
+        self.source = lang.il_objects.Object(object_name)
+        self.lang = []
 
-        self.tag_entry_handlers["widget"] = self.widget_entry
-        self.tag_exit_handlers["widget"] = self.widget_exit
+    def compile(self, dialect):
+        self.source.compile(dialect)
+        
+    def parse(self, file_handle):
+        tree = etree.parse(file_handle)
+        root = tree.getroot()
+        self.handlers[root.tag](self,root)
 
-        self.tag_entry_handlers["layout"] = self.layout_entry
-        self.tag_exit_handlers["layout"] = self.layout_exit
+    def parse_custom_widget(self,element):
+        for tag in elt:
+            print "\t\t",tag
 
-        self.tag_entry_handlers["item"] = self.item_entry
-        self.tag_exit_handlers["item"] = self.item_exit
+    def parse_class(self, elt):
+        print "\tclass name:", elt.text
+        
+    def parse_ui(self,elements):
+        for i in range(len(elements)):
+            if elements[i].tag == 'customwidgets':
+                self.parse_custom_widgets(elements[i])
+                del elements[i]
+                break
 
-        self.tag_entry_handlers["class"] = self.class_entry
-        self.tag_exit_handlers["class"] = self.class_exit
-
-        self.tag_entry_handlers["ui"] = self.ui_entry
-        self.tag_exit_handlers["ui"] = self.ui_exit
-
-        # widget definitions
-        self.layout_handlers["QVBoxLayout"] = QVBoxLayout
-        self.layout_handlers["QHBoxLayout"] = QHBoxLayout
-        self.layout_handlers["QGridLayout"] = QGridLayout
-        self.layout_handlers["QFormLayout"] = QFormLayout
-
-        self.class_handlers["QScrollArea"] = QScrollArea
-        self.class_handlers["QTabWidget"] = QTabWidget
-        self.class_handlers["QToolBar"] = QToolBar
-
-        self.class_handlers["QMainWindow"] = QMainWindow
-        self.class_handlers["QWidget"] = QWidget
-        self.class_handlers["QFrame"] = QWidget
-
-        self.class_handlers["QDateTimeEdit"] = NoQooxdooEquivalent
-        self.class_handlers["QTimeEdit"] = NoQooxdooEquivalent
-
-        self.class_handlers["QGraphicsView"] = QWidget
-
-        self.class_handlers["QTableWidget"] = QTableWidget
-        self.class_handlers["QListWidget"] = QListWidget
-
-        self.class_handlers["QRadioButton"] = QRadioButton
-        self.class_handlers["QPushButton"] = QPushButton
-        self.class_handlers["QDateEdit"] = QDateEdit
-        self.class_handlers["QLineEdit"] = QLineEdit
-        self.class_handlers["QTextEdit"] = QTextEdit
-        self.class_handlers["QComboBox"] = QComboBox
-        self.class_handlers["QCheckBox"] = QCheckBox
-        self.class_handlers["QGroupBox"] = QGroupBox
-        self.class_handlers["QSpinBox"] = QSpinBox
-        self.class_handlers["QLabel"] = QLabel
-
-        self.class_handlers["Spacer"] = Spacer
-        self.class_handlers["Class"] = Class
-
-    def ui_entry(self, attrs):
-        self.buffer.append("")
-        self.buffer.append("/*")
-        self.buffer.append(" * This class is generated by JsQt-%s. If you'd like to make changes to it," % jsqt.version)
-        self.buffer.append(" * you should probably extend it.")
-        self.buffer.append(" */")
-        self.buffer.append("")
-
-    def class_entry(self, attrs):
-        self.stack.append(Class(self, class_name, "Class"))
-
-    def property_entry(self, attrs):
-        self.stack[-1].set_current_property(attrs.get("name"))
-
-    def widget_entry(self, attrs):
-        self.__widget_entry(attrs.get("class"), attrs.get("name"))
-
-    def item_entry(self, attrs):
-        self.item_attrs = attrs
-
-    def item_exit(self):
-        self.item_attrs = None
-
-    def spacer_entry(self, attrs):
-        self.__widget_entry("Spacer", attrs.get("name"))
-
-    def __widget_entry(self, class_name, name):
-        if not self.class_handlers.has_key(class_name):
-            class_handler = Dummy
-        else:
-            class_handler = self.class_handlers[class_name]
-
-        tmp = class_handler(self,name,class_name)
-
-        if self.main_container == None:
-            self.main_container = tmp
-
-        tmp.item_properties = self.item_attrs
-        self.stack.append(tmp)
-
-    def layout_entry(self, attrs):
-        layout_name = attrs.get("class")
-        if self.layout_handlers.has_key(layout_name):
-            layout = self.layout_handlers[layout_name](self, attrs.get("name"))
-        else:
-            layout = None
-
-        if self.stack[-1].layout != None:
-            if layout == None:
-                self.stack.append(Dummy(self, attrs.get("name") + "_absorber", layout_name))
-                self.stack[-1].implicit = True
-                self.stack[-1].item_properties = self.item_attrs
+        for elt in elements:
+            if elt.tag in self.handlers:
+                self.handlers[elt.tag](self,elt)
             else:
-                self.stack.append(QWidget(self, attrs.get("name") + "_implicit_container"))
-                self.stack[-1].implicit = True
-                self.stack[-1].item_properties = self.item_attrs
+                self.parse_unknown_tag(elt)
 
-        else:
-            self.stack[-1].implicit = False
+    def parse_widget(self, elements):
+        for elt in elements:
+            print elt.tag
 
-        self.stack[-1].set_layout(layout)
+    def parse_custom_widgets(self,element):
+        for elt in element:
+            pass
 
-    def layout_exit(self):
-        self.stack[-1].in_layout = False
-        self.stack[-1].close()
+    def parse_unknown_tag(self,elt):
+        self.source.ctor.add_statement(lang.il_objects.Comment("WARNING: '%s' tag is not supported" % elt.tag))
 
-        if self.stack[-1].implicit:
-            if not isinstance(self.stack[-1], Dummy):
-                self.stack[-1].layout.close()
-                self.stack[-1].parent.add_widget(self.stack[-1])
-            self.stack.pop()
-
-    def property_exit(self):
-        self.stack[-1].set_current_property(None)
-
-    def widget_exit(self):
-        if len(self.stack) == 0:
-            return
-        elif self.stack[-1].parent != None:
-            self.stack[-1].parent.add_widget(self.stack[-1])
-
-        self.stack[-1].close()
-        self.stack.pop()
-
-    def spacer_exit(self):
-        self.widget_exit()
-
-    def class_exit(self):
-        self.stack.pop()
-
-    def ui_exit(self):
-        pass
-
-class QtUiFileParser(sax.ContentHandler, QtUiFileHandler):
-    def __init__(self, js_file_name):
-        QtUiFileHandler.__init__(self, js_file_name)
-
-    def startDocument(self):
-        pass
-
-    def startElement(self, name, attributes):
-        if not self.tag_entry_handlers.has_key(name):
-            if len(self.stack)> 0 and self.stack[-1].tag_entry_handlers.has_key(name):
-                self.stack[-1].tag_entry_handlers[name](attributes, name)
-            else:
-                self.buffer.append("        // WARNING: %s entry is ignored" % name)
-
-        else:
-            self.tag_entry_handlers[name](attributes)
-
-    def endElement(self, name):
-        if not self.tag_exit_handlers.has_key(name):
-            if len(self.stack) > 0 and self.stack[-1].tag_exit_handlers.has_key(name):
-                self.stack[-1].tag_exit_handlers[name]()
-            else:
-                self.buffer.append("        // WARNING: %s exit is ignored" % name)
-        else:
-            self.tag_exit_handlers[name]()
-
-    def characters(self, text):
-        if text.isspace():
-            return
-        if len(self.stack) > 0:
-            if self.stack[-1].xmltext_handler == None:
-                if self.stack[-1].in_layout:
-                    if self.stack[-1].layout.xmltext_handler != None:
-                        print "\t\t",tuple(self.stack[-1].current),"is", text
-                        self.stack[-1].layout.xmltext_handler(text, tuple(self.stack[-1].current))
-                    else:
-                        print "\t\t",tuple(self.stack[-1].current),"is", text, "(ignored)"
-                        self.buffer.append("        // WARNING: %s: property text (%s) ignored" % (str(tuple(self.stack[-1].layout.current)), text))
-                else:
-                    if not isinstance(self.stack[-1], Dummy):
-                        print "\t\t",tuple(self.stack[-1].current),"is", text, "(ignored)"
-                        self.buffer.append("        // WARNING: %s: property text (%s) ignored" % (str(tuple(self.stack[-1].current)), text))
-            else:
-                print "\t\t",tuple(self.stack[-1].current),"is", text
-                self.stack[-1].xmltext_handler(text, tuple(self.stack[-1].current))
-
-    def endDocument(self):
-        self.flush_buffers()
-
-    def add_member(self, what):
-        self.members.add(what)
-
-    def flush_buffers(self):
-        self.buffer = []
-        self.buffers.append(self.buffer)
-        if not isinstance(self.main_container, QMainWindow):
-            self.buffer.append("        this.setWidget(%(self_parent)s);" % {'self_parent': self.main_container.name()})
-        self.buffer.append("    }")
-        self.buffer.append("    ,members : {")
-        self.buffer.append(''.join(["        ", "\n        ,".join(self.members)]))
-        self.buffer.append("    }")
-        self.buffer.append("});")
-
-        for b in self.buffers:
-            self.js_file.write('\n'.join([bb.encode('utf8') for bb in b]))
-            self.js_file.write('\n')
-
-        self.js_file.close()
-        del self.buffer[:]
-        del self.buffers[:]
+    def to_stream(self,os=sys.stdout):
+        self.source.to_stream(os)
+        
+    handlers = {
+        'ui': parse_ui,
+        'class': parse_class,
+        'customwidgets': parse_custom_widgets,
+    }
 
 def qx_08(ui_file_name, js_file_name, root_namespace):
-    global class_name
+    print ui_file_name
 
-    f = open(js_file_name, 'w')
-    class_name = js_file_name[js_file_name.rfind(root_namespace):].replace("//", "/").replace("/", ".")[0:-3]
-    print js_file_name
+    if js_file_name.rfind(root_namespace) == -1:
+        raise Exception("root_namespace '%s' not found in class name '%s'" % (
+                root_namespace, js_file_name))
 
-    # Create a new parser instance, using the default XML engine SAX provides
-    parser = sax.make_parser()
+    object_name = js_file_name[js_file_name.rfind(root_namespace):].replace("//", "/").replace("/", ".")[0:-3]
+    parser=UiParser(object_name)
+    parser.parse(ui_file_name)
+    parser.compile(lang.dialects.qooxdoo.v0_8_3())
 
-    # Create an instance of our handler class, which will be registered
-    # to receive SAX events
-    handler = QtUiFileParser(js_file_name)
 
-    # Pass a file to be parsed, and pass the handler to be registered
-    # to receive SAX events.
-    sax.parse(ui_file_name, handler)
-
+    f=open(js_file_name, 'w')
+    parser.to_stream(f)
+    f.close()
