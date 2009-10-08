@@ -1,9 +1,6 @@
 
-from UserList import UserList
-
 import sys
-
-import lang_objects
+from jsqt import TypedList
 
 class Comment(object):
     def __init__(self, comment):
@@ -27,17 +24,6 @@ class Function(object):
             for l in s.compile(dialect):
                 yield l
 
-class TypedList(UserList):
-
-    def __init__(self):
-        UserList.__init__(self)
-
-    def append(self, x):
-        if not hasattr(x, 'to_stream'):
-            raise TypeError, 'TypedList: can only add objects with a to_stream callable'
-
-        self.data.append(x)
-
 class Object(object):
     def __init__(self,name):
         if len(name) == 0:
@@ -47,7 +33,7 @@ class Object(object):
         self.ctor = Function()
         self.dtor = Function()
         self.name = name
-        self.lang = TypedList()
+        self.lang = TypedList(['to_stream'])
 
     def set_member(self, key, val):
         self.members[key]=val

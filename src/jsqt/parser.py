@@ -53,7 +53,6 @@ import string
 import jsqt
 import lang
 import lang.il_objects
-import lang.lang_objects
 import lang.dialects
 import lang.dialects.qooxdoo
 
@@ -165,7 +164,7 @@ class UiParser(object):
         'customwidgets': parse_custom_widgets,
     }
 
-def qx_08(ui_file_name, js_file_name, root_namespace):
+def compile(ui_file_name, js_file_name, root_namespace):
     print ui_file_name
 
     if js_file_name.rfind(root_namespace) == -1:
@@ -176,7 +175,6 @@ def qx_08(ui_file_name, js_file_name, root_namespace):
     parser=UiParser(object_name)
     parser.parse(ui_file_name)
     parser.compile(lang.dialects.qooxdoo.v0_8_3())
-
 
     f=open(js_file_name, 'w')
     parser.to_stream(f)

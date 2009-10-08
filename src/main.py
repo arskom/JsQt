@@ -26,7 +26,7 @@ import sys
 import stat
 
 import jsqt
-from jsqt.parser import qx_08
+from jsqt.parser import compile
 
 def walktree (top = ".", depthfirst = False):
     names = os.listdir(top)
@@ -67,8 +67,8 @@ def main(argv):
                             os.makedirs(os.path.dirname(js_file_name))
                         except OSError,e:
                             pass
-                    
-                        qx_08(ui_file_name, js_file_name, root_namespace)
+
+                        compile(ui_file_name, js_file_name, root_namespace)
         else:
             usage()
             print '       First argument must be a directory!'

@@ -27,6 +27,27 @@ JsQt %s
 %s
 """ % (version, copyright)
 
+from UserList import UserList
+
+class TypedList(UserList):
+
+    def __init__(self,attr_list):
+        UserList.__init__(self)
+        for a in attr_list:
+            if type(a) != str:
+                raise Exception("""TypedList accepts only an iterable of strings
+
+                """)
+
+        self.__attr_list = attr_list
+
+    def append(self, x):
+        for a in self.__attr_list:
+            if not hasattr(x, a):
+                raise TypeError, 'TypedList should have objects with a "%s" member' % a
+
+        self.data.append(x)
+
 class Base(object):
     type = None
     class qt_defaults:
