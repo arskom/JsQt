@@ -27,26 +27,50 @@ JsQt %s
 %s
 """ % (version, copyright)
 
-from UserList import UserList
-
-class TypedList(UserList):
-
+class DuckTypedList(list):
+    """
+        Not exactly duck typing, but it comes close.
+    """
     def __init__(self,attr_list):
-        UserList.__init__(self)
         for a in attr_list:
-            if type(a) != str:
-                raise Exception("""TypedList accepts only an iterable of strings
-
-                """)
+            if not isinstance(a,str):
+                raise Exception("""DuckTypedList accepts only an iterable of str instances""")
 
         self.__attr_list = attr_list
 
-    def append(self, x):
+    def append(self, v):
         for a in self.__attr_list:
-            if not hasattr(x, a):
-                raise TypeError, 'TypedList should have objects with a "%s" member' % a
+            if not hasattr(v, a):
+                raise TypeError('TypedList should have objects with a "%s" member\n' % a +
+                                 "The '%s' type doesn't conform to this." % type(v))
 
-        self.data.append(x)
+        list.append(self,v)
+
+    def __setitem__(self, k, v):
+        for a in self.__attr_list:
+            if not hasattr(v, a):
+                raise TypeError, 'This DuckTypedList instance requires objects to have a "%s" member' % a
+
+        list.__setitem__(self,k,v)
+
+class DuckTypedDict(dict):
+    """
+        Not exactly duck typing, but it comes close.
+    """
+    def __init__(self,attr_list):
+        for a in attr_list:
+            if not isinstance(a,str):
+                raise Exception("""DuckTypedDict accepts only an iterable of str instances""")
+
+        self.__attr_list = attr_list
+
+    def __setitem__(self, k, v):
+        for a in self.__attr_list:
+            if not hasattr(v, a):
+                raise TypeError('This DuckTypedDict instance requires objects to have a "%s" member\n' % a +
+                                 "The '%s' type doesn't conform to this." % type(v))
+
+        dict.__setitem__(self,k,v)
 
 class Base(object):
     type = None

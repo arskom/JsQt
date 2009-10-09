@@ -22,6 +22,7 @@
 
 
 import sys
+from jsqt import DuckTypedList
 
 # http://codespeak.net/lxml/tutorial.html
 
@@ -30,11 +31,11 @@ try:
     from lxml import etree
     print("running with lxml.etree")
 except ImportError:
-    try: # Python 2.5
+    try: # Python 2.5+
         import xml.etree.cElementTree as etree
         print("running with cElementTree on Python 2.5+")
     except ImportError:
-        try: # Python 2.5
+        try: # Python 2.5+
             import xml.etree.ElementTree as etree
             print("running with ElementTree on Python 2.5+")
         except ImportError:
@@ -48,18 +49,15 @@ except ImportError:
                 except ImportError:
                     print("Failed to import ElementTree from any known place")
 
-import string
-
-import jsqt
-import lang
-import lang.il_objects
-import lang.dialects
-import lang.dialects.qooxdoo
+import il_objects
+import il_objects.lang
+import il_objects.containers
+import il_objects.qtcore
 
 from jsqt.containers import *
 from jsqt.widgets import *
 from jsqt.layouts import *
-from jsqt import Class, Dummy, NoQooxdooEquivalent
+from jsqt import Class, NoQooxdooEquivalent
 
 try:
     from orderedset import OrderedSet
@@ -81,8 +79,8 @@ widget_dict = {
     "QTabWidget": QTabWidget,
     "QToolBar": QToolBar,
 
-    "QMainWindow": QMainWindow,
-    "QWidget": QWidget,
+    "QMainWindow": il_objects.containers.QMainWindow,
+    "QWidget": il_objects.qtcore.QWidget,
     "QFrame": QWidget,
 
     "QDateTimeEdit": NoQooxdooEquivalent,
@@ -108,16 +106,26 @@ widget_dict = {
     "Class": Class,
 }
 
+class CodeBlocks(DuckTypedList):
+    def __init__(self):
+        DuckTypedList.__init__(self,['to_stream'])
+
+    def to_stream(self, os=sys.stdout):
+        for l in self:
+            l.to_stream(os)
+
+
 class UiParser(object):
     def __init__(self,object_name):
         if len(object_name) == 0:
             raise Exception("Empty object_name not allowed")
         self.custom_widgets = {}
-        self.source = lang.il_objects.Object(object_name)
-        self.lang = []
+        self.clazz = il_objects.lang.ClassDefinition(object_name)
+        self.lang = CodeBlocks()
 
     def compile(self, dialect):
-        self.source.compile(dialect)
+        for l in self.clazz.compile(dialect):
+            self.lang.append(l)
         
     def parse(self, file_handle):
         tree = etree.parse(file_handle)
@@ -129,9 +137,10 @@ class UiParser(object):
             print "\t\t",tag
 
     def parse_class(self, elt):
-        print "\tclass name:", elt.text
+        print "\tclass:", elt.text
         
     def parse_ui(self,elements):
+        # <customwidgets> tag needs to be parsed first
         for i in range(len(elements)):
             if elements[i].tag == 'customwidgets':
                 self.parse_custom_widgets(elements[i])
@@ -144,23 +153,25 @@ class UiParser(object):
             else:
                 self.parse_unknown_tag(elt)
 
-    def parse_widget(self, elements):
-        for elt in elements:
-            print elt.tag
+    def __get_instance(self, elt):
+        return 
 
-    def parse_custom_widgets(self,element):
-        for elt in element:
-            pass
+    def parse_widget(self, elt):
+        global widget_dict
+
+        instance = widget_dict[elt.attrib['class']](elt)
+        self.clazz.set_member(elt.attrib['name'], instance)
+
+    def parse_custom_widgets(self,elt):
+        self.clazz.ctor.add_statement(il_objects.lang.Comment("WARNING: '%s' tag is not supported" % elt.tag))
 
     def parse_unknown_tag(self,elt):
-        self.source.ctor.add_statement(lang.il_objects.Comment("WARNING: '%s' tag is not supported" % elt.tag))
+        self.clazz.ctor.add_statement(il_objects.lang.Comment("WARNING: '%s' tag is not supported" % elt.tag))
 
-    def to_stream(self,os=sys.stdout):
-        self.source.to_stream(os)
-        
     handlers = {
         'ui': parse_ui,
         'class': parse_class,
+        'widget': parse_widget,
         'customwidgets': parse_custom_widgets,
     }
 
@@ -174,8 +185,9 @@ def compile(ui_file_name, js_file_name, root_namespace):
     object_name = js_file_name[js_file_name.rfind(root_namespace):].replace("//", "/").replace("/", ".")[0:-3]
     parser=UiParser(object_name)
     parser.parse(ui_file_name)
-    parser.compile(lang.dialects.qooxdoo.v0_8_3())
+    parser.clazz.compile('qooxdoo-0.8.3')
 
     f=open(js_file_name, 'w')
-    parser.to_stream(f)
+    parser.clazz.to_stream(f)
     f.close()
+

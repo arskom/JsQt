@@ -102,26 +102,6 @@ class QGroupBox(Container):
     def set_legend(self, text, *args):
         self.buffer.append('        this.%(self_name)s.setLegend("%(text)s");' % {'self_name': self.name(), 'text': text})
 
-class QMainWindow(Container):
-    def __init__(self, caller, name, class_name=""):
-        Container.__init__(self, caller, name, class_name)
-
-        self.register_handlers()
-
-    def w_text(self, text, *args):
-        pass
-
-    def h_text(self, text, *args):
-        pass
-
-    def js_inst(self):
-        self.buffer.append('        this.%(self_name)s = new qx.ui.container.Composite(); // QMainWindow' % {'self_name': self.name()})
-        self.caller.members.add("%(self_name)s : null" % {'self_name' : self.name()})
-        self.buffer.append('        this.setWidget(this.%(self_name)s);' % {'self_name': self.name()})
-        self.set_layout(QVBoxLayout(self.caller, "__cnt_v"))
-        self.buffer.append('')
-
-
 class QToolBar(Container):
     def __init__(self, caller, name, class_name=""):
         self.type = "qx.ui.toolbar.ToolBar"

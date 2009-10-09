@@ -54,8 +54,13 @@ def main(argv):
 
     print "cwd:",os.getcwd()
 
+
     if len(argv) == 4:
         if os.path.isdir(argv[1]):
+            if not argv[1].endswith('/'):
+                argv[1]+='/'
+            if not argv[2].endswith('/'):
+                argv[2]+='/'
             for (basepath, children) in walktree(argv[1]):
                 for c in children:
                     if c[-3:] == '.ui':
