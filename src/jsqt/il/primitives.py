@@ -21,11 +21,16 @@
 #
 
 import sys
-from jsqt import DuckTypedList
+from jsqt import DuckTypedList, DuckTypedDict
 
-from jsqt.dialects import javascript
+from jsqt.lang_objects import javascript
 
-class SinglePartCompilable(object):
+class Compilable(object):
+    def set_parent(self, parent):
+        self.parent = parent
+        #print "\t == parent: ", parent
+
+class SinglePartCompilable(Compilable):
     """
     Objects that can be compiled into one language element
     """
@@ -42,7 +47,7 @@ class SinglePartCompilable(object):
 
         raise Exception("Please override for class '%s.%s'" % (self.__module__,self.__class__.__name__))
 
-class MultiPartCompilable(object):
+class MultiPartCompilable(Compilable):
     """
     Objects that require modifications to multiple parts of the object.
     """
@@ -62,6 +67,24 @@ class MultiPartCompilable(object):
         """
 
         raise Exception("Please override for class '%s.%s'" % (self.__module__,self.__class__.__name__))
+
+class ObjectReference(SinglePartCompilable):
+    def __init__(self, object_name):
+        if len(object_name) ==0:
+            raise Exception("Empty object name not allowed")
+        self.__object_name = object_name
+
+    def compile(self, dialect):
+        return javascript.ObjectReference(self.__object_name)
+
+class Instantiation(object):
+    def __init__(self, class_name):
+        if len(class_name) ==0:
+            raise Exception("Empty class name not allowed")
+        self.__class_name = class_name
+
+    def compile(self, dialect):
+        return javascript.Instantiation(self.__class_name)
 
 class Comment(SinglePartCompilable):
     def __init__(self, comment):
@@ -86,21 +109,59 @@ class Assignment(SinglePartCompilable):
         self.__right = right
 
     def compile(self, dialect):
-        return javascript.Assignment(self.__left, self.__right)
+        return javascript.Assignment(self.__left.compile(dialect),
+                                     self.__right.compile(dialect))
+
+class FunctionCall(object):
+    def __init__(self, function_name):
+        self.__function_name = function_name
+        self.__arguments = DuckTypedList(['to_stream'])
+
+    def add_argument(self, argument):
+        self.__arguments.append(argument)
+
+    def compile(self, dialect):
+        return javascript.FunctionCall(self.__function_name, self.__arguments)
+
 
 class FunctionDefinition(SinglePartCompilable):
-    def __init__(self, name=''):
+    def __init__(self, name):
         SinglePartCompilable.__init__(self)
         
-        self.source = DuckTypedList(['compile'])
+        self._source = DuckTypedList(['compile'])
         self.name = name
 
-    def add_statement(self, what):
-        self.source.append(what)
+    def add_statement(self, st):
+        self._source.append(st)
+
+    def insert_statement(self, pos, st):
+        self._source.insert(pos, st)
 
     def compile(self, dialect):
         retval = javascript.FunctionDefinition(self.name)
         for st in self.source:
+            retval.add_statement(st.compile(dialect))
+
+        return retval
+
+class ConstructorDefinition(FunctionDefinition):
+    def __init__(self,class_name):
+        FunctionDefinition.__init__(self,class_name)
+
+    def compile(self, dialect):
+        retval = javascript.FunctionDefinition("")
+        for st in self._source:
+            retval.add_statement(st.compile(dialect))
+
+        return retval
+
+class DestructorDefinition(FunctionDefinition):
+    def __init__(self,class_name):
+        FunctionDefinition.__init__(self,class_name)
+
+    def compile(self, dialect):
+        retval = javascript.FunctionDefinition("")
+        for st in self._source:
             retval.add_statement(st.compile(dialect))
 
         return retval
@@ -111,11 +172,13 @@ class ClassDefinition(SinglePartCompilable):
 
         if len(name) == 0:
             raise Exception("Empty name not allowed")
-        self.members = {}
-        self.statics = {}
-        self.ctor = FunctionDefinition()
-        self.dtor = FunctionDefinition()
         self.name = name
+
+        self.members = DuckTypedDict(['compile'])
+        self.statics = DuckTypedDict(['compile'])
+        self.ctor = ConstructorDefinition(self.name)
+        self.dtor = DestructorDefinition(self.name)
+        self.preamble = DuckTypedList(['compile'])
         self.base_class = None
 
     def set_member(self, key, val):
@@ -137,17 +200,24 @@ class ClassDefinition(SinglePartCompilable):
         else:
             base_class = self.base_class
 
-        class_dict = javascript.Object()
-        class_dict.set_member("extends", base_class)
-
-        class_dict.set_member("construct", self.ctor.compile(dialect))
-        class_dict.set_member("destruct", self.dtor.compile(dialect))
-
         class_members = javascript.Object()
         for k,v in self.members.items():
-            v.compile(dialect,self)
+            if isinstance(v, MultiPartCompilable):
+                v.compile(dialect,self)
 
+        for k,v in self.members.items():
+            if isinstance(v, SinglePartCompilable):
+                class_members.set_member(k,v.compile(dialect))
+
+        st = FunctionCall('this.base')
+        st.add_argument(javascript.ObjectReference('arguments'))
+        self.ctor.insert_statement(0,st)
+
+        class_dict = javascript.Object()
         class_dict.set_member("members", class_members)
+        class_dict.set_member("extends", base_class)
+        class_dict.set_member("construct", self.ctor.compile(dialect))
+        class_dict.set_member("destruct", self.dtor.compile(dialect))
 
         self.lang.add_argument(class_dict)
 

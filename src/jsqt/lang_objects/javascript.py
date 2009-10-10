@@ -95,9 +95,9 @@ class Object(object):
         os.write("}")
 
 class FunctionCall(object):
-    def __init__(self, function_name):
+    def __init__(self, function_name, arguments=[]):
         self.__function_name = function_name
-        self.__arguments = DuckTypedList(['to_stream'])
+        self.__arguments = DuckTypedList(['to_stream'],arguments)
 
     def add_argument(self, argument):
         self.__arguments.append(argument)

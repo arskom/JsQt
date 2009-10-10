@@ -20,11 +20,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
-from qtcore import QWidget
-from lang import MultiPartCompilable
 import sys
-from jsqt.dialects import javascript
-from jsqt.il_objects import lang
+
+from jsqt import il
+from jsqt.il.qtcore import QWidget
+from jsqt.il.primitives import MultiPartCompilable
 
 class QMainWindow(QWidget, MultiPartCompilable):
     def __init__(self, elt):
@@ -32,11 +32,15 @@ class QMainWindow(QWidget, MultiPartCompilable):
         self.name = elt.attrib['name']
 
     def compile(self, dialect, ret=None):
-        st = lang.Assignment()
-        st.set_left(javascript.ObjectReference('this.%s' % self.name))
-        st.set_right(javascript.Instantiation('qx.ui.container.Composite'))
+        st = il.primitives.Assignment()
+        st.set_left(il.primitives.ObjectReference('this.%s' % self.name))
+        st.set_right(il.primitives.Instantiation('qx.ui.container.Composite'))
 
         ret.ctor.add_statement(st)
+        ret.members[self.name] = il.primitives.ObjectReference('null')
+
+        ret.set_member(self.name,il.primitives.ObjectReference('null'))
+
 
 
 

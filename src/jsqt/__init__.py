@@ -31,12 +31,19 @@ class DuckTypedList(list):
     """
         Not exactly duck typing, but it comes close.
     """
-    def __init__(self,attr_list):
+    def __init__(self,attr_list, data=[]):
         for a in attr_list:
             if not isinstance(a,str):
                 raise Exception("""DuckTypedList accepts only an iterable of str instances""")
 
         self.__attr_list = attr_list
+
+        for i in range(len(data)):
+            try:
+                self.append(data[i])
+            except TypeError,e:
+                raise TypeError("%s\nIn the element no %d of the incoming data" % (e.args[0],i))
+
 
     def append(self, v):
         for a in self.__attr_list:

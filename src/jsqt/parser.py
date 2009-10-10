@@ -49,10 +49,10 @@ except ImportError:
                 except ImportError:
                     print("Failed to import ElementTree from any known place")
 
-import il_objects
-import il_objects.lang
-import il_objects.containers
-import il_objects.qtcore
+import il
+import il.primitives
+import il.containers
+import il.qtcore
 
 from jsqt.containers import *
 from jsqt.widgets import *
@@ -79,8 +79,8 @@ widget_dict = {
     "QTabWidget": QTabWidget,
     "QToolBar": QToolBar,
 
-    "QMainWindow": il_objects.containers.QMainWindow,
-    "QWidget": il_objects.qtcore.QWidget,
+    "QMainWindow": il.containers.QMainWindow,
+    "QWidget": il.qtcore.QWidget,
     "QFrame": QWidget,
 
     "QDateTimeEdit": NoQooxdooEquivalent,
@@ -120,7 +120,7 @@ class UiParser(object):
         if len(object_name) == 0:
             raise Exception("Empty object_name not allowed")
         self.custom_widgets = {}
-        self.clazz = il_objects.lang.ClassDefinition(object_name)
+        self.clazz = il.primitives.ClassDefinition(object_name)
         self.lang = CodeBlocks()
 
     def compile(self, dialect):
@@ -163,10 +163,10 @@ class UiParser(object):
         self.clazz.set_member(elt.attrib['name'], instance)
 
     def parse_custom_widgets(self,elt):
-        self.clazz.ctor.add_statement(il_objects.lang.Comment("WARNING: '%s' tag is not supported" % elt.tag))
+        self.clazz.preamble.append(il.primitives.Comment("WARNING: '%s' tag is not supported" % elt.tag))
 
     def parse_unknown_tag(self,elt):
-        self.clazz.ctor.add_statement(il_objects.lang.Comment("WARNING: '%s' tag is not supported" % elt.tag))
+        self.clazz.preamble.append(il.primitives.Comment("WARNING: '%s' tag is not supported" % elt.tag))
 
     handlers = {
         'ui': parse_ui,
