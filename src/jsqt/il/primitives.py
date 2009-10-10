@@ -215,7 +215,7 @@ class ClassDefinition(SinglePartCompilable):
 
         class_dict = javascript.Object()
         class_dict.set_member("members", class_members)
-        class_dict.set_member("extends", base_class)
+        class_dict.set_member("extend", base_class)
         class_dict.set_member("construct", self.ctor.compile(dialect))
         class_dict.set_member("destruct", self.dtor.compile(dialect))
 
