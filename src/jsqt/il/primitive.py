@@ -21,6 +21,8 @@
 #
 
 import sys
+import StringIO
+
 from jsqt import DuckTypedList, DuckTypedDict
 
 from jsqt.lang_objects import javascript
@@ -73,6 +75,8 @@ class ObjectReference(SinglePartCompilable):
             raise Exception("Empty object name not allowed")
         self.__object_name = object_name
 
+    def __repr__(self):
+        return "<il.ObjectReference(%s)>" % self.__object_name
     def compile(self, dialect):
         return javascript.ObjectReference(self.__object_name)
 
@@ -118,6 +122,9 @@ class FunctionCall(object):
 
     def add_argument(self, argument):
         self.__arguments.append(argument)
+
+    def __repr__(self):
+        return '<il.FunctionCall("%s", %s)>' %(self.__function_name, self.__arguments)
 
     def compile(self, dialect):
         return javascript.FunctionCall(self.__function_name, [a.compile(dialect) for a in self.__arguments])

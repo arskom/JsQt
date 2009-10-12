@@ -28,6 +28,9 @@ class QLayout(QWidget):
         
         self.implicit = False
 
+    def add_child(self, child):
+        self.parent.add_child(child)
+
 class CanvasLayout(QLayout):
     def __init__(self, elt):
         QLayout.__init__(self,elt)

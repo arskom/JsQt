@@ -24,7 +24,6 @@ import jsqt.parser
 from jsqt import DuckTypedList
 from jsqt import il
 
-
 class QWidget(il.primitive.MultiPartCompilable):
     type = "qx.ui.container.Composite"
 
@@ -63,6 +62,18 @@ class QWidget(il.primitive.MultiPartCompilable):
 
         for c in self.children:
             c.compile(dialect, ret)
+            from jsqt.il.qtlayout import QLayout
+
+            if isinstance(c,QLayout):
+                add_children=il.primitive.FunctionCall('this.%s.setLayout' % self.name,
+                    [il.primitive.ObjectReference("this.%s" % c.name)])
+
+            else:
+                add_children=il.primitive.FunctionCall('this.%s.add' % self.name,
+                    [il.primitive.ObjectReference("this.%s" % c.name)])
+
+            print str(add_children)
+            ret.ctor.add_statement(add_children)
 
         if self.__main_widget:
             ret.ctor.add_statement(set_main_widget)
