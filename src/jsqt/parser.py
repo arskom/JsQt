@@ -52,7 +52,7 @@ except ImportError:
 import il
 import il.primitives
 import il.containers
-import il.qtcore
+import il.qtgui
 
 from jsqt.containers import *
 from jsqt.widgets import *
@@ -80,7 +80,7 @@ widget_dict = {
     "QToolBar": QToolBar,
 
     "QMainWindow": il.containers.QMainWindow,
-    "QWidget": il.qtcore.QWidget,
+    "QWidget": il.qtgui.QWidget,
     "QFrame": QWidget,
 
     "QDateTimeEdit": NoQooxdooEquivalent,
@@ -160,6 +160,8 @@ class UiParser(object):
         global widget_dict
 
         instance = widget_dict[elt.attrib['class']](elt)
+        instance.set_main_widget(True)
+
         self.clazz.set_member(elt.attrib['name'], instance)
 
     def parse_custom_widgets(self,elt):

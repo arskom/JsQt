@@ -51,9 +51,7 @@ def usage():
 
 def main(argv):
     print jsqt.header_string
-
     print "cwd:",os.getcwd()
-
 
     if len(argv) == 4:
         if os.path.isdir(argv[1]):

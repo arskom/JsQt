@@ -23,24 +23,15 @@
 import sys
 
 from jsqt import il
-from jsqt.il.qtcore import QWidget
+from jsqt.il.qtgui import QWidget
 from jsqt.il.primitives import MultiPartCompilable
 
-class QMainWindow(QWidget, MultiPartCompilable):
+class QMainWindow(QWidget):
     def __init__(self, elt):
         QWidget.__init__(self,elt)
-        self.name = elt.attrib['name']
 
     def compile(self, dialect, ret=None):
-        st = il.primitives.Assignment()
-        st.set_left(il.primitives.ObjectReference('this.%s' % self.name))
-        st.set_right(il.primitives.Instantiation('qx.ui.container.Composite'))
-
-        ret.ctor.add_statement(st)
-        ret.members[self.name] = il.primitives.ObjectReference('null')
-
-        ret.set_member(self.name,il.primitives.ObjectReference('null'))
-
+        QWidget.compile(self,dialect,ret)
 
 
 

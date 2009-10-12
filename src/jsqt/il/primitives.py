@@ -113,15 +113,15 @@ class Assignment(SinglePartCompilable):
                                      self.__right.compile(dialect))
 
 class FunctionCall(object):
-    def __init__(self, function_name):
+    def __init__(self, function_name, arguments=[]):
         self.__function_name = function_name
-        self.__arguments = DuckTypedList(['to_stream'])
+        self.__arguments = DuckTypedList(['compile'],arguments)
 
     def add_argument(self, argument):
         self.__arguments.append(argument)
 
     def compile(self, dialect):
-        return javascript.FunctionCall(self.__function_name, self.__arguments)
+        return javascript.FunctionCall(self.__function_name, [a.compile(dialect) for a in self.__arguments])
 
 
 class FunctionDefinition(SinglePartCompilable):
@@ -210,14 +210,20 @@ class ClassDefinition(SinglePartCompilable):
                 class_members.set_member(k,v.compile(dialect))
 
         st = FunctionCall('this.base')
-        st.add_argument(javascript.ObjectReference('arguments'))
+        st.add_argument(ObjectReference('arguments'))
         self.ctor.insert_statement(0,st)
+
+        properties = javascript.Object()
+        widget_property = javascript.Object()
+        widget_property.set_member("check", javascript.String('qx.ui.Layout.Composite'))
+        properties.set_member("widget", widget_property)
 
         class_dict = javascript.Object()
         class_dict.set_member("members", class_members)
         class_dict.set_member("extend", base_class)
         class_dict.set_member("construct", self.ctor.compile(dialect))
         class_dict.set_member("destruct", self.dtor.compile(dialect))
+        class_dict.set_member("properties", properties)
 
         self.lang.add_argument(class_dict)
 
