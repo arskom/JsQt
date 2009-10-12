@@ -33,7 +33,7 @@ class QWidget(il.primitives.MultiPartCompilable):
         self.__main_widget = False
         self.__parent = None
 
-        print "\tQWidget.__init__",elt.tag, elt.attrib
+        print "\tQWidget.__init__:",elt.tag, elt.attrib
 
         self.name = elt.attrib['name']
 
@@ -49,21 +49,20 @@ class QWidget(il.primitives.MultiPartCompilable):
         self.children.append(inst)
 
     def compile(self, dialect, ret=None):
-        st = il.primitives.Assignment()
-        st.set_left(il.primitives.ObjectReference('this.%s' % self.name))
-        st.set_right(il.primitives.Instantiation(self.type))
+        instantiation = il.primitives.Assignment()
+        instantiation.set_left(il.primitives.ObjectReference('this.%s' % self.name))
+        instantiation.set_right(il.primitives.Instantiation(self.type))
 
         set_main_widget=il.primitives.FunctionCall('this.setWidget',
             [il.primitives.ObjectReference("this.%s" % self.name)])
 
-        ret.ctor.add_statement(st)
+        ret.ctor.add_statement(instantiation)
+
         if self.__main_widget:
             ret.ctor.add_statement(set_main_widget)
+
         ret.members[self.name] = il.primitives.ObjectReference('null')
-
         ret.set_member(self.name,il.primitives.ObjectReference('null'))
-
-
 
     def set_parent(self,parent):
         self.__parent = parent

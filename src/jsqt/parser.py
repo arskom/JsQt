@@ -187,9 +187,9 @@ def compile(ui_file_name, js_file_name, root_namespace):
     object_name = js_file_name[js_file_name.rfind(root_namespace):].replace("//", "/").replace("/", ".")[0:-3]
     parser=UiParser(object_name)
     parser.parse(ui_file_name)
-    parser.clazz.compile('qooxdoo-0.8.3')
+    compiled_object = parser.clazz.compile('qooxdoo-0.8.3')
 
     f=open(js_file_name, 'w')
-    parser.clazz.to_stream(f)
+    compiled_object.to_stream(f)
     f.close()
 

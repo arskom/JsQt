@@ -188,12 +188,9 @@ class ClassDefinition(SinglePartCompilable):
     def get_member(self, key, val, default=None):
         return self.__elts['members'].get(key, default)
 
-    def to_stream(self,os=sys.stdout):
-        self.lang.to_stream(os)
-
     def compile(self, dialect, ret=None):
-        self.lang = javascript.FunctionCall("qx.Class.define")
-        self.lang.add_argument(javascript.String(self.name))
+        lang = javascript.FunctionCall("qx.Class.define")
+        lang.add_argument(javascript.String(self.name))
 
         if self.base_class == None:
             base_class = javascript.ObjectReference('qx.core.Object')
@@ -202,11 +199,11 @@ class ClassDefinition(SinglePartCompilable):
 
         class_members = javascript.Object()
         for k,v in self.members.items():
-            if isinstance(v, MultiPartCompilable):
+            if isinstance(v, MultiPartCompilable): # FIXME!
                 v.compile(dialect,self)
 
         for k,v in self.members.items():
-            if isinstance(v, SinglePartCompilable):
+            if isinstance(v, SinglePartCompilable): # FIXME!
                 class_members.set_member(k,v.compile(dialect))
 
         st = FunctionCall('this.base')
@@ -225,7 +222,8 @@ class ClassDefinition(SinglePartCompilable):
         class_dict.set_member("destruct", self.dtor.compile(dialect))
         class_dict.set_member("properties", properties)
 
-        self.lang.add_argument(class_dict)
+        lang.add_argument(class_dict)
 
+        return lang
         
 
