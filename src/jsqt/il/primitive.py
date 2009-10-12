@@ -28,7 +28,6 @@ from jsqt.lang_objects import javascript
 class Compilable(object):
     def set_parent(self, parent):
         self.parent = parent
-        #print "\t == parent: ", parent
 
 class SinglePartCompilable(Compilable):
     """
@@ -198,6 +197,9 @@ class ClassDefinition(SinglePartCompilable):
             base_class = self.base_class
 
         class_members = javascript.Object()
+
+        # MPC gets compiled first because they can make changes 
+        # anywhere, including members dict.
         for k,v in self.members.items():
             if isinstance(v, MultiPartCompilable): # FIXME!
                 v.compile(dialect,self)

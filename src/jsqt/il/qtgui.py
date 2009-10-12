@@ -25,7 +25,7 @@ from jsqt import DuckTypedList
 from jsqt import il
 
 
-class QWidget(il.primitives.MultiPartCompilable):
+class QWidget(il.primitive.MultiPartCompilable):
     type = "qx.ui.container.Composite"
 
     def __init__(self, elt):
@@ -41,7 +41,10 @@ class QWidget(il.primitives.MultiPartCompilable):
             if e.tag == 'property':
                 self.set_property(e)
 
-            elif e.tag == 'widget':
+            elif e.tag == 'item':
+                pass
+            
+            else:
                 instance = jsqt.parser.widget_dict[e.attrib['class']](e)
                 self.add_child(instance)
 
@@ -49,20 +52,22 @@ class QWidget(il.primitives.MultiPartCompilable):
         self.children.append(inst)
 
     def compile(self, dialect, ret=None):
-        instantiation = il.primitives.Assignment()
-        instantiation.set_left(il.primitives.ObjectReference('this.%s' % self.name))
-        instantiation.set_right(il.primitives.Instantiation(self.type))
+        instantiation = il.primitive.Assignment()
+        instantiation.set_left(il.primitive.ObjectReference('this.%s' % self.name))
+        instantiation.set_right(il.primitive.Instantiation(self.type))
 
-        set_main_widget=il.primitives.FunctionCall('this.setWidget',
-            [il.primitives.ObjectReference("this.%s" % self.name)])
+        set_main_widget=il.primitive.FunctionCall('this.setWidget',
+            [il.primitive.ObjectReference("this.%s" % self.name)])
 
         ret.ctor.add_statement(instantiation)
+
+        for c in self.children:
+            c.compile(dialect, ret)
 
         if self.__main_widget:
             ret.ctor.add_statement(set_main_widget)
 
-        ret.members[self.name] = il.primitives.ObjectReference('null')
-        ret.set_member(self.name,il.primitives.ObjectReference('null'))
+        ret.set_member(self.name,il.primitive.ObjectReference('null'))
 
     def set_parent(self,parent):
         self.__parent = parent

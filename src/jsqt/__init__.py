@@ -20,6 +20,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
+import sys
+
 version   = "trunk"
 copyright = "(c) 2009 Arskom Ltd."
 header_string = """
@@ -424,3 +426,62 @@ class NoQooxdooEquivalent(Dummy):
     def display(self):
         print "\t WARN", self.class_name, "is not supported by Qooxdoo."
 
+class JsPp(object):
+    """
+    A very simple pretty printer for javascript
+    """
+    def __init__(self,os=sys.stdout):
+        self.__os = os;
+        self.__indent = 0
+        self.__comma_causes_new_line=[]
+
+    def write(self,what):
+        os=self.__os
+        for c in what:
+            if c == '{':
+                os.write(" ")
+                os.write(c)
+                self.__indent+=1
+                self.newline()
+                self.__comma_causes_new_line.append(True)
+
+            elif c == "}":
+                self.__indent-=1
+                self.newline()
+                os.write(c)
+                self.newline()
+                self.__comma_causes_new_line.pop()
+
+            elif c == "(":
+                self.__comma_causes_new_line.append(False)
+                os.write(c)
+
+            elif c == ")":
+                self.__comma_causes_new_line.pop()
+                os.write(c)
+
+            elif c == ',':
+                if self.__comma_causes_new_line[-1]:
+                    self.newline()
+                os.write(c)
+
+            elif c == ";":
+                os.write(c)
+                self.newline()
+
+            elif c == ":":
+                os.write(c)
+                os.write(" ")
+            
+            elif c == "=":
+                os.write(" ")
+                os.write(c)
+                os.write(" ")
+
+            else:
+                os.write(c)
+
+    def newline(self):
+        self.write("\n")
+        for i in range(self.__indent):
+            self.write("    ")

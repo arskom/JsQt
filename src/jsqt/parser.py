@@ -22,7 +22,7 @@
 
 
 import sys
-from jsqt import DuckTypedList
+from jsqt import DuckTypedList, JsPp
 
 # http://codespeak.net/lxml/tutorial.html
 
@@ -50,9 +50,10 @@ except ImportError:
                     print("Failed to import ElementTree from any known place")
 
 import il
-import il.primitives
-import il.containers
+import il.primitive
+import il.container
 import il.qtgui
+import il.qtlayout
 
 from jsqt.containers import *
 from jsqt.widgets import *
@@ -67,19 +68,18 @@ except: # < python-2.6
     pass
 
 class_name = ""
-layout_dict = {
-    "QVBoxLayout": QVBoxLayout,
-    "QHBoxLayout": QHBoxLayout,
-    "QGridLayout": QGridLayout,
-    "QFormLayout": QFormLayout,
-}
 
 widget_dict = {
+    "QVBoxLayout": QVBoxLayout,
+    "QHBoxLayout": il.qtlayout.QHBoxLayout,
+    "QGridLayout": QGridLayout,
+    "QFormLayout": QFormLayout,
+
     "QScrollArea": QScrollArea,
     "QTabWidget": QTabWidget,
     "QToolBar": QToolBar,
 
-    "QMainWindow": il.containers.QMainWindow,
+    "QMainWindow": il.container.QMainWindow,
     "QWidget": il.qtgui.QWidget,
     "QFrame": QWidget,
 
@@ -120,7 +120,7 @@ class UiParser(object):
         if len(object_name) == 0:
             raise Exception("Empty object_name not allowed")
         self.custom_widgets = {}
-        self.clazz = il.primitives.ClassDefinition(object_name)
+        self.clazz = il.primitive.ClassDefinition(object_name)
         self.lang = CodeBlocks()
 
     def compile(self, dialect):
@@ -165,15 +165,16 @@ class UiParser(object):
         self.clazz.set_member(elt.attrib['name'], instance)
 
     def parse_custom_widgets(self,elt):
-        self.clazz.preamble.append(il.primitives.Comment("WARNING: '%s' tag is not supported" % elt.tag))
+        self.clazz.preamble.append(il.primitive.Comment("WARNING: '%s' tag is not supported" % elt.tag))
 
     def parse_unknown_tag(self,elt):
-        self.clazz.preamble.append(il.primitives.Comment("WARNING: '%s' tag is not supported" % elt.tag))
+        self.clazz.preamble.append(il.primitive.Comment("WARNING: '%s' tag is not supported" % elt.tag))
 
     handlers = {
         'ui': parse_ui,
         'class': parse_class,
         'widget': parse_widget,
+        'layout': parse_widget,
         'customwidgets': parse_custom_widgets,
     }
 
@@ -190,6 +191,6 @@ def compile(ui_file_name, js_file_name, root_namespace):
     compiled_object = parser.clazz.compile('qooxdoo-0.8.3')
 
     f=open(js_file_name, 'w')
-    compiled_object.to_stream(f)
+    compiled_object.to_stream(JsPp(f))
     f.close()
 

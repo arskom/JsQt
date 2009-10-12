@@ -24,7 +24,7 @@ import sys
 
 from jsqt import il
 from jsqt.il.qtgui import QWidget
-from jsqt.il.primitives import MultiPartCompilable
+from jsqt.il.primitive import MultiPartCompilable
 
 class QMainWindow(QWidget):
     def __init__(self, elt):
@@ -32,6 +32,3 @@ class QMainWindow(QWidget):
 
     def compile(self, dialect, ret=None):
         QWidget.compile(self,dialect,ret)
-
-
-
