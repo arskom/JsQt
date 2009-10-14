@@ -71,6 +71,8 @@ class QWidget(il.primitive.MultiPartCompilable):
         self.__compile_children(dialect,ret)
 
         if self.main_widget:
+            set_main_widget=il.primitive.FunctionCall('this.setWidget',
+                [il.primitive.ObjectReference("this.%s" % self.name)])
             ret.ctor.add_statement(set_main_widget)
 
         ret.set_member(self.name,il.primitive.ObjectReference('null'))
@@ -90,20 +92,15 @@ class QWidget(il.primitive.MultiPartCompilable):
         instantiation.set_left(il.primitive.ObjectReference('this.%s' % self.name))
         instantiation.set_right(il.primitive.Instantiation(self.type))
 
-        set_main_widget=il.primitive.FunctionCall('this.setWidget',
-            [il.primitive.ObjectReference("this.%s" % self.name)])
-
         ret.ctor.add_statement(instantiation)
 
     def __compile_layout(self, dialect, ret):
-        if self.layout == None:
-            self.layout = il.qt.layout.CanvasLayout(None,'%s_default_container' % self.name)
+        if self.layout != None:
+            self.layout.compile(dialect,ret)
+            set_layout=il.primitive.FunctionCall('this.%s.setLayout' % self.name,
+                       [il.primitive.ObjectReference("this.%s" % self.layout.name)])
 
-        ret.ctor.add_statement(self.layout.compile(dialect))
-        set_layout=il.primitive.FunctionCall('this.%s.setLayout' % self.name,
-                   [il.primitive.ObjectReference("this.%s" % self.layout.name)])
-
-        ret.ctor.add_statement(set_layout)
+            ret.ctor.add_statement(set_layout)
 
     def set_parent(self,parent):
         self.parent = parent
