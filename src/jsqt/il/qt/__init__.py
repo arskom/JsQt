@@ -20,15 +20,3 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
-import sys
-
-from jsqt import il
-from jsqt.il.qtgui import QWidget
-from jsqt.il.primitive import MultiPartCompilable
-
-class QMainWindow(QWidget):
-    def __init__(self, elt):
-        QWidget.__init__(self,elt)
-
-    def compile(self, dialect, ret=None):
-        QWidget.compile(self,dialect,ret)

@@ -20,9 +20,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
-import sys
-import StringIO
-
 from jsqt import DuckTypedList, DuckTypedDict
 
 from jsqt.lang_objects import javascript
@@ -77,6 +74,7 @@ class ObjectReference(SinglePartCompilable):
 
     def __repr__(self):
         return "<il.ObjectReference(%s)>" % self.__object_name
+    
     def compile(self, dialect):
         return javascript.ObjectReference(self.__object_name)
 
@@ -234,5 +232,4 @@ class ClassDefinition(SinglePartCompilable):
         lang.add_argument(class_dict)
 
         return lang
-        
 

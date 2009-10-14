@@ -51,42 +51,30 @@ except ImportError:
 
 import il
 import il.primitive
-import il.container
-import il.qtgui
-import il.qtlayout
+import il.qt
+import il.qt.gui
+import il.qt.layout
+import il.qt.container
 
 from jsqt.containers import *
 from jsqt.widgets import *
 from jsqt.layouts import *
 from jsqt import Class, NoQooxdooEquivalent
 
-try:
-    from orderedset import OrderedSet
-    JsQtSet=OrderedSet
-except: # < python-2.6
-    JsQtSet=set
-    pass
-
 class_name = ""
 
 widget_dict = {
-    "QVBoxLayout": QVBoxLayout,
-    "QHBoxLayout": il.qtlayout.QHBoxLayout,
-    "QGridLayout": QGridLayout,
-    "QFormLayout": QFormLayout,
+    "QVBoxLayout": il.qt.layout.QVBoxLayout,
+    "QHBoxLayout": il.qt.layout.QHBoxLayout,
+    "QGridLayout": il.qt.layout.QGridLayout,
+    "QFormLayout": il.qt.layout.QGridLayout,
 
-    "QScrollArea": QScrollArea,
-    "QTabWidget": QTabWidget,
-    "QToolBar": QToolBar,
-
-    "QMainWindow": il.container.QMainWindow,
-    "QWidget": il.qtgui.QWidget,
+    "QMainWindow": il.qt.container.QMainWindow,
+    "QWidget": il.qt.gui.QWidget,
     "QFrame": QWidget,
 
     "QDateTimeEdit": NoQooxdooEquivalent,
     "QTimeEdit": NoQooxdooEquivalent,
-
-    "QGraphicsView": QWidget,
 
     "QTableWidget": QTableWidget,
     "QListWidget": QListWidget,
@@ -174,7 +162,6 @@ class UiParser(object):
         'ui': parse_ui,
         'class': parse_class,
         'widget': parse_widget,
-        'layout': parse_widget,
         'customwidgets': parse_custom_widgets,
     }
 

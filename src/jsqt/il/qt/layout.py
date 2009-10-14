@@ -20,41 +20,38 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
-from jsqt.il.qtgui import QWidget
+from jsqt.il.qt.gui import QWidget
 
 class QLayout(QWidget):
-    def __init__(self, elt):
-        QWidget.__init__(self,elt)
+    def __init__(self, elt, name=None):
+        QWidget.__init__(self,elt,name)
         
         self.implicit = False
 
     def add_child(self, child):
-        self.parent.add_child(child)
+        raise Exception("layouts don't accept children")
 
 class CanvasLayout(QLayout):
-    def __init__(self, elt):
-        QLayout.__init__(self,elt)
+    def __init__(self, elt, name=None):
+        QLayout.__init__(self,elt,name)
 
         self.type = "qx.ui.layout.Canvas"
 
 class QVBoxLayout(QLayout):
-    def __init__(self, elt):
-        QLayout.__init__(self,elt)
+    def __init__(self, elt, name=None):
+        QLayout.__init__(self,elt,name)
 
         self.type = "qx.ui.layout.VBox"
 
 class QHBoxLayout(QLayout):
-    def __init__(self, elt):
-        QLayout.__init__(self,elt)
+    def __init__(self, elt, name=None):
+        QLayout.__init__(self,elt,name)
 
         self.type = "qx.ui.layout.HBox"
 
 class QGridLayout(QLayout):
-    def __init__(self, elt):
-        QLayout.__init__(self,elt)
+    def __init__(self, elt, name=None):
+        QLayout.__init__(self,elt,name)
 
         self.type = "qx.ui.layout.Grid"
-
-class QFormLayout(QGridLayout):
-    pass
 
