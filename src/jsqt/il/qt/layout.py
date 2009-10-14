@@ -17,19 +17,21 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 #
 
-from jsqt.il.qt.gui import QWidget
+from gui import QWidget
 
 class QLayout(QWidget):
     def __init__(self, elt, name=None):
         QWidget.__init__(self,elt,name)
-        
-        self.implicit = False
 
     def add_child(self, child):
         raise Exception("layouts don't accept children")
+
+    def _loop_children(self, elt):
+        pass
 
 class CanvasLayout(QLayout):
     def __init__(self, elt, name=None):

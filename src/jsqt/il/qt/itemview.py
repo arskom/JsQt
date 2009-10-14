@@ -21,4 +21,20 @@
 # 02110-1301, USA.
 #
 
-import primitive
+from gui import QWidget
+
+class QAbstractItemView(QWidget):
+    def __init__(self, elt, name=None):
+        QWidget.__init__(self,elt,name)
+
+class QListWidget(QAbstractItemView):
+    def __init__(self, elt, name=None):
+        QWidget.__init__(self,elt,name)
+
+        self.type = "qx.ui.form.List"
+
+class QTableWidget(QAbstractItemView):
+    def __init__(self, elt, name=None):
+        QWidget.__init__(self,elt,name)
+
+        self.type="qx.ui.table.Table"

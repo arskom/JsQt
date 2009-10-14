@@ -17,21 +17,25 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 #
 
-import jsqt.parser
-from jsqt import DuckTypedList
 from jsqt import il
 
-class QWidget(il.primitive.MultiPartCompilable):
-    type = "qx.ui.container.Composite"
+from jsqt import DuckTypedList
 
+widget_dict = {
+
+}
+
+class QWidget(il.primitive.MultiPartCompilable):
     def __init__(self, elt, name=None):
         self.children = DuckTypedList(['compile'])
         self.main_widget = False
         self.parent = None
         self.layout = None
+        self.type = "qx.ui.container.Composite"
 
         if name != None:
             self.name = name
@@ -43,19 +47,35 @@ class QWidget(il.primitive.MultiPartCompilable):
             self.name = elt.attrib['name']
             print "\tQWidget.__init__:",elt.tag, elt.attrib
 
-            for e in elt:
-                if e.tag == 'property':
-                    self.set_property(e)
+            self._loop_children(elt)
 
-                elif e.tag == 'item':
-                    pass
+    def _loop_children(self, elt):
+        for e in elt:
+            if e.tag == 'item':
+                self._loop_children(e)
 
-                else:
-                    instance = jsqt.parser.widget_dict[e.attrib['class']](e)
-                    if e.tag == 'layout':
-                        self.set_layout(instance)
-                    else:
-                        self.add_child(instance)
+            elif e.tag in ('property', 'attribute'):
+                self.set_property(e)
+
+            elif e.tag == 'layout':
+                instance = self.get_instance(e)
+                self.set_layout(instance)
+                self._loop_children(e)
+
+            else:
+                instance = self.get_instance(e)
+                self.add_child(instance)
+
+    def get_instance(self,e):
+        if e.tag == 'spacer':
+            return widget_dict['Spacer'](e)
+        
+        else:
+            class_name = e.attrib['class']
+            if class_name in widget_dict:
+                return widget_dict[class_name](e)
+            else:
+                return QWidgetStub(e)
 
     def add_child(self, inst):
         self.children.append(inst)
@@ -123,4 +143,21 @@ class QWidget(il.primitive.MultiPartCompilable):
     known_props = {
 
     }
+
+class QSpacer(QWidget):
+    def __init__(self, elt, name=None):
+        QWidget.__init__(self, elt,name)
+
+        self.type = "qx.ui.core.Spacer"
+
+class QWidgetStub(QWidget):
+    def __init__(self, elt, name=None):
+        QWidget.__init__(self,elt,name)
+
+        self.class_name = elt.attrib['class']
+
+    def compile(self, dialect, ret=None):
+        ret.ctor.add_statement(
+            il.primitive.Comment("'%s' widget is not supported in instance type '%s'" %
+                (self.class_name, self.name)))
 

@@ -17,9 +17,46 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 #
 
+import jsqt.il.qt
+import jsqt.il.qt.form
+import jsqt.il.qt.layout
+import jsqt.il.qt.container
+
+jsqt.il.qt.gui.widget_dict = {
+    "QVBoxLayout": jsqt.il.qt.layout.QVBoxLayout,
+    "QHBoxLayout": jsqt.il.qt.layout.QHBoxLayout,
+    "QGridLayout": jsqt.il.qt.layout.QGridLayout,
+    "QFormLayout": jsqt.il.qt.layout.QGridLayout,
+
+    "QMainWindow": jsqt.il.qt.container.QMainWindow,
+    "QTabWidget": jsqt.il.qt.container.QTabWidget,
+
+    "QWidget": jsqt.il.qt.gui.QWidget,
+    "QFrame": jsqt.il.qt.gui.QWidget,
+
+    "QRadioButton": jsqt.il.qt.form.QRadioButton,
+    "QPushButton": jsqt.il.qt.form.QPushButton,
+    "QDateEdit": jsqt.il.qt.form.QDateEdit,
+    "QLineEdit": jsqt.il.qt.form.QLineEdit,
+    "QTextEdit": jsqt.il.qt.form.QTextEdit,
+    "QComboBox": jsqt.il.qt.form.QComboBox,
+    "QCheckBox": jsqt.il.qt.form.QCheckBox,
+    "QSpinBox": jsqt.il.qt.form.QSpinBox,
+    "QGroupBox": jsqt.il.qt.container.QGroupBox,
+    "QLabel": jsqt.il.qt.form.QLabel,
+    "Spacer": jsqt.il.qt.gui.QSpacer,
+
+    #"QDateTimeEdit": NoQooxdooEquivalent,
+    #"QTimeEdit": NoQooxdooEquivalent,
+
+    "QTableWidget": jsqt.il.qt.itemview.QTableWidget,
+    "QListWidget": jsqt.il.qt.itemview.QListWidget,
+
+}
 
 import sys
 from jsqt import DuckTypedList, JsPp
@@ -49,50 +86,10 @@ except ImportError:
                 except ImportError:
                     print("Failed to import ElementTree from any known place")
 
-import il
-import il.primitive
-import il.qt
-import il.qt.gui
-import il.qt.layout
-import il.qt.container
-
-from jsqt.containers import *
-from jsqt.widgets import *
-from jsqt.layouts import *
-from jsqt import Class, NoQooxdooEquivalent
+import jsqt.il
+import jsqt.il.qt
 
 class_name = ""
-
-widget_dict = {
-    "QVBoxLayout": il.qt.layout.QVBoxLayout,
-    "QHBoxLayout": il.qt.layout.QHBoxLayout,
-    "QGridLayout": il.qt.layout.QGridLayout,
-    "QFormLayout": il.qt.layout.QGridLayout,
-
-    "QMainWindow": il.qt.container.QMainWindow,
-    "QWidget": il.qt.gui.QWidget,
-    "QFrame": QWidget,
-
-    "QDateTimeEdit": NoQooxdooEquivalent,
-    "QTimeEdit": NoQooxdooEquivalent,
-
-    "QTableWidget": QTableWidget,
-    "QListWidget": QListWidget,
-
-    "QRadioButton": QRadioButton,
-    "QPushButton": QPushButton,
-    "QDateEdit": QDateEdit,
-    "QLineEdit": QLineEdit,
-    "QTextEdit": QTextEdit,
-    "QComboBox": QComboBox,
-    "QCheckBox": QCheckBox,
-    "QGroupBox": QGroupBox,
-    "QSpinBox": QSpinBox,
-    "QLabel": QLabel,
-
-    "Spacer": Spacer,
-    "Class": Class,
-}
 
 class CodeBlocks(DuckTypedList):
     def __init__(self):
@@ -102,13 +99,12 @@ class CodeBlocks(DuckTypedList):
         for l in self:
             l.to_stream(os)
 
-
 class UiParser(object):
     def __init__(self,object_name):
         if len(object_name) == 0:
             raise Exception("Empty object_name not allowed")
         self.custom_widgets = {}
-        self.clazz = il.primitive.ClassDefinition(object_name)
+        self.clazz = jsqt.il.primitive.ClassDefinition(object_name)
         self.lang = CodeBlocks()
 
     def compile(self, dialect):
@@ -145,18 +141,16 @@ class UiParser(object):
         return 
 
     def parse_widget(self, elt):
-        global widget_dict
-
-        instance = widget_dict[elt.attrib['class']](elt)
+        instance = jsqt.il.qt.gui.widget_dict[elt.attrib['class']](elt)
         instance.set_main_widget(True)
 
         self.clazz.set_member(elt.attrib['name'], instance)
 
     def parse_custom_widgets(self,elt):
-        self.clazz.preamble.append(il.primitive.Comment("WARNING: '%s' tag is not supported" % elt.tag))
+        self.clazz.preamble.append(jsqt.il.primitive.Comment("WARNING: '%s' tag is not supported" % elt.tag))
 
     def parse_unknown_tag(self,elt):
-        self.clazz.preamble.append(il.primitive.Comment("WARNING: '%s' tag is not supported" % elt.tag))
+        self.clazz.preamble.append(jsqt.il.primitive.Comment("WARNING: '%s' tag is not supported" % elt.tag))
 
     handlers = {
         'ui': parse_ui,

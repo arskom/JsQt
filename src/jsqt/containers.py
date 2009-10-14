@@ -17,90 +17,12 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
 #
 
 from widgets import Widget
 from layouts import *
-
-class Container(Widget):
-    layout = None
-    in_layout = False
-
-    def __init__(self, caller, name, class_name):
-        Widget.__init__(self, caller, name, class_name)
-
-        self.in_layout = False
-
-    def set_layout(self, layout):
-        if isinstance(layout, Dummy):
-            return
-        self.layout = layout
-        self.buffer.append('        this.%(self_name)s.setLayout(this.%(layout_name)s);' % {'self_name': self.name(), 'layout_name': layout.name()})
-        self.in_layout = True
-
-    def add_widget(self, widget, **kwargs):
-        if isinstance(self.layout, Dummy):
-            return
-
-        if self.layout == None:
-            self.set_layout(CanvasLayout(self.caller, self.name() + "_implicit_container"))
-
-        self.children.append(widget)
-        self.layout.add_widget(self, widget, **kwargs)
-
-    def close(self):
-        for c in self.children:
-            if c.vsize_type == 'Expanding' and self.vsize_type_property != 'Fixed':
-                self.vsize_type = 'Expanding'
-                break
-            elif c.vsize_type == 'Fixed':
-                self.vsize_type = 'Fixed'
-
-        for c in self.children:
-            if c.hsize_type == 'Expanding' and self.hsize_type_property != 'Fixed':
-                self.hsize_type = 'Expanding'
-                break
-            elif c.hsize_type == 'Fixed':
-                self.hsize_type = 'Fixed'
-
-        self.set_vsizepolicy()
-        self.set_hsizepolicy()
-
-
-class QWidget(Container):
-    def __init__(self, caller, name, class_name=""):
-        self.type = "qx.ui.container.Composite"
-        Container.__init__(self, caller, name, class_name)
-
-        self.layout = None
-        self.register_handlers()
-        self.xmltext_handlers[("title", None, "string")] = self.set_title_text
-
-    def set_title_text(self, text, *args):
-        self.title_text = text
-
-class QFrame(QWidget):
-    pass
-
-class QGroupBox(Container):
-    class qt_defaults(Container.qt_defaults):
-        vsize_type = 'Fixed'
-        hsize_type = 'Fixed'
-    class qx_defaults(Container.qt_defaults):
-        vsize_type = 'Expanding'
-        hsize_type = 'Expanding'
-
-    def __init__(self, caller, name, class_name=""):
-        self.type = "qx.ui.groupbox.GroupBox"
-        Widget.__init__(self, caller, name, class_name)
-
-        self.layout = None
-        self.register_handlers()
-        self.xmltext_handlers[("title", None, "string")] = self.set_legend
-
-    def set_legend(self, text, *args):
-        self.buffer.append('        this.%(self_name)s.setLegend("%(text)s");' % {'self_name': self.name(), 'text': text})
 
 class QToolBar(Container):
     def __init__(self, caller, name, class_name=""):
@@ -141,20 +63,6 @@ class QScrollArea(Container):
         self.children[0].set_vsizepolicy()
         self.children[0].set_hsizepolicy()
         Container.close(self)
-
-class QTabWidget(Container):
-    def __init__(self, caller, name, class_name=""):
-        self.type = "qx.ui.tabview.TabView"
-        Container.__init__(self, caller, name, class_name)
-
-        self.layout = None
-        self.register_handlers()
-
-    def add_widget(self, widget, **kwargs):
-        page=QxTabPage(self.caller, self.name() + "_" + widget.name() + "_tab_page")
-        page.add_widget(widget)
-        self.children.append(page)
-        self.buffer.append('        this.%(self_name)s.add(this.%(page_name)s);' % {'self_name': self.name(), 'page_name': page.name()})
 
 class QxTabPage(Container):
     def __init__(self, caller, name, class_name=""):
