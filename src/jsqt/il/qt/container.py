@@ -33,6 +33,12 @@ class QTabWidget(QWidget):
 
         self.type = "qx.ui.tabview.TabView"
 
+    def _handle_widget_tag(self, elt):
+        instance = self.get_instance(elt)
+        instance.type = "qx.ui.tabview.Page"
+        self.add_child(instance)
+
+
 class QGroupBox(QWidget):
     def __init__(self, elt, name=None):
         QWidget.__init__(self,elt,name)

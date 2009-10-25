@@ -26,15 +26,23 @@ from jsqt import DuckTypedList
 from jsqt.xml import etree
 
 widget_dict = {}
-
 layout_dict = {}
+
 class QWidget(il.primitive.MultiPartCompilable):
     def __init__(self, elt, name=None):
+        self.supported = True
         self.children = DuckTypedList(['compile'])
         self.parent = None
         self.layout = None
         self.type = "qx.ui.container.Composite"
         self.layout_properties = None
+        self.tag_handlers = {
+            "widget": self._handle_widget_tag,
+            "layout": self._handle_layout_tag,
+            "property": self._handle_property_tag,
+            "attribute": self._handle_property_tag,
+            "item": self._handle_item_tag,
+        }
 
         if name != None:
             if elt != None:
@@ -51,12 +59,6 @@ class QWidget(il.primitive.MultiPartCompilable):
 
         self.factory_function = il.primitive.FunctionDefinition(
                                                         "create_%s" % self.name)
-
-    def __setattr__(self,key,val):
-        if key == 'main_widget':
-            raise Exception("olmaz")
-        else:
-            object.__setattr__(self,key,val)
 
     def _handle_item_tag(self, elt):
         if elt[0].tag == "layout":
@@ -83,20 +85,13 @@ class QWidget(il.primitive.MultiPartCompilable):
         self.set_layout(instance)
         self._loop_children(elt)
 
+    def _handle_widget_tag(self, elt):
+        instance = self.get_instance(elt)
+        self.add_child(instance)
+
     def _loop_children(self, elt):
         for e in elt:
-            if e.tag == 'item':
-                self._handle_item_tag(e)
-
-            elif e.tag in ('property', 'attribute'):
-                self._handle_property_tag(e)
-
-            elif e.tag == 'layout':
-                self._handle_layout_tag(e)
-
-            else:
-                instance = self.get_instance(e)
-                self.add_child(instance)
+            self.tag_handlers[e.tag](e)
 
     def get_instance(self,elt):
         if elt.tag == 'spacer':
@@ -140,14 +135,15 @@ class QWidget(il.primitive.MultiPartCompilable):
         for c in self.children:
             c.compile(dialect, ret)
 
-            args=[il.primitive.FunctionCall("this.create_%s" % c.name)]
-            if c.layout_properties != None:
-                args.append(il.primitive.AssociativeArrayInitialization(
+            if c.supported:
+                args=[il.primitive.FunctionCall("this.create_%s" % c.name)]
+                if c.layout_properties != None:
+                    args.append(il.primitive.AssociativeArrayInitialization(
                                                            c.layout_properties))
 
-            add_children=il.primitive.FunctionCall('this.%s.add' % self.name,
+                add_children=il.primitive.FunctionCall('this.%s.add'% self.name,
                                                                            args)
-            self.factory_function.add_statement(add_children)
+                self.factory_function.add_statement(add_children)
 
         ret.set_member(self.factory_function.name, self.factory_function)
         self.factory_function.add_statement(il.primitive.Return(
@@ -167,8 +163,6 @@ class QWidget(il.primitive.MultiPartCompilable):
         prop_name = elt.attrib['name']
         if prop_name in self.known_props:
             QWidget.known_props[prop_name](elt)
-        else:
-            pass #QWidget.set_property(self,elt)
 
     known_props = {
 
@@ -185,6 +179,7 @@ class QWidgetStub(QWidget):
         QWidget.__init__(self,elt,name)
 
         self.class_name = elt.attrib['class']
+        self.supported = False
 
     def compile(self, dialect, ret=None):
         ret.ctor.add_statement(

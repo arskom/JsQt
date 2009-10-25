@@ -250,7 +250,7 @@ class ClassDefinition(SinglePartCompilable):
 
         properties = javascript.Object()
         widget_property = javascript.Object()
-        widget_property.set_member("check", javascript.String('qx.ui.Layout.Composite'))
+        widget_property.set_member("check", javascript.String('qx.ui.container.Composite'))
         properties.set_member("widget", widget_property)
 
         class_dict = javascript.Object()
