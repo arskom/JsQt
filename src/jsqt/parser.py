@@ -21,45 +21,42 @@
 # 02110-1301, USA.
 #
 
-import jsqt.il.qt
-import jsqt.il.qt.form
-import jsqt.il.qt.layout
-import jsqt.il.qt.container
+import sys
 
-jsqt.il.qt.gui.widget_dict = {
-    "QVBoxLayout": jsqt.il.qt.layout.QVBoxLayout,
-    "QHBoxLayout": jsqt.il.qt.layout.QHBoxLayout,
-    "QGridLayout": jsqt.il.qt.layout.QGridLayout,
-    "QFormLayout": jsqt.il.qt.layout.QGridLayout,
+from jsqt import il
+import il.qt
+from jsqt import DuckTypedList, JsPp
 
-    "QMainWindow": jsqt.il.qt.container.QMainWindow,
-    "QTabWidget": jsqt.il.qt.container.QTabWidget,
+il.qt.gui.widget_dict = {
+    "QVBoxLayout": il.qt.layout.QVBoxLayout,
+    "QHBoxLayout": il.qt.layout.QHBoxLayout,
+    "QGridLayout": il.qt.layout.QGridLayout,
+    "QFormLayout": il.qt.layout.QGridLayout,
 
-    "QWidget": jsqt.il.qt.gui.QWidget,
-    "QFrame": jsqt.il.qt.gui.QWidget,
+    "QMainWindow": il.qt.container.QMainWindow,
+    "QTabWidget": il.qt.container.QTabWidget,
 
-    "QRadioButton": jsqt.il.qt.form.QRadioButton,
-    "QPushButton": jsqt.il.qt.form.QPushButton,
-    "QDateEdit": jsqt.il.qt.form.QDateEdit,
-    "QLineEdit": jsqt.il.qt.form.QLineEdit,
-    "QTextEdit": jsqt.il.qt.form.QTextEdit,
-    "QComboBox": jsqt.il.qt.form.QComboBox,
-    "QCheckBox": jsqt.il.qt.form.QCheckBox,
-    "QSpinBox": jsqt.il.qt.form.QSpinBox,
-    "QGroupBox": jsqt.il.qt.container.QGroupBox,
-    "QLabel": jsqt.il.qt.form.QLabel,
-    "Spacer": jsqt.il.qt.gui.QSpacer,
+    "QWidget": il.qt.gui.QWidget,
+    "QFrame": il.qt.gui.QWidget,
+
+    "QRadioButton": il.qt.form.QRadioButton,
+    "QPushButton": il.qt.form.QPushButton,
+    "QDateEdit": il.qt.form.QDateEdit,
+    "QLineEdit": il.qt.form.QLineEdit,
+    "QTextEdit": il.qt.form.QTextEdit,
+    "QComboBox": il.qt.form.QComboBox,
+    "QCheckBox": il.qt.form.QCheckBox,
+    "QSpinBox": il.qt.form.QSpinBox,
+    "QGroupBox": il.qt.container.QGroupBox,
+    "QLabel": il.qt.form.QLabel,
+    "Spacer": il.qt.gui.QSpacer,
 
     #"QDateTimeEdit": NoQooxdooEquivalent,
     #"QTimeEdit": NoQooxdooEquivalent,
 
-    "QTableWidget": jsqt.il.qt.itemview.QTableWidget,
-    "QListWidget": jsqt.il.qt.itemview.QListWidget,
-
+    "QTableWidget": il.qt.itemview.QTableWidget,
+    "QListWidget": il.qt.itemview.QListWidget,
 }
-
-import sys
-from jsqt import DuckTypedList, JsPp
 
 # http://codespeak.net/lxml/tutorial.html
 
@@ -86,9 +83,6 @@ except ImportError:
                 except ImportError:
                     print("Failed to import ElementTree from any known place")
 
-import jsqt.il
-import jsqt.il.qt
-
 class_name = ""
 
 class CodeBlocks(DuckTypedList):
@@ -104,7 +98,7 @@ class UiParser(object):
         if len(object_name) == 0:
             raise Exception("Empty object_name not allowed")
         self.custom_widgets = {}
-        self.clazz = jsqt.il.primitive.ClassDefinition(object_name)
+        self.clazz = il.primitive.ClassDefinition(object_name)
         self.lang = CodeBlocks()
 
     def compile(self, dialect):
@@ -141,16 +135,19 @@ class UiParser(object):
         return 
 
     def parse_widget(self, elt):
-        instance = jsqt.il.qt.gui.widget_dict[elt.attrib['class']](elt)
-        instance.set_main_widget(True)
+        instance = il.qt.gui.widget_dict[elt.attrib['class']](elt)
+        
+        set_main_widget=il.primitive.FunctionCall('this.setWidget',
+                         [il.primitive.FunctionCall("this.create_%s" % instance.name)])
+        self.clazz.ctor.add_statement(set_main_widget)
 
         self.clazz.set_member(elt.attrib['name'], instance)
 
     def parse_custom_widgets(self,elt):
-        self.clazz.preamble.append(jsqt.il.primitive.Comment("WARNING: '%s' tag is not supported" % elt.tag))
+        self.clazz.preamble.append(il.primitive.Comment("WARNING: '%s' tag is not supported" % elt.tag))
 
     def parse_unknown_tag(self,elt):
-        self.clazz.preamble.append(jsqt.il.primitive.Comment("WARNING: '%s' tag is not supported" % elt.tag))
+        self.clazz.preamble.append(il.primitive.Comment("WARNING: '%s' tag is not supported" % elt.tag))
 
     handlers = {
         'ui': parse_ui,
@@ -159,7 +156,7 @@ class UiParser(object):
         'customwidgets': parse_custom_widgets,
     }
 
-def compile(ui_file_name, js_file_name, root_namespace):
+def compile(ui_file_name, js_file_name, root_namespace, dialect):
     print ui_file_name
 
     if js_file_name.rfind(root_namespace) == -1:
@@ -169,7 +166,7 @@ def compile(ui_file_name, js_file_name, root_namespace):
     object_name = js_file_name[js_file_name.rfind(root_namespace):].replace("//", "/").replace("/", ".")[0:-3]
     parser=UiParser(object_name)
     parser.parse(ui_file_name)
-    compiled_object = parser.clazz.compile('qooxdoo-0.8.3')
+    compiled_object = parser.clazz.compile(dialect)
 
     f=open(js_file_name, 'w')
     compiled_object.to_stream(JsPp(f))

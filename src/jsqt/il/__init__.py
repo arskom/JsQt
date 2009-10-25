@@ -21,4 +21,9 @@
 # 02110-1301, USA.
 #
 
+#
+# This is the interlingua module. It contains target-language-agnostic
+# data structures.
+#
+
 import primitive

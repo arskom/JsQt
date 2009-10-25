@@ -71,7 +71,7 @@ def main(argv):
                         except OSError,e:
                             pass
 
-                        compile(ui_file_name, js_file_name, root_namespace)
+                        compile(ui_file_name, js_file_name, root_namespace, 'javascript-qooxdoo-0.8.3')
         else:
             usage()
             print '       First argument must be a directory!'

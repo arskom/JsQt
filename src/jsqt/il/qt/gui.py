@@ -32,22 +32,31 @@ widget_dict = {
 class QWidget(il.primitive.MultiPartCompilable):
     def __init__(self, elt, name=None):
         self.children = DuckTypedList(['compile'])
-        self.main_widget = False
         self.parent = None
         self.layout = None
         self.type = "qx.ui.container.Composite"
 
         if name != None:
-            self.name = name
-
             if elt != None:
-                raise Exception("logic_error: You should provide either name or elt arguments, but not both.")
+                raise Exception("You should provide either name or elt"
+                    "arguments, but not both.")
+
+            self.name = name
 
         else:
             self.name = elt.attrib['name']
             print "\tQWidget.__init__:",elt.tag, elt.attrib
 
             self._loop_children(elt)
+
+        self.factory_function = il.primitive.FunctionDefinition(
+                                                        "create_%s" % self.name)
+
+    def __setattr__(self,key,val):
+        if key == 'main_widget':
+            raise Exception("olmaz")
+        else:
+            object.__setattr__(self,key,val)
 
     def _loop_children(self, elt):
         for e in elt:
@@ -66,16 +75,16 @@ class QWidget(il.primitive.MultiPartCompilable):
                 instance = self.get_instance(e)
                 self.add_child(instance)
 
-    def get_instance(self,e):
-        if e.tag == 'spacer':
-            return widget_dict['Spacer'](e)
+    def get_instance(self,elt):
+        if elt.tag == 'spacer':
+            return widget_dict['Spacer'](elt)
         
         else:
-            class_name = e.attrib['class']
+            class_name = elt.attrib['class']
             if class_name in widget_dict:
-                return widget_dict[class_name](e)
+                return widget_dict[class_name](elt)
             else:
-                return QWidgetStub(e)
+                return QWidgetStub(elt)
 
     def add_child(self, inst):
         self.children.append(inst)
@@ -86,41 +95,37 @@ class QWidget(il.primitive.MultiPartCompilable):
         layout.set_parent(self)
 
     def compile(self, dialect, ret):
-        self.__compile_instantiation(dialect,ret)
-        self.__compile_layout(dialect,ret)
-        self.__compile_children(dialect,ret)
+        factory_function_retval=il.primitive.ObjectReference('this.%s'
+                                                                    % self.name)
+        instantiation = il.primitive.Assignment()
+        instantiation.set_left(factory_function_retval)
+        instantiation.set_right(il.primitive.Instantiation(self.type))
 
-        if self.main_widget:
-            set_main_widget=il.primitive.FunctionCall('this.setWidget',
-                [il.primitive.ObjectReference("this.%s" % self.name)])
-            ret.ctor.add_statement(set_main_widget)
+        self.factory_function.add_statement(instantiation)
 
-        ret.set_member(self.name,il.primitive.ObjectReference('null'))
+        # layout
+        if self.layout != None:
+            self.layout.compile(dialect,ret)
+            set_layout=il.primitive.FunctionCall('this.%s.setLayout'% self.name,
+                   [il.primitive.ObjectReference("this.%s" % self.layout.name)])
 
-    def __compile_children(self, dialect, ret):
+            self.factory_function.add_statement(set_layout)
+
+        # children
         for c in self.children:
             c.compile(dialect, ret)
             from jsqt.il.qt.layout import QLayout
 
             add_children=il.primitive.FunctionCall('this.%s.add' % self.name,
-                    [il.primitive.ObjectReference("this.%s" % c.name)])
+                    [il.primitive.FunctionCall("this.create_%s" % c.name)])
 
-            ret.ctor.add_statement(add_children)
+            self.factory_function.add_statement(add_children)
 
-    def __compile_instantiation(self, dialect, ret):
-        instantiation = il.primitive.Assignment()
-        instantiation.set_left(il.primitive.ObjectReference('this.%s' % self.name))
-        instantiation.set_right(il.primitive.Instantiation(self.type))
+        ret.set_member(self.factory_function.name, self.factory_function)
+        self.factory_function.add_statement(il.primitive.Return(
+                                                       factory_function_retval))
 
-        ret.ctor.add_statement(instantiation)
-
-    def __compile_layout(self, dialect, ret):
-        if self.layout != None:
-            self.layout.compile(dialect,ret)
-            set_layout=il.primitive.FunctionCall('this.%s.setLayout' % self.name,
-                       [il.primitive.ObjectReference("this.%s" % self.layout.name)])
-
-            ret.ctor.add_statement(set_layout)
+        ret.set_member(self.name,il.primitive.ObjectReference('null'))
 
     def set_parent(self,parent):
         self.parent = parent
@@ -136,9 +141,6 @@ class QWidget(il.primitive.MultiPartCompilable):
             QWidget.known_props[prop_name](elt)
         else:
             pass #QWidget.set_property(self,elt)
-
-    def set_main_widget(self, what):
-        self.main_widget = what
 
     known_props = {
 

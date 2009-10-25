@@ -21,9 +21,9 @@
 # 02110-1301, USA.
 #
 
-import sys
-import cStringIO
-from jsqt import DuckTypedList,DuckTypedDict
+import StringIO
+from jsqt import DuckTypedDict
+from jsqt import DuckTypedList
 
 class Base(object):
     def __str__(self):
@@ -31,22 +31,21 @@ class Base(object):
         self.to_stream(retval)
         return retval.getvalue()
 
-    def to_stream(self, os=sys.stdout):
+    def to_stream(self, os):
         raise Exception("Please inherit and override")
-
 
 class Comment(Base):
     def __init__(self, comment):
         self.__comment=comment.replace("*/", "*_/")
             
-    def to_stream(self, os=sys.stdout):
-        os.write(" /* %s */ " % self.__comment)
+    def to_stream(self, os):
+        os.write(" /* %s */\n" % self.__comment)
 
 class String(Base):
     def __init__(self, string):
         self.__string = string
         
-    def to_stream(self, os=sys.stdout):
+    def to_stream(self, os):
         os.write('"')
         os.write(self.__string)
         os.write('"')
@@ -62,17 +61,26 @@ class Assignment(Base):
     def set_right(self, right):
         self.__right = right
         
-    def to_stream(self, os=sys.stdout):
+    def to_stream(self, os):
         self.__left.to_stream(os)
         os.write("=")
         self.__right.to_stream(os)
+
+class Return(Base):
+    def __init__(self, what):
+        Base.__init__(self)
+
+        self.what = what
+
+    def to_stream(self, os):
+        os.write("return %s" % self.what)
 
 class Instantiation(Base):
     def __init__(self, what):
         self.__what = what
 
-    def to_stream(self, os=sys.stdout):
-        os.write("new %s();" % self.__what)
+    def to_stream(self, os):
+        os.write("new %s()" % self.__what)
 
 class ObjectReference(Base):
     def __init__(self, object_name):
@@ -80,7 +88,7 @@ class ObjectReference(Base):
             raise Exception("Empty object name not allowed")
         self.__object_name = object_name
 
-    def to_stream(self, os=sys.stdout):
+    def to_stream(self, os):
         os.write(self.__object_name)
 
 class Object(Base):
@@ -93,7 +101,7 @@ class Object(Base):
     def del_member(self,key):
         del self.__members[key]
         
-    def to_stream(self, os=sys.stdout):
+    def to_stream(self, os):
         os.write("{")
         i=0
         for k in self.__members.keys():
@@ -114,7 +122,7 @@ class FunctionCall(Base):
     def add_argument(self, argument):
         self.__arguments.append(argument)
 
-    def to_stream(self, os=sys.stdout):
+    def to_stream(self, os):
         os.write(self.__function_name)
         os.write("(")
         for i in range(len(self.__arguments)):
@@ -122,7 +130,7 @@ class FunctionCall(Base):
             if i != len(self.__arguments) -1:
                 os.write(",")
 
-        os.write(");")
+        os.write(")")
 
 class FunctionDefinition(Base):
     def __init__(self, function_name, arguments=None, source=None):
@@ -144,7 +152,7 @@ class FunctionDefinition(Base):
     def add_statement(self, argument):
         self.__source.append(argument)
 
-    def to_stream(self, os=sys.stdout):
+    def to_stream(self, os):
         os.write("function")
         if len(self.__function_name) > 0:
             os.write(" ")
@@ -160,6 +168,8 @@ class FunctionDefinition(Base):
         os.write("{")
         for st in self.__source:
             st.to_stream(os)
+            if not isinstance(st, Comment):
+                os.write(';')
         os.write("}")
 
 

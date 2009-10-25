@@ -128,6 +128,15 @@ class FunctionCall(object):
     def compile(self, dialect):
         return javascript.FunctionCall(self.__function_name, [a.compile(dialect) for a in self.__arguments])
 
+class Return(SinglePartCompilable):
+    def __init__(self, what):
+        SinglePartCompilable.__init__(self)
+
+        self.what = what
+
+    def compile(self, dialect):
+        return javascript.Return(self.what.compile(dialect))
+
 
 class FunctionDefinition(SinglePartCompilable):
     def __init__(self, name):
@@ -144,7 +153,7 @@ class FunctionDefinition(SinglePartCompilable):
 
     def compile(self, dialect):
         retval = javascript.FunctionDefinition(self.name)
-        for st in self.source:
+        for st in self._source:
             retval.add_statement(st.compile(dialect))
 
         return retval
