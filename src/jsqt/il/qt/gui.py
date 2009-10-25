@@ -72,6 +72,8 @@ class QWidget(il.primitive.MultiPartCompilable):
         
         if isinstance(self.layout, il.qt.layout.QGridLayout):
             instance.layout_properties = dict(elt.attrib)
+            for k in instance.layout_properties:
+                instance.layout_properties[k]=int(instance.layout_properties[k])
         else:
             instance.layout_properties = {'flex': 1}
 
@@ -114,6 +116,14 @@ class QWidget(il.primitive.MultiPartCompilable):
         self.layout = layout
         layout.set_parent(self)
 
+    def _compile_layout(self, dialect, ret):
+        if self.layout != None:
+            self.layout.compile(dialect,ret)
+            set_layout=il.primitive.FunctionCall('this.%s.setLayout'% self.name,
+                   [il.primitive.FunctionCall("this.create_%s" % self.layout.name)])
+
+            self.factory_function.add_statement(set_layout)
+
     def compile(self, dialect, ret):
         factory_function_retval=il.primitive.ObjectReference('this.%s'
                                                                     % self.name)
@@ -123,13 +133,7 @@ class QWidget(il.primitive.MultiPartCompilable):
 
         self.factory_function.add_statement(instantiation)
 
-        # layout
-        if self.layout != None:
-            self.layout.compile(dialect,ret)
-            set_layout=il.primitive.FunctionCall('this.%s.setLayout'% self.name,
-                   [il.primitive.ObjectReference("this.%s" % self.layout.name)])
-
-            self.factory_function.add_statement(set_layout)
+        self._compile_layout(dialect,ret)
 
         # children
         for c in self.children:

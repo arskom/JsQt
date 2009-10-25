@@ -22,6 +22,7 @@
 #
 
 from gui import QWidget
+from jsqt import il
 
 class QMainWindow(QWidget):
     def __init__(self, elt, name=None):
@@ -34,10 +35,20 @@ class QTabWidget(QWidget):
         self.type = "qx.ui.tabview.TabView"
 
     def _handle_widget_tag(self, elt):
-        instance = self.get_instance(elt)
-        instance.type = "qx.ui.tabview.Page"
-        self.add_child(instance)
+        elt.set("class", "TabPage")
+        QWidget._handle_widget_tag(self,elt)
 
+class TabPage(QWidget):
+    def __init__(self, elt, name=None):
+        QWidget.__init__(self,elt,name)
+
+        self.type = "qx.ui.tabview.Page"
+
+    def _compile_layout(self, dialect, ret):
+        if self.layout == None:
+            self.layout = il.qt.layout.CanvasLayout(None, "%s_implicit_layout"
+                                                                    % self.name)
+        QWidget._compile_layout(self,dialect,ret)
 
 class QGroupBox(QWidget):
     def __init__(self, elt, name=None):

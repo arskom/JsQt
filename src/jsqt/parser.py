@@ -37,6 +37,7 @@ il.qt.gui.layout_dict = {
 il.qt.gui.widget_dict = {
     "QMainWindow": il.qt.container.QMainWindow,
     "QTabWidget": il.qt.container.QTabWidget,
+    "TabPage": il.qt.container.TabPage,
 
     "QWidget": il.qt.gui.QWidget,
     "QFrame": il.qt.gui.QWidget,
@@ -117,7 +118,8 @@ class UiParser(object):
 
     def parse_widget(self, elt):
         instance = il.qt.gui.widget_dict[elt.attrib['class']](elt)
-        
+        instance.layout=il.qt.layout.QVBoxLayout(None,name="%s_implicit_layout"%
+                                                                  instance.name)
         set_main_widget=il.primitive.FunctionCall('this.setWidget',
                   [il.primitive.FunctionCall("this.create_%s" % instance.name)])
         self.clazz.ctor.add_statement(set_main_widget)
