@@ -62,10 +62,16 @@ class MultiPartCompilable(Compilable):
             recursive invocations.
 
         Returns nothing
-        
         """
 
         raise Exception("Please override for class '%s.%s'" % (self.__module__,self.__class__.__name__))
+
+class DecimalInteger(SinglePartCompilable):
+    def __init__(self, value):
+        self.__value = value
+
+    def compile(self, dialect):
+        return javascript.DecimalInteger(self.__value)
 
 class ObjectReference(SinglePartCompilable):
     def __init__(self, object_name):
@@ -87,6 +93,21 @@ class Instantiation(object):
 
     def compile(self, dialect):
         return javascript.Instantiation(self.__class_name)
+
+class String(SinglePartCompilable):
+    def __init__(self, string):
+        self.__string=string
+
+    def compile(self, dialect):
+        return javascript.String(self.__string.replace("\n","\\n"))
+
+class Concatenation(SinglePartCompilable):
+    def __init__(self, sub_strings):
+        self.__sub_strings = sub_strings
+
+    def compile(self, dialect):
+        compiled_sub_strings = [s.compile(dialect) for s in self.__sub_strings]
+        return javascript.Concatenation(compiled_sub_strings)
 
 class Comment(SinglePartCompilable):
     def __init__(self, comment):
@@ -242,4 +263,23 @@ class ClassDefinition(SinglePartCompilable):
         lang.add_argument(class_dict)
 
         return lang
+
+class AssociativeArrayInitialization(SinglePartCompilable):
+    type_map={
+        int: DecimalInteger,
+        str: String,
+    }
+
+    def __init__(self, aai):
+        self.__aai = {}
+        for k,v in aai.items():
+            self.__aai[k] = self.type_map[type(v)](v)
+
+    def compile(self, dialect):
+        retval = javascript.Object()
+
+        for k,v in self.__aai.items():
+            retval.set_member(k, v.compile(dialect))
+
+        return retval
 

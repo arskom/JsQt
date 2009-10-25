@@ -35,6 +35,7 @@ class QWidget(il.primitive.MultiPartCompilable):
         self.parent = None
         self.layout = None
         self.type = "qx.ui.container.Composite"
+        self.layout_properties = None
 
         if name != None:
             if elt != None:
@@ -58,18 +59,33 @@ class QWidget(il.primitive.MultiPartCompilable):
         else:
             object.__setattr__(self,key,val)
 
+    def _handle_item_tag(self, elt):
+        instance = self.get_instance(elt[0])
+        if isinstance(self.layout, il.qt.layout.QGridLayout):
+            instance.layout_properties = dict(elt.attrib)
+        else:
+            instance.layout_properties = {'flex': 1}
+
+        self.add_child(instance)
+
+    def _handle_property_tag(self, elt):
+        self.set_property(elt)
+
+    def _handle_layout_tag(self, elt):
+        instance = self.get_instance(elt)
+        self.set_layout(instance)
+        self._loop_children(elt)
+
     def _loop_children(self, elt):
         for e in elt:
             if e.tag == 'item':
-                self._loop_children(e)
+                self._handle_item_tag(e)
 
             elif e.tag in ('property', 'attribute'):
-                self.set_property(e)
+                self._handle_property_tag(e)
 
             elif e.tag == 'layout':
-                instance = self.get_instance(e)
-                self.set_layout(instance)
-                self._loop_children(e)
+                self._handle_layout_tag(e)
 
             else:
                 instance = self.get_instance(e)
@@ -114,11 +130,13 @@ class QWidget(il.primitive.MultiPartCompilable):
         # children
         for c in self.children:
             c.compile(dialect, ret)
-            from jsqt.il.qt.layout import QLayout
 
-            add_children=il.primitive.FunctionCall('this.%s.add' % self.name,
-                    [il.primitive.FunctionCall("this.create_%s" % c.name)])
+            args=[il.primitive.FunctionCall("this.create_%s" % c.name)]
+            if c.layout_properties != None:
+                args.append(il.primitive.AssociativeArrayInitialization(
+                                                           c.layout_properties))
 
+            add_children=il.primitive.FunctionCall('this.%s.add' % c.name, args)
             self.factory_function.add_statement(add_children)
 
         ret.set_member(self.factory_function.name, self.factory_function)

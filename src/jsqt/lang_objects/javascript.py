@@ -44,11 +44,23 @@ class Comment(Base):
 class String(Base):
     def __init__(self, string):
         self.__string = string
-        
+
     def to_stream(self, os):
         os.write('"')
-        os.write(self.__string)
+        os.write(self.__string.replace("\n","\\n").replace("\r","\\r")
+                                                            .replace('"','\\"'))
         os.write('"')
+
+class Concatenation(Base):
+    def __init__(self, sub_strings):
+        self.__sub_strings = sub_strings
+
+    def to_stream(self, os):
+        raise Exception("Not implemented") # FIXME
+        for i in len(range(self.__sub_strings)):
+            self.__sub_strings[i].to_stream(os)
+
+        return javascript.Concatenation(compiled_sub_strings)
 
 class Assignment(Base):
     def __init__(self, left=None, right=None):
@@ -90,6 +102,13 @@ class ObjectReference(Base):
 
     def to_stream(self, os):
         os.write(self.__object_name)
+
+class DecimalInteger(Base):
+    def __init__(self, value):
+        self.__value=value
+
+    def to_stream(self, os):
+        os.write(str(self.__value))
 
 class Object(Base):
     def __init__(self):

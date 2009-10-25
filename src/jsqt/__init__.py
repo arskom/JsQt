@@ -88,24 +88,36 @@ class JsPp(object):
         self.__os = os;
         self.__indent = 0
         self.__comma_causes_new_line=[]
+        self.__brace_causes_new_line=[True]
 
     def write(self,what):
         os=self.__os
         i=0
+
+        if not self.__brace_causes_new_line[-1]:
+            if what == ";":
+                self.__brace_causes_new_line=[True]
+                
+        if what.endswith(".add"):
+            self.__brace_causes_new_line=[False]
+
         for c in what:
             if c == '{':
                 os.write(" ")
                 os.write(c)
-                self.__indent+=1
-                self.newline()
-                self.__comma_causes_new_line.append(True)
+                if self.__brace_causes_new_line[-1]:
+                    self.__indent+=1
+                    self.newline()
+                    self.__comma_causes_new_line.append(True)
 
             elif c == "}":
-                self.__indent-=1
-                self.newline()
+                if self.__brace_causes_new_line[-1]:
+                    self.__indent-=1
+                    self.newline()
                 os.write(c)
-                self.newline()
-                self.__comma_causes_new_line.pop()
+                if self.__brace_causes_new_line[-1]:
+                    self.newline()
+                    self.__comma_causes_new_line.pop()
 
             elif c == "(":
                 self.__comma_causes_new_line.append(False)
