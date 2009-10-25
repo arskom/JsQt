@@ -27,12 +27,14 @@ from jsqt import il
 import il.qt
 from jsqt import DuckTypedList, JsPp
 
-il.qt.gui.widget_dict = {
+il.qt.gui.layout_dict = {
     "QVBoxLayout": il.qt.layout.QVBoxLayout,
     "QHBoxLayout": il.qt.layout.QHBoxLayout,
     "QGridLayout": il.qt.layout.QGridLayout,
     "QFormLayout": il.qt.layout.QGridLayout,
+}
 
+il.qt.gui.widget_dict = {
     "QMainWindow": il.qt.container.QMainWindow,
     "QTabWidget": il.qt.container.QTabWidget,
 
@@ -60,28 +62,7 @@ il.qt.gui.widget_dict = {
 
 # http://codespeak.net/lxml/tutorial.html
 
-# the ultra-portable etree import
-try:
-    from lxml import etree
-    print("running with lxml.etree")
-except ImportError:
-    try: # Python 2.5+
-        import xml.etree.cElementTree as etree
-        print("running with cElementTree on Python 2.5+")
-    except ImportError:
-        try: # Python 2.5+
-            import xml.etree.ElementTree as etree
-            print("running with ElementTree on Python 2.5+")
-        except ImportError:
-            try: # normal cElementTree install
-                import cElementTree as etree
-                print("running with cElementTree")
-            except ImportError:
-                try: # normal ElementTree install
-                    import elementtree.ElementTree as etree
-                    print("running with ElementTree")
-                except ImportError:
-                    print("Failed to import ElementTree from any known place")
+from jsqt.xml import etree
 
 class_name = ""
 
@@ -138,7 +119,7 @@ class UiParser(object):
         instance = il.qt.gui.widget_dict[elt.attrib['class']](elt)
         
         set_main_widget=il.primitive.FunctionCall('this.setWidget',
-                         [il.primitive.FunctionCall("this.create_%s" % instance.name)])
+                  [il.primitive.FunctionCall("this.create_%s" % instance.name)])
         self.clazz.ctor.add_statement(set_main_widget)
 
         self.clazz.set_member(elt.attrib['name'], instance)

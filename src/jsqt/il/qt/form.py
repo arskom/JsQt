@@ -79,9 +79,15 @@ class QRadioButton(QWidget):
 
 class QComboBox(QWidget):
     def __init__(self, elt, name=None):
+        self.items = []
         QWidget.__init__(self,elt,name)
 
         self.type = "qx.ui.form.SelectBox"
+
+    def _handle_item_tag(self, elt):
+        print "\t\t",elt[0].tag,elt[0].attrib, "%s: '%s'" %(elt[0][0].tag,
+                                                                 elt[0][0].text)
+        self.items.append(elt[0][0].text)
 
 class QSpacer(QWidget):
     def __init__(self, elt, name=None):

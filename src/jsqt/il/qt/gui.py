@@ -22,13 +22,12 @@
 #
 
 from jsqt import il
-
 from jsqt import DuckTypedList
+from jsqt.xml import etree
 
-widget_dict = {
+widget_dict = {}
 
-}
-
+layout_dict = {}
 class QWidget(il.primitive.MultiPartCompilable):
     def __init__(self, elt, name=None):
         self.children = DuckTypedList(['compile'])
@@ -60,7 +59,15 @@ class QWidget(il.primitive.MultiPartCompilable):
             object.__setattr__(self,key,val)
 
     def _handle_item_tag(self, elt):
+        if elt[0].tag == "layout":
+            new_elt = etree.Element("widget")
+            new_elt.set('name',"%s_implicit_container"% elt[0].attrib['name'])
+            new_elt.set('class',"QWidget")
+            new_elt.append(elt[0])
+            elt.append(new_elt)
+
         instance = self.get_instance(elt[0])
+        
         if isinstance(self.layout, il.qt.layout.QGridLayout):
             instance.layout_properties = dict(elt.attrib)
         else:
@@ -99,6 +106,8 @@ class QWidget(il.primitive.MultiPartCompilable):
             class_name = elt.attrib['class']
             if class_name in widget_dict:
                 return widget_dict[class_name](elt)
+            elif class_name in layout_dict:
+                return layout_dict[class_name](elt)
             else:
                 return QWidgetStub(elt)
 
@@ -136,7 +145,8 @@ class QWidget(il.primitive.MultiPartCompilable):
                 args.append(il.primitive.AssociativeArrayInitialization(
                                                            c.layout_properties))
 
-            add_children=il.primitive.FunctionCall('this.%s.add' % c.name, args)
+            add_children=il.primitive.FunctionCall('this.%s.add' % self.name,
+                                                                           args)
             self.factory_function.add_statement(add_children)
 
         ret.set_member(self.factory_function.name, self.factory_function)
