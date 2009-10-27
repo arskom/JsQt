@@ -21,77 +21,85 @@
 # 02110-1301, USA.
 #
 
-from gui import QWidget
+from gui import WidgetBase
 
-class QLabel(QWidget):
+class QLabel(WidgetBase):
     def __init__(self, elt, name=None):
-        QWidget.__init__(self,elt,name)
+        WidgetBase.__init__(self,elt,name)
 
         self.type="qx.ui.basic.Label"
 
-class QPushButton(QWidget):
+class QPushButton(WidgetBase):
     def __init__(self, elt, name=None):
-        QWidget.__init__(self,elt,name)
+        WidgetBase.__init__(self,elt,name)
 
         self.type = "qx.ui.form.Button"
 
-class QLabel(QWidget):
+class QLabel(WidgetBase):
     def __init__(self, elt, name=None):
-        QWidget.__init__(self,elt,name)
+        WidgetBase.__init__(self,elt,name)
 
         self.type="qx.ui.basic.Label"
 
-class QLineEdit(QWidget):
+class QLineEdit(WidgetBase):
     def __init__(self, elt, name=None):
-        QWidget.__init__(self,elt,name)
+        WidgetBase.__init__(self,elt,name)
 
         self.type="qx.ui.form.TextField"
 
-class QTextEdit(QWidget):
+class QTextEdit(WidgetBase):
     def __init__(self, elt, name=None):
-        QWidget.__init__(self,elt,name)
+        WidgetBase.__init__(self,elt,name)
 
         self.type="qx.ui.form.TextArea"
 
-class QSpinBox(QWidget):
+class QSpinBox(WidgetBase):
     def __init__(self, elt, name=None):
-        QWidget.__init__(self,elt,name)
+        WidgetBase.__init__(self,elt,name)
 
         self.type="qx.ui.form.Spinner"
 
-class QDateEdit(QWidget):
+class QDateEdit(WidgetBase):
     def __init__(self, elt, name=None):
-        QWidget.__init__(self,elt,name)
+        WidgetBase.__init__(self,elt,name)
 
         self.type="qx.ui.form.DateField"
 
-class QCheckBox(QWidget):
+class QCheckBox(WidgetBase):
     def __init__(self, elt, name=None):
-        QWidget.__init__(self,elt,name)
+        WidgetBase.__init__(self,elt,name)
 
         self.type="qx.ui.form.CheckBox"
 
-class QRadioButton(QWidget):
+class QRadioButton(WidgetBase):
     def __init__(self, elt, name=None):
-        QWidget.__init__(self,elt,name)
+        WidgetBase.__init__(self,elt,name)
 
         self.type="qx.ui.form.RadioButton"
 
-class QComboBox(QWidget):
+class QComboBox(WidgetBase):
     def __init__(self, elt, name=None):
         self.items = []
-        QWidget.__init__(self,elt,name)
+        try:
+            self.tag_handlers
+        except:
+            self.tag_handlers = {}
+
+        self.tag_handlers['item'] = self._handle_item_tag
 
         self.type = "qx.ui.form.SelectBox"
+
+        WidgetBase.__init__(self,elt,name)
+
 
     def _handle_item_tag(self, elt):
         print "\t\t",elt[0].tag,elt[0].attrib, "%s: '%s'" %(elt[0][0].tag,
                                                                  elt[0][0].text)
         self.items.append(elt[0][0].text)
 
-class QSpacer(QWidget):
+class QSpacer(WidgetBase):
     def __init__(self, elt, name=None):
-        QWidget.__init__(self,elt,name)
+        WidgetBase.__init__(self,elt,name)
 
         self.type = "qx.ui.core.Spacer"
 

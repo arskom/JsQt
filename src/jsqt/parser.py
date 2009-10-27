@@ -38,6 +38,7 @@ il.qt.gui.widget_dict = {
     "QMainWindow": il.qt.container.QMainWindow,
     "QTabWidget": il.qt.container.QTabWidget,
     "TabPage": il.qt.container.TabPage,
+    "QScrollArea": il.qt.container.QScrollArea,
 
     "QWidget": il.qt.gui.QWidget,
     "QFrame": il.qt.gui.QWidget,
@@ -70,7 +71,6 @@ class_name = ""
 class CodeBlocks(DuckTypedList):
     def __init__(self):
         DuckTypedList.__init__(self,['to_stream'])
-
     def to_stream(self, os=sys.stdout):
         for l in self:
             l.to_stream(os)
@@ -83,6 +83,14 @@ class UiParser(object):
         self.clazz = il.primitive.ClassDefinition(object_name)
         self.lang = CodeBlocks()
 
+        self.handlers = {
+            'ui': self.parse_ui,
+            'class': self.parse_class,
+            'widget': self.parse_widget,
+            'customwidgets': self.parse_custom_widgets,
+        }
+
+
     def compile(self, dialect):
         for l in self.clazz.compile(dialect):
             self.lang.append(l)
@@ -90,7 +98,7 @@ class UiParser(object):
     def parse(self, file_handle):
         tree = etree.parse(file_handle)
         root = tree.getroot()
-        self.handlers[root.tag](self,root)
+        self.handlers[root.tag](root)
 
     def parse_custom_widget(self,element):
         for tag in elt:
@@ -109,7 +117,7 @@ class UiParser(object):
 
         for elt in elements:
             if elt.tag in self.handlers:
-                self.handlers[elt.tag](self,elt)
+                self.handlers[elt.tag](elt)
             else:
                 self.parse_unknown_tag(elt)
 
@@ -118,8 +126,6 @@ class UiParser(object):
 
     def parse_widget(self, elt):
         instance = il.qt.gui.widget_dict[elt.attrib['class']](elt)
-        instance.layout=il.qt.layout.QVBoxLayout(None,name="%s_implicit_layout"%
-                                                                  instance.name)
         set_main_widget=il.primitive.FunctionCall('this.setWidget',
                   [il.primitive.FunctionCall("this.create_%s" % instance.name)])
         self.clazz.ctor.add_statement(set_main_widget)
@@ -131,13 +137,6 @@ class UiParser(object):
 
     def parse_unknown_tag(self,elt):
         self.clazz.preamble.append(il.primitive.Comment("WARNING: '%s' tag is not supported" % elt.tag))
-
-    handlers = {
-        'ui': parse_ui,
-        'class': parse_class,
-        'widget': parse_widget,
-        'customwidgets': parse_custom_widgets,
-    }
 
 def compile(ui_file_name, js_file_name, root_namespace, dialect):
     print ui_file_name

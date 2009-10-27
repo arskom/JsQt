@@ -21,39 +21,57 @@
 # 02110-1301, USA.
 #
 
-from gui import QWidget
-from jsqt import il
+from gui import ContainerBase
 
-class QMainWindow(QWidget):
+class QMainWindow(ContainerBase):
     def __init__(self, elt, name=None):
-        QWidget.__init__(self,elt,name)
+        ContainerBase.__init__(self, elt, name)
 
-class QTabWidget(QWidget):
+        self.type = "qx.ui.container.Composite"
+
+class QTabWidget(ContainerBase):
     def __init__(self, elt, name=None):
-        QWidget.__init__(self,elt,name)
+        ContainerBase.__init__(self, elt, name)
 
         self.type = "qx.ui.tabview.TabView"
 
     def _handle_widget_tag(self, elt):
         elt.set("class", "TabPage")
-        QWidget._handle_widget_tag(self,elt)
-
-class TabPage(QWidget):
-    def __init__(self, elt, name=None):
-        QWidget.__init__(self,elt,name)
-
-        self.type = "qx.ui.tabview.Page"
+        ContainerBase._handle_widget_tag(self, elt)
 
     def _compile_layout(self, dialect, ret):
-        if self.layout == None:
-            self.layout = il.qt.layout.CanvasLayout(None, "%s_implicit_layout"
-                                                                    % self.name)
-        QWidget._compile_layout(self,dialect,ret)
+        pass
 
-class QGroupBox(QWidget):
+class TabPage(ContainerBase):
     def __init__(self, elt, name=None):
-        QWidget.__init__(self,elt,name)
+        self.layout_properties = None
+        ContainerBase.__init__(self, elt, name)
+
+        self.type = "qx.ui.tabview.Page"
+                
+class QGroupBox(ContainerBase):
+    def __init__(self, elt, name=None):
+        ContainerBase.__init__(self, elt, name)
 
         self.type = "qx.ui.groupbox.GroupBox"
 
+class QScrollArea(ContainerBase):
+    def __init__(self, elt, name=None):
+        ContainerBase.__init__(self, elt, name)
 
+        self.type = "qx.ui.container.Scroll"
+
+    def _compile_layout(self, dialect, ret):
+        pass
+
+    def add_child(self, instance):
+        if len(self.children)>0:
+            raise Exception("QScrollArea can have one child widget")
+        ContainerBase.add_child(self, instance)
+
+    def close(self):
+        self.children[0].vsize_type = 'Expanding'
+        self.children[0].hsize_type = 'Expanding'
+        self.children[0].set_vsizepolicy()
+        self.children[0].set_hsizepolicy()
+        Container.close(self)

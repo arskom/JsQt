@@ -21,11 +21,11 @@
 # 02110-1301, USA.
 #
 
-from gui import QWidget
+from gui import ObjectBase
 
-class QLayout(QWidget):
+class QLayout(ObjectBase):
     def __init__(self, elt, name=None):
-        QWidget.__init__(self,elt,name)
+        ObjectBase .__init__(self, elt, name)
 
     def add_child(self, child):
         raise Exception("layouts don't accept children")
@@ -33,27 +33,30 @@ class QLayout(QWidget):
     def _loop_children(self, elt):
         pass
 
+    def _compile_props(self, dialect, ret):
+        pass
+
 class CanvasLayout(QLayout):
     def __init__(self, elt, name=None):
-        QLayout.__init__(self,elt,name)
+        QLayout.__init__(self, elt, name)
 
         self.type = "qx.ui.layout.Canvas"
 
 class QVBoxLayout(QLayout):
     def __init__(self, elt, name=None):
-        QLayout.__init__(self,elt,name)
+        QLayout.__init__(self, elt, name)
 
         self.type = "qx.ui.layout.VBox"
 
 class QHBoxLayout(QLayout):
     def __init__(self, elt, name=None):
-        QLayout.__init__(self,elt,name)
+        QLayout.__init__(self, elt, name)
 
         self.type = "qx.ui.layout.HBox"
 
 class QGridLayout(QLayout):
     def __init__(self, elt, name=None):
-        QLayout.__init__(self,elt,name)
+        QLayout.__init__(self, elt, name)
 
         self.type = "qx.ui.layout.Grid"
 
