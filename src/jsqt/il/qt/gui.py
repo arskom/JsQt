@@ -25,8 +25,6 @@ from jsqt import DuckTypedList
 from jsqt import il
 from jsqt.xml import etree
 
-import tidy
-
 widget_dict = {}
 layout_dict = {}
 
@@ -257,14 +255,11 @@ class ContainerBase(WidgetBase):
 
     def _handle_item_tag(self, elt):
         if elt[0].tag == "layout":
-            #print tidy.parseString(etree.tostring(elt), output_xml=1, input_xml=1, add_xml_decl=1, indent=1, tidy_mark=0)
             new_elt = etree.Element("widget")
             new_elt.set('name', "%s_implicit_container" % elt[0].attrib['name'])
             new_elt.set('class', "QWidget")
             new_elt.append(elt[0])
             elt.append(new_elt)
-            #print "+++++++++++++++++++++++++"
-            #print tidy.parseString(etree.tostring(elt), output_xml=1, input_xml=1, add_xml_decl=1, indent=1, tidy_mark=0)
 
         instance = self.get_instance(elt[0])
 
