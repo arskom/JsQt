@@ -105,11 +105,20 @@ class QDateEdit(WidgetBase):
 
         self.type="qx.ui.form.DateField"
 
-class QCheckBox(WidgetBase):
+class QCheckBox(WidgetBase,_MWithCaption):
     def __init__(self, elt, name=None):
+        _MWithCaption.__init__(self)
         WidgetBase.__init__(self,elt,name)
 
         self.type="qx.ui.form.CheckBox"
+
+    def compile(self, dialect, ret):
+        WidgetBase.compile(self, dialect, ret)
+        _MWithCaption.compile(self, dialect, ret, "setLabel")
+
+    def set_property(self, elt):
+        WidgetBase.set_property(self, elt)
+        _MWithCaption.set_property(self, elt)
 
 class QRadioButton(WidgetBase):
     def __init__(self, elt, name=None):
