@@ -28,28 +28,29 @@ from jsqt.xml import etree
 widget_dict = {}
 layout_dict = {}
 
-class MPropertyManager(object):
+class MGeometryProperties(object):
     def __init__(self):
-        self.geometry_t = 0
-        self.geometry_l = 0
-        self.geometry_w = 0
-        self.geometry_h = 0
+        self.__top = 0
+        self.__left = 0
+        self.__width = 0
+        self.__height = 0
 
-        self.geometry_min_w = 0
-        self.geometry_min_h = 0
-        self.geometry_max_w = 16777215
-        self.geometry_max_h = 16777215
-        self.margin_t = 1
-        self.margin_b = 1
-        self.margin_l = 1
-        self.margin_r = 1
+        self.__min_w = 0
+        self.__min_h = 0
+        self.__max_w = 16777215
+        self.__max_h = 16777215
 
-        self.known_props = {
+        self.__margin_t = 1
+        self.__margin_b = 1
+        self.__margin_l = 1
+        self.__margin_r = 1
+
+        self.__known_props = {
             "geometry": self._handle_prop_geometry,
             "text": self._handle_prop_text,
         }
 
-        self.primitive_prop_types = {
+        self.__primitive_prop_types = {
             'x': int,
             'y': int,
             'width': int,
@@ -57,81 +58,90 @@ class MPropertyManager(object):
             'string': str,
         }
 
+    def get_geometry_top(self):
+        return self.__top
+    def get_geometry_left(self):
+        return self.__left
+    
     def _handle_prop_type_rect(self, elt):
         retval = {}
         for e in elt:
-            retval[e.tag] = self.primitive_prop_types[e.tag](e.text)
+            retval[e.tag] = self.__primitive_prop_types[e.tag](e.text)
 
         return retval
 
-    def _compile_props(self, dialect, ret):
-        self._compile_geometry(dialect, ret)
-
-    def _compile_geometry(self, dialect, ret):
-        if self.geometry_w > 0:
+    def compile(self, dialect, ret):
+        if self.__width != 0:
             fc = il.primitive.FunctionCall("this.%s.setWidth" % self.name,
-                                 [il.primitive.DecimalInteger(self.geometry_w)])
+                                 [il.primitive.DecimalInteger(self.__width)])
             self.factory_function.add_statement(fc)
 
-        if self.geometry_h > 0:
+        if self.__height != 0:
             fc = il.primitive.FunctionCall("this.%s.setHeight" % self.name,
-                                 [il.primitive.DecimalInteger(self.geometry_h)])
+                                 [il.primitive.DecimalInteger(self.__height)])
             self.factory_function.add_statement(fc)
 
-        if self.geometry_min_w > 0:
+        if self.__min_w != 0:
             fc = il.primitive.FunctionCall("this.%s.setMinWidth" % self.name,
-                             [il.primitive.DecimalInteger(self.geometry_min_w)])
+                             [il.primitive.DecimalInteger(self.__min_w)])
             self.factory_function.add_statement(fc)
 
-        if self.geometry_min_h > 0:
+        if self.__min_h != 0:
             fc = il.primitive.FunctionCall("this.%s.setMinHeight" % self.name,
-                             [il.primitive.DecimalInteger(self.geometry_min_h)])
+                             [il.primitive.DecimalInteger(self.__min_h)])
             self.factory_function.add_statement(fc)
 
-        if self.geometry_max_w < 16777215:
+        if self.__max_w != 16777215:
             fc = il.primitive.FunctionCall("this.%s.setMaxWidth" % self.name,
-                             [il.primitive.DecimalInteger(self.geometry_max_w)])
+                             [il.primitive.DecimalInteger(self.__max_w)])
             self.factory_function.add_statement(fc)
 
-        if self.geometry_max_h < 16777215:
+        if self.__max_h != 16777215:
             fc = il.primitive.FunctionCall("this.%s.setMaxHeight" % self.name,
-                             [il.primitive.DecimalInteger(self.geometry_max_h)])
+                             [il.primitive.DecimalInteger(self.__max_h)])
             self.factory_function.add_statement(fc)
 
-        if self.margin_b != 0:
+        if self.__margin_b != 0:
             fc = il.primitive.FunctionCall("this.%s.setMarginBottom" % self.name,
-                                   [il.primitive.DecimalInteger(self.margin_b)])
+                                   [il.primitive.DecimalInteger(self.__margin_b)])
             self.factory_function.add_statement(fc)
 
-        if self.margin_t != 0:
+        if self.__margin_t != 0:
             fc = il.primitive.FunctionCall("this.%s.setMarginTop" % self.name,
-                                   [il.primitive.DecimalInteger(self.margin_t)])
+                                   [il.primitive.DecimalInteger(self.__margin_t)])
             self.factory_function.add_statement(fc)
 
-        if self.margin_l != 0:
+        if self.__margin_l != 0:
             fc = il.primitive.FunctionCall("this.%s.setMarginLeft" % self.name,
-                                   [il.primitive.DecimalInteger(self.margin_l)])
+                                   [il.primitive.DecimalInteger(self.__margin_l)])
             self.factory_function.add_statement(fc)
 
-        if self.margin_r != 0:
+        if self.__margin_r != 0:
             fc = il.primitive.FunctionCall("this.%s.setMarginRight" % self.name,
-                                   [il.primitive.DecimalInteger(self.margin_r)])
+                                   [il.primitive.DecimalInteger(self.__margin_r)])
             self.factory_function.add_statement(fc)
 
     def _handle_prop_geometry(self, elt):
         if elt[0].tag == 'rect':
             retval = self._handle_prop_type_rect(elt[0])
 
-            self.geometry_l = retval['x']
-            self.geometry_t = retval['y']
-            self.geometry_w = retval['width']
-            self.geometry_h = retval['width']
+            self.__left = retval['x']
+            self.__top = retval['y']
+            self.__width = retval['width']
+            self.__height = retval['width']
 
         else:
             print "\t\t", "WARNING: property 'geometry' doesn't have 'rect' tag"
 
     def _handle_prop_text(self, elt):
-        self.text = self.primitive_prop_types[elt[0].tag](elt[0].text)
+        self.text = self.__primitive_prop_types[elt[0].tag](elt[0].text)
+
+    def set_property(self, elt):
+        print "\t\t", elt.tag, elt.attrib
+
+        prop_name = elt.attrib['name']
+        if prop_name in self.__known_props:
+            self.__known_props[prop_name](elt)
 
 class ObjectBase(il.primitive.MultiPartCompilable):
     def __init__(self, elt, name=None):
@@ -184,37 +194,23 @@ class ObjectBase(il.primitive.MultiPartCompilable):
             else:
                 return QWidgetStub(elt)
 
-    def compile(self, dialect, ret):
+    def __compile_instantiation(self, dialect, ret):
         factory_function_retval = il.primitive.ObjectReference('this.%s'
-                                                               % self.name)
+                                                                    % self.name)
         instantiation = il.primitive.Assignment()
         instantiation.set_left(factory_function_retval)
         instantiation.set_right(il.primitive.Instantiation(self.type))
 
         self.factory_function.add_statement(instantiation)
 
-        self._compile_layout(dialect, ret)
-        self._compile_props(dialect, ret)
-
-        # children
-        for c in self.children:
-            c.compile(dialect, ret)
-
-            if c.supported:
-                args = [il.primitive.FunctionCall("this.create_%s" % c.name)]
-                if c.layout_properties != None:
-                    args.append(il.primitive.AssociativeArrayInitialization(
-                                c.layout_properties))
-
-                add_children=il.primitive.FunctionCall('this.%s.add'% self.name,
-                                                         args)
-                self.factory_function.add_statement(add_children)
-
         ret.set_member(self.factory_function.name, self.factory_function)
-        self.factory_function.add_statement(il.primitive.Return(
-                                            factory_function_retval))
+        self.factory_function.set_return_statement(
+                            il.primitive.ObjectReference('this.%s' % self.name))
 
         ret.set_member(self.name, il.primitive.ObjectReference('null'))
+
+    def compile(self, dialect, ret):
+        self.__compile_instantiation(dialect, ret)
 
     def set_parent(self, parent):
         self.parent = parent
@@ -222,26 +218,20 @@ class ObjectBase(il.primitive.MultiPartCompilable):
     def is_primitive(self):
         return False
 
-    def set_property(self, elt):
-        print "\t\t", elt.tag, elt.attrib
-
-        prop_name = elt.attrib['name']
-        if prop_name in self.known_props:
-            self.known_props[prop_name](elt)
-
-    def _compile_layout(self, dialect, ret):
-        pass
-
-class WidgetBase(ObjectBase, MPropertyManager):
+class WidgetBase(ObjectBase, MGeometryProperties):
     def __init__(self, elt, name=None):
-        MPropertyManager.__init__(self)
+        MGeometryProperties.__init__(self)
         ObjectBase.__init__(self, elt, name)
+
+    def compile(self, dialect, ret):
+        ObjectBase.compile(self, dialect, ret)
+        MGeometryProperties.compile(self, dialect, ret)
 
 class ContainerBase(WidgetBase):
     def _loop_children(self, elt):
         self.tag_handlers["widget"] = self._handle_widget_tag
-        self.tag_handlers['item'] = self._handle_item_tag
         self.tag_handlers['layout'] = self._handle_layout_tag
+        self.tag_handlers['item'] = self._handle_item_tag
         try:
             self.layout
         except:
@@ -283,18 +273,38 @@ class ContainerBase(WidgetBase):
 
         if isinstance(self.layout, il.qt.layout.CanvasLayout):
             instance.layout_properties = {
-                "top": instance.geometry_t,
-                "left": instance.geometry_l,
+                "top": instance.get_geometry_top(),
+                "left": instance.get_geometry_left(),
             }
 
         instance.set_parent(self)
 
-    def _compile_layout(self, dialect, ret):
+    def __compile_layout(self, dialect, ret):
         self.layout.compile(dialect, ret)
         set_layout = il.primitive.FunctionCall('this.%s.setLayout' % self.name,
                [il.primitive.FunctionCall("this.create_%s" % self.layout.name)])
 
         self.factory_function.add_statement(set_layout)
+
+    def __compile_children(self, dialect, ret):
+        # children
+        for c in self.children:
+            c.compile(dialect, ret)
+
+            if c.supported:
+                args = [il.primitive.FunctionCall("this.create_%s" % c.name)]
+                if c.layout_properties != None:
+                    args.append(il.primitive.AssociativeArrayInitialization(
+                                c.layout_properties))
+
+                add_children=il.primitive.FunctionCall('this.%s.add'% self.name,
+                                                         args)
+                self.factory_function.add_statement(add_children)
+
+    def compile(self, dialect, ret):
+        WidgetBase.compile(self, dialect, ret)
+        self.__compile_layout(dialect, ret)
+        self.__compile_children(dialect, ret)
 
     def _handle_layout_tag(self, elt):
         instance = self.get_instance(elt)

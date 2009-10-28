@@ -165,6 +165,7 @@ class FunctionDefinition(SinglePartCompilable):
         
         self._source = DuckTypedList(['compile'])
         self.name = name
+        self.return_statement = None
 
     def add_statement(self, st):
         self._source.append(st)
@@ -172,10 +173,16 @@ class FunctionDefinition(SinglePartCompilable):
     def insert_statement(self, pos, st):
         self._source.insert(pos, st)
 
+    def set_return_statement(self, st):
+        self.return_statement = Return(st)
+
     def compile(self, dialect):
         retval = javascript.FunctionDefinition(self.name)
         for st in self._source:
             retval.add_statement(st.compile(dialect))
+
+        if self.return_statement != None:
+            retval.add_statement(self.return_statement.compile(dialect))
 
         return retval
 

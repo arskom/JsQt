@@ -23,6 +23,13 @@
 
 from gui import WidgetBase
 
+class MFormProperties(object):
+    def __init__(self):
+        self.value = None
+
+    def compile(self, dialect, ret):
+        pass
+
 class QLabel(WidgetBase):
     def __init__(self, elt, name=None):
         WidgetBase.__init__(self,elt,name)
