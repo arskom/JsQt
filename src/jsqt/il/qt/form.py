@@ -33,7 +33,6 @@ class _MWithCaption(object):
         }
 
     def __handle_text(self, elt):
-        print [e.tag for e in elt], elt.tag, elt.text
         self.__caption = elt[0].text
 
     def _set_function_name(self, function_name):
@@ -67,11 +66,20 @@ class QLabel(WidgetBase, _MWithCaption):
         WidgetBase.set_property(self, elt)
         _MWithCaption.set_property(self, elt)
 
-class QPushButton(WidgetBase):
+class QPushButton(WidgetBase, _MWithCaption):
     def __init__(self, elt, name=None):
+        _MWithCaption.__init__(self)
         WidgetBase.__init__(self,elt,name)
 
         self.type = "qx.ui.form.Button"
+
+    def compile(self, dialect, ret):
+        WidgetBase.compile(self, dialect, ret)
+        _MWithCaption.compile(self, dialect, ret, "setLabel")
+
+    def set_property(self, elt):
+        WidgetBase.set_property(self, elt)
+        _MWithCaption.set_property(self, elt)
 
 class QLineEdit(WidgetBase):
     def __init__(self, elt, name=None):
