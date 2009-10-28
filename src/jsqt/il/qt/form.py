@@ -25,7 +25,7 @@ from gui import WidgetBase
 
 from jsqt import il
 
-class _MWithCaption(object):
+class MWithCaption(object):
     def __init__(self):
         self.__caption = None
         self.__known_props = {
@@ -51,35 +51,35 @@ class _MWithCaption(object):
         if prop_name in self.__known_props:
             self.__known_props[prop_name](elt)
 
-class QLabel(WidgetBase, _MWithCaption):
+class QLabel(WidgetBase, MWithCaption):
     def __init__(self, elt, name=None):
-        _MWithCaption.__init__(self)
+        MWithCaption.__init__(self)
         WidgetBase.__init__(self,elt,name)
 
         self.type = "qx.ui.basic.Label"
 
     def compile(self, dialect, ret):
         WidgetBase.compile(self, dialect, ret)
-        _MWithCaption.compile(self, dialect, ret, "setValue")
+        MWithCaption.compile(self, dialect, ret, "setValue")
 
     def set_property(self, elt):
         WidgetBase.set_property(self, elt)
-        _MWithCaption.set_property(self, elt)
+        MWithCaption.set_property(self, elt)
 
-class QPushButton(WidgetBase, _MWithCaption):
+class QPushButton(WidgetBase, MWithCaption):
     def __init__(self, elt, name=None):
-        _MWithCaption.__init__(self)
+        MWithCaption.__init__(self)
         WidgetBase.__init__(self,elt,name)
 
         self.type = "qx.ui.form.Button"
 
     def compile(self, dialect, ret):
         WidgetBase.compile(self, dialect, ret)
-        _MWithCaption.compile(self, dialect, ret, "setLabel")
+        MWithCaption.compile(self, dialect, ret, "setLabel")
 
     def set_property(self, elt):
         WidgetBase.set_property(self, elt)
-        _MWithCaption.set_property(self, elt)
+        MWithCaption.set_property(self, elt)
 
 class QLineEdit(WidgetBase):
     def __init__(self, elt, name=None):
@@ -105,26 +105,35 @@ class QDateEdit(WidgetBase):
 
         self.type="qx.ui.form.DateField"
 
-class QCheckBox(WidgetBase,_MWithCaption):
+class QCheckBox(WidgetBase,MWithCaption):
     def __init__(self, elt, name=None):
-        _MWithCaption.__init__(self)
+        MWithCaption.__init__(self)
         WidgetBase.__init__(self,elt,name)
 
         self.type="qx.ui.form.CheckBox"
 
     def compile(self, dialect, ret):
         WidgetBase.compile(self, dialect, ret)
-        _MWithCaption.compile(self, dialect, ret, "setLabel")
+        MWithCaption.compile(self, dialect, ret, "setLabel")
 
     def set_property(self, elt):
         WidgetBase.set_property(self, elt)
-        _MWithCaption.set_property(self, elt)
+        MWithCaption.set_property(self, elt)
 
-class QRadioButton(WidgetBase):
+class QRadioButton(WidgetBase,MWithCaption):
     def __init__(self, elt, name=None):
+        MWithCaption.__init__(self)
         WidgetBase.__init__(self,elt,name)
 
         self.type="qx.ui.form.RadioButton"
+
+    def compile(self, dialect, ret):
+        WidgetBase.compile(self, dialect, ret)
+        MWithCaption.compile(self, dialect, ret, "setLabel")
+
+    def set_property(self, elt):
+        WidgetBase.set_property(self, elt)
+        MWithCaption.set_property(self, elt)
 
 class QComboBox(WidgetBase):
     def __init__(self, elt, name=None):
