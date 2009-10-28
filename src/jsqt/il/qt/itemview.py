@@ -21,20 +21,21 @@
 # 02110-1301, USA.
 #
 
-from gui import QWidget
+from gui import WidgetBase
 
-class QAbstractItemView(QWidget):
+class QAbstractItemView(WidgetBase):
     def __init__(self, elt, name=None):
-        QWidget.__init__(self,elt,name)
+        WidgetBase.__init__(self,elt,name)
 
 class QListWidget(QAbstractItemView):
     def __init__(self, elt, name=None):
-        QWidget.__init__(self,elt,name)
+        WidgetBase.__init__(self,elt,name)
 
         self.type = "qx.ui.form.List"
 
 class QTableWidget(QAbstractItemView):
     def __init__(self, elt, name=None):
-        QWidget.__init__(self,elt,name)
+        WidgetBase.__init__(self,elt,name)
 
         self.type="qx.ui.table.Table"
+        

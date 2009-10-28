@@ -148,10 +148,7 @@ class ObjectBase(il.primitive.MultiPartCompilable):
         self.children = DuckTypedList(['compile'])
         self.supported = True
         self.parent = None
-        try:
-            self.tag_handlers
-        except:
-            self.tag_handlers = {}
+        self.tag_handlers = {}
 
         self.tag_handlers["property"] = self._handle_property_tag
         self.tag_handlers["attribute"] = self._handle_property_tag
@@ -159,18 +156,26 @@ class ObjectBase(il.primitive.MultiPartCompilable):
         if name != None:
             if elt != None:
                 raise Exception("You should provide either name or elt"
-                                "arguments, but not both.")
+                                                     "arguments, but not both.")
 
             self.name = name
 
         else:
             self.name = elt.attrib['name']
+
             print "\tQWidget.__init__:", elt.tag, elt.attrib
             self._init_before_parse()
             self._loop_children(elt)
 
+
+    def set_name(self, name):
+        self.__name = name
         self.factory_function = il.primitive.FunctionDefinition(
                                                         "create_%s" % self.name)
+    def get_name(self):
+        return self.__name
+    
+    name = property(get_name, set_name)
 
     def _init_before_parse(self):
         pass
@@ -184,7 +189,13 @@ class ObjectBase(il.primitive.MultiPartCompilable):
 
     def _loop_children(self, elt):
         for e in elt:
-            self.tag_handlers[e.tag](e)
+            if e.tag in self.tag_handlers:
+                self.tag_handlers[e.tag](e)
+            else:
+                self.factory_function.add_statement(
+                    il.primitive.Comment("The '%s' tag for widget named '%s'"
+                     "of type '%s' is not supported (yet?)"
+                                        % (e.tag, self.name, type(self) )))
 
     def get_instance(self, elt):
         if elt.tag == 'spacer':
@@ -328,7 +339,7 @@ class QSpacer(WidgetBase):
 
         self.type = "qx.ui.core.Spacer"
 
-class QWidgetStub(ContainerBase):
+class QWidgetStub(WidgetBase):
     def __init__(self, elt, name=None):
         WidgetBase.__init__(self, elt, name)
 
