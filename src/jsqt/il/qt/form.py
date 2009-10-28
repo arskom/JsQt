@@ -26,10 +26,10 @@ from gui import WidgetBase
 from jsqt import il
 
 class MWithCaption(object):
-    def __init__(self):
+    def __init__(self, attr_name="text"):
         self.__caption = None
         self.__known_props = {
-            "text": self.__handle_text
+            attr_name: self.__handle_text
         }
 
     def __handle_text(self, elt):
@@ -38,7 +38,7 @@ class MWithCaption(object):
     def _set_function_name(self, function_name):
         self.__function_name = function_name
 
-    def compile(self, dialect, elt, function_name = "setCaption"):
+    def compile(self, dialect, elt, function_name = "setLabel"):
         if self.__caption != None:
             fc = il.primitive.FunctionCall("this.%s.%s" %
                 (self.name, function_name),
@@ -75,7 +75,7 @@ class QPushButton(WidgetBase, MWithCaption):
 
     def compile(self, dialect, ret):
         WidgetBase.compile(self, dialect, ret)
-        MWithCaption.compile(self, dialect, ret, "setLabel")
+        MWithCaption.compile(self, dialect, ret)
 
     def set_property(self, elt):
         WidgetBase.set_property(self, elt)
@@ -114,7 +114,7 @@ class QCheckBox(WidgetBase,MWithCaption):
 
     def compile(self, dialect, ret):
         WidgetBase.compile(self, dialect, ret)
-        MWithCaption.compile(self, dialect, ret, "setLabel")
+        MWithCaption.compile(self, dialect, ret)
 
     def set_property(self, elt):
         WidgetBase.set_property(self, elt)
@@ -129,7 +129,7 @@ class QRadioButton(WidgetBase,MWithCaption):
 
     def compile(self, dialect, ret):
         WidgetBase.compile(self, dialect, ret)
-        MWithCaption.compile(self, dialect, ret, "setLabel")
+        MWithCaption.compile(self, dialect, ret)
 
     def set_property(self, elt):
         WidgetBase.set_property(self, elt)

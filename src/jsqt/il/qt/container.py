@@ -21,6 +21,7 @@
 # 02110-1301, USA.
 #
 
+from jsqt.il.qt.form import MWithCaption
 from gui import ContainerBase
 
 class QMainWindow(ContainerBase):
@@ -42,13 +43,22 @@ class QTabWidget(ContainerBase):
     def _compile_layout(self, dialect, ret):
         pass
 
-class TabPage(ContainerBase):
+class TabPage(ContainerBase,MWithCaption):
     def __init__(self, elt, name=None):
         self.layout_properties = None
+        MWithCaption.__init__(self, "title")
         ContainerBase.__init__(self, elt, name)
 
         self.type = "qx.ui.tabview.Page"
                 
+    def compile(self, dialect, ret):
+        ContainerBase.compile(self, dialect, ret)
+        MWithCaption.compile(self, dialect, ret)
+
+    def set_property(self, elt):
+        ContainerBase.set_property(self, elt)
+        MWithCaption.set_property(self, elt)
+
 class QGroupBox(ContainerBase):
     def __init__(self, elt, name=None):
         ContainerBase.__init__(self, elt, name)
