@@ -23,10 +23,21 @@
 
 version   = "trunk"
 copyright = "(c) 2009 Arskom Ltd."
-header_string = """
-JsQt %s
+header_string = """JsQt %s
 %s
 """ % (version, copyright)
+
+loglevel = 0
+
+import sys
+
+def debug_print(*args):
+    if loglevel > 0:
+        for i in range(len(args)):
+            sys.stderr.write(str(args[i]))
+            if i != len(args)-1:
+                sys.stderr.write(" ")
+        sys.stderr.write("\n")
 
 class DuckTypedList(list):
     """
@@ -75,14 +86,15 @@ class DuckTypedDict(dict):
     def __setitem__(self, k, v):
         for a in self.__attr_list:
             if not hasattr(v, a):
-                raise TypeError('This DuckTypedDict instance requires objects to have a "%s" member\n' % a +
-                                 "The '%s' type doesn't conform to this." % type(v))
+                raise TypeError('This DuckTypedDict instance requires objects '
+                                'to have a "%s" member\n'
+                         "The '%s' type doesn't conform to this." % (a,type(v)))
 
         dict.__setitem__(self,k,v)
 
 class JsPp(object):
     """
-    A very simple pretty printer for javascript
+    A simple pretty printer for javascript.
     """
     def __init__(self,os):
         self.__os = os;
