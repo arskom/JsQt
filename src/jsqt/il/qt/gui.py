@@ -21,6 +21,7 @@
 # 02110-1301, USA.
 #
 
+import jsqt
 from jsqt import DuckTypedList
 from jsqt import il
 from jsqt.xml import etree
@@ -131,7 +132,8 @@ class MGeometryProperties(object):
             self.__height = retval['width']
 
         else:
-            print "\t\t", "WARNING: property 'geometry' doesn't have 'rect' tag"
+            jsqt.debug_print("\t\t", "WARNING: property 'geometry' doesn't have"
+                    " 'rect' tag")
 
     def __handle_prop_text(self, elt):
         self.text = self.__primitive_prop_types[elt[0].tag](elt[0].text)
@@ -163,7 +165,7 @@ class ObjectBase(il.primitive.MultiPartCompilable):
         else:
             self.name = elt.attrib['name']
 
-            print "\tQWidget.__init__:", elt.tag, elt.attrib
+            jsqt.debug_print("\tQWidget.__init__:", elt.tag, elt.attrib)
             self._init_before_parse()
             self._loop_children(elt)
 
@@ -184,7 +186,7 @@ class ObjectBase(il.primitive.MultiPartCompilable):
         self.set_property(elt)
 
     def set_property(self, elt):
-        print "\t\t", elt.tag, elt.attrib
+        jsqt.debug_print("\t\t", elt.tag, elt.attrib)
         MGeometryProperties.set_property(self, elt)
 
     def _loop_children(self, elt):

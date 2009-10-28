@@ -23,6 +23,7 @@
 
 import sys
 
+import jsqt
 from jsqt import il
 import il.qt
 from jsqt import DuckTypedList, JsPp
@@ -76,9 +77,7 @@ class CodeBlocks(DuckTypedList):
             l.to_stream(os)
 
 class UiParser(object):
-    def __init__(self,object_name):
-        if len(object_name) == 0:
-            raise Exception("Empty object_name not allowed")
+    def __init__(self,object_name=""):
         self.custom_widgets = {}
         self.clazz = il.primitive.ClassDefinition(object_name)
         self.lang = CodeBlocks()
@@ -90,7 +89,6 @@ class UiParser(object):
             'customwidgets': self.parse_custom_widgets,
         }
 
-
     def compile(self, dialect):
         for l in self.clazz.compile(dialect):
             self.lang.append(l)
@@ -101,11 +99,12 @@ class UiParser(object):
         self.handlers[root.tag](root)
 
     def parse_custom_widget(self,element):
-        for tag in elt:
-            print "\t\t",tag
+        pass
 
     def parse_class(self, elt):
-        print "\tclass:", elt.text
+        jsqt.debug_print("\tclass:", elt.text)
+        if self.clazz.name == "":
+            self.clazz.name = elt.text
         
     def parse_ui(self,elements):
         # <customwidgets> tag needs to be parsed first
@@ -137,20 +136,4 @@ class UiParser(object):
 
     def parse_unknown_tag(self,elt):
         self.clazz.preamble.append(il.primitive.Comment("WARNING: '%s' tag is not supported" % elt.tag))
-
-def compile(ui_file_name, js_file_name, root_namespace, dialect):
-    print ui_file_name
-
-    if js_file_name.rfind(root_namespace) == -1:
-        raise Exception("root_namespace '%s' not found in class name '%s'" % (
-                root_namespace, js_file_name))
-
-    object_name = js_file_name[js_file_name.rfind(root_namespace):].replace("//", "/").replace("/", ".")[0:-3]
-    parser=UiParser(object_name)
-    parser.parse(ui_file_name)
-    compiled_object = parser.clazz.compile(dialect)
-
-    f=open(js_file_name, 'w')
-    compiled_object.to_stream(JsPp(f))
-    f.close()
 

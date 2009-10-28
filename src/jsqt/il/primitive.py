@@ -212,16 +212,23 @@ class ClassDefinition(SinglePartCompilable):
     def __init__(self,name):
         SinglePartCompilable.__init__(self)
 
-        if len(name) == 0:
-            raise Exception("Empty name not allowed")
-        self.name = name
-
+        self.__name = name
         self.members = DuckTypedDict(['compile'])
         self.statics = DuckTypedDict(['compile'])
         self.ctor = ConstructorDefinition(self.name)
         self.dtor = DestructorDefinition(self.name)
         self.preamble = DuckTypedList(['compile'])
         self.base_class = None
+
+    def set_name(self, name):
+        self.__name = name
+        self.ctor.name = name
+        self.dtor.name = name
+
+    def get_name(self):
+        return self.__name
+
+    name = property(get_name,set_name)
 
     def set_member(self, key, val):
         self.members[key]=val
