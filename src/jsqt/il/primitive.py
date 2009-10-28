@@ -23,7 +23,7 @@
 
 from jsqt import DuckTypedList, DuckTypedDict
 
-from jsqt.lang_objects import javascript
+from jsqt import javascript
 
 class Compilable(object):
     def set_parent(self, parent):

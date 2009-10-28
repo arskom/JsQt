@@ -78,10 +78,3 @@ class QScrollArea(ContainerBase):
         if len(self.children)>0:
             raise Exception("QScrollArea can have one child widget")
         ContainerBase.add_child(self, instance)
-
-    def close(self):
-        self.children[0].vsize_type = 'Expanding'
-        self.children[0].hsize_type = 'Expanding'
-        self.children[0].set_vsizepolicy()
-        self.children[0].set_hsizepolicy()
-        Container.close(self)
