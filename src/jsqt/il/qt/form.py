@@ -23,30 +23,55 @@
 
 from gui import WidgetBase
 
-class MFormProperties(object):
+from jsqt import il
+
+class _MWithCaption(object):
     def __init__(self):
-        self.value = None
+        self.__caption = None
+        self.__known_props = {
+            "text": self.__handle_text
+        }
 
-    def compile(self, dialect, ret):
-        pass
+    def __handle_text(self, elt):
+        print [e.tag for e in elt], elt.tag, elt.text
+        self.__caption = elt[0].text
 
-class QLabel(WidgetBase):
+    def _set_function_name(self, function_name):
+        self.__function_name = function_name
+
+    def compile(self, dialect, elt, function_name = "setCaption"):
+        if self.__caption != None:
+            fc = il.primitive.FunctionCall("this.%s.%s" %
+                (self.name, function_name),
+                [il.primitive.String(self.__caption)],
+            )
+            self.factory_function.add_statement(fc)
+
+    def set_property(self, elt):
+        prop_name = elt.attrib['name']
+        if prop_name in self.__known_props:
+            self.__known_props[prop_name](elt)
+
+class QLabel(WidgetBase, _MWithCaption):
     def __init__(self, elt, name=None):
+        _MWithCaption.__init__(self)
         WidgetBase.__init__(self,elt,name)
 
-        self.type="qx.ui.basic.Label"
+        self.type = "qx.ui.basic.Label"
+
+    def compile(self, dialect, ret):
+        WidgetBase.compile(self, dialect, ret)
+        _MWithCaption.compile(self, dialect, ret, "setValue")
+
+    def set_property(self, elt):
+        WidgetBase.set_property(self, elt)
+        _MWithCaption.set_property(self, elt)
 
 class QPushButton(WidgetBase):
     def __init__(self, elt, name=None):
         WidgetBase.__init__(self,elt,name)
 
         self.type = "qx.ui.form.Button"
-
-class QLabel(WidgetBase):
-    def __init__(self, elt, name=None):
-        WidgetBase.__init__(self,elt,name)
-
-        self.type="qx.ui.basic.Label"
 
 class QLineEdit(WidgetBase):
     def __init__(self, elt, name=None):

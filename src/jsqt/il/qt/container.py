@@ -38,7 +38,7 @@ class QTabWidget(ContainerBase):
     def _handle_widget_tag(self, elt):
         elt.set("class", "TabPage")
         ContainerBase._handle_widget_tag(self, elt)
-
+    
     def _compile_layout(self, dialect, ret):
         pass
 

@@ -46,8 +46,8 @@ class MGeometryProperties(object):
         self.__margin_r = 1
 
         self.__known_props = {
-            "geometry": self._handle_prop_geometry,
-            "text": self._handle_prop_text,
+            "geometry": self.__handle_prop_geometry,
+            "text": self.__handle_prop_text,
         }
 
         self.__primitive_prop_types = {
@@ -63,7 +63,7 @@ class MGeometryProperties(object):
     def get_geometry_left(self):
         return self.__left
     
-    def _handle_prop_type_rect(self, elt):
+    def __handle_prop_type_rect(self, elt):
         retval = {}
         for e in elt:
             retval[e.tag] = self.__primitive_prop_types[e.tag](e.text)
@@ -121,9 +121,9 @@ class MGeometryProperties(object):
                                    [il.primitive.DecimalInteger(self.__margin_r)])
             self.factory_function.add_statement(fc)
 
-    def _handle_prop_geometry(self, elt):
+    def __handle_prop_geometry(self, elt):
         if elt[0].tag == 'rect':
-            retval = self._handle_prop_type_rect(elt[0])
+            retval = self.__handle_prop_type_rect(elt[0])
 
             self.__left = retval['x']
             self.__top = retval['y']
@@ -133,12 +133,10 @@ class MGeometryProperties(object):
         else:
             print "\t\t", "WARNING: property 'geometry' doesn't have 'rect' tag"
 
-    def _handle_prop_text(self, elt):
+    def __handle_prop_text(self, elt):
         self.text = self.__primitive_prop_types[elt[0].tag](elt[0].text)
 
     def set_property(self, elt):
-        print "\t\t", elt.tag, elt.attrib
-
         prop_name = elt.attrib['name']
         if prop_name in self.__known_props:
             self.__known_props[prop_name](elt)
@@ -168,14 +166,21 @@ class ObjectBase(il.primitive.MultiPartCompilable):
         else:
             self.name = elt.attrib['name']
             print "\tQWidget.__init__:", elt.tag, elt.attrib
-
+            self._init_before_parse()
             self._loop_children(elt)
 
         self.factory_function = il.primitive.FunctionDefinition(
                                                         "create_%s" % self.name)
 
+    def _init_before_parse(self):
+        pass
+    
     def _handle_property_tag(self, elt):
         self.set_property(elt)
+
+    def set_property(self, elt):
+        print "\t\t", elt.tag, elt.attrib
+        MGeometryProperties.set_property(self, elt)
 
     def _loop_children(self, elt):
         for e in elt:
@@ -228,16 +233,12 @@ class WidgetBase(ObjectBase, MGeometryProperties):
         MGeometryProperties.compile(self, dialect, ret)
 
 class ContainerBase(WidgetBase):
-    def _loop_children(self, elt):
+    def _init_before_parse(self):
+        WidgetBase._init_before_parse(self)
         self.tag_handlers["widget"] = self._handle_widget_tag
         self.tag_handlers['layout'] = self._handle_layout_tag
         self.tag_handlers['item'] = self._handle_item_tag
-        try:
-            self.layout
-        except:
-            self.layout = il.qt.layout.CanvasLayout(None, "%s_il" % self.name)
-            
-        WidgetBase._loop_children(self, elt)
+        self.layout = il.qt.layout.CanvasLayout(None, "%s_il" % self.name)
 
     def _handle_widget_tag(self, elt):
         instance = self.get_instance(elt)
@@ -279,7 +280,7 @@ class ContainerBase(WidgetBase):
 
         instance.set_parent(self)
 
-    def __compile_layout(self, dialect, ret):
+    def _compile_layout(self, dialect, ret):
         self.layout.compile(dialect, ret)
         set_layout = il.primitive.FunctionCall('this.%s.setLayout' % self.name,
                [il.primitive.FunctionCall("this.create_%s" % self.layout.name)])
@@ -298,12 +299,12 @@ class ContainerBase(WidgetBase):
                                 c.layout_properties))
 
                 add_children=il.primitive.FunctionCall('this.%s.add'% self.name,
-                                                         args)
+                                                                           args)
                 self.factory_function.add_statement(add_children)
 
     def compile(self, dialect, ret):
         WidgetBase.compile(self, dialect, ret)
-        self.__compile_layout(dialect, ret)
+        self._compile_layout(dialect, ret)
         self.__compile_children(dialect, ret)
 
     def _handle_layout_tag(self, elt):
@@ -337,5 +338,5 @@ class QWidgetStub(ContainerBase):
     def compile(self, dialect, ret=None):
         ret.ctor.add_statement(
            il.primitive.Comment("The instance named '%s' is of type '%s' which"
-           " is not supported (yet?)" % (self.name, self.class_name)))
+                     " is not supported (yet?)" % (self.name, self.class_name)))
 
