@@ -23,7 +23,7 @@
 
 from jsqt import DuckTypedList, DuckTypedDict
 
-from jsqt import javascript
+from jsqt import js
 
 class Compilable(object):
     def set_parent(self, parent):
@@ -71,7 +71,7 @@ class DecimalInteger(SinglePartCompilable):
         self.__value = value
 
     def compile(self, dialect):
-        return javascript.DecimalInteger(self.__value)
+        return js.primitive.DecimalInteger(self.__value)
 
 class ObjectReference(SinglePartCompilable):
     def __init__(self, object_name):
@@ -83,7 +83,7 @@ class ObjectReference(SinglePartCompilable):
         return "<il.ObjectReference(%s)>" % self.__object_name
     
     def compile(self, dialect):
-        return javascript.ObjectReference(self.__object_name)
+        return js.primitive.ObjectReference(self.__object_name)
 
 class Instantiation(object):
     def __init__(self, class_name):
@@ -92,14 +92,14 @@ class Instantiation(object):
         self.__class_name = class_name
 
     def compile(self, dialect):
-        return javascript.Instantiation(self.__class_name)
+        return js.primitive.Instantiation(self.__class_name)
 
 class String(SinglePartCompilable):
     def __init__(self, string):
         self.__string=string
 
     def compile(self, dialect):
-        return javascript.String(self.__string.replace("\n","\\n"))
+        return js.primitive.String(self.__string.replace("\n","\\n"))
 
 class Concatenation(SinglePartCompilable):
     def __init__(self, sub_strings):
@@ -107,7 +107,7 @@ class Concatenation(SinglePartCompilable):
 
     def compile(self, dialect):
         compiled_sub_strings = [s.compile(dialect) for s in self.__sub_strings]
-        return javascript.Concatenation(compiled_sub_strings)
+        return js.primitive.Concatenation(compiled_sub_strings)
 
 class Comment(SinglePartCompilable):
     def __init__(self, comment):
@@ -118,7 +118,7 @@ class Comment(SinglePartCompilable):
         self.__comment = comment
 
     def compile(self, dialect):
-        return javascript.Comment(self.__comment)
+        return js.primitive.Comment(self.__comment)
 
 class Assignment(SinglePartCompilable):
     def __init__(self, left=None, right=None):
@@ -132,7 +132,7 @@ class Assignment(SinglePartCompilable):
         self.__right = right
 
     def compile(self, dialect):
-        return javascript.Assignment(self.__left.compile(dialect),
+        return js.primitive.Assignment(self.__left.compile(dialect),
                                      self.__right.compile(dialect))
 
 class FunctionCall(object):
@@ -147,7 +147,7 @@ class FunctionCall(object):
         return '<il.FunctionCall("%s", %s)>' %(self.__function_name, self.__arguments)
 
     def compile(self, dialect):
-        return javascript.FunctionCall(self.__function_name, [a.compile(dialect) for a in self.__arguments])
+        return js.primitive.FunctionCall(self.__function_name, [a.compile(dialect) for a in self.__arguments])
 
 class Return(SinglePartCompilable):
     def __init__(self, what):
@@ -156,7 +156,7 @@ class Return(SinglePartCompilable):
         self.what = what
 
     def compile(self, dialect):
-        return javascript.Return(self.what.compile(dialect))
+        return js.primitive.Return(self.what.compile(dialect))
 
 
 class FunctionDefinition(SinglePartCompilable):
@@ -177,7 +177,7 @@ class FunctionDefinition(SinglePartCompilable):
         self.return_statement = Return(st)
 
     def compile(self, dialect):
-        retval = javascript.FunctionDefinition(self.name)
+        retval = js.primitive.FunctionDefinition(self.name)
         for st in self._source:
             retval.add_statement(st.compile(dialect))
 
@@ -191,7 +191,7 @@ class ConstructorDefinition(FunctionDefinition):
         FunctionDefinition.__init__(self,class_name)
 
     def compile(self, dialect):
-        retval = javascript.FunctionDefinition("")
+        retval = js.primitive.FunctionDefinition("")
         for st in self._source:
             retval.add_statement(st.compile(dialect))
 
@@ -202,7 +202,7 @@ class DestructorDefinition(FunctionDefinition):
         FunctionDefinition.__init__(self,class_name)
 
     def compile(self, dialect):
-        retval = javascript.FunctionDefinition("")
+        retval = js.primitive.FunctionDefinition("")
         for st in self._source:
             retval.add_statement(st.compile(dialect))
 
@@ -238,15 +238,15 @@ class ClassDefinition(SinglePartCompilable):
         return self.__elts['members'].get(key, default)
 
     def compile(self, dialect, ret=None):
-        lang = javascript.FunctionCall("qx.Class.define")
-        lang.add_argument(javascript.String(self.name))
+        lang = js.primitive.FunctionCall("qx.Class.define")
+        lang.add_argument(js.primitive.String(self.name))
 
         if self.base_class == None:
-            base_class = javascript.ObjectReference('qx.core.Object')
+            base_class = js.primitive.ObjectReference('qx.core.Object')
         else:
             base_class = self.base_class
 
-        class_members = javascript.Object()
+        class_members = js.primitive.Object()
 
         # MPC gets compiled first because they can make changes 
         # anywhere, including members dict.
@@ -262,12 +262,12 @@ class ClassDefinition(SinglePartCompilable):
         st.add_argument(ObjectReference('arguments'))
         self.ctor.insert_statement(0,st)
 
-        properties = javascript.Object()
-        widget_property = javascript.Object()
-        widget_property.set_member("check", javascript.String('qx.ui.container.Composite'))
+        properties = js.primitive.Object()
+        widget_property = js.primitive.Object()
+        widget_property.set_member("check", js.primitive.String('qx.ui.container.Composite'))
         properties.set_member("widget", widget_property)
 
-        class_dict = javascript.Object()
+        class_dict = js.primitive.Object()
         class_dict.set_member("members", class_members)
         class_dict.set_member("extend", base_class)
         class_dict.set_member("construct", self.ctor.compile(dialect))
@@ -290,7 +290,7 @@ class AssociativeArrayInitialization(SinglePartCompilable):
             self.__aai[k] = self.type_map[type(v)](v)
 
     def compile(self, dialect):
-        retval = javascript.Object()
+        retval = js.primitive.Object()
 
         for k,v in self.__aai.items():
             retval.set_member(k, v.compile(dialect))
