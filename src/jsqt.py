@@ -21,12 +21,13 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # 
 
-import os
 import sys
+import os
 import stat
 
 import jsqt
-from jsqt.parser import compile
+from jsqt import JsPp
+from jsqt.parser import UiParser
 
 def walktree (top = ".", depthfirst = False):
     names = os.listdir(top)
@@ -48,6 +49,23 @@ def walktree (top = ".", depthfirst = False):
 
 def usage():
     print "Usage:", sys.argv[0], "xml_input_path js_output_path root_namespace"
+
+def compile(ui_file_name, js_file_name, root_namespace, dialect):
+    print ui_file_name
+
+    if js_file_name.rfind(root_namespace) == -1:
+        raise Exception("root_namespace '%s' not found in class name '%s'" % (
+                root_namespace, js_file_name))
+
+    object_name= js_file_name[js_file_name.rfind(root_namespace):].replace("//",
+                                                    "/").replace("/", ".")[0:-3]
+    parser = UiParser(object_name)
+    parser.parse(ui_file_name)
+    compiled_object = parser.clazz.compile(dialect)
+
+    f=open(js_file_name, 'w')
+    compiled_object.to_stream(JsPp(f))
+    f.close()
 
 def main(argv):
     print jsqt.header_string
