@@ -94,7 +94,7 @@ class Instantiation(object):
 
     def compile(self, dialect):
         return js.primitive.Instantiation(self.__class_name,
-                                [a.compile(dialect) for a in self.__args])
+                                      [a.compile(dialect) for a in self.__args])
 
 class String(SinglePartCompilable):
     def __init__(self, string):
@@ -160,13 +160,13 @@ class Return(SinglePartCompilable):
     def compile(self, dialect):
         return js.primitive.Return(self.what.compile(dialect))
 
-
 class FunctionDefinition(SinglePartCompilable):
-    def __init__(self, name):
+    def __init__(self, name, args=[], source=[]):
         SinglePartCompilable.__init__(self)
         
-        self._source = DuckTypedList(['compile'])
+        self._source = DuckTypedList(['compile'], source)
         self.name = name
+        self.args = args
         self.return_statement = None
 
     def add_statement(self, st):
@@ -179,7 +179,7 @@ class FunctionDefinition(SinglePartCompilable):
         self.return_statement = Return(st)
 
     def compile(self, dialect):
-        retval = js.primitive.FunctionDefinition(self.name)
+        retval = js.primitive.FunctionDefinition(self.name,self.args)
         for st in self._source:
             retval.add_statement(st.compile(dialect))
 
@@ -289,7 +289,10 @@ class AssociativeArrayInitialization(SinglePartCompilable):
     def __init__(self, aai):
         self.__aai = DuckTypedDict(['compile'])
         for k,v in aai.items():
-            self.__aai[k] = self.type_map[type(v)](v)
+            if isinstance(v, SinglePartCompilable):
+                self.__aai[k] = v
+            else:
+                self.__aai[k] = self.type_map[type(v)](v)
 
     def compile(self, dialect):
         retval = js.primitive.Object()

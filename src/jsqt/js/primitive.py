@@ -155,24 +155,16 @@ class FunctionCall(Base):
         os.write(")")
 
 class FunctionDefinition(Base):
-    def __init__(self, function_name, arguments=None, source=None):
-
+    def __init__(self, function_name, arguments=[], source=[]):
         self.__function_name = function_name
-        if arguments == None:
-            self.__arguments = DuckTypedList(['to_stream'])
-        else:
-            self.__arguments = arguments
-
-        if source == None:
-            self.__source=DuckTypedList(['to_stream'])
-        else:
-            self.__source = source
+        self.__arguments = arguments
+        self.__source=DuckTypedList(['to_stream'], source)
 
     def add_argument(self, argument):
         self.__arguments.append(argument)
 
-    def add_statement(self, argument):
-        self.__source.append(argument)
+    def add_statement(self, statement):
+        self.__source.append(statement)
 
     def to_stream(self, os):
         os.write("function")
@@ -182,7 +174,7 @@ class FunctionDefinition(Base):
             
         os.write("(")
         for i in range(len(self.__arguments)):
-            self.__arguments[i].to_stream(os)
+            os.write(self.__arguments[i])
             if i != len(self.__arguments) -1:
                 os.write(",")
         os.write(")")

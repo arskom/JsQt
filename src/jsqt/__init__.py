@@ -64,7 +64,7 @@ class DuckTypedList(list):
                 raise TypeError("TypedList should have objects with a '%s' "
                                                                       "member\n"
                                  "The '%s' type doesn't conform to this."
-                                                                    % type(a,v))
+                                                                  % (a,type(v)))
 
         list.append(self,v)
 
