@@ -26,9 +26,7 @@ import sys
 import jsqt
 from jsqt import il
 import il.qt
-from jsqt import DuckTypedList, JsPp
-
-from copy import deepcopy
+from jsqt import DuckTypedList
 
 il.qt.gui.layout_dict = {
     "QVBoxLayout": il.qt.layout.QVBoxLayout,
@@ -42,6 +40,7 @@ il.qt.gui.widget_dict = {
     "QTabWidget": il.qt.container.QTabWidget,
     "TabPage": il.qt.container.TabPage,
     "QScrollArea": il.qt.container.QScrollArea,
+    "QSplitter": il.qt.container.QSplitter,
 
     "QWidget": il.qt.gui.QWidget,
     "QFrame": il.qt.gui.QWidget,
@@ -133,8 +132,11 @@ class UiParser(object):
                 elif f.tag == "class":
                     class_name = f.text
 
-            il.qt.gui.custom_dict[class_name] = deepcopy(
-                                     il.qt.gui.ObjectBase.get_class(base_class))
+            il.qt.gui.custom_dict[class_name] = type(
+                class_name.split('.')[-1],
+                il.qt.gui.widget_dict[base_class].__bases__,
+                dict(il.qt.gui.widget_dict[base_class].__dict__),
+            )
 
             il.qt.gui.custom_dict[class_name].type= class_name.replace("::",".")
 
