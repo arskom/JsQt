@@ -89,10 +89,6 @@ class UiParser(object):
             'customwidgets': self.parse_custom_widgets,
         }
 
-    def compile(self, dialect):
-        for l in self.clazz.compile(dialect):
-            self.lang.append(l)
-        
     def parse(self, file_handle):
         tree = etree.parse(file_handle)
         root = tree.getroot()

@@ -101,6 +101,7 @@ def main(argv):
         output_file = open(output_file_name, 'w')
 
     compiled_object.to_stream(JsPp(output_file))
+    output_file.write(";\n") # FIXME: Hack!
 
     if output_file_name != "-":
         output_file.close()

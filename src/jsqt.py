@@ -66,6 +66,7 @@ def compile(ui_file_name, js_file_name, root_namespace, dialect):
 
     f=open(js_file_name, 'w')
     compiled_object.to_stream(JsPp(f))
+    f.write(";\n") # FIXME: Hack!
     f.close()
 
 def main(argv):

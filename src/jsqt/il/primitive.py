@@ -287,7 +287,7 @@ class AssociativeArrayInitialization(SinglePartCompilable):
     }
 
     def __init__(self, aai):
-        self.__aai = {}
+        self.__aai = DuckTypedDict(['compile'])
         for k,v in aai.items():
             self.__aai[k] = self.type_map[type(v)](v)
 
