@@ -122,7 +122,7 @@ class Object(Base):
 
     def del_member(self,key):
         del self.__members[key]
-        
+
     def to_stream(self, os):
         os.write("{")
         i=0
@@ -137,6 +137,27 @@ class Object(Base):
             i+=1
 
         os.write("}")
+
+class Array(Base):
+    def __init__(self):
+        self.__members = DuckTypedList(['to_stream'])
+
+    def append(self, value):
+        self.__members.append(value)
+
+    def del_member(self,key):
+        del self.__members[key]
+
+    def to_stream(self, os):
+        os.write("[")
+        i=0
+        for v in self.__members:
+            v.to_stream(os)
+            if i != len(self.__members) -1:
+                os.write(",")
+            i+=1
+
+        os.write("]")
 
 class FunctionCall(Base):
     def __init__(self, function_name, arguments=[]):

@@ -103,6 +103,14 @@ class String(SinglePartCompilable):
     def compile(self, dialect):
         return js.primitive.String(self.__string.replace("\n","\\n"))
 
+class TranslatableString(SinglePartCompilable):
+    def __init__(self, string):
+        self.__string=string
+
+    def compile(self, dialect):
+        return js.primitive.FunctionCall("this.tr",[
+                       js.primitive.String(self.__string.replace("\n","\\n")) ])
+
 class Concatenation(SinglePartCompilable):
     def __init__(self, sub_strings):
         self.__sub_strings = sub_strings
@@ -220,6 +228,8 @@ class ClassDefinition(SinglePartCompilable):
         self.ctor = ConstructorDefinition(self.name)
         self.dtor = DestructorDefinition(self.name)
         self.preamble = DuckTypedList(['compile'])
+        self.mixins = DuckTypedList(['compile'])
+        self.mixins.append(ObjectReference("qx.locale.MTranslation"))
         self.base_class = None
 
     def set_name(self, name):
@@ -269,12 +279,17 @@ class ClassDefinition(SinglePartCompilable):
         widget_property.set_member("check", js.primitive.String('qx.ui.container.Composite'))
         properties.set_member("widget", widget_property)
 
+        mixins = js.primitive.Array()
+        for m in self.mixins:
+            mixins.append(m.compile(dialect))
+
         class_dict = js.primitive.Object()
         class_dict.set_member("members", class_members)
         class_dict.set_member("extend", base_class)
         class_dict.set_member("construct", self.ctor.compile(dialect))
         class_dict.set_member("destruct", self.dtor.compile(dialect))
         class_dict.set_member("properties", properties)
+        class_dict.set_member("include", mixins)
 
         lang.add_argument(class_dict)
 
@@ -299,6 +314,28 @@ class AssociativeArrayInitialization(SinglePartCompilable):
 
         for k,v in self.__aai.items():
             retval.set_member(k, v.compile(dialect))
+
+        return retval
+
+class ContiguousArrayInitialization(SinglePartCompilable):
+    type_map={
+        int: DecimalInteger,
+        str: String,
+    }
+
+    def __init__(self, aai):
+        self.__aai = DuckTypedList(['compile'])
+        for v in aai.items():
+            if isinstance(v, SinglePartCompilable):
+                self.__aai.append(v)
+            else:
+                self.__aai.append(self.type_map[type(v)](v))
+
+    def compile(self, dialect):
+        retval = js.primitive.Array()
+
+        for k,v in self.__aai.items():
+            retval.append(v.compile(dialect))
 
         return retval
 

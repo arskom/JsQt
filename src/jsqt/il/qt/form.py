@@ -42,7 +42,7 @@ class MWithCaption(object):
         if self.__caption != None:
             fc = il.primitive.FunctionCall("this.%s.%s" %
                 (self.name, function_name),
-                [il.primitive.String(self.__caption)],
+                [il.primitive.TranslatableString(self.__caption)],
             )
             self.factory_function.add_statement(fc)
 
