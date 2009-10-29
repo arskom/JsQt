@@ -22,7 +22,7 @@
 #
 
 from gui import WidgetBase
-
+from itemview import MItemView
 from jsqt import il
 
 class MWithCaption(object):
@@ -135,25 +135,20 @@ class QRadioButton(WidgetBase,MWithCaption):
         WidgetBase.set_property(self, elt)
         MWithCaption.set_property(self, elt)
 
-class QComboBox(WidgetBase):
+class QComboBox(WidgetBase, MItemView):
     def __init__(self, elt, name=None):
-        self.items = []
-        try:
-            self.tag_handlers
-        except:
-            self.tag_handlers = {}
-
-        self.tag_handlers['item'] = self._handle_item_tag
+        MItemView.__init__(self)
+        WidgetBase.__init__(self,elt,name)
 
         self.type = "qx.ui.form.SelectBox"
 
-        WidgetBase.__init__(self,elt,name)
+    def _init_before_parse(self):
+        MItemView._init_before_parse(self)
+        WidgetBase._init_before_parse(self)
 
-
-    def _handle_item_tag(self, elt):
-        print "\t\t",elt[0].tag,elt[0].attrib, "%s: '%s'" %(elt[0][0].tag,
-                                                                 elt[0][0].text)
-        self.items.append(elt[0][0].text)
+    def compile(self, dialect, ret):
+        WidgetBase.compile(self, dialect, ret)
+        MItemView.compile(self, dialect, ret)
 
 class QSpacer(WidgetBase):
     def __init__(self, elt, name=None):

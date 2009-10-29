@@ -86,13 +86,15 @@ class ObjectReference(SinglePartCompilable):
         return js.primitive.ObjectReference(self.__object_name)
 
 class Instantiation(object):
-    def __init__(self, class_name):
+    def __init__(self, class_name, init_arguments=[]):
         if len(class_name) ==0:
             raise Exception("Empty class name not allowed")
         self.__class_name = class_name
+        self.__args = DuckTypedList(['compile'],init_arguments)
 
     def compile(self, dialect):
-        return js.primitive.Instantiation(self.__class_name)
+        return js.primitive.Instantiation(self.__class_name,
+                                [a.compile(dialect) for a in self.__args])
 
 class String(SinglePartCompilable):
     def __init__(self, string):

@@ -88,11 +88,14 @@ class Return(Base):
         os.write("return %s" % self.what)
 
 class Instantiation(Base):
-    def __init__(self, what):
-        self.__what = what
+    def __init__(self, class_name, init_arguments):
+        self.__class_name = class_name
+        self.__args = init_arguments
 
     def to_stream(self, os):
-        os.write("new %s()" % self.__what)
+        os.write("new ")
+        fc = FunctionCall(self.__class_name,self.__args)
+        fc.to_stream(os)
 
 class ObjectReference(Base):
     def __init__(self, object_name):

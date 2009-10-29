@@ -23,9 +23,38 @@
 
 from gui import WidgetBase
 
+import jsqt
+from jsqt import il
+
 class QAbstractItemView(WidgetBase):
     def __init__(self, elt, name=None):
         WidgetBase.__init__(self,elt,name)
+
+class MItemView(object):
+    def __init__(self):
+        self.__items = []
+
+    def compile(self, dialect, elt, function_name = "setLabel"):
+        for a in self.__items:
+            fc = il.primitive.FunctionCall("this.%s.add" % (self.name),
+                [
+                    il.primitive.Instantiation("qx.ui.form.ListItem",
+                        [il.primitive.String(a)])
+                ],
+            )
+            self.factory_function.add_statement(fc)
+            
+
+    def add_child(self, elt):
+        self.__items.append(elt[0][0].text)
+
+    def _init_before_parse(self):
+        self.tag_handlers['item'] = self._handle_item_tag
+
+    def _handle_item_tag(self, elt):
+        jsqt.debug_print("\t\t",elt[0].tag,elt[0].attrib, "%s: '%s'"
+                                              % (elt[0][0].tag, elt[0][0].text))
+        self.__items.append(elt[0][0].text)
 
 class QListWidget(QAbstractItemView):
     def __init__(self, elt, name=None):
