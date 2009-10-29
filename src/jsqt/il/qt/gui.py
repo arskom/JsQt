@@ -192,6 +192,7 @@ class ObjectBase(il.primitive.MultiPartCompilable):
         MGeometryProperties.set_property(self, elt)
 
     def _loop_children(self, elt):
+        self._elt = elt
         for e in elt:
             if e.tag in self.tag_handlers:
                 self.tag_handlers[e.tag](e)
@@ -275,34 +276,12 @@ class ContainerBase(WidgetBase):
             elt.append(new_elt)
 
         instance = self.get_instance(elt[0])
+        self.add_child(instance, elt)
 
-        if isinstance(self.layout, il.qt.layout.QGridLayout):
-            instance.layout_properties = dict(elt.attrib)
-            for k in instance.layout_properties:
-                instance.layout_properties[k]=int(instance.layout_properties[k])
+    def add_child(self, instance, elt=None):
+        instance.layout_properties = self.layout.get_properties(elt)
 
-        elif (isinstance(self.layout, il.qt.layout.QHBoxLayout) or
-              isinstance(self.layout, il.qt.layout.QVBoxLayout)):
-
-            instance.layout_properties = {'flex': 1}
-
-        else: # FIXME: unsupported layout
-            instance.layout_properties = {}
-
-        self.add_child(instance)
-
-    def add_child(self, instance):
         self.children.append(instance)
-
-        if isinstance(self.layout, il.qt.layout.CanvasLayout):
-            instance.layout_properties = {
-                "top": instance.get_geometry_top(),
-                "left": instance.get_geometry_left(),
-            }
-
-        elif isinstance(self.layout, il.qt.layout.SplitPaneLayout):
-            instance.layout_properties = 1
-
         instance.set_parent(self)
 
     def _compile_layout(self, dialect, ret):
@@ -319,6 +298,8 @@ class ContainerBase(WidgetBase):
 
             if c.supported:
                 args = [il.primitive.FunctionCall("this.create_%s" % c.name)]
+                c.layout_properties = c.parent.layout.get_properties(c._elt.getparent())
+
                 if isinstance(c.layout_properties, dict):
                     args.append(il.primitive.AssociativeArrayInitialization(
                                 c.layout_properties))

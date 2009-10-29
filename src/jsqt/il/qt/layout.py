@@ -36,17 +36,46 @@ class QLayout(ObjectBase):
     def _compile_props(self, dialect, ret):
         pass
 
+    def get_properties(self, elt=None):
+        raise Exception("please inherit and override.")
+
 class CanvasLayout(QLayout):
     type = "qx.ui.layout.Canvas"
+
+    def get_properties(self, elt=None):
+        if self.parent == None:
+            return {"edge": 0}
+        else:
+            return {
+            "top": self.parent.get_geometry_top(),
+            "left": self.parent.get_geometry_left(),
+        } # FIXME
 
 class QVBoxLayout(QLayout):
     type = "qx.ui.layout.VBox"
 
+    def get_properties(self, elt=None):
+        return {"flex": 1} # FIXME
+
 class QHBoxLayout(QLayout):
     type = "qx.ui.layout.HBox"
 
+    def get_properties(self, elt=None):
+        return {"flex": 1} # FIXME
+
 class QGridLayout(QLayout):
     type = "qx.ui.layout.Grid"
+
+    def get_properties(self, elt):
+        retval = dict(elt.attrib)
+
+        if not "row" in retval: # FIXME: Hack!
+            retval = dict(elt.getparent().attrib)
+
+        for k in retval:
+            retval[k]=int(retval[k])
+        
+        return retval
 
 class SplitPaneLayout(QLayout):
     type = None
@@ -54,8 +83,14 @@ class SplitPaneLayout(QLayout):
     def _compile_instantiation(self, dialect, ret):
         pass
 
+    def get_properties(self, elt=None):
+        return 1 # FIXME
+
 class TabViewLayout(QLayout):
     type = None
 
     def _compile_instantiation(self, dialect, ret):
         pass
+    
+    def get_properties(self, elt=None):
+        return None
