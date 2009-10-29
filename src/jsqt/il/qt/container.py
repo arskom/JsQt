@@ -21,6 +21,7 @@
 # 02110-1301, USA.
 #
 
+from jsqt import il
 from jsqt.il.qt.form import MWithCaption
 from gui import ContainerBase
 
@@ -44,13 +45,13 @@ class QTabWidget(ContainerBase):
         pass
 
 class TabPage(ContainerBase,MWithCaption):
+    type = "qx.ui.tabview.Page"
+
     def __init__(self, elt, name=None):
         self.layout_properties = None
         MWithCaption.__init__(self, "title")
-        ContainerBase.__init__(self, elt, name)
+        ContainerBase.__init__(self, elt, name)                
 
-        self.type = "qx.ui.tabview.Page"
-                
     def compile(self, dialect, ret):
         ContainerBase.compile(self, dialect, ret)
         MWithCaption.compile(self, dialect, ret)
@@ -59,18 +60,49 @@ class TabPage(ContainerBase,MWithCaption):
         ContainerBase.set_property(self, elt)
         MWithCaption.set_property(self, elt)
 
-class QGroupBox(ContainerBase):
+class QSplitter(ContainerBase):
+    type = "qx.ui.splitpane.Pane"
+
     def __init__(self, elt, name=None):
+        self.layout_properties = None
         ContainerBase.__init__(self, elt, name)
 
-        self.type = "qx.ui.groupbox.GroupBox"
+        self.__orientation = "horizontal"
+
+    def add_child(self, instance):
+        if len(self.children)>1:
+            raise Exception("QScrollArea can have two child widgets")
+        ContainerBase.add_child(self, instance)
+
+    def _init_before_parse(self):
+        ContainerBase._init_before_parse(self)
+        self.layout = il.qt.layout.SplitPaneLayout(None,"x")
+
+    def _compile_layout(self, dialect, ret):
+        pass
+
+    def _compile_instantiation(self, dialect, ret):
+        factory_function_retval = il.primitive.ObjectReference('this.%s'
+                                                                    % self.name)
+        instantiation = il.primitive.Assignment()
+        instantiation.set_left(factory_function_retval)
+        instantiation.set_right(il.primitive.Instantiation(self.type,[
+            il.primitive.String(self.__orientation)]))
+
+        self.factory_function.add_statement(instantiation)
+
+        ret.set_member(self.factory_function.name, self.factory_function)
+        self.factory_function.set_return_statement(
+                            il.primitive.ObjectReference('this.%s' % self.name))
+
+        ret.set_member(self.name, il.primitive.ObjectReference('null'))
+
+class QGroupBox(ContainerBase):
+    type = "qx.ui.groupbox.GroupBox"
 
 class QScrollArea(ContainerBase):
-    def __init__(self, elt, name=None):
-        ContainerBase.__init__(self, elt, name)
-
-        self.type = "qx.ui.container.Scroll"
-
+    type = "qx.ui.container.Scroll"
+    
     def _compile_layout(self, dialect, ret):
         pass
 

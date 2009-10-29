@@ -116,6 +116,7 @@ class UiParser(object):
 
     def parse_widget(self, elt):
         instance = il.qt.gui.widget_dict[elt.attrib['class']](elt)
+
         set_main_widget=il.primitive.FunctionCall('this.setWidget',
                   [il.primitive.FunctionCall("this.create_%s" % instance.name)])
         self.clazz.ctor.add_statement(set_main_widget)

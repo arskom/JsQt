@@ -37,26 +37,25 @@ class QLayout(ObjectBase):
         pass
 
 class CanvasLayout(QLayout):
-    def __init__(self, elt, name=None):
-        QLayout.__init__(self, elt, name)
-
-        self.type = "qx.ui.layout.Canvas"
+    type = "qx.ui.layout.Canvas"
 
 class QVBoxLayout(QLayout):
-    def __init__(self, elt, name=None):
-        QLayout.__init__(self, elt, name)
-
-        self.type = "qx.ui.layout.VBox"
+    type = "qx.ui.layout.VBox"
 
 class QHBoxLayout(QLayout):
-    def __init__(self, elt, name=None):
-        QLayout.__init__(self, elt, name)
-
-        self.type = "qx.ui.layout.HBox"
+    type = "qx.ui.layout.HBox"
 
 class QGridLayout(QLayout):
-    def __init__(self, elt, name=None):
-        QLayout.__init__(self, elt, name)
+    type = "qx.ui.layout.Grid"
 
-        self.type = "qx.ui.layout.Grid"
+class SplitPaneLayout(QLayout):
+    type = None
 
+    def _compile_instantiation(self, dialect, ret):
+        pass
+
+class TabViewLayout(QLayout):
+    type = None
+
+    def _compile_instantiation(self, dialect, ret):
+        pass

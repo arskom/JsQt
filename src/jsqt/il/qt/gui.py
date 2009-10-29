@@ -300,6 +300,9 @@ class ContainerBase(WidgetBase):
                 "left": instance.get_geometry_left(),
             }
 
+        elif isinstance(self.layout, il.qt.layout.SplitPaneLayout):
+            instance.layout_properties = 1
+
         instance.set_parent(self)
 
     def _compile_layout(self, dialect, ret):
@@ -316,9 +319,12 @@ class ContainerBase(WidgetBase):
 
             if c.supported:
                 args = [il.primitive.FunctionCall("this.create_%s" % c.name)]
-                if c.layout_properties != None:
+                if isinstance(c.layout_properties, dict):
                     args.append(il.primitive.AssociativeArrayInitialization(
                                 c.layout_properties))
+                                
+                elif isinstance(c.layout_properties, int):
+                    args.append(il.primitive.DecimalInteger(c.layout_properties))
 
                 add_children=il.primitive.FunctionCall('this.%s.add'% self.name,
                                                                            args)
