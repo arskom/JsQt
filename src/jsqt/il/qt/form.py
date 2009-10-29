@@ -97,7 +97,46 @@ class QSpinBox(WidgetBase):
     type="qx.ui.form.Spinner"
 
     def __init__(self, elt, name=None):
+        self.__known_props = {
+            "maximum": self.__handle_maximum,
+            "value": self.__handle_value,
+        }
+        self.__maximum = 0
+        self.__value = 0
+
         WidgetBase.__init__(self,elt,name)
+        
+
+    def set_property(self, elt):
+        prop_name = elt.attrib['name']
+        if prop_name in self.__known_props:
+            self.__known_props[prop_name](elt)
+
+    def compile(self, dialect, ret):
+        WidgetBase.compile(self, dialect, ret)
+
+        if self.__value != 0:
+            fc=il.primitive.FunctionCall("this.%s.%s" % (self.name, "setValue"),
+                [il.primitive.DecimalInteger(self.__value)],
+            )
+            self.factory_function.add_statement(fc)
+
+        if self.__maximum != 0:
+            fc = il.primitive.FunctionCall("this.%s.%s" % (self.name, "setMax"),
+                [il.primitive.DecimalInteger(self.__maximum)],
+            )
+            self.factory_function.add_statement(fc)
+
+        fc = il.primitive.FunctionCall("this.%s.%s" % (self.name, "setMargin"),
+            [il.primitive.DecimalInteger(1)],
+        )
+        self.factory_function.add_statement(fc)
+
+    def __handle_maximum(self, elt):
+        self.__maximum = int(elt[0].text)
+
+    def __handle_value(self, elt):
+        self.__value = int(elt[0].text)
 
 class QDateEdit(WidgetBase):
     type="qx.ui.form.DateField"
