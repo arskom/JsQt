@@ -48,8 +48,10 @@ class MGeometryProperties(object):
         self.__margin_r = 1
 
         self.__known_props = {
-            "geometry": self.__handle_prop_geometry,
             "text": self.__handle_prop_text,
+            "geometry": self.__handle_prop_geometry,
+            "minimumSize": self.__handle_prop_min_size,
+            "maximumSize": self.__handle_prop_max_size,
         }
 
         self.__primitive_prop_types = {
@@ -64,15 +66,37 @@ class MGeometryProperties(object):
         return self.__top
     def get_geometry_left(self):
         return self.__left
-    
+
+    def __handle_prop_min_size(self, elt):
+        if elt[0].tag == 'size':
+            retval = self.__decode_complex_prop(elt[0])
+
+            self.__min_w = retval['width']
+            self.__min_h = retval['height']
+
+        else:
+            jsqt.debug_print("\t\t", "WARNING: property 'geometry' doesn't have"
+                    " 'size' tag")
+
+    def __handle_prop_max_size(self, elt):
+        if elt[0].tag == 'size':
+            retval = self.__decode_complex_prop(elt[0])
+
+            self.__max_w = retval['width']
+            self.__max_h = retval['height']
+
+        else:
+            jsqt.debug_print("\t\t", "WARNING: property 'geometry' doesn't have"
+                    " 'size' tag")
+
     def __handle_prop_geometry(self, elt):
         if elt[0].tag == 'rect':
-            retval = self.__handle_prop_type_rect(elt[0])
+            retval = self.__decode_complex_prop(elt[0])
 
-            self.__left = retval['x']
             self.__top = retval['y']
+            self.__left = retval['x']
             self.__width = retval['width']
-            self.__height = retval['width']
+            self.__height = retval['height']
 
         else:
             jsqt.debug_print("\t\t", "WARNING: property 'geometry' doesn't have"
@@ -81,7 +105,7 @@ class MGeometryProperties(object):
     def __handle_prop_text(self, elt):
         self.text = self.__primitive_prop_types[elt[0].tag](elt[0].text)
 
-    def __handle_prop_type_rect(self, elt):
+    def __decode_complex_prop(self, elt):
         retval = {}
         for e in elt:
             retval[e.tag] = self.__primitive_prop_types[e.tag](e.text)
