@@ -67,7 +67,7 @@ class QSplitter(ContainerBase):
         self.layout_properties = None
         ContainerBase.__init__(self, elt, name)
 
-        self.__orientation = "horizontal"
+        self.__orientation = "horizontal" # FIXME
 
     def add_child(self, instance):
         if len(self.children)>1:
@@ -97,8 +97,21 @@ class QSplitter(ContainerBase):
 
         ret.set_member(self.name, il.primitive.ObjectReference('null'))
 
-class QGroupBox(ContainerBase):
+class QGroupBox(ContainerBase,MWithCaption):
     type = "qx.ui.groupbox.GroupBox"
+
+    def __init__(self, elt, name=None):
+        self.layout_properties = None
+        MWithCaption.__init__(self, "title")
+        ContainerBase.__init__(self, elt, name)
+
+    def compile(self, dialect, ret):
+        ContainerBase.compile(self, dialect, ret)
+        MWithCaption.compile(self, dialect, ret, "setLegend")
+
+    def set_property(self, elt):
+        ContainerBase.set_property(self, elt)
+        MWithCaption.set_property(self, elt)
 
 class QScrollArea(ContainerBase):
     type = "qx.ui.container.Scroll"
