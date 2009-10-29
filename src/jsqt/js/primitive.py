@@ -126,7 +126,9 @@ class Object(Base):
     def to_stream(self, os):
         os.write("{")
         i=0
-        for k in self.__members.keys():
+        keys = self.__members.keys()
+        keys.sort()
+        for k in keys:
             os.write(k)
             os.write(":")
             self.__members[k].to_stream(os)
