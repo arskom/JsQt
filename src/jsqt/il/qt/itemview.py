@@ -69,4 +69,39 @@ class QTableWidget(QAbstractItemView):
     def __init__(self, elt, name=None):
         WidgetBase.__init__(self,elt,name)
         
+    def _compile_instantiation(self, dialect, ret):
+        factory_function_retval = il.primitive.ObjectReference('this.%s'
+                                                                    % self.name)
+        assignment = il.primitive.Assignment()
+        assignment.set_left(factory_function_retval)
+
+        args = [il.primitive.ObjectReference("null")]
+
+        return_tcm = il.primitive.FunctionDefinition("",["obj"])
+        return_tcm.set_return_statement(il.primitive.Instantiation(
+            "qx.ui.table.columnmodel.Resize",
+            [il.primitive.ObjectReference("obj")]
+        ))
+
+        args.append(il.primitive.AssociativeArrayInitialization({
+            "tableColumnModel": return_tcm
+        }))
+
+        #this.tbl_vehicle = new atr.comp.SmallVehicleTable(null,{
+        #    tableColumnModel : function(obj) {
+        #        return new qx.ui.table.columnmodel.Resize(obj);
+        #    }
+        #}); // QTableWidget
+
+        instantiation = il.primitive.Instantiation(self.type, args)
+
+        assignment.set_right(instantiation)
+
+        self.factory_function.add_statement(assignment)
+
+        ret.set_member(self.factory_function.name, self.factory_function)
+        self.factory_function.set_return_statement(
+                            il.primitive.ObjectReference('this.%s' % self.name))
+
+        ret.set_member(self.name, il.primitive.ObjectReference('null'))
 
