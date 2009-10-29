@@ -46,7 +46,8 @@ class DuckTypedList(list):
     def __init__(self,attr_list, data=[]):
         for a in attr_list:
             if not isinstance(a,str):
-                raise Exception("""DuckTypedList accepts only an iterable of str instances""")
+                raise Exception("DuckTypedList accepts only an iterable of str "
+                                                                    "instances")
 
         self.__attr_list = attr_list
 
@@ -54,14 +55,16 @@ class DuckTypedList(list):
             try:
                 self.append(data[i])
             except TypeError,e:
-                raise TypeError("%s\nIn the element no %d of the incoming data" % (e.args[0],i))
-
+                raise TypeError("%s\nIn the element no %d of the incoming data"%
+                                                                  (e.args[0],i))
 
     def append(self, v):
         for a in self.__attr_list:
             if not hasattr(v, a):
-                raise TypeError('TypedList should have objects with a "%s" member\n' % a +
-                                 "The '%s' type doesn't conform to this." % type(v))
+                raise TypeError("TypedList should have objects with a '%s' "
+                                                                      "member\n"
+                                 "The '%s' type doesn't conform to this."
+                                                                    % type(a,v))
 
         list.append(self,v)
 

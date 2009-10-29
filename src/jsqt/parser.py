@@ -28,6 +28,8 @@ from jsqt import il
 import il.qt
 from jsqt import DuckTypedList, JsPp
 
+from copy import deepcopy
+
 il.qt.gui.layout_dict = {
     "QVBoxLayout": il.qt.layout.QVBoxLayout,
     "QHBoxLayout": il.qt.layout.QHBoxLayout,
@@ -78,9 +80,9 @@ class CodeBlocks(DuckTypedList):
 
 class UiParser(object):
     def __init__(self,object_name=""):
-        self.custom_widgets = {}
         self.clazz = il.primitive.ClassDefinition(object_name)
         self.lang = CodeBlocks()
+        il.qt.gui.custom_dict = {}
 
         self.handlers = {
             'ui': self.parse_ui,
@@ -93,9 +95,6 @@ class UiParser(object):
         tree = etree.parse(file_handle)
         root = tree.getroot()
         self.handlers[root.tag](root)
-
-    def parse_custom_widget(self,element):
-        pass
 
     def parse_class(self, elt):
         jsqt.debug_print("\tclass:", elt.text)
@@ -116,9 +115,6 @@ class UiParser(object):
             else:
                 self.parse_unknown_tag(elt)
 
-    def __get_instance(self, elt):
-        return 
-
     def parse_widget(self, elt):
         instance = il.qt.gui.widget_dict[elt.attrib['class']](elt)
         set_main_widget=il.primitive.FunctionCall('this.setWidget',
@@ -128,8 +124,24 @@ class UiParser(object):
         self.clazz.set_member(elt.attrib['name'], instance)
 
     def parse_custom_widgets(self,elt):
-        self.clazz.preamble.append(il.primitive.Comment("WARNING: '%s' tag is not supported" % elt.tag))
+        for e in elt:
+            base_class = None
+            class_name = None
+            for f in e:
+                if f.tag == "extends":
+                    base_class = f.text
+                elif f.tag == "class":
+                    class_name = f.text
+
+            il.qt.gui.custom_dict[class_name] = deepcopy(
+                                     il.qt.gui.ObjectBase.get_class(base_class))
+
+            il.qt.gui.custom_dict[class_name].type= class_name.replace("::",".")
+
+        self.clazz.preamble.append(il.primitive.Comment("WARNING: '%s' tag is "
+                                                     "not supported" % elt.tag))
 
     def parse_unknown_tag(self,elt):
-        self.clazz.preamble.append(il.primitive.Comment("WARNING: '%s' tag is not supported" % elt.tag))
+        self.clazz.preamble.append(il.primitive.Comment("WARNING: '%s' tag is "
+                                                     "not supported" % elt.tag))
 

@@ -52,11 +52,11 @@ class MWithCaption(object):
             self.__known_props[prop_name](elt)
 
 class QLabel(WidgetBase, MWithCaption):
+    type = "qx.ui.basic.Label"
+
     def __init__(self, elt, name=None):
         MWithCaption.__init__(self)
         WidgetBase.__init__(self,elt,name)
-
-        self.type = "qx.ui.basic.Label"
 
     def compile(self, dialect, ret):
         WidgetBase.compile(self, dialect, ret)
@@ -67,11 +67,11 @@ class QLabel(WidgetBase, MWithCaption):
         MWithCaption.set_property(self, elt)
 
 class QPushButton(WidgetBase, MWithCaption):
+    type = "qx.ui.form.Button"
+
     def __init__(self, elt, name=None):
         MWithCaption.__init__(self)
         WidgetBase.__init__(self,elt,name)
-
-        self.type = "qx.ui.form.Button"
 
     def compile(self, dialect, ret):
         WidgetBase.compile(self, dialect, ret)
@@ -82,35 +82,35 @@ class QPushButton(WidgetBase, MWithCaption):
         MWithCaption.set_property(self, elt)
 
 class QLineEdit(WidgetBase):
+    type="qx.ui.form.TextField"
+
     def __init__(self, elt, name=None):
         WidgetBase.__init__(self,elt,name)
-
-        self.type="qx.ui.form.TextField"
 
 class QTextEdit(WidgetBase):
+    type="qx.ui.form.TextArea"
+
     def __init__(self, elt, name=None):
         WidgetBase.__init__(self,elt,name)
-
-        self.type="qx.ui.form.TextArea"
 
 class QSpinBox(WidgetBase):
+    type="qx.ui.form.Spinner"
+
     def __init__(self, elt, name=None):
         WidgetBase.__init__(self,elt,name)
-
-        self.type="qx.ui.form.Spinner"
 
 class QDateEdit(WidgetBase):
+    type="qx.ui.form.DateField"
+
     def __init__(self, elt, name=None):
         WidgetBase.__init__(self,elt,name)
 
-        self.type="qx.ui.form.DateField"
-
 class QCheckBox(WidgetBase,MWithCaption):
+    type="qx.ui.form.CheckBox"
+
     def __init__(self, elt, name=None):
         MWithCaption.__init__(self)
         WidgetBase.__init__(self,elt,name)
-
-        self.type="qx.ui.form.CheckBox"
 
     def compile(self, dialect, ret):
         WidgetBase.compile(self, dialect, ret)
@@ -121,11 +121,11 @@ class QCheckBox(WidgetBase,MWithCaption):
         MWithCaption.set_property(self, elt)
 
 class QRadioButton(WidgetBase,MWithCaption):
+    type="qx.ui.form.RadioButton"
+    
     def __init__(self, elt, name=None):
         MWithCaption.__init__(self)
         WidgetBase.__init__(self,elt,name)
-
-        self.type="qx.ui.form.RadioButton"
 
     def compile(self, dialect, ret):
         WidgetBase.compile(self, dialect, ret)
@@ -136,11 +136,11 @@ class QRadioButton(WidgetBase,MWithCaption):
         MWithCaption.set_property(self, elt)
 
 class QComboBox(WidgetBase, MItemView):
+    type = "qx.ui.form.SelectBox"
+
     def __init__(self, elt, name=None):
         MItemView.__init__(self)
         WidgetBase.__init__(self,elt,name)
-
-        self.type = "qx.ui.form.SelectBox"
 
     def _init_before_parse(self):
         MItemView._init_before_parse(self)
@@ -151,9 +151,8 @@ class QComboBox(WidgetBase, MItemView):
         MItemView.compile(self, dialect, ret)
 
 class QSpacer(WidgetBase):
+    type = "qx.ui.core.Spacer"
+
     def __init__(self, elt, name=None):
         WidgetBase.__init__(self,elt,name)
-
-        self.type = "qx.ui.core.Spacer"
-
 

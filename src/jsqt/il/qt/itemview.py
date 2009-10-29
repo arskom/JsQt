@@ -57,14 +57,16 @@ class MItemView(object):
         self.__items.append(elt[0][0].text)
 
 class QListWidget(QAbstractItemView):
+    type = "qx.ui.form.List"
+
     def __init__(self, elt, name=None):
         WidgetBase.__init__(self,elt,name)
 
-        self.type = "qx.ui.form.List"
 
 class QTableWidget(QAbstractItemView):
+    type="qx.ui.table.Table"
+    
     def __init__(self, elt, name=None):
         WidgetBase.__init__(self,elt,name)
-
-        self.type="qx.ui.table.Table"
         
+

@@ -28,6 +28,7 @@ from jsqt.xml import etree
 
 widget_dict = {}
 layout_dict = {}
+custom_dict = {}
 
 class MGeometryProperties(object):
     def __init__(self):
@@ -144,6 +145,8 @@ class MGeometryProperties(object):
             self.__known_props[prop_name](elt)
 
 class ObjectBase(il.primitive.MultiPartCompilable):
+    type = None
+
     def __init__(self, elt, name=None):
         il.primitive.MultiPartCompilable.__init__(self)
         
@@ -168,7 +171,6 @@ class ObjectBase(il.primitive.MultiPartCompilable):
             jsqt.debug_print("\tQWidget.__init__:", elt.tag, elt.attrib)
             self._init_before_parse()
             self._loop_children(elt)
-
 
     def set_name(self, name):
         self.__name = name
@@ -199,20 +201,27 @@ class ObjectBase(il.primitive.MultiPartCompilable):
                      "of type '%s' is not supported (yet?)"
                                         % (e.tag, self.name, type(self) )))
 
-    def get_instance(self, elt):
+    @staticmethod
+    def get_class(class_name):
+        if class_name in widget_dict:
+            return widget_dict[class_name]
+        elif class_name in layout_dict:
+            return layout_dict[class_name]
+        elif class_name in custom_dict:
+            return custom_dict[class_name]
+        else:
+            return QWidgetStub
+
+    @staticmethod
+    def get_instance(elt):
         if elt.tag == 'spacer':
-            return widget_dict['Spacer'](elt)
-        
+            class_name = 'Spacer'
         else:
             class_name = elt.attrib['class']
-            if class_name in widget_dict:
-                return widget_dict[class_name](elt)
-            elif class_name in layout_dict:
-                return layout_dict[class_name](elt)
-            else:
-                return QWidgetStub(elt)
 
-    def __compile_instantiation(self, dialect, ret):
+        return ObjectBase.get_class(class_name)(elt)
+
+    def _compile_instantiation(self, dialect, ret):
         factory_function_retval = il.primitive.ObjectReference('this.%s'
                                                                     % self.name)
         instantiation = il.primitive.Assignment()
@@ -228,7 +237,7 @@ class ObjectBase(il.primitive.MultiPartCompilable):
         ret.set_member(self.name, il.primitive.ObjectReference('null'))
 
     def compile(self, dialect, ret):
-        self.__compile_instantiation(dialect, ret)
+        self._compile_instantiation(dialect, ret)
 
     def set_parent(self, parent):
         self.parent = parent
@@ -330,16 +339,16 @@ class ContainerBase(WidgetBase):
         layout.set_parent(self)
 
 class QWidget(ContainerBase):
+    type = "qx.ui.container.Composite"
+
     def __init__(self, elt, name=None):
         ContainerBase.__init__(self, elt, name)
 
-        self.type = "qx.ui.container.Composite"
-
 class QSpacer(WidgetBase):
+    type = "qx.ui.core.Spacer"
+
     def __init__(self, elt, name=None):
         WidgetBase.__init__(self, elt, name)
-
-        self.type = "qx.ui.core.Spacer"
 
 class QWidgetStub(WidgetBase):
     def __init__(self, elt, name=None):

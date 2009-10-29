@@ -2,7 +2,7 @@
 Introduction
 =============
 
-JsQT is a tool to compile QTDesigner's .ui files to javascript code, 
+JsQt is a tool to compile QTDesigner's .ui files to javascript code,
 which is initially targeted to work with the qooxdoo framework.
 
 Quoting the Qooxdoo web site:
@@ -20,7 +20,7 @@ Quoting the Qooxdoo web site:
 So it's an exciting javascript framework library to work with. It is 
 being actively developed by a friendly community.
 
-JsQT is still in its early stages of development, yet some promising
+JsQt is still in its early stages of development, yet some promising
 results can be obtained for simple cases.
 
 Head over to
