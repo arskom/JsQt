@@ -65,12 +65,33 @@ class MGeometryProperties(object):
     def get_geometry_left(self):
         return self.__left
     
+    def __handle_prop_geometry(self, elt):
+        if elt[0].tag == 'rect':
+            retval = self.__handle_prop_type_rect(elt[0])
+
+            self.__left = retval['x']
+            self.__top = retval['y']
+            self.__width = retval['width']
+            self.__height = retval['width']
+
+        else:
+            jsqt.debug_print("\t\t", "WARNING: property 'geometry' doesn't have"
+                    " 'rect' tag")
+
+    def __handle_prop_text(self, elt):
+        self.text = self.__primitive_prop_types[elt[0].tag](elt[0].text)
+
     def __handle_prop_type_rect(self, elt):
         retval = {}
         for e in elt:
             retval[e.tag] = self.__primitive_prop_types[e.tag](e.text)
 
         return retval
+
+    def set_property(self, elt):
+        prop_name = elt.attrib['name']
+        if prop_name in self.__known_props:
+            self.__known_props[prop_name](elt)
 
     def compile(self, dialect, ret):
         if self.__width != 0:
@@ -122,27 +143,6 @@ class MGeometryProperties(object):
             fc = il.primitive.FunctionCall("this.%s.setMarginRight" % self.name,
                                    [il.primitive.DecimalInteger(self.__margin_r)])
             self.factory_function.add_statement(fc)
-
-    def __handle_prop_geometry(self, elt):
-        if elt[0].tag == 'rect':
-            retval = self.__handle_prop_type_rect(elt[0])
-
-            self.__left = retval['x']
-            self.__top = retval['y']
-            self.__width = retval['width']
-            self.__height = retval['width']
-
-        else:
-            jsqt.debug_print("\t\t", "WARNING: property 'geometry' doesn't have"
-                    " 'rect' tag")
-
-    def __handle_prop_text(self, elt):
-        self.text = self.__primitive_prop_types[elt[0].tag](elt[0].text)
-
-    def set_property(self, elt):
-        prop_name = elt.attrib['name']
-        if prop_name in self.__known_props:
-            self.__known_props[prop_name](elt)
 
 class ObjectBase(il.primitive.MultiPartCompilable):
     type = None
