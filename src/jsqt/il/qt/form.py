@@ -106,7 +106,6 @@ class QSpinBox(WidgetBase):
 
         WidgetBase.__init__(self,elt,name)
         
-
     def set_property(self, elt):
         prop_name = elt.attrib['name']
         if prop_name in self.__known_props:

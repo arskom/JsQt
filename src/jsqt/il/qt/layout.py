@@ -67,13 +67,21 @@ class QGridLayout(QLayout):
     type = "qx.ui.layout.Grid"
 
     def get_properties(self, elt):
-        retval = dict(elt.attrib)
+        attr = dict(elt.attrib)
 
-        if not "row" in retval: # FIXME: Hack!
-            retval = dict(elt.getparent().attrib)
+        if not "row" in attr: # FIXME: Hack!
+            attr = dict(elt.getparent().attrib)
 
-        for k in retval:
-            retval[k]=int(retval[k])
+        map_ = {
+            "row": "row",
+            "column": "column",
+            "colspan": "colSpan",
+            "rowspan": "rowSpan",
+        }
+
+        retval={}
+        for k in attr:
+            retval[map_[k]]=int(attr[k])
         
         return retval
 
