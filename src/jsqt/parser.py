@@ -99,7 +99,7 @@ class UiParser(object):
         jsqt.debug_print("\tclass:", elt.text)
         if self.clazz.name == "":
             self.clazz.name = elt.text
-        
+
     def parse_ui(self,elements):
         # <customwidgets> tag needs to be parsed first
         for i in range(len(elements)):

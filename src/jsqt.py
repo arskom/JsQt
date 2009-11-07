@@ -34,7 +34,7 @@ def walktree (top = ".", depthfirst = False):
     names = os.listdir(top)
     if not depthfirst:
         yield top, names
-    
+
     for name in names:
         try:
             st = os.lstat(os.path.join(top, name))
@@ -58,8 +58,8 @@ def compile(ui_file_name, js_file_name, root_namespace, dialect):
         raise Exception("root_namespace '%s' not found in class name '%s'" % (
                 root_namespace, js_file_name))
 
-    object_name= js_file_name[js_file_name.rfind(root_namespace):].replace("//",
-                                                    "/").replace("/", ".")[0:-3]
+    object_name= js_file_name[js_file_name.rfind(root_namespace):].replace(
+                                    os.sep*2, os.sep).replace(os.sep, ".")[0:-3]
     parser = UiParser(object_name)
     parser.parse(ui_file_name)
     compiled_object = parser.clazz.compile(dialect)
@@ -75,10 +75,10 @@ def main(argv):
 
     if len(argv) == 4:
         if os.path.isdir(argv[1]):
-            if not argv[1].endswith('/'):
-                argv[1]+='/'
-            if not argv[2].endswith('/'):
-                argv[2]+='/'
+            if not argv[1].endswith(os.sep):
+                argv[1]+=os.sep
+            if not argv[2].endswith(os.sep):
+                argv[2]+=os.sep
             for (basepath, children) in walktree(argv[1]):
                 for c in children:
                     if c[-3:] == '.ui':
