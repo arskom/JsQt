@@ -109,12 +109,19 @@ qx.Class.define("test.draw.Test", {
         
         ,create_gridLayout: function create_gridLayout() {
             this.gridLayout = new qx.ui.layout.Grid();
+            this.gridLayout.setRowFlex(0,1);
+            this.gridLayout.setRowFlex(1,1);
+            this.gridLayout.setRowFlex(2,1);
+            this.gridLayout.setColumnFlex(0,1);
+            this.gridLayout.setColumnFlex(1,1);
             return this.gridLayout;
             
         }
         
         ,create_gridLayout_2: function create_gridLayout_2() {
             this.gridLayout_2 = new qx.ui.layout.Grid();
+            this.gridLayout_2.setRowFlex(1,1);
+            this.gridLayout_2.setColumnFlex(1,1);
             return this.gridLayout_2;
             
         }

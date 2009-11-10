@@ -21,6 +21,7 @@
 # 02110-1301, USA.
 #
 
+from jsqt import il
 from gui import ObjectBase
 
 class QLayout(ObjectBase):
@@ -63,8 +64,54 @@ class QHBoxLayout(QLayout):
     def get_properties(self, elt, inst):
         return {"flex": inst.hor_stretch_coef}
 
+class AutoExpandingList(list):
+    def __getitem__(self, key):
+        retval = None
+
+        try:
+            retval = list.__getitem__(self,key)
+
+        except IndexError,e:
+            self.extend( [None] * (key-len(self)+1))
+
+        return retval
+
+class FlexProp(object):
+    def __init__(self, pol, coef):
+        self.pol = pol
+        self.coef = coef
+    def __repr__(self):
+        return "FlexProp(pol=%s, coef=%d)" % (self.pol,self.coef)
+
 class QGridLayout(QLayout):
     type = "qx.ui.layout.Grid"
+
+    def __init__(self, *args):
+        QLayout.__init__(self, *args)
+        self.row_flex=AutoExpandingList()
+        self.col_flex=AutoExpandingList()
+
+    def compile(self, dialect, ret):
+        QLayout.compile(self, dialect, ret)
+
+        print self.row_flex
+
+        for i in range(len(self.row_flex)):
+            if self.row_flex[i] and self.row_flex[i].pol == "Expanding":
+                fc = il.primitive.FunctionCall("this.%s.setRowFlex" % self.name,
+                    [il.primitive.DecimalInteger(i),
+                     il.primitive.DecimalInteger(self.row_flex[i].coef)],
+                )
+                self.factory_function.add_statement(fc)
+
+        for i in range(len(self.col_flex)):
+            if self.col_flex[i] and self.col_flex[i].pol == "Expanding":
+                fc=il.primitive.FunctionCall("this.%s.setColumnFlex"% self.name,
+                    [il.primitive.DecimalInteger(i),
+                     il.primitive.DecimalInteger(self.col_flex[i].coef)],
+                )
+                self.factory_function.add_statement(fc)
+
 
     def get_properties(self, elt, inst):
         attr = dict(elt.attrib)
@@ -83,6 +130,20 @@ class QGridLayout(QLayout):
         for k in attr:
             retval[map_[k]]=int(attr[k])
         
+        if self.row_flex[retval['row']] == None:
+            self.row_flex[retval['row']] = \
+                                    FlexProp("Expanding", inst.ver_stretch_coef)
+
+        if self.col_flex[retval['column']] == None:
+            self.col_flex[retval['column']] = \
+                                    FlexProp("Expanding", inst.hor_stretch_coef)
+
+        if inst.hor_stretch_pol == "Fixed":
+            self.row_flex[retval['row']].pol = "Fixed"
+
+        if inst.ver_stretch_pol == "Fixed":
+            self.col_flex[retval['column']].pol = "Fixed"
+
         return retval
 
 class SplitPaneLayout(QLayout):

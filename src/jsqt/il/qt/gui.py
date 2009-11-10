@@ -86,6 +86,14 @@ class MGeometryProperties(object):
         return self.__v_stretch_coef
     ver_stretch_coef = property(get_ver_stretch_coef)
 
+    def get_hor_stretch_pol(self):
+        return self.__h_stretch_pol
+    hor_stretch_pol = property(get_hor_stretch_pol)
+
+    def get_ver_stretch_pol(self):
+        return self.__v_stretch_pol
+    ver_stretch_pol = property(get_ver_stretch_pol)
+
     def __handle_size_policy(self, elt):
         if elt[0].tag == 'sizepolicy':
             tmp = self.__decode_complex_prop(elt[0])

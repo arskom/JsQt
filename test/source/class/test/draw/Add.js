@@ -525,6 +525,11 @@ qx.Class.define("test.draw.Add", {
         
         ,create_formLayout: function create_formLayout() {
             this.formLayout = new qx.ui.layout.Grid();
+            this.formLayout.setRowFlex(0,1);
+            this.formLayout.setRowFlex(1,1);
+            this.formLayout.setRowFlex(2,1);
+            this.formLayout.setColumnFlex(0,1);
+            this.formLayout.setColumnFlex(1,1);
             return this.formLayout;
             
         }
@@ -544,12 +549,26 @@ qx.Class.define("test.draw.Add", {
         
         ,create_gridLayout: function create_gridLayout() {
             this.gridLayout = new qx.ui.layout.Grid();
+            this.gridLayout.setRowFlex(0,1);
+            this.gridLayout.setRowFlex(1,1);
+            this.gridLayout.setRowFlex(2,1);
+            this.gridLayout.setRowFlex(3,1);
+            this.gridLayout.setRowFlex(4,1);
+            this.gridLayout.setRowFlex(5,1);
+            this.gridLayout.setRowFlex(6,1);
+            this.gridLayout.setRowFlex(7,1);
+            this.gridLayout.setRowFlex(8,1);
+            this.gridLayout.setColumnFlex(0,1);
+            this.gridLayout.setColumnFlex(2,1);
             return this.gridLayout;
             
         }
         
         ,create_gridLayout_2: function create_gridLayout_2() {
             this.gridLayout_2 = new qx.ui.layout.Grid();
+            this.gridLayout_2.setRowFlex(0,1);
+            this.gridLayout_2.setColumnFlex(0,1);
+            this.gridLayout_2.setColumnFlex(1,1);
             return this.gridLayout_2;
             
         }
@@ -569,6 +588,15 @@ qx.Class.define("test.draw.Add", {
         
         ,create_gridLayout_3: function create_gridLayout_3() {
             this.gridLayout_3 = new qx.ui.layout.Grid();
+            this.gridLayout_3.setRowFlex(1,1);
+            this.gridLayout_3.setRowFlex(2,1);
+            this.gridLayout_3.setRowFlex(3,1);
+            this.gridLayout_3.setRowFlex(4,1);
+            this.gridLayout_3.setRowFlex(5,1);
+            this.gridLayout_3.setRowFlex(6,1);
+            this.gridLayout_3.setRowFlex(7,1);
+            this.gridLayout_3.setRowFlex(8,1);
+            this.gridLayout_3.setColumnFlex(0,1);
             return this.gridLayout_3;
             
         }
