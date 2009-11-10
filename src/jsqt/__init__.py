@@ -119,6 +119,8 @@ class JsPp(object):
                 self.__brace_causes_new_line=[False]
 
         for c in what:
+            c=c.replace(u"−","-").encode("utf8");
+
             if what[i-1] == '/' and c=='*':
                 self.__in_comment = True
 
