@@ -75,7 +75,7 @@ class QSplitter(ContainerBase):
 
     def add_child(self, instance):
         if len(self.children)>1:
-            raise Exception("QScrollArea can have two child widgets")
+            raise Exception("QSplitter can have two child widgets")
         ContainerBase.add_child(self, instance)
 
     def _init_before_parse(self):
