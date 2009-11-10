@@ -65,9 +65,13 @@ class QSplitter(ContainerBase):
 
     def __init__(self, elt, name=None):
         self.layout_properties = None
+        self.__orientation = "horizontal" # FIXME
+
         ContainerBase.__init__(self, elt, name)
 
-        self.__orientation = "horizontal" # FIXME
+    def get_orientation(self):
+        return self.__orientation
+    orientation = property(get_orientation)
 
     def add_child(self, instance):
         if len(self.children)>1:

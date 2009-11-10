@@ -92,7 +92,10 @@ class SplitPaneLayout(QLayout):
         pass
 
     def get_properties(self, elt, inst):
-        return 1 # FIXME
+        if self.parent.orientation == "horizontal":
+            return inst.hor_stretch_coef
+        elif self.parent.orientation == "vertical":
+            return inst.ver_stretch_coef
 
 class TabViewLayout(QLayout):
     type = None

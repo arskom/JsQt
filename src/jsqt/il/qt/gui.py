@@ -325,7 +325,7 @@ class ContainerBase(WidgetBase):
         self.tag_handlers["widget"] = self._handle_widget_tag
         self.tag_handlers['layout'] = self._handle_layout_tag
         self.tag_handlers['item'] = self._handle_item_tag
-        self.layout = il.qt.layout.CanvasLayout(None, "%s_il" % self.name)
+        self.__layout = il.qt.layout.CanvasLayout(None, "%s_il" % self.name)
 
     def _handle_widget_tag(self, elt):
         instance = self.get_instance(elt)
@@ -387,8 +387,13 @@ class ContainerBase(WidgetBase):
         self._loop_children(elt)
 
     def set_layout(self, layout):
-        self.layout = layout
-        layout.set_parent(self)
+        self.__layout = layout
+        self.__layout.set_parent(self)
+    
+    def get_layout(self):
+        return self.__layout
+
+    layout = property(get_layout, set_layout)
 
 class QWidget(ContainerBase):
     type = "qx.ui.container.Composite"
