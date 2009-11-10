@@ -307,6 +307,7 @@ qx.Class.define("test.draw.Test", {
             this.groupBox_5.setMarginRight(1);
             this.groupBox_5.setLayout(this.create_verticalLayout_5());
             this.groupBox_5.add(this.create_comboBox(), {flex: 1});
+            this.groupBox_5.add(this.create_verticalSpacer(), {flex: 1});
             this.groupBox_5.setLegend(this.tr("GroupBox"));
             return this.groupBox_5;
             
@@ -396,6 +397,46 @@ qx.Class.define("test.draw.Test", {
         ,create_horizontalLayout: function create_horizontalLayout() {
             this.horizontalLayout = new qx.ui.layout.HBox();
             return this.horizontalLayout;
+            
+        }
+        
+        ,create_horizontalLayout_2: function create_horizontalLayout_2() {
+            this.horizontalLayout_2 = new qx.ui.layout.HBox();
+            return this.horizontalLayout_2;
+            
+        }
+        
+        ,create_horizontalLayout_2_implicit_container: function create_horizontalLayout_2_implicit_container() {
+            this.horizontalLayout_2_implicit_container = new qx.ui.container.Composite();
+            this.horizontalLayout_2_implicit_container.setMarginBottom(1);
+            this.horizontalLayout_2_implicit_container.setMarginTop(1);
+            this.horizontalLayout_2_implicit_container.setMarginLeft(1);
+            this.horizontalLayout_2_implicit_container.setMarginRight(1);
+            this.horizontalLayout_2_implicit_container.setLayout(this.create_horizontalLayout_2());
+            this.horizontalLayout_2_implicit_container.add(this.create_horizontalSpacer(), {flex: 1});
+            this.horizontalLayout_2_implicit_container.add(this.create_groupBox_5(), {flex: 1});
+            this.horizontalLayout_2_implicit_container.add(this.create_horizontalSpacer_2(), {flex: 1});
+            return this.horizontalLayout_2_implicit_container;
+            
+        }
+        
+        ,create_horizontalSpacer: function create_horizontalSpacer() {
+            this.horizontalSpacer = new qx.ui.core.Spacer();
+            this.horizontalSpacer.setMarginBottom(1);
+            this.horizontalSpacer.setMarginTop(1);
+            this.horizontalSpacer.setMarginLeft(1);
+            this.horizontalSpacer.setMarginRight(1);
+            return this.horizontalSpacer;
+            
+        }
+        
+        ,create_horizontalSpacer_2: function create_horizontalSpacer_2() {
+            this.horizontalSpacer_2 = new qx.ui.core.Spacer();
+            this.horizontalSpacer_2.setMarginBottom(1);
+            this.horizontalSpacer_2.setMarginTop(1);
+            this.horizontalSpacer_2.setMarginLeft(1);
+            this.horizontalSpacer_2.setMarginRight(1);
+            return this.horizontalSpacer_2;
             
         }
         
@@ -541,7 +582,7 @@ qx.Class.define("test.draw.Test", {
             this.tab_3.setMarginLeft(1);
             this.tab_3.setMarginRight(1);
             this.tab_3.setLayout(this.create_verticalLayout_4());
-            this.tab_3.add(this.create_groupBox_5(), {flex: 1});
+            this.tab_3.add(this.create_horizontalLayout_2_implicit_container(), {flex: 1});
             this.tab_3.add(this.create_scrollArea_2(), {flex: 1});
             this.tab_3.add(this.create_groupBox_4(), {flex: 1});
             this.tab_3.setLabel(this.tr("VBox"));
@@ -637,6 +678,16 @@ qx.Class.define("test.draw.Test", {
             
         }
         
+        ,create_verticalSpacer: function create_verticalSpacer() {
+            this.verticalSpacer = new qx.ui.core.Spacer();
+            this.verticalSpacer.setMarginBottom(1);
+            this.verticalSpacer.setMarginTop(1);
+            this.verticalSpacer.setMarginLeft(1);
+            this.verticalSpacer.setMarginRight(1);
+            return this.verticalSpacer;
+            
+        }
+        
         ,frame: null
         ,frame_2: null
         ,frame_2_il: null
@@ -671,6 +722,10 @@ qx.Class.define("test.draw.Test", {
         ,groupBox_9_il: null
         ,groupBox_il: null
         ,horizontalLayout: null
+        ,horizontalLayout_2: null
+        ,horizontalLayout_2_implicit_container: null
+        ,horizontalSpacer: null
+        ,horizontalSpacer_2: null
         ,label: null
         ,pushButton: null
         ,scrollArea: null
@@ -692,6 +747,7 @@ qx.Class.define("test.draw.Test", {
         ,verticalLayout_3: null
         ,verticalLayout_4: null
         ,verticalLayout_5: null
+        ,verticalSpacer: null
     }
     
     ,properties:  {
