@@ -41,7 +41,7 @@ qx.Class.define("test.draw.Test", {
             
             this.MainWindow = new qx.ui.container.Composite();
             this.MainWindow.setWidth(747);
-            this.MainWindow.setHeight(419);
+            this.MainWindow.setHeight(593);
             this.MainWindow.setMarginBottom(1);
             this.MainWindow.setMarginTop(1);
             this.MainWindow.setMarginLeft(1);
@@ -72,50 +72,13 @@ qx.Class.define("test.draw.Test", {
         
         ,create_comboBox: function create_comboBox() {
             this.comboBox = new qx.ui.form.SelectBox();
+            this.comboBox.setMaxHeight(35);
             this.comboBox.setMarginBottom(1);
             this.comboBox.setMarginTop(1);
             this.comboBox.setMarginLeft(1);
             this.comboBox.setMarginRight(1);
             this.comboBox.add(new qx.ui.form.ListItem("asd",null,"zorta"));
             return this.comboBox;
-            
-        }
-        
-        ,create_frame: function create_frame() {
-            this.frame = new qx.ui.container.Composite();
-            this.frame.setWidth(120);
-            this.frame.setHeight(80);
-            this.frame.setMarginBottom(1);
-            this.frame.setMarginTop(1);
-            this.frame.setMarginLeft(1);
-            this.frame.setMarginRight(1);
-            this.frame.setLayout(this.create_frame_il());
-            return this.frame;
-            
-        }
-        
-        ,create_frame_2: function create_frame_2() {
-            this.frame_2 = new qx.ui.container.Composite();
-            this.frame_2.setWidth(120);
-            this.frame_2.setHeight(80);
-            this.frame_2.setMarginBottom(1);
-            this.frame_2.setMarginTop(1);
-            this.frame_2.setMarginLeft(1);
-            this.frame_2.setMarginRight(1);
-            this.frame_2.setLayout(this.create_frame_2_il());
-            return this.frame_2;
-            
-        }
-        
-        ,create_frame_2_il: function create_frame_2_il() {
-            this.frame_2_il = new qx.ui.layout.Canvas();
-            return this.frame_2_il;
-            
-        }
-        
-        ,create_frame_il: function create_frame_il() {
-            this.frame_il = new qx.ui.layout.Canvas();
-            return this.frame_il;
             
         }
         
@@ -336,21 +299,6 @@ qx.Class.define("test.draw.Test", {
             
         }
         
-        ,create_groupBox_5: function create_groupBox_5() {
-            this.groupBox_5 = new qx.ui.groupbox.GroupBox();
-            this.groupBox_5.setMaxWidth(150);
-            this.groupBox_5.setMarginBottom(1);
-            this.groupBox_5.setMarginTop(1);
-            this.groupBox_5.setMarginLeft(1);
-            this.groupBox_5.setMarginRight(1);
-            this.groupBox_5.setLayout(this.create_verticalLayout_5());
-            this.groupBox_5.add(this.create_comboBox(), {flex: 1});
-            this.groupBox_5.add(this.create_verticalSpacer(), {flex: 1});
-            this.groupBox_5.setLegend(this.tr("GroupBox"));
-            return this.groupBox_5;
-            
-        }
-        
         ,create_groupBox_6: function create_groupBox_6() {
             this.groupBox_6 = new qx.ui.groupbox.GroupBox();
             this.groupBox_6.setMinHeight(500);
@@ -426,6 +374,21 @@ qx.Class.define("test.draw.Test", {
             
         }
         
+        ,create_groupBox_centered: function create_groupBox_centered() {
+            this.groupBox_centered = new qx.ui.groupbox.GroupBox();
+            this.groupBox_centered.setMaxWidth(150);
+            this.groupBox_centered.setMarginBottom(1);
+            this.groupBox_centered.setMarginTop(1);
+            this.groupBox_centered.setMarginLeft(1);
+            this.groupBox_centered.setMarginRight(1);
+            this.groupBox_centered.setLayout(this.create_verticalLayout_5());
+            this.groupBox_centered.add(this.create_comboBox(), {flex: 1});
+            this.groupBox_centered.add(this.create_verticalSpacer(), {flex: 1});
+            this.groupBox_centered.setLegend(this.tr("GroupBox"));
+            return this.groupBox_centered;
+            
+        }
+        
         ,create_groupBox_il: function create_groupBox_il() {
             this.groupBox_il = new qx.ui.layout.Canvas();
             return this.groupBox_il;
@@ -452,7 +415,7 @@ qx.Class.define("test.draw.Test", {
             this.horizontalLayout_2_implicit_container.setMarginRight(1);
             this.horizontalLayout_2_implicit_container.setLayout(this.create_horizontalLayout_2());
             this.horizontalLayout_2_implicit_container.add(this.create_horizontalSpacer(), {flex: 1});
-            this.horizontalLayout_2_implicit_container.add(this.create_groupBox_5(), {flex: 1});
+            this.horizontalLayout_2_implicit_container.add(this.create_groupBox_centered(), {flex: 1});
             this.horizontalLayout_2_implicit_container.add(this.create_horizontalSpacer_2(), {flex: 1});
             return this.horizontalLayout_2_implicit_container;
             
@@ -480,8 +443,8 @@ qx.Class.define("test.draw.Test", {
         
         ,create_label: function create_label() {
             this.label = new qx.ui.basic.Label();
-            this.label.setWidth(161);
-            this.label.setHeight(18);
+            this.label.setWidth(131);
+            this.label.setHeight(31);
             this.label.setMarginBottom(1);
             this.label.setMarginTop(1);
             this.label.setMarginLeft(1);
@@ -491,9 +454,22 @@ qx.Class.define("test.draw.Test", {
             
         }
         
+        ,create_label_2: function create_label_2() {
+            this.label_2 = new qx.ui.basic.Label();
+            this.label_2.setWidth(131);
+            this.label_2.setHeight(31);
+            this.label_2.setMarginBottom(1);
+            this.label_2.setMarginTop(1);
+            this.label_2.setMarginLeft(1);
+            this.label_2.setMarginRight(1);
+            this.label_2.setValue(this.tr("This wil be cleared"));
+            return this.label_2;
+            
+        }
+        
         ,create_pushButton: function create_pushButton() {
             this.pushButton = new qx.ui.form.Button();
-            this.pushButton.setWidth(83);
+            this.pushButton.setWidth(81);
             this.pushButton.setHeight(28);
             this.pushButton.setMarginBottom(1);
             this.pushButton.setMarginTop(1);
@@ -501,6 +477,19 @@ qx.Class.define("test.draw.Test", {
             this.pushButton.setMarginRight(1);
             this.pushButton.setLabel(this.tr("Clear"));
             return this.pushButton;
+            
+        }
+        
+        ,create_pushButton_2: function create_pushButton_2() {
+            this.pushButton_2 = new qx.ui.form.Button();
+            this.pushButton_2.setWidth(81);
+            this.pushButton_2.setHeight(28);
+            this.pushButton_2.setMarginBottom(1);
+            this.pushButton_2.setMarginTop(1);
+            this.pushButton_2.setMarginLeft(1);
+            this.pushButton_2.setMarginRight(1);
+            this.pushButton_2.setLabel(this.tr("Clear"));
+            return this.pushButton_2;
             
         }
         
@@ -518,7 +507,7 @@ qx.Class.define("test.draw.Test", {
         
         ,create_scrollAreaWidgetContents: function create_scrollAreaWidgetContents() {
             this.scrollAreaWidgetContents = new qx.ui.container.Composite();
-            this.scrollAreaWidgetContents.setWidth(101);
+            this.scrollAreaWidgetContents.setWidth(199);
             this.scrollAreaWidgetContents.setHeight(518);
             this.scrollAreaWidgetContents.setMarginBottom(1);
             this.scrollAreaWidgetContents.setMarginTop(1);
@@ -575,8 +564,8 @@ qx.Class.define("test.draw.Test", {
             this.tab.setMarginLeft(1);
             this.tab.setMarginRight(1);
             this.tab.setLayout(this.create_tab_il());
-            this.tab.add(this.create_frame(), {edge: 0});
-            this.tab.add(this.create_frame_2(), {edge: 0});
+            this.tab.add(this.create_pushButton_2(), {edge: 0});
+            this.tab.add(this.create_label_2(), {edge: 0});
             this.tab.setLabel(this.tr("Canvas"));
             return this.tab;
             
@@ -607,7 +596,7 @@ qx.Class.define("test.draw.Test", {
             this.tab_2.setLayout(this.create_horizontalLayout());
             this.tab_2.add(this.create_groupBox_2(), {flex: 1});
             this.tab_2.add(this.create_groupBox(), {flex: 1});
-            this.tab_2.add(this.create_scrollArea(), {flex: 1});
+            this.tab_2.add(this.create_scrollArea(), {flex: 2});
             this.tab_2.setLabel(this.tr("HBox"));
             return this.tab_2;
             
@@ -621,7 +610,7 @@ qx.Class.define("test.draw.Test", {
             this.tab_3.setMarginRight(1);
             this.tab_3.setLayout(this.create_verticalLayout_4());
             this.tab_3.add(this.create_horizontalLayout_2_implicit_container(), {flex: 1});
-            this.tab_3.add(this.create_scrollArea_2(), {flex: 1});
+            this.tab_3.add(this.create_scrollArea_2(), {flex: 3});
             this.tab_3.add(this.create_groupBox_4(), {flex: 1});
             this.tab_3.setLabel(this.tr("VBox"));
             return this.tab_3;
@@ -728,10 +717,6 @@ qx.Class.define("test.draw.Test", {
             
         }
         
-        ,frame: null
-        ,frame_2: null
-        ,frame_2_il: null
-        ,frame_il: null
         ,gridLayout: null
         ,gridLayout_2: null
         ,groupBox: null
@@ -755,7 +740,6 @@ qx.Class.define("test.draw.Test", {
         ,groupBox_3_il: null
         ,groupBox_4: null
         ,groupBox_4_il: null
-        ,groupBox_5: null
         ,groupBox_6: null
         ,groupBox_6_il: null
         ,groupBox_7: null
@@ -764,6 +748,7 @@ qx.Class.define("test.draw.Test", {
         ,groupBox_8_il: null
         ,groupBox_9: null
         ,groupBox_9_il: null
+        ,groupBox_centered: null
         ,groupBox_il: null
         ,horizontalLayout: null
         ,horizontalLayout_2: null
@@ -771,7 +756,9 @@ qx.Class.define("test.draw.Test", {
         ,horizontalSpacer: null
         ,horizontalSpacer_2: null
         ,label: null
+        ,label_2: null
         ,pushButton: null
+        ,pushButton_2: null
         ,scrollArea: null
         ,scrollAreaWidgetContents: null
         ,scrollAreaWidgetContents_2: null

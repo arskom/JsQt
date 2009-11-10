@@ -1520,7 +1520,7 @@ qx.Class.define("test.draw.Add", {
             this.tab_5.setMarginLeft(1);
             this.tab_5.setMarginRight(1);
             this.tab_5.setLayout(this.create_verticalLayout_6());
-            this.tab_5.add(this.create_scrollArea_2(), {flex: 1});
+            this.tab_5.add(this.create_scrollArea_2(), {flex: 0});
             this.tab_5.setLabel(this.tr("Tab 2"));
             return this.tab_5;
             
