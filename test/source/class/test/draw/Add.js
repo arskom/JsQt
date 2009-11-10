@@ -286,13 +286,13 @@ qx.Class.define("test.draw.Add", {
             this.comboSubAddress.setMarginTop(1);
             this.comboSubAddress.setMarginLeft(1);
             this.comboSubAddress.setMarginRight(1);
-            this.comboSubAddress.add(new qx.ui.form.ListItem("1"));
-            this.comboSubAddress.add(new qx.ui.form.ListItem("2"));
-            this.comboSubAddress.add(new qx.ui.form.ListItem("3"));
-            this.comboSubAddress.add(new qx.ui.form.ListItem("4"));
-            this.comboSubAddress.add(new qx.ui.form.ListItem("5"));
-            this.comboSubAddress.add(new qx.ui.form.ListItem("6"));
-            this.comboSubAddress.add(new qx.ui.form.ListItem("7"));
+            this.comboSubAddress.add(new qx.ui.form.ListItem("1",null,null));
+            this.comboSubAddress.add(new qx.ui.form.ListItem("2",null,null));
+            this.comboSubAddress.add(new qx.ui.form.ListItem("3",null,null));
+            this.comboSubAddress.add(new qx.ui.form.ListItem("4",null,null));
+            this.comboSubAddress.add(new qx.ui.form.ListItem("5",null,null));
+            this.comboSubAddress.add(new qx.ui.form.ListItem("6",null,null));
+            this.comboSubAddress.add(new qx.ui.form.ListItem("7",null,null));
             return this.comboSubAddress;
             
         }
@@ -304,13 +304,13 @@ qx.Class.define("test.draw.Add", {
             this.comboSubAddress_2.setMarginTop(1);
             this.comboSubAddress_2.setMarginLeft(1);
             this.comboSubAddress_2.setMarginRight(1);
-            this.comboSubAddress_2.add(new qx.ui.form.ListItem("1"));
-            this.comboSubAddress_2.add(new qx.ui.form.ListItem("2"));
-            this.comboSubAddress_2.add(new qx.ui.form.ListItem("3"));
-            this.comboSubAddress_2.add(new qx.ui.form.ListItem("4"));
-            this.comboSubAddress_2.add(new qx.ui.form.ListItem("5"));
-            this.comboSubAddress_2.add(new qx.ui.form.ListItem("6"));
-            this.comboSubAddress_2.add(new qx.ui.form.ListItem("7"));
+            this.comboSubAddress_2.add(new qx.ui.form.ListItem("1",null,null));
+            this.comboSubAddress_2.add(new qx.ui.form.ListItem("2",null,null));
+            this.comboSubAddress_2.add(new qx.ui.form.ListItem("3",null,null));
+            this.comboSubAddress_2.add(new qx.ui.form.ListItem("4",null,null));
+            this.comboSubAddress_2.add(new qx.ui.form.ListItem("5",null,null));
+            this.comboSubAddress_2.add(new qx.ui.form.ListItem("6",null,null));
+            this.comboSubAddress_2.add(new qx.ui.form.ListItem("7",null,null));
             return this.comboSubAddress_2;
             
         }

@@ -23,6 +23,7 @@ qx.Class.define("test.draw.Test", {
         MainWindow: null
         ,__lv: null
         ,centralwidget: null
+        ,comboBox: null
         ,create_MainWindow: function create_MainWindow() {
              /* The 'action' tag for widget named 'MainWindow'of type '<class 'jsqt.il.qt.container.QMainWindow'>' is not supported (yet?) */
             
@@ -66,6 +67,17 @@ qx.Class.define("test.draw.Test", {
             this.centralwidget.setLayout(this.create_verticalLayout());
             this.centralwidget.add(this.create_splitter(), {flex: 1});
             return this.centralwidget;
+            
+        }
+        
+        ,create_comboBox: function create_comboBox() {
+            this.comboBox = new qx.ui.form.SelectBox();
+            this.comboBox.setMarginBottom(1);
+            this.comboBox.setMarginTop(1);
+            this.comboBox.setMarginLeft(1);
+            this.comboBox.setMarginRight(1);
+            this.comboBox.add(new qx.ui.form.ListItem("asd",null,"zorta"));
+            return this.comboBox;
             
         }
         
@@ -293,15 +305,10 @@ qx.Class.define("test.draw.Test", {
             this.groupBox_5.setMarginTop(1);
             this.groupBox_5.setMarginLeft(1);
             this.groupBox_5.setMarginRight(1);
-            this.groupBox_5.setLayout(this.create_groupBox_5_il());
+            this.groupBox_5.setLayout(this.create_verticalLayout_5());
+            this.groupBox_5.add(this.create_comboBox(), {flex: 1});
             this.groupBox_5.setLegend(this.tr("GroupBox"));
             return this.groupBox_5;
-            
-        }
-        
-        ,create_groupBox_5_il: function create_groupBox_5_il() {
-            this.groupBox_5_il = new qx.ui.layout.Canvas();
-            return this.groupBox_5_il;
             
         }
         
@@ -432,7 +439,7 @@ qx.Class.define("test.draw.Test", {
         
         ,create_scrollAreaWidgetContents: function create_scrollAreaWidgetContents() {
             this.scrollAreaWidgetContents = new qx.ui.container.Composite();
-            this.scrollAreaWidgetContents.setWidth(267);
+            this.scrollAreaWidgetContents.setWidth(143);
             this.scrollAreaWidgetContents.setHeight(518);
             this.scrollAreaWidgetContents.setMarginBottom(1);
             this.scrollAreaWidgetContents.setMarginTop(1);
@@ -624,6 +631,12 @@ qx.Class.define("test.draw.Test", {
             
         }
         
+        ,create_verticalLayout_5: function create_verticalLayout_5() {
+            this.verticalLayout_5 = new qx.ui.layout.VBox();
+            return this.verticalLayout_5;
+            
+        }
+        
         ,frame: null
         ,frame_2: null
         ,frame_2_il: null
@@ -648,7 +661,6 @@ qx.Class.define("test.draw.Test", {
         ,groupBox_4: null
         ,groupBox_4_il: null
         ,groupBox_5: null
-        ,groupBox_5_il: null
         ,groupBox_6: null
         ,groupBox_6_il: null
         ,groupBox_7: null
@@ -679,6 +691,7 @@ qx.Class.define("test.draw.Test", {
         ,verticalLayout_2: null
         ,verticalLayout_3: null
         ,verticalLayout_4: null
+        ,verticalLayout_5: null
     }
     
     ,properties:  {

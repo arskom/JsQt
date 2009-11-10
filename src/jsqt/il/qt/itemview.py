@@ -30,6 +30,45 @@ class QAbstractItemView(WidgetBase):
     def __init__(self, elt, name=None):
         WidgetBase.__init__(self,elt,name)
 
+class Item(object):
+    def __init__(self, name, icon, value):
+        object.__init__(self)
+        
+        self.name = name
+        self.icon = icon
+        self.value = value
+    
+    def set_name(self,name):
+        if name == None:
+            self.__name = il.primitive.ObjectReference("null")
+        else:
+            self.__name = il.primitive.String(name)
+
+    def set_icon(self,icon):
+        if icon == None:
+            self.__icon = il.primitive.ObjectReference("null")
+        else:
+            self.__icon = il.primitive.String(icon)
+
+    def set_value(self, value):
+        if value == None:
+            self.__value = il.primitive.ObjectReference("null")
+        else:
+            self.__value = il.primitive.String(value)
+
+    def get_name(self):
+        return self.__name
+
+    def get_icon(self):
+        return self.__icon
+
+    def get_value(self):
+        return self.__value
+
+    name = property(get_name, set_name)
+    icon = property(get_icon, set_icon)
+    value = property(get_value, set_value)
+
 class MItemView(object):
     def __init__(self):
         self.__items = []
@@ -37,25 +76,26 @@ class MItemView(object):
     def compile(self, dialect, elt, function_name = "setLabel"):
         for a in self.__items:
             fc = il.primitive.FunctionCall("this.%s.add" % (self.name),
-                [
-                    il.primitive.Instantiation("qx.ui.form.ListItem",
-                        [il.primitive.String(a)])
-                ],
+                [il.primitive.Instantiation("qx.ui.form.ListItem",
+                                                       [a.name,a.icon,a.value])]
             )
             self.factory_function.add_statement(fc)
             
 
     def add_child(self, elt):
-        self.__items.append(elt[0][0].text)
+        name = elt[0][0].text
+        icon = None
+        value = None
+        if 'extracomment' in elt[0][0].attrib:
+            value = elt[0][0].attrib['extracomment']
+        self.__items.append(Item(name,icon,value))
 
     def _init_before_parse(self):
         self.tag_handlers['item'] = self._handle_item_tag
 
     def _handle_item_tag(self, elt):
-        jsqt.debug_print("\t\t",elt[0].tag,elt[0].attrib, "%s: '%s'"
-                                              % (elt[0][0].tag, elt[0][0].text))
-        self.__items.append(elt[0][0].text)
-
+        self.add_child(elt)
+        
 class QListWidget(QAbstractItemView):
     type = "qx.ui.form.List"
 

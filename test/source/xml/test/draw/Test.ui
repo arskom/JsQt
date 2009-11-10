@@ -615,7 +615,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>267</width>
+              <width>143</width>
               <height>518</height>
              </rect>
             </property>
@@ -661,6 +661,17 @@
            <property name="title">
             <string>GroupBox</string>
            </property>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QComboBox" name="comboBox">
+              <item>
+               <property name="text">
+                <string extracomment="zorta">asd</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
          <item>
@@ -945,12 +956,12 @@
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>109</x>
-     <y>136</y>
+     <x>376</x>
+     <y>153</y>
     </hint>
     <hint type="destinationlabel">
-     <x>254</x>
-     <y>145</y>
+     <x>521</x>
+     <y>153</y>
     </hint>
    </hints>
   </connection>
@@ -965,8 +976,8 @@
      <y>85</y>
     </hint>
     <hint type="destinationlabel">
-     <x>346</x>
-     <y>143</y>
+     <x>613</x>
+     <y>153</y>
     </hint>
    </hints>
   </connection>
