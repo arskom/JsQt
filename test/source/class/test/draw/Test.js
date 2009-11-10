@@ -40,7 +40,7 @@ qx.Class.define("test.draw.Test", {
              /* The 'action' tag for widget named 'MainWindow'of type '<class 'jsqt.il.qt.container.QMainWindow'>' is not supported (yet?) */
             
             this.MainWindow = new qx.ui.container.Composite();
-            this.MainWindow.setWidth(637);
+            this.MainWindow.setWidth(747);
             this.MainWindow.setHeight(419);
             this.MainWindow.setMarginBottom(1);
             this.MainWindow.setMarginTop(1);
@@ -124,8 +124,10 @@ qx.Class.define("test.draw.Test", {
             this.gridLayout.setRowFlex(0,1);
             this.gridLayout.setRowFlex(1,1);
             this.gridLayout.setRowFlex(2,1);
+            this.gridLayout.setRowFlex(3,1);
             this.gridLayout.setColumnFlex(0,1);
             this.gridLayout.setColumnFlex(1,1);
+            this.gridLayout.setColumnFlex(2,1);
             return this.gridLayout;
             
         }
@@ -238,6 +240,42 @@ qx.Class.define("test.draw.Test", {
         ,create_groupBox_14_il: function create_groupBox_14_il() {
             this.groupBox_14_il = new qx.ui.layout.Canvas();
             return this.groupBox_14_il;
+            
+        }
+        
+        ,create_groupBox_15: function create_groupBox_15() {
+            this.groupBox_15 = new qx.ui.groupbox.GroupBox();
+            this.groupBox_15.setMarginBottom(1);
+            this.groupBox_15.setMarginTop(1);
+            this.groupBox_15.setMarginLeft(1);
+            this.groupBox_15.setMarginRight(1);
+            this.groupBox_15.setLayout(this.create_groupBox_15_il());
+            this.groupBox_15.setLegend(this.tr("GroupBox"));
+            return this.groupBox_15;
+            
+        }
+        
+        ,create_groupBox_15_il: function create_groupBox_15_il() {
+            this.groupBox_15_il = new qx.ui.layout.Canvas();
+            return this.groupBox_15_il;
+            
+        }
+        
+        ,create_groupBox_16: function create_groupBox_16() {
+            this.groupBox_16 = new qx.ui.groupbox.GroupBox();
+            this.groupBox_16.setMarginBottom(1);
+            this.groupBox_16.setMarginTop(1);
+            this.groupBox_16.setMarginLeft(1);
+            this.groupBox_16.setMarginRight(1);
+            this.groupBox_16.setLayout(this.create_groupBox_16_il());
+            this.groupBox_16.setLegend(this.tr("GroupBox"));
+            return this.groupBox_16;
+            
+        }
+        
+        ,create_groupBox_16_il: function create_groupBox_16_il() {
+            this.groupBox_16_il = new qx.ui.layout.Canvas();
+            return this.groupBox_16_il;
             
         }
         
@@ -480,7 +518,7 @@ qx.Class.define("test.draw.Test", {
         
         ,create_scrollAreaWidgetContents: function create_scrollAreaWidgetContents() {
             this.scrollAreaWidgetContents = new qx.ui.container.Composite();
-            this.scrollAreaWidgetContents.setWidth(143);
+            this.scrollAreaWidgetContents.setWidth(101);
             this.scrollAreaWidgetContents.setHeight(518);
             this.scrollAreaWidgetContents.setMarginBottom(1);
             this.scrollAreaWidgetContents.setMarginTop(1);
@@ -494,7 +532,7 @@ qx.Class.define("test.draw.Test", {
         
         ,create_scrollAreaWidgetContents_2: function create_scrollAreaWidgetContents_2() {
             this.scrollAreaWidgetContents_2 = new qx.ui.container.Composite();
-            this.scrollAreaWidgetContents_2.setWidth(321);
+            this.scrollAreaWidgetContents_2.setWidth(431);
             this.scrollAreaWidgetContents_2.setHeight(518);
             this.scrollAreaWidgetContents_2.setMarginBottom(1);
             this.scrollAreaWidgetContents_2.setMarginTop(1);
@@ -597,10 +635,12 @@ qx.Class.define("test.draw.Test", {
             this.tab_4.setMarginLeft(1);
             this.tab_4.setMarginRight(1);
             this.tab_4.setLayout(this.create_gridLayout());
-            this.tab_4.add(this.create_groupBox_7(), {column: 0,row: 0,rowSpan: 2});
-            this.tab_4.add(this.create_groupBox_8(), {column: 1,row: 0});
-            this.tab_4.add(this.create_groupBox_10(), {column: 1,row: 1});
-            this.tab_4.add(this.create_groupBox_11(), {colSpan: 2,column: 0,row: 2});
+            this.tab_4.add(this.create_groupBox_7(), {column: 0,row: 1,rowSpan: 2});
+            this.tab_4.add(this.create_groupBox_8(), {column: 1,row: 1});
+            this.tab_4.add(this.create_groupBox_10(), {column: 1,row: 2});
+            this.tab_4.add(this.create_groupBox_11(), {colSpan: 2,column: 0,row: 3});
+            this.tab_4.add(this.create_groupBox_15(), {colSpan: 2,column: 0,row: 0});
+            this.tab_4.add(this.create_groupBox_16(), {column: 2,row: 0,rowSpan: 4});
             this.tab_4.setLabel(this.tr("Grid Span"));
             return this.tab_4;
             
@@ -705,6 +745,10 @@ qx.Class.define("test.draw.Test", {
         ,groupBox_13_il: null
         ,groupBox_14: null
         ,groupBox_14_il: null
+        ,groupBox_15: null
+        ,groupBox_15_il: null
+        ,groupBox_16: null
+        ,groupBox_16_il: null
         ,groupBox_2: null
         ,groupBox_2_il: null
         ,groupBox_3: null
