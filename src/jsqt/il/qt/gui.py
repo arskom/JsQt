@@ -86,13 +86,9 @@ class MGeometryProperties(object):
         return self.__v_stretch_coef
     ver_stretch_coef = property(get_ver_stretch_coef)
 
-
-
     def __handle_size_policy(self, elt):
         if elt[0].tag == 'sizepolicy':
             tmp = self.__decode_complex_prop(elt[0])
-
-            print tmp, elt[0].attrib
             
             self.__h_stretch_pol = elt[0].attrib['hsizetype']
             self.__h_stretch_coef = tmp['horstretch']
@@ -111,7 +107,6 @@ class MGeometryProperties(object):
             jsqt.debug_print("\t\t", "WARNING: property 'geometry' doesn't have"
                                                             " 'sizepolicy' tag")
 
-
     def __handle_prop_min_size(self, elt):
         if elt[0].tag == 'size':
             tmp = self.__decode_complex_prop(elt[0])
@@ -121,7 +116,7 @@ class MGeometryProperties(object):
 
         else:
             jsqt.debug_print("\t\t", "WARNING: property 'geometry' doesn't have"
-                    " 'size' tag")
+                                                                  " 'size' tag")
 
     def __handle_prop_max_size(self, elt):
         if elt[0].tag == 'size':
@@ -132,7 +127,7 @@ class MGeometryProperties(object):
 
         else:
             jsqt.debug_print("\t\t", "WARNING: property 'geometry' doesn't have"
-                    " 'size' tag")
+                                                                  " 'size' tag")
 
     def __handle_prop_geometry(self, elt):
         if elt[0].tag == 'rect':
@@ -145,7 +140,7 @@ class MGeometryProperties(object):
 
         else:
             jsqt.debug_print("\t\t", "WARNING: property 'geometry' doesn't have"
-                    " 'rect' tag")
+                                                                  " 'rect' tag")
 
     def __handle_prop_text(self, elt):
         self.text = self.__primitive_prop_types[elt[0].tag](elt[0].text)
@@ -165,52 +160,52 @@ class MGeometryProperties(object):
     def compile(self, dialect, ret):
         if self.__width != 0:
             fc = il.primitive.FunctionCall("this.%s.setWidth" % self.name,
-                                 [il.primitive.DecimalInteger(self.__width)])
+                                    [il.primitive.DecimalInteger(self.__width)])
             self.factory_function.add_statement(fc)
 
         if self.__height != 0:
             fc = il.primitive.FunctionCall("this.%s.setHeight" % self.name,
-                                 [il.primitive.DecimalInteger(self.__height)])
+                                   [il.primitive.DecimalInteger(self.__height)])
             self.factory_function.add_statement(fc)
 
         if self.__min_w != 0:
             fc = il.primitive.FunctionCall("this.%s.setMinWidth" % self.name,
-                             [il.primitive.DecimalInteger(self.__min_w)])
+                                    [il.primitive.DecimalInteger(self.__min_w)])
             self.factory_function.add_statement(fc)
 
         if self.__min_h != 0:
             fc = il.primitive.FunctionCall("this.%s.setMinHeight" % self.name,
-                             [il.primitive.DecimalInteger(self.__min_h)])
+                                    [il.primitive.DecimalInteger(self.__min_h)])
             self.factory_function.add_statement(fc)
 
         if self.__max_w != 16777215:
             fc = il.primitive.FunctionCall("this.%s.setMaxWidth" % self.name,
-                             [il.primitive.DecimalInteger(self.__max_w)])
+                                    [il.primitive.DecimalInteger(self.__max_w)])
             self.factory_function.add_statement(fc)
 
         if self.__max_h != 16777215:
             fc = il.primitive.FunctionCall("this.%s.setMaxHeight" % self.name,
-                             [il.primitive.DecimalInteger(self.__max_h)])
+                                    [il.primitive.DecimalInteger(self.__max_h)])
             self.factory_function.add_statement(fc)
 
         if self.__margin_b != 0:
-            fc = il.primitive.FunctionCall("this.%s.setMarginBottom" % self.name,
-                                   [il.primitive.DecimalInteger(self.__margin_b)])
+            fc = il.primitive.FunctionCall("this.%s.setMarginBottom"% self.name,
+                                 [il.primitive.DecimalInteger(self.__margin_b)])
             self.factory_function.add_statement(fc)
 
         if self.__margin_t != 0:
             fc = il.primitive.FunctionCall("this.%s.setMarginTop" % self.name,
-                                   [il.primitive.DecimalInteger(self.__margin_t)])
+                                 [il.primitive.DecimalInteger(self.__margin_t)])
             self.factory_function.add_statement(fc)
 
         if self.__margin_l != 0:
             fc = il.primitive.FunctionCall("this.%s.setMarginLeft" % self.name,
-                                   [il.primitive.DecimalInteger(self.__margin_l)])
+                                 [il.primitive.DecimalInteger(self.__margin_l)])
             self.factory_function.add_statement(fc)
 
         if self.__margin_r != 0:
             fc = il.primitive.FunctionCall("this.%s.setMarginRight" % self.name,
-                                   [il.primitive.DecimalInteger(self.__margin_r)])
+                                 [il.primitive.DecimalInteger(self.__margin_r)])
             self.factory_function.add_statement(fc)
 
 class ObjectBase(il.primitive.MultiPartCompilable):
@@ -367,7 +362,8 @@ class ContainerBase(WidgetBase):
 
             if c.supported:
                 args = [il.primitive.FunctionCall("this.create_%s" % c.name)]
-                c.layout_properties = c.parent.layout.get_properties(c._elt.getparent(), c)
+                c.layout_properties = c.parent.layout.get_properties(
+                                                          c._elt.getparent(), c)
 
                 if isinstance(c.layout_properties, dict):
                     args.append(il.primitive.AssociativeArrayInitialization(
