@@ -94,8 +94,6 @@ class QGridLayout(QLayout):
     def compile(self, dialect, ret):
         QLayout.compile(self, dialect, ret)
 
-        print self.row_flex
-
         for i in range(len(self.row_flex)):
             if self.row_flex[i] and self.row_flex[i].pol == "Expanding":
                 fc = il.primitive.FunctionCall("this.%s.setRowFlex" % self.name,
