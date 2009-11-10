@@ -101,7 +101,7 @@ class MGeometryProperties(object):
             self.__h_stretch_pol = elt[0].attrib['hsizetype']
             self.__h_stretch_coef = tmp['horstretch']
             self.__v_stretch_pol = elt[0].attrib['vsizetype']
-            self.__h_stretch_coef = tmp['verstretch']
+            self.__v_stretch_coef = tmp['verstretch']
 
             if self.__h_stretch_pol != "Fixed":
                 if self.__h_stretch_coef == 0:
