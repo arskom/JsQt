@@ -1,4 +1,4 @@
-qx.Class.define("sample.draw.Add", {
+qx.Class.define("test.draw.Add", {
     construct: function() {
         this.base(arguments);
         this.setWidget(this.create_Add());
@@ -123,7 +123,7 @@ qx.Class.define("sample.draw.Add", {
             this.HLTrackingMethod_2_implicit_container.setLayout(this.create_HLTrackingMethod_2());
             this.HLTrackingMethod_2_implicit_container.add(this.create_comboTrackingMethod_2(), {flex: 1});
             this.HLTrackingMethod_2_implicit_container.add(this.create_horizontalSpacer(), {flex: 1});
-            this.HLTrackingMethod_2_implicit_container.add(this.create_lblInterval_2(), {flex: 0});
+            this.HLTrackingMethod_2_implicit_container.add(this.create_lblInterval_2(), {flex: 1});
             this.HLTrackingMethod_2_implicit_container.add(this.create_comboInterval_2(), {flex: 1});
             this.HLTrackingMethod_2_implicit_container.add(this.create_horizontalSpacer_2(), {flex: 1});
             return this.HLTrackingMethod_2_implicit_container;
@@ -197,7 +197,7 @@ qx.Class.define("sample.draw.Add", {
             this.centralwidget.setMarginLeft(1);
             this.centralwidget.setMarginRight(1);
             this.centralwidget.setLayout(this.create_horizontalLayout_3());
-            this.centralwidget.add(this.create_tabWidget(), {flex: 0});
+            this.centralwidget.add(this.create_tabWidget(), {flex: 1});
             return this.centralwidget;
             
         }

@@ -36,37 +36,37 @@ class QLayout(ObjectBase):
     def _compile_props(self, dialect, ret):
         pass
 
-    def get_properties(self, elt=None):
+    def get_properties(self, elt, inst):
         raise Exception("please inherit and override.")
 
 class CanvasLayout(QLayout):
     type = "qx.ui.layout.Canvas"
 
-    def get_properties(self, elt=None):
+    def get_properties(self, elt, inst):
         if self.parent == None:
             return {"edge": 0}
         else:
             return {
-            "top": self.parent.get_geometry_top(),
-            "left": self.parent.get_geometry_left(),
-        } # FIXME
+                "top": inst.geometry_top,
+                "left": inst.geometry_left,
+            }
 
 class QVBoxLayout(QLayout):
     type = "qx.ui.layout.VBox"
 
-    def get_properties(self, elt=None):
-        return {"flex": 1} # FIXME
+    def get_properties(self, elt, inst):
+        return {"flex": inst.ver_stretch_coef}
 
 class QHBoxLayout(QLayout):
     type = "qx.ui.layout.HBox"
 
-    def get_properties(self, elt=None):
-        return {"flex": 1} # FIXME
+    def get_properties(self, elt, inst):
+        return {"flex": inst.hor_stretch_coef}
 
 class QGridLayout(QLayout):
     type = "qx.ui.layout.Grid"
 
-    def get_properties(self, elt):
+    def get_properties(self, elt, inst):
         attr = dict(elt.attrib)
 
         if not "row" in attr: # FIXME: Hack!
@@ -91,7 +91,7 @@ class SplitPaneLayout(QLayout):
     def _compile_instantiation(self, dialect, ret):
         pass
 
-    def get_properties(self, elt=None):
+    def get_properties(self, elt, inst):
         return 1 # FIXME
 
 class TabViewLayout(QLayout):
@@ -100,5 +100,7 @@ class TabViewLayout(QLayout):
     def _compile_instantiation(self, dialect, ret):
         pass
     
-    def get_properties(self, elt=None):
+    def get_properties(self, elt, inst):
         return None
+
+    

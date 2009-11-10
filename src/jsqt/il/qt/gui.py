@@ -47,11 +47,17 @@ class MGeometryProperties(object):
         self.__margin_l = 1
         self.__margin_r = 1
 
+        self.__h_stretch_pol = "Expanding"
+        self.__h_stretch_coef = 1
+        self.__v_stretch_pol = "Expanding"
+        self.__v_stretch_coef = 1
+
         self.__known_props = {
             "text": self.__handle_prop_text,
             "geometry": self.__handle_prop_geometry,
             "minimumSize": self.__handle_prop_min_size,
             "maximumSize": self.__handle_prop_max_size,
+            "sizePolicy": self.__handle_size_policy,
         }
 
         self.__primitive_prop_types = {
@@ -60,19 +66,58 @@ class MGeometryProperties(object):
             'width': int,
             'height': int,
             'string': str,
+            'horstretch': int,
+            'verstretch': int,
         }
 
     def get_geometry_top(self):
         return self.__top
+    geometry_top = property(get_geometry_top)
+
     def get_geometry_left(self):
         return self.__left
+    geometry_left = property(get_geometry_left)
+
+    def get_hor_stretch_coef(self):
+        return self.__h_stretch_coef
+    hor_stretch_coef = property(get_hor_stretch_coef)
+
+    def get_ver_stretch_coef(self):
+        return self.__v_stretch_coef
+    ver_stretch_coef = property(get_ver_stretch_coef)
+
+
+
+    def __handle_size_policy(self, elt):
+        if elt[0].tag == 'sizepolicy':
+            tmp = self.__decode_complex_prop(elt[0])
+
+            print tmp, elt[0].attrib
+            
+            self.__h_stretch_pol = elt[0].attrib['hsizetype']
+            self.__h_stretch_coef = tmp['horstretch']
+            self.__v_stretch_pol = elt[0].attrib['vsizetype']
+            self.__h_stretch_coef = tmp['verstretch']
+
+            if self.__h_stretch_pol != "Fixed":
+                if self.__h_stretch_coef == 0:
+                    self.__h_stretch_coef = 1
+
+            if self.__v_stretch_pol != "Fixed":
+                if self.__v_stretch_coef == 0:
+                    self.__v_stretch_coef = 1
+
+        else:
+            jsqt.debug_print("\t\t", "WARNING: property 'geometry' doesn't have"
+                                                            " 'sizepolicy' tag")
+
 
     def __handle_prop_min_size(self, elt):
         if elt[0].tag == 'size':
-            retval = self.__decode_complex_prop(elt[0])
+            tmp = self.__decode_complex_prop(elt[0])
 
-            self.__min_w = retval['width']
-            self.__min_h = retval['height']
+            self.__min_w = tmp['width']
+            self.__min_h = tmp['height']
 
         else:
             jsqt.debug_print("\t\t", "WARNING: property 'geometry' doesn't have"
@@ -303,7 +348,7 @@ class ContainerBase(WidgetBase):
         self.add_child(instance, elt)
 
     def add_child(self, instance, elt=None):
-        instance.layout_properties = self.layout.get_properties(elt)
+        instance.layout_properties = self.layout.get_properties(elt, instance)
 
         self.children.append(instance)
         instance.set_parent(self)
@@ -322,7 +367,7 @@ class ContainerBase(WidgetBase):
 
             if c.supported:
                 args = [il.primitive.FunctionCall("this.create_%s" % c.name)]
-                c.layout_properties = c.parent.layout.get_properties(c._elt.getparent())
+                c.layout_properties = c.parent.layout.get_properties(c._elt.getparent(), c)
 
                 if isinstance(c.layout_properties, dict):
                     args.append(il.primitive.AssociativeArrayInitialization(
