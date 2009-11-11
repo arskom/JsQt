@@ -26,16 +26,18 @@ from jsqt.il.qt.form import MWithCaption
 from gui import ContainerBase
 
 class QMainWindow(ContainerBase):
+    type = "qx.ui.container.Composite"
+
     def __init__(self, elt, name=None):
         ContainerBase.__init__(self, elt, name)
-
-        self.type = "qx.ui.container.Composite"
 
 class QTabWidget(ContainerBase):
+    type = "qx.ui.tabview.TabView"
+    
     def __init__(self, elt, name=None):
         ContainerBase.__init__(self, elt, name)
 
-        self.type = "qx.ui.tabview.TabView"
+        self.layout = il.qt.layout.TabViewLayout(None, "")
 
     def _handle_widget_tag(self, elt):
         elt.set("class", "TabPage")

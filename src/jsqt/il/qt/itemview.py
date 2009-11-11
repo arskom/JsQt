@@ -22,8 +22,6 @@
 #
 
 from gui import WidgetBase
-
-import jsqt
 from jsqt import il
 
 class QAbstractItemView(WidgetBase):
@@ -102,7 +100,6 @@ class QListWidget(QAbstractItemView):
     def __init__(self, elt, name=None):
         WidgetBase.__init__(self,elt,name)
 
-
 class QTableWidget(QAbstractItemView):
     type="qx.ui.table.Table"
     
@@ -110,8 +107,8 @@ class QTableWidget(QAbstractItemView):
         WidgetBase.__init__(self,elt,name)
         
     def _compile_instantiation(self, dialect, ret):
-        factory_function_retval = il.primitive.ObjectReference('this.%s'
-                                                                    % self.name)
+        factory_function_retval = il.primitive.ObjectReference('this.%s' % 
+                                                                      self.name)
         assignment = il.primitive.Assignment()
         assignment.set_left(factory_function_retval)
 

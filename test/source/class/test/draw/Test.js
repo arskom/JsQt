@@ -736,12 +736,12 @@ qx.Class.define("test.draw.Test", {
             this.tabWidget.setMarginTop(1);
             this.tabWidget.setMarginLeft(1);
             this.tabWidget.setMarginRight(1);
-            this.tabWidget.add(this.create_tab(), {left: 0,top: 0});
-            this.tabWidget.add(this.create_tab_2(), {left: 0,top: 0});
-            this.tabWidget.add(this.create_tab_3(), {left: 0,top: 0});
-            this.tabWidget.add(this.create_tab_4(), {left: 0,top: 0});
-            this.tabWidget.add(this.create_tab_5(), {left: 0,top: 0});
-            this.tabWidget.add(this.create_tab_6(), {left: 0,top: 0});
+            this.tabWidget.add(this.create_tab());
+            this.tabWidget.add(this.create_tab_2());
+            this.tabWidget.add(this.create_tab_3());
+            this.tabWidget.add(this.create_tab_4());
+            this.tabWidget.add(this.create_tab_5());
+            this.tabWidget.add(this.create_tab_6());
             return this.tabWidget;
             
         }
