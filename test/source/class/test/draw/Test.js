@@ -23,6 +23,10 @@ qx.Class.define("test.draw.Test", {
         MainWindow: null
         ,__lv: null
         ,centralwidget: null
+        ,checkBox: null
+        ,checkBox_2: null
+        ,checkBox_3: null
+        ,checkBox_4: null
         ,comboBox: null
         ,create_MainWindow: function create_MainWindow() {
              /* The 'action' tag for widget named 'MainWindow'of type '<class 'jsqt.il.qt.container.QMainWindow'>' is not supported (yet?) */
@@ -70,15 +74,68 @@ qx.Class.define("test.draw.Test", {
             
         }
         
+        ,create_checkBox: function create_checkBox() {
+            this.checkBox = new qx.ui.form.CheckBox();
+            this.checkBox.setMarginBottom(1);
+            this.checkBox.setMarginTop(1);
+            this.checkBox.setMarginLeft(1);
+            this.checkBox.setMarginRight(1);
+            this.checkBox.setLabel(this.tr("CheckBox"));
+            return this.checkBox;
+            
+        }
+        
+        ,create_checkBox_2: function create_checkBox_2() {
+            this.checkBox_2 = new qx.ui.form.CheckBox();
+            this.checkBox_2.setMarginBottom(1);
+            this.checkBox_2.setMarginTop(1);
+            this.checkBox_2.setMarginLeft(1);
+            this.checkBox_2.setMarginRight(1);
+            this.checkBox_2.setLabel(this.tr("CheckBox"));
+            return this.checkBox_2;
+            
+        }
+        
+        ,create_checkBox_3: function create_checkBox_3() {
+            this.checkBox_3 = new qx.ui.form.CheckBox();
+            this.checkBox_3.setMarginBottom(1);
+            this.checkBox_3.setMarginTop(1);
+            this.checkBox_3.setMarginLeft(1);
+            this.checkBox_3.setMarginRight(1);
+            this.checkBox_3.setLabel(this.tr("CheckBox"));
+            return this.checkBox_3;
+            
+        }
+        
+        ,create_checkBox_4: function create_checkBox_4() {
+            this.checkBox_4 = new qx.ui.form.CheckBox();
+            this.checkBox_4.setMarginBottom(1);
+            this.checkBox_4.setMarginTop(1);
+            this.checkBox_4.setMarginLeft(1);
+            this.checkBox_4.setMarginRight(1);
+            this.checkBox_4.setLabel(this.tr("CheckBox"));
+            return this.checkBox_4;
+            
+        }
+        
         ,create_comboBox: function create_comboBox() {
             this.comboBox = new qx.ui.form.SelectBox();
-            this.comboBox.setMaxHeight(35);
             this.comboBox.setMarginBottom(1);
             this.comboBox.setMarginTop(1);
             this.comboBox.setMarginLeft(1);
             this.comboBox.setMarginRight(1);
-            this.comboBox.add(new qx.ui.form.ListItem("asd",null,"zorta"));
+            this.comboBox.add(new qx.ui.form.ListItem("asd",null,null));
             return this.comboBox;
+            
+        }
+        
+        ,create_dateEdit: function create_dateEdit() {
+            this.dateEdit = new qx.ui.form.DateField();
+            this.dateEdit.setMarginBottom(1);
+            this.dateEdit.setMarginTop(1);
+            this.dateEdit.setMarginLeft(1);
+            this.dateEdit.setMarginRight(1);
+            return this.dateEdit;
             
         }
         
@@ -103,6 +160,17 @@ qx.Class.define("test.draw.Test", {
             
         }
         
+        ,create_gridLayout_3: function create_gridLayout_3() {
+            this.gridLayout_3 = new qx.ui.layout.Grid();
+            this.gridLayout_3.setRowFlex(0,1);
+            this.gridLayout_3.setRowFlex(1,1);
+            this.gridLayout_3.setRowFlex(2,1);
+            this.gridLayout_3.setColumnFlex(0,1);
+            this.gridLayout_3.setColumnFlex(1,1);
+            return this.gridLayout_3;
+            
+        }
+        
         ,create_groupBox: function create_groupBox() {
             this.groupBox = new qx.ui.groupbox.GroupBox();
             this.groupBox.setMaxHeight(150);
@@ -110,7 +178,11 @@ qx.Class.define("test.draw.Test", {
             this.groupBox.setMarginTop(1);
             this.groupBox.setMarginLeft(1);
             this.groupBox.setMarginRight(1);
-            this.groupBox.setLayout(this.create_groupBox_il());
+            this.groupBox.setLayout(this.create_verticalLayout_7());
+            this.groupBox.add(this.create_checkBox(), {flex: 1});
+            this.groupBox.add(this.create_checkBox_2(), {flex: 1});
+            this.groupBox.add(this.create_checkBox_3(), {flex: 1});
+            this.groupBox.add(this.create_checkBox_4(), {flex: 1});
             this.groupBox.setLegend(this.tr("GroupBox"));
             return this.groupBox;
             
@@ -248,15 +320,13 @@ qx.Class.define("test.draw.Test", {
             this.groupBox_2.setMarginTop(1);
             this.groupBox_2.setMarginLeft(1);
             this.groupBox_2.setMarginRight(1);
-            this.groupBox_2.setLayout(this.create_groupBox_2_il());
+            this.groupBox_2.setLayout(this.create_verticalLayout_6());
+            this.groupBox_2.add(this.create_radioButton(), {flex: 1});
+            this.groupBox_2.add(this.create_radioButton_2(), {flex: 1});
+            this.groupBox_2.add(this.create_radioButton_3(), {flex: 1});
+            this.groupBox_2.add(this.create_radioButton_4(), {flex: 1});
             this.groupBox_2.setLegend(this.tr("GroupBox"));
             return this.groupBox_2;
-            
-        }
-        
-        ,create_groupBox_2_il: function create_groupBox_2_il() {
-            this.groupBox_2_il = new qx.ui.layout.Canvas();
-            return this.groupBox_2_il;
             
         }
         
@@ -267,15 +337,12 @@ qx.Class.define("test.draw.Test", {
             this.groupBox_3.setMarginTop(1);
             this.groupBox_3.setMarginLeft(1);
             this.groupBox_3.setMarginRight(1);
-            this.groupBox_3.setLayout(this.create_groupBox_3_il());
+            this.groupBox_3.setLayout(this.create_verticalLayout_8());
+            this.groupBox_3.add(this.create_label_3(), {flex: 1});
+            this.groupBox_3.add(this.create_label_4(), {flex: 1});
+            this.groupBox_3.add(this.create_verticalSpacer_2(), {flex: 1});
             this.groupBox_3.setLegend(this.tr("GroupBox"));
             return this.groupBox_3;
-            
-        }
-        
-        ,create_groupBox_3_il: function create_groupBox_3_il() {
-            this.groupBox_3_il = new qx.ui.layout.Canvas();
-            return this.groupBox_3_il;
             
         }
         
@@ -287,15 +354,13 @@ qx.Class.define("test.draw.Test", {
             this.groupBox_4.setMarginTop(1);
             this.groupBox_4.setMarginLeft(1);
             this.groupBox_4.setMarginRight(1);
-            this.groupBox_4.setLayout(this.create_groupBox_4_il());
+            this.groupBox_4.setLayout(this.create_gridLayout_3());
+            this.groupBox_4.add(this.create_dateEdit(), {column: 0,row: 0});
+            this.groupBox_4.add(this.create_textEdit(), {column: 1,row: 0,rowSpan: 4});
+            this.groupBox_4.add(this.create_lineEdit(), {column: 0,row: 2});
+            this.groupBox_4.add(this.create_spinBox(), {column: 0,row: 1});
             this.groupBox_4.setLegend(this.tr("GroupBox"));
             return this.groupBox_4;
-            
-        }
-        
-        ,create_groupBox_4_il: function create_groupBox_4_il() {
-            this.groupBox_4_il = new qx.ui.layout.Canvas();
-            return this.groupBox_4_il;
             
         }
         
@@ -383,15 +448,8 @@ qx.Class.define("test.draw.Test", {
             this.groupBox_centered.setMarginRight(1);
             this.groupBox_centered.setLayout(this.create_verticalLayout_5());
             this.groupBox_centered.add(this.create_comboBox(), {flex: 1});
-            this.groupBox_centered.add(this.create_verticalSpacer(), {flex: 1});
             this.groupBox_centered.setLegend(this.tr("GroupBox"));
             return this.groupBox_centered;
-            
-        }
-        
-        ,create_groupBox_il: function create_groupBox_il() {
-            this.groupBox_il = new qx.ui.layout.Canvas();
-            return this.groupBox_il;
             
         }
         
@@ -462,8 +520,52 @@ qx.Class.define("test.draw.Test", {
             this.label_2.setMarginTop(1);
             this.label_2.setMarginLeft(1);
             this.label_2.setMarginRight(1);
-            this.label_2.setValue(this.tr("This wil be cleared"));
+            this.label_2.setValue(this.tr("hello"));
             return this.label_2;
+            
+        }
+        
+        ,create_label_3: function create_label_3() {
+            this.label_3 = new qx.ui.basic.Label();
+            this.label_3.setMarginBottom(1);
+            this.label_3.setMarginTop(1);
+            this.label_3.setMarginLeft(1);
+            this.label_3.setMarginRight(1);
+            this.label_3.setValue(this.tr("TextLabel"));
+            return this.label_3;
+            
+        }
+        
+        ,create_label_4: function create_label_4() {
+            this.label_4 = new qx.ui.basic.Label();
+            this.label_4.setMarginBottom(1);
+            this.label_4.setMarginTop(1);
+            this.label_4.setMarginLeft(1);
+            this.label_4.setMarginRight(1);
+            this.label_4.setValue(this.tr("TextLabel"));
+            return this.label_4;
+            
+        }
+        
+        ,create_lineEdit: function create_lineEdit() {
+            this.lineEdit = new qx.ui.form.TextField();
+            this.lineEdit.setMarginBottom(1);
+            this.lineEdit.setMarginTop(1);
+            this.lineEdit.setMarginLeft(1);
+            this.lineEdit.setMarginRight(1);
+            return this.lineEdit;
+            
+        }
+        
+        ,create_listWidget: function create_listWidget() {
+            this.listWidget = new qx.ui.form.List();
+            this.listWidget.setWidth(256);
+            this.listWidget.setHeight(192);
+            this.listWidget.setMarginBottom(1);
+            this.listWidget.setMarginTop(1);
+            this.listWidget.setMarginLeft(1);
+            this.listWidget.setMarginRight(1);
+            return this.listWidget;
             
         }
         
@@ -488,8 +590,52 @@ qx.Class.define("test.draw.Test", {
             this.pushButton_2.setMarginTop(1);
             this.pushButton_2.setMarginLeft(1);
             this.pushButton_2.setMarginRight(1);
-            this.pushButton_2.setLabel(this.tr("Clear"));
+            this.pushButton_2.setLabel(this.tr("nothing"));
             return this.pushButton_2;
+            
+        }
+        
+        ,create_radioButton: function create_radioButton() {
+            this.radioButton = new qx.ui.form.RadioButton();
+            this.radioButton.setMarginBottom(1);
+            this.radioButton.setMarginTop(1);
+            this.radioButton.setMarginLeft(1);
+            this.radioButton.setMarginRight(1);
+            this.radioButton.setLabel(this.tr("RadioButton"));
+            return this.radioButton;
+            
+        }
+        
+        ,create_radioButton_2: function create_radioButton_2() {
+            this.radioButton_2 = new qx.ui.form.RadioButton();
+            this.radioButton_2.setMarginBottom(1);
+            this.radioButton_2.setMarginTop(1);
+            this.radioButton_2.setMarginLeft(1);
+            this.radioButton_2.setMarginRight(1);
+            this.radioButton_2.setLabel(this.tr("RadioButton"));
+            return this.radioButton_2;
+            
+        }
+        
+        ,create_radioButton_3: function create_radioButton_3() {
+            this.radioButton_3 = new qx.ui.form.RadioButton();
+            this.radioButton_3.setMarginBottom(1);
+            this.radioButton_3.setMarginTop(1);
+            this.radioButton_3.setMarginLeft(1);
+            this.radioButton_3.setMarginRight(1);
+            this.radioButton_3.setLabel(this.tr("RadioButton"));
+            return this.radioButton_3;
+            
+        }
+        
+        ,create_radioButton_4: function create_radioButton_4() {
+            this.radioButton_4 = new qx.ui.form.RadioButton();
+            this.radioButton_4.setMarginBottom(1);
+            this.radioButton_4.setMarginTop(1);
+            this.radioButton_4.setMarginLeft(1);
+            this.radioButton_4.setMarginRight(1);
+            this.radioButton_4.setLabel(this.tr("RadioButton"));
+            return this.radioButton_4;
             
         }
         
@@ -500,14 +646,14 @@ qx.Class.define("test.draw.Test", {
             this.scrollArea.setMarginTop(1);
             this.scrollArea.setMarginLeft(1);
             this.scrollArea.setMarginRight(1);
-            this.scrollArea.add(this.create_scrollAreaWidgetContents(), {edge: 0});
+            this.scrollArea.add(this.create_scrollAreaWidgetContents(), {left: 0,top: 0});
             return this.scrollArea;
             
         }
         
         ,create_scrollAreaWidgetContents: function create_scrollAreaWidgetContents() {
             this.scrollAreaWidgetContents = new qx.ui.container.Composite();
-            this.scrollAreaWidgetContents.setWidth(199);
+            this.scrollAreaWidgetContents.setWidth(186);
             this.scrollAreaWidgetContents.setHeight(518);
             this.scrollAreaWidgetContents.setMarginBottom(1);
             this.scrollAreaWidgetContents.setMarginTop(1);
@@ -541,8 +687,19 @@ qx.Class.define("test.draw.Test", {
             this.scrollArea_2.setMarginTop(1);
             this.scrollArea_2.setMarginLeft(1);
             this.scrollArea_2.setMarginRight(1);
-            this.scrollArea_2.add(this.create_scrollAreaWidgetContents_2(), {edge: 0});
+            this.scrollArea_2.add(this.create_scrollAreaWidgetContents_2(), {left: 0,top: 0});
             return this.scrollArea_2;
+            
+        }
+        
+        ,create_spinBox: function create_spinBox() {
+            this.spinBox = new qx.ui.form.Spinner();
+            this.spinBox.setMarginBottom(1);
+            this.spinBox.setMarginTop(1);
+            this.spinBox.setMarginLeft(1);
+            this.spinBox.setMarginRight(1);
+            this.spinBox.setMargin(1);
+            return this.spinBox;
             
         }
         
@@ -564,8 +721,10 @@ qx.Class.define("test.draw.Test", {
             this.tab.setMarginLeft(1);
             this.tab.setMarginRight(1);
             this.tab.setLayout(this.create_tab_il());
-            this.tab.add(this.create_pushButton_2(), {edge: 0});
-            this.tab.add(this.create_label_2(), {edge: 0});
+            this.tab.add(this.create_pushButton_2(), {left: 60,top: 110});
+            this.tab.add(this.create_label_2(), {left: 230,top: 80});
+            this.tab.add(this.create_tableWidget(), {left: 20,top: 210});
+            this.tab.add(this.create_listWidget(), {left: 310,top: 220});
             this.tab.setLabel(this.tr("Canvas"));
             return this.tab;
             
@@ -577,12 +736,12 @@ qx.Class.define("test.draw.Test", {
             this.tabWidget.setMarginTop(1);
             this.tabWidget.setMarginLeft(1);
             this.tabWidget.setMarginRight(1);
-            this.tabWidget.add(this.create_tab(), {edge: 0});
-            this.tabWidget.add(this.create_tab_2(), {edge: 0});
-            this.tabWidget.add(this.create_tab_3(), {edge: 0});
-            this.tabWidget.add(this.create_tab_4(), {edge: 0});
-            this.tabWidget.add(this.create_tab_5(), {edge: 0});
-            this.tabWidget.add(this.create_tab_6(), {edge: 0});
+            this.tabWidget.add(this.create_tab(), {left: 0,top: 0});
+            this.tabWidget.add(this.create_tab_2(), {left: 0,top: 0});
+            this.tabWidget.add(this.create_tab_3(), {left: 0,top: 0});
+            this.tabWidget.add(this.create_tab_4(), {left: 0,top: 0});
+            this.tabWidget.add(this.create_tab_5(), {left: 0,top: 0});
+            this.tabWidget.add(this.create_tab_6(), {left: 0,top: 0});
             return this.tabWidget;
             
         }
@@ -658,8 +817,8 @@ qx.Class.define("test.draw.Test", {
             this.tab_6.setMarginLeft(1);
             this.tab_6.setMarginRight(1);
             this.tab_6.setLayout(this.create_tab_6_il());
-            this.tab_6.add(this.create_pushButton(), {edge: 0});
-            this.tab_6.add(this.create_label(), {edge: 0});
+            this.tab_6.add(this.create_pushButton(), {left: 30,top: 30});
+            this.tab_6.add(this.create_label(), {left: 230,top: 40});
             this.tab_6.setLabel(this.tr("Signals"));
             return this.tab_6;
             
@@ -674,6 +833,35 @@ qx.Class.define("test.draw.Test", {
         ,create_tab_il: function create_tab_il() {
             this.tab_il = new qx.ui.layout.Canvas();
             return this.tab_il;
+            
+        }
+        
+        ,create_tableWidget: function create_tableWidget() {
+            this.tableWidget = new qx.ui.table.Table(null, {
+                tableColumnModel: function(obj) {
+                    return new qx.ui.table.columnmodel.Resize(obj);
+                    
+                }
+                
+            }
+            );
+            this.tableWidget.setWidth(256);
+            this.tableWidget.setHeight(192);
+            this.tableWidget.setMarginBottom(1);
+            this.tableWidget.setMarginTop(1);
+            this.tableWidget.setMarginLeft(1);
+            this.tableWidget.setMarginRight(1);
+            return this.tableWidget;
+            
+        }
+        
+        ,create_textEdit: function create_textEdit() {
+            this.textEdit = new qx.ui.form.TextArea();
+            this.textEdit.setMarginBottom(1);
+            this.textEdit.setMarginTop(1);
+            this.textEdit.setMarginLeft(1);
+            this.textEdit.setMarginRight(1);
+            return this.textEdit;
             
         }
         
@@ -707,18 +895,38 @@ qx.Class.define("test.draw.Test", {
             
         }
         
-        ,create_verticalSpacer: function create_verticalSpacer() {
-            this.verticalSpacer = new qx.ui.core.Spacer();
-            this.verticalSpacer.setMarginBottom(1);
-            this.verticalSpacer.setMarginTop(1);
-            this.verticalSpacer.setMarginLeft(1);
-            this.verticalSpacer.setMarginRight(1);
-            return this.verticalSpacer;
+        ,create_verticalLayout_6: function create_verticalLayout_6() {
+            this.verticalLayout_6 = new qx.ui.layout.VBox();
+            return this.verticalLayout_6;
             
         }
         
+        ,create_verticalLayout_7: function create_verticalLayout_7() {
+            this.verticalLayout_7 = new qx.ui.layout.VBox();
+            return this.verticalLayout_7;
+            
+        }
+        
+        ,create_verticalLayout_8: function create_verticalLayout_8() {
+            this.verticalLayout_8 = new qx.ui.layout.VBox();
+            return this.verticalLayout_8;
+            
+        }
+        
+        ,create_verticalSpacer_2: function create_verticalSpacer_2() {
+            this.verticalSpacer_2 = new qx.ui.core.Spacer();
+            this.verticalSpacer_2.setMarginBottom(1);
+            this.verticalSpacer_2.setMarginTop(1);
+            this.verticalSpacer_2.setMarginLeft(1);
+            this.verticalSpacer_2.setMarginRight(1);
+            return this.verticalSpacer_2;
+            
+        }
+        
+        ,dateEdit: null
         ,gridLayout: null
         ,gridLayout_2: null
+        ,gridLayout_3: null
         ,groupBox: null
         ,groupBox_10: null
         ,groupBox_10_il: null
@@ -735,11 +943,8 @@ qx.Class.define("test.draw.Test", {
         ,groupBox_16: null
         ,groupBox_16_il: null
         ,groupBox_2: null
-        ,groupBox_2_il: null
         ,groupBox_3: null
-        ,groupBox_3_il: null
         ,groupBox_4: null
-        ,groupBox_4_il: null
         ,groupBox_6: null
         ,groupBox_6_il: null
         ,groupBox_7: null
@@ -749,7 +954,6 @@ qx.Class.define("test.draw.Test", {
         ,groupBox_9: null
         ,groupBox_9_il: null
         ,groupBox_centered: null
-        ,groupBox_il: null
         ,horizontalLayout: null
         ,horizontalLayout_2: null
         ,horizontalLayout_2_implicit_container: null
@@ -757,12 +961,21 @@ qx.Class.define("test.draw.Test", {
         ,horizontalSpacer_2: null
         ,label: null
         ,label_2: null
+        ,label_3: null
+        ,label_4: null
+        ,lineEdit: null
+        ,listWidget: null
         ,pushButton: null
         ,pushButton_2: null
+        ,radioButton: null
+        ,radioButton_2: null
+        ,radioButton_3: null
+        ,radioButton_4: null
         ,scrollArea: null
         ,scrollAreaWidgetContents: null
         ,scrollAreaWidgetContents_2: null
         ,scrollArea_2: null
+        ,spinBox: null
         ,splitter: null
         ,tab: null
         ,tabWidget: null
@@ -773,12 +986,17 @@ qx.Class.define("test.draw.Test", {
         ,tab_6: null
         ,tab_6_il: null
         ,tab_il: null
+        ,tableWidget: null
+        ,textEdit: null
         ,verticalLayout: null
         ,verticalLayout_2: null
         ,verticalLayout_3: null
         ,verticalLayout_4: null
         ,verticalLayout_5: null
-        ,verticalSpacer: null
+        ,verticalLayout_6: null
+        ,verticalLayout_7: null
+        ,verticalLayout_8: null
+        ,verticalSpacer_2: null
     }
     
     ,properties:  {

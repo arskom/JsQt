@@ -57,27 +57,47 @@
         <widget class="QPushButton" name="pushButton_2">
          <property name="geometry">
           <rect>
-           <x>70</x>
-           <y>120</y>
+           <x>60</x>
+           <y>110</y>
            <width>81</width>
            <height>28</height>
           </rect>
          </property>
          <property name="text">
-          <string>Clear</string>
+          <string notr="true" comment="x" extracomment="y">nothing</string>
          </property>
         </widget>
         <widget class="QLabel" name="label_2">
          <property name="geometry">
           <rect>
-           <x>200</x>
-           <y>220</y>
+           <x>230</x>
+           <y>80</y>
            <width>131</width>
            <height>31</height>
           </rect>
          </property>
          <property name="text">
-          <string>This wil be cleared</string>
+          <string>hello</string>
+         </property>
+        </widget>
+        <widget class="QTableWidget" name="tableWidget">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>210</y>
+           <width>256</width>
+           <height>192</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QListWidget" name="listWidget">
+         <property name="geometry">
+          <rect>
+           <x>310</x>
+           <y>220</y>
+           <width>256</width>
+           <height>192</height>
+          </rect>
          </property>
         </widget>
        </widget>
@@ -97,6 +117,36 @@
            <property name="title">
             <string>GroupBox</string>
            </property>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QRadioButton" name="radioButton">
+              <property name="text">
+               <string>RadioButton</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_2">
+              <property name="text">
+               <string>RadioButton</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_3">
+              <property name="text">
+               <string>RadioButton</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_4">
+              <property name="text">
+               <string>RadioButton</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
          <item>
@@ -116,6 +166,36 @@
            <property name="title">
             <string>GroupBox</string>
            </property>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <widget class="QCheckBox" name="checkBox">
+              <property name="text">
+               <string>CheckBox</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_2">
+              <property name="text">
+               <string>CheckBox</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_3">
+              <property name="text">
+               <string>CheckBox</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_4">
+              <property name="text">
+               <string>CheckBox</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
          <item>
@@ -140,7 +220,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>199</width>
+              <width>186</width>
               <height>518</height>
              </rect>
             </property>
@@ -156,6 +236,35 @@
                <property name="title">
                 <string>GroupBox</string>
                </property>
+               <layout class="QVBoxLayout" name="verticalLayout_8">
+                <item>
+                 <widget class="QLabel" name="label_3">
+                  <property name="text">
+                   <string>TextLabel</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_4">
+                  <property name="text">
+                   <string>TextLabel</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>411</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
               </widget>
              </item>
             </layout>
@@ -204,36 +313,12 @@
              <layout class="QVBoxLayout" name="verticalLayout_5">
               <item>
                <widget class="QComboBox" name="comboBox">
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>35</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>18</pointsize>
-                 </font>
-                </property>
                 <item>
                  <property name="text">
-                  <string extracomment="zorta">asd</string>
+                  <string>asd</string>
                  </property>
                 </item>
                </widget>
-              </item>
-              <item>
-               <spacer name="verticalSpacer">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>0</width>
-                  <height>35</height>
-                 </size>
-                </property>
-               </spacer>
               </item>
              </layout>
             </widget>
@@ -314,6 +399,20 @@
            <property name="title">
             <string>GroupBox</string>
            </property>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <item row="0" column="0">
+             <widget class="QDateEdit" name="dateEdit"/>
+            </item>
+            <item row="0" column="1" rowspan="4">
+             <widget class="QTextEdit" name="textEdit"/>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLineEdit" name="lineEdit"/>
+            </item>
+            <item row="1" column="0">
+             <widget class="QSpinBox" name="spinBox"/>
+            </item>
+           </layout>
           </widget>
          </item>
         </layout>
@@ -543,7 +642,6 @@
  <tabstops>
   <tabstop>treeWidget</tabstop>
   <tabstop>tabWidget</tabstop>
-  <tabstop>comboBox</tabstop>
   <tabstop>scrollArea_2</tabstop>
   <tabstop>scrollArea</tabstop>
   <tabstop>pushButton</tabstop>

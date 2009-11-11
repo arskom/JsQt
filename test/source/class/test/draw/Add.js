@@ -1357,7 +1357,7 @@ qx.Class.define("test.draw.Add", {
             this.scrollArea.setMarginTop(1);
             this.scrollArea.setMarginLeft(1);
             this.scrollArea.setMarginRight(1);
-            this.scrollArea.add(this.create_scrollAreaWidgetContents(), {edge: 0});
+            this.scrollArea.add(this.create_scrollAreaWidgetContents(), {left: 0,top: 0});
             return this.scrollArea;
             
         }
@@ -1396,7 +1396,7 @@ qx.Class.define("test.draw.Add", {
             this.scrollArea_2.setMarginTop(1);
             this.scrollArea_2.setMarginLeft(1);
             this.scrollArea_2.setMarginRight(1);
-            this.scrollArea_2.add(this.create_scrollAreaWidgetContents_2(), {edge: 0});
+            this.scrollArea_2.add(this.create_scrollAreaWidgetContents_2(), {left: 0,top: 0});
             return this.scrollArea_2;
             
         }
@@ -1447,9 +1447,9 @@ qx.Class.define("test.draw.Add", {
             this.tabWidget.setMarginTop(1);
             this.tabWidget.setMarginLeft(1);
             this.tabWidget.setMarginRight(1);
-            this.tabWidget.add(this.create_tab(), {edge: 0});
-            this.tabWidget.add(this.create_tab_2(), {edge: 0});
-            this.tabWidget.add(this.create_tab_3(), {edge: 0});
+            this.tabWidget.add(this.create_tab(), {left: 0,top: 0});
+            this.tabWidget.add(this.create_tab_2(), {left: 0,top: 0});
+            this.tabWidget.add(this.create_tab_3(), {left: 0,top: 0});
             return this.tabWidget;
             
         }
@@ -1460,8 +1460,8 @@ qx.Class.define("test.draw.Add", {
             this.tabWidget_2.setMarginTop(1);
             this.tabWidget_2.setMarginLeft(1);
             this.tabWidget_2.setMarginRight(1);
-            this.tabWidget_2.add(this.create_tab_4(), {edge: 0});
-            this.tabWidget_2.add(this.create_tab_5(), {edge: 0});
+            this.tabWidget_2.add(this.create_tab_4(), {left: 0,top: 0});
+            this.tabWidget_2.add(this.create_tab_5(), {left: 0,top: 0});
             return this.tabWidget_2;
             
         }
@@ -1473,9 +1473,9 @@ qx.Class.define("test.draw.Add", {
             this.tab_2.setMarginLeft(1);
             this.tab_2.setMarginRight(1);
             this.tab_2.setLayout(this.create_tab_2_il());
-            this.tab_2.add(this.create_checkBox(), {edge: 0});
-            this.tab_2.add(this.create_radioButton_5(), {edge: 0});
-            this.tab_2.add(this.create_pushButton(), {edge: 0});
+            this.tab_2.add(this.create_checkBox(), {left: 180,top: 180});
+            this.tab_2.add(this.create_radioButton_5(), {left: 130,top: 290});
+            this.tab_2.add(this.create_pushButton(), {left: 180,top: 120});
             this.tab_2.setLabel(this.tr("Tab 2"));
             return this.tab_2;
             

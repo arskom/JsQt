@@ -333,7 +333,7 @@ class ContainerBase(WidgetBase):
         self.tag_handlers["widget"] = self._handle_widget_tag
         self.tag_handlers['layout'] = self._handle_layout_tag
         self.tag_handlers['item'] = self._handle_item_tag
-        self.__layout = il.qt.layout.CanvasLayout(None, "%s_il" % self.name)
+        self.layout = il.qt.layout.CanvasLayout(None, "%s_il" % self.name)
 
     def _handle_widget_tag(self, elt):
         instance = self.get_instance(elt)
