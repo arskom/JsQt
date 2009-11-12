@@ -25,154 +25,50 @@ from gui import WidgetBase
 from itemview import MItemView
 from jsqt import il
 
-class MWithCaption(object):
-    def __init__(self, attr_name="text"):
-        self.__caption = None
-        self.__known_props = {
-            attr_name: self.__handle_text
-        }
-
-    def __handle_text(self, elt):
-        self.__caption = elt[0].text
-
-    def _set_function_name(self, function_name):
-        self.__function_name = function_name
-
-    def compile(self, dialect, elt, function_name = "setLabel"):
-        if self.__caption != None:
-            fc = il.primitive.FunctionCall("this.%s.%s" %
-                (self.name, function_name),
-                [il.primitive.TranslatableString(self.__caption)],
-            )
-            self.factory_function.add_statement(fc)
-
-    def set_property(self, elt):
-        prop_name = elt.attrib['name']
-        if prop_name in self.__known_props:
-            self.__known_props[prop_name](elt)
-
-class QLabel(WidgetBase, MWithCaption):
+class QLabel(WidgetBase):
     type = "qx.ui.basic.Label"
+    known_simple_props = {
+        "text": ("setLabel", il.primitive.TranslatableString),
+    }
 
-    def __init__(self, elt, name=None):
-        MWithCaption.__init__(self)
-        WidgetBase.__init__(self,elt,name)
-
-    def compile(self, dialect, ret):
-        WidgetBase.compile(self, dialect, ret)
-        MWithCaption.compile(self, dialect, ret, "setValue")
-
-    def set_property(self, elt):
-        WidgetBase.set_property(self, elt)
-        MWithCaption.set_property(self, elt)
-
-class QPushButton(WidgetBase, MWithCaption):
+class QPushButton(WidgetBase):
     type = "qx.ui.form.Button"
-
-    def __init__(self, elt, name=None):
-        MWithCaption.__init__(self)
-        WidgetBase.__init__(self,elt,name)
-
-    def compile(self, dialect, ret):
-        WidgetBase.compile(self, dialect, ret)
-        MWithCaption.compile(self, dialect, ret)
-
-    def set_property(self, elt):
-        WidgetBase.set_property(self, elt)
-        MWithCaption.set_property(self, elt)
+    known_simple_props = {
+        "text": ("setLabel", il.primitive.TranslatableString),
+    }
 
 class QLineEdit(WidgetBase):
     type="qx.ui.form.TextField"
 
-    def __init__(self, elt, name=None):
-        WidgetBase.__init__(self,elt,name)
-
 class QTextEdit(WidgetBase):
     type="qx.ui.form.TextArea"
 
-    def __init__(self, elt, name=None):
-        WidgetBase.__init__(self,elt,name)
-
 class QSpinBox(WidgetBase):
     type="qx.ui.form.Spinner"
-
-    def __init__(self, elt, name=None):
-        self.__known_props = {
-            "maximum": self.__handle_maximum,
-            "value": self.__handle_value,
-        }
-        self.__maximum = 0
-        self.__value = 0
-
-        WidgetBase.__init__(self,elt,name)
-        
-    def set_property(self, elt):
-        prop_name = elt.attrib['name']
-        if prop_name in self.__known_props:
-            self.__known_props[prop_name](elt)
-
-    def compile(self, dialect, ret):
-        WidgetBase.compile(self, dialect, ret)
-
-        if self.__value != 0:
-            fc=il.primitive.FunctionCall("this.%s.%s" % (self.name, "setValue"),
-                [il.primitive.DecimalInteger(self.__value)],
-            )
-            self.factory_function.add_statement(fc)
-
-        if self.__maximum != 0:
-            fc = il.primitive.FunctionCall("this.%s.%s" % (self.name, "setMax"),
-                [il.primitive.DecimalInteger(self.__maximum)],
-            )
-            self.factory_function.add_statement(fc)
-
-        fc = il.primitive.FunctionCall("this.%s.%s" % (self.name, "setMargin"),
-            [il.primitive.DecimalInteger(1)],
-        )
-        self.factory_function.add_statement(fc)
-
-    def __handle_maximum(self, elt):
-        self.__maximum = int(elt[0].text)
-
-    def __handle_value(self, elt):
-        self.__value = int(elt[0].text)
+    known_simple_props = {
+        "maximum": ("setMaximum", il.primitive.DecimalInteger),
+        "value": ("setValue", il.primitive.DecimalInteger),
+        "minimum": ("setMinimum", il.primitive.DecimalInteger),
+        "singleStep": ("setSingleStep", il.primitive.DecimalInteger),
+    }
 
 class QDateEdit(WidgetBase):
     type="qx.ui.form.DateField"
 
-    def __init__(self, elt, name=None):
-        WidgetBase.__init__(self,elt,name)
-
-class QCheckBox(WidgetBase,MWithCaption):
+class QCheckBox(WidgetBase):
     type="qx.ui.form.CheckBox"
+    known_simple_props = {
+        "text": ("setLabel", il.primitive.TranslatableString),
+        "checked": ("setValue", il.primitive.Boolean),
+    }
 
-    def __init__(self, elt, name=None):
-        MWithCaption.__init__(self)
-        WidgetBase.__init__(self,elt,name)
-
-    def compile(self, dialect, ret):
-        WidgetBase.compile(self, dialect, ret)
-        MWithCaption.compile(self, dialect, ret)
-
-    def set_property(self, elt):
-        WidgetBase.set_property(self, elt)
-        MWithCaption.set_property(self, elt)
-
-class QRadioButton(WidgetBase,MWithCaption):
+class QRadioButton(WidgetBase):
     type="qx.ui.form.RadioButton"
+    known_simple_props = {
+        "text": ("setLabel", il.primitive.TranslatableString),
+        "checked": ("setValue", il.primitive.Boolean),
+    }
     
-    def __init__(self, elt, name=None):
-        MWithCaption.__init__(self)
-        WidgetBase.__init__(self,elt,name)
-
-    def compile(self, dialect, ret):
-        WidgetBase.compile(self, dialect, ret)
-        MWithCaption.compile(self, dialect, ret)
-
-    def set_property(self, elt):
-        WidgetBase.set_property(self, elt)
-        MWithCaption.set_property(self, elt)
-
 class QComboBox(WidgetBase, MItemView):
     type = "qx.ui.form.SelectBox"
 
@@ -187,10 +83,4 @@ class QComboBox(WidgetBase, MItemView):
     def compile(self, dialect, ret):
         WidgetBase.compile(self, dialect, ret)
         MItemView.compile(self, dialect, ret)
-
-class QSpacer(WidgetBase):
-    type = "qx.ui.core.Spacer"
-
-    def __init__(self, elt, name=None):
-        WidgetBase.__init__(self,elt,name)
 

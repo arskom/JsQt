@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>Add</class>
- <widget class="QMainWindow" name="Add" >
-  <property name="geometry" >
+ <widget class="QMainWindow" name="Add">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,164 +10,164 @@
     <height>484</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Add</string>
   </property>
-  <widget class="QWidget" name="centralwidget" >
-   <layout class="QHBoxLayout" name="horizontalLayout_3" >
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
     <item>
-     <widget class="QTabWidget" name="tabWidget" >
-      <property name="sizePolicy" >
-       <sizepolicy vsizetype="Expanding" hsizetype="Preferred" >
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <property name="maximumSize" >
+      <property name="maximumSize">
        <size>
         <width>1200</width>
         <height>16777215</height>
        </size>
       </property>
-      <property name="currentIndex" >
-       <number>2</number>
+      <property name="currentIndex">
+       <number>0</number>
       </property>
-      <widget class="QWidget" name="tab" >
-       <attribute name="title" >
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
         <string>Tab 1</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_6" >
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
-         <widget class="QGroupBox" name="groupBox" >
-          <property name="minimumSize" >
+         <widget class="QGroupBox" name="groupBox">
+          <property name="minimumSize">
            <size>
             <width>400</width>
             <height>0</height>
            </size>
           </property>
-          <property name="maximumSize" >
+          <property name="maximumSize">
            <size>
             <width>600</width>
             <height>16777215</height>
            </size>
           </property>
-          <property name="title" >
+          <property name="title">
            <string>Add</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout" >
-           <item row="0" column="0" >
-            <widget class="QLabel" name="lblCompany" >
-             <property name="text" >
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="lblCompany">
+             <property name="text">
               <string>Company :</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="2" >
-            <widget class="QLineEdit" name="edtCompany" >
-             <property name="minimumSize" >
+           <item row="0" column="2">
+            <widget class="QLineEdit" name="edtCompany">
+             <property name="minimumSize">
               <size>
                <width>300</width>
                <height>0</height>
               </size>
              </property>
-             <property name="maximumSize" >
+             <property name="maximumSize">
               <size>
                <width>5</width>
                <height>16777215</height>
               </size>
              </property>
-             <property name="readOnly" >
+             <property name="readOnly">
               <bool>true</bool>
              </property>
             </widget>
            </item>
-           <item row="1" column="0" >
-            <widget class="QLabel" name="lblName" >
-             <property name="text" >
+           <item row="1" column="0">
+            <widget class="QLabel" name="lblName">
+             <property name="text">
               <string>Name :</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="2" >
-            <widget class="QLineEdit" name="edtName" >
-             <property name="sizePolicy" >
-              <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+           <item row="1" column="2">
+            <widget class="QLineEdit" name="edtName">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
             </widget>
            </item>
-           <item row="2" column="0" >
-            <widget class="QLabel" name="lblIdentifers" >
-             <property name="text" >
+           <item row="2" column="0">
+            <widget class="QLabel" name="lblIdentifers">
+             <property name="text">
               <string>Identifiers:</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="2" >
-            <layout class="QHBoxLayout" name="horizontalLayout" >
+           <item row="2" column="2">
+            <layout class="QHBoxLayout" name="horizontalLayout">
              <item>
-              <widget class="QLabel" name="lblIOWN" >
-               <property name="text" >
+              <widget class="QLabel" name="lblIOWN">
+               <property name="text">
                 <string>OWN::</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="edtIOWN" />
+              <widget class="QLineEdit" name="edtIOWN"/>
              </item>
              <item>
-              <widget class="QLabel" name="lblTerminalSN" >
-               <property name="text" >
+              <widget class="QLabel" name="lblTerminalSN">
+               <property name="text">
                 <string>S/N:</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="edtTerminalSN" />
+              <widget class="QLineEdit" name="edtTerminalSN"/>
              </item>
             </layout>
            </item>
-           <item row="3" column="0" >
-            <widget class="QLabel" name="lblDetails" >
-             <property name="text" >
+           <item row="3" column="0">
+            <widget class="QLabel" name="lblDetails">
+             <property name="text">
               <string>Details:</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="2" >
-            <layout class="QHBoxLayout" name="horizontalLayout_2" >
+           <item row="3" column="2">
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
-              <widget class="QLabel" name="lblDNID" >
-               <property name="text" >
+              <widget class="QLabel" name="lblDNID">
+               <property name="text">
                 <string>ABC:</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="edtDNID" >
-               <property name="minimumSize" >
+              <widget class="QLineEdit" name="edtDNID">
+               <property name="minimumSize">
                 <size>
                  <width>50</width>
                  <height>0</height>
                 </size>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>0000</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="lblMN" >
-               <property name="text" >
+              <widget class="QLabel" name="lblMN">
+               <property name="text">
                 <string>MN:</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="edtMN" >
-               <property name="minimumSize" >
+              <widget class="QLineEdit" name="edtMN">
+               <property name="minimumSize">
                 <size>
                  <width>30</width>
                  <height>0</height>
@@ -175,52 +176,52 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="lblSubAddress" >
-               <property name="text" >
+              <widget class="QLabel" name="lblSubAddress">
+               <property name="text">
                 <string>SA</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="comboSubAddress" >
-               <property name="minimumSize" >
+              <widget class="QComboBox" name="comboSubAddress">
+               <property name="minimumSize">
                 <size>
                  <width>80</width>
                  <height>0</height>
                 </size>
                </property>
                <item>
-                <property name="text" >
+                <property name="text">
                  <string>1</string>
                 </property>
                </item>
                <item>
-                <property name="text" >
+                <property name="text">
                  <string>2</string>
                 </property>
                </item>
                <item>
-                <property name="text" >
+                <property name="text">
                  <string>3</string>
                 </property>
                </item>
                <item>
-                <property name="text" >
+                <property name="text">
                  <string>4</string>
                 </property>
                </item>
                <item>
-                <property name="text" >
+                <property name="text">
                  <string>5</string>
                 </property>
                </item>
                <item>
-                <property name="text" >
+                <property name="text">
                  <string>6</string>
                 </property>
                </item>
                <item>
-                <property name="text" >
+                <property name="text">
                  <string>7</string>
                 </property>
                </item>
@@ -228,31 +229,31 @@
              </item>
             </layout>
            </item>
-           <item row="4" column="0" >
-            <widget class="QLabel" name="lblEmail" >
-             <property name="text" >
+           <item row="4" column="0">
+            <widget class="QLabel" name="lblEmail">
+             <property name="text">
               <string>Email:</string>
              </property>
             </widget>
            </item>
-           <item row="5" column="0" >
-            <widget class="QLabel" name="lblTrackingMethod" >
-             <property name="text" >
+           <item row="5" column="0">
+            <widget class="QLabel" name="lblTrackingMethod">
+             <property name="text">
               <string>Method :</string>
              </property>
             </widget>
            </item>
-           <item row="5" column="2" >
-            <layout class="QHBoxLayout" name="HLTrackingMethod" >
+           <item row="5" column="2">
+            <layout class="QHBoxLayout" name="HLTrackingMethod">
              <item>
-              <widget class="QComboBox" name="comboTrackingMethod" />
+              <widget class="QComboBox" name="comboTrackingMethod"/>
              </item>
              <item>
-              <spacer name="horizontalSpacer" >
-               <property name="orientation" >
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeHint" stdset="0" >
+               <property name="sizeHint" stdset="0">
                 <size>
                  <width>40</width>
                  <height>20</height>
@@ -261,21 +262,21 @@
               </spacer>
              </item>
              <item>
-              <widget class="QLabel" name="lblInterval" >
-               <property name="text" >
+              <widget class="QLabel" name="lblInterval">
+               <property name="text">
                 <string>Interval</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="comboInterval" />
+              <widget class="QComboBox" name="comboInterval"/>
              </item>
              <item>
-              <spacer name="horizontalSpacer_2" >
-               <property name="orientation" >
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeHint" stdset="0" >
+               <property name="sizeHint" stdset="0">
                 <size>
                  <width>40</width>
                  <height>20</height>
@@ -285,60 +286,60 @@
              </item>
             </layout>
            </item>
-           <item row="6" column="0" >
-            <widget class="QLabel" name="lblTest" >
-             <property name="text" >
+           <item row="6" column="0">
+            <widget class="QLabel" name="lblTest">
+             <property name="text">
               <string>BJ Test:</string>
              </property>
             </widget>
            </item>
-           <item row="6" column="2" >
-            <layout class="QHBoxLayout" name="HLTest" >
+           <item row="6" column="2">
+            <layout class="QHBoxLayout" name="HLTest">
              <item>
-              <widget class="QCheckBox" name="chkLRITTest" >
-               <property name="text" >
+              <widget class="QCheckBox" name="chkLRITTest">
+               <property name="text">
                 <string>Start</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="radioButton_2" >
-               <property name="text" >
+              <widget class="QRadioButton" name="radioButton_2">
+               <property name="text">
                 <string>Now</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="radioButton" >
-               <property name="text" >
+              <widget class="QRadioButton" name="radioButton">
+               <property name="text">
                 <string>Later</string>
                </property>
               </widget>
              </item>
             </layout>
            </item>
-           <item row="7" column="0" >
-            <widget class="QLabel" name="lblAnswerBack" >
-             <property name="text" >
+           <item row="7" column="0">
+            <widget class="QLabel" name="lblAnswerBack">
+             <property name="text">
               <string>Answer Back :</string>
              </property>
             </widget>
            </item>
-           <item row="7" column="2" >
-            <widget class="QLineEdit" name="edtAnswerBack" />
+           <item row="7" column="2">
+            <widget class="QLineEdit" name="edtAnswerBack"/>
            </item>
-           <item row="8" column="0" >
-            <widget class="QLabel" name="label" >
-             <property name="text" >
+           <item row="8" column="0">
+            <widget class="QLabel" name="label">
+             <property name="text">
               <string>Date &amp; Count:</string>
              </property>
             </widget>
            </item>
-           <item row="8" column="2" >
-            <layout class="QHBoxLayout" name="horizontalLayout_4" >
+           <item row="8" column="2">
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
-              <widget class="QDateEdit" name="dateEdit" >
-               <property name="dateTime" >
+              <widget class="QDateEdit" name="dateEdit">
+               <property name="dateTime">
                 <datetime>
                  <hour>12</hour>
                  <minute>12</minute>
@@ -351,53 +352,53 @@
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="spinBox" >
-               <property name="minimum" >
+              <widget class="QSpinBox" name="spinBox">
+               <property name="minimum">
                 <number>44</number>
                </property>
-               <property name="maximum" >
+               <property name="maximum">
                 <number>88</number>
                </property>
-               <property name="singleStep" >
+               <property name="singleStep">
                 <number>4</number>
                </property>
-               <property name="value" >
+               <property name="value">
                 <number>55</number>
                </property>
               </widget>
              </item>
             </layout>
            </item>
-           <item row="4" column="2" >
-            <layout class="QVBoxLayout" name="VLEmail" >
+           <item row="4" column="2">
+            <layout class="QVBoxLayout" name="VLEmail">
              <item>
-              <widget class="QLineEdit" name="edtEmail" />
+              <widget class="QLineEdit" name="edtEmail"/>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_5" >
+              <layout class="QHBoxLayout" name="horizontalLayout_5">
                <item>
-                <widget class="QRadioButton" name="radioButton_4" >
-                 <property name="text" >
+                <widget class="QRadioButton" name="radioButton_4">
+                 <property name="text">
                   <string>don't</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QCheckBox" name="chkEmail" >
-                 <property name="text" >
+                <widget class="QCheckBox" name="chkEmail">
+                 <property name="text">
                   <string>No Email</string>
                  </property>
-                 <property name="checked" >
+                 <property name="checked">
                   <bool>true</bool>
                  </property>
-                 <property name="autoRepeat" >
+                 <property name="autoRepeat">
                   <bool>false</bool>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QRadioButton" name="radioButton_3" >
-                 <property name="text" >
+                <widget class="QRadioButton" name="radioButton_3">
+                 <property name="text">
                   <string>do</string>
                  </property>
                 </widget>
@@ -411,12 +412,12 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_2" >
-       <attribute name="title" >
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
         <string>Tab 2</string>
        </attribute>
-       <widget class="QCheckBox" name="checkBox" >
-        <property name="geometry" >
+       <widget class="QCheckBox" name="checkBox">
+        <property name="geometry">
          <rect>
           <x>180</x>
           <y>180</y>
@@ -424,12 +425,12 @@
           <height>21</height>
          </rect>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>CheckBox</string>
         </property>
        </widget>
-       <widget class="QRadioButton" name="radioButton_5" >
-        <property name="geometry" >
+       <widget class="QRadioButton" name="radioButton_5">
+        <property name="geometry">
          <rect>
           <x>130</x>
           <y>290</y>
@@ -437,12 +438,12 @@
           <height>22</height>
          </rect>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>RadioButton</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton" >
-        <property name="geometry" >
+       <widget class="QPushButton" name="pushButton">
+        <property name="geometry">
          <rect>
           <x>180</x>
           <y>120</y>
@@ -450,12 +451,12 @@
           <height>26</height>
          </rect>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>PushButton</string>
         </property>
        </widget>
-       <widget class="QDialogButtonBox" name="buttonBox" >
-        <property name="geometry" >
+       <widget class="QDialogButtonBox" name="buttonBox">
+        <property name="geometry">
          <rect>
           <x>310</x>
           <y>240</y>
@@ -463,96 +464,96 @@
           <height>26</height>
          </rect>
         </property>
-        <property name="standardButtons" >
+        <property name="standardButtons">
          <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="tab_3" >
-       <attribute name="title" >
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
         <string>Page</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout" >
+       <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QScrollArea" name="scrollArea" >
-          <property name="widgetResizable" >
+         <widget class="QScrollArea" name="scrollArea">
+          <property name="widgetResizable">
            <bool>true</bool>
           </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents" >
-           <property name="geometry" >
+          <widget class="QWidget" name="scrollAreaWidgetContents">
+           <property name="geometry">
             <rect>
              <x>0</x>
              <y>0</y>
              <width>569</width>
-             <height>463</height>
+             <height>478</height>
             </rect>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_2" >
+           <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
-             <widget class="QGroupBox" name="groupBox_2" >
-              <property name="title" >
+             <widget class="QGroupBox" name="groupBox_2">
+              <property name="title">
                <string>GroupBox</string>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_3" >
+              <layout class="QVBoxLayout" name="verticalLayout_3">
                <item>
-                <layout class="QGridLayout" name="gridLayout_2" >
-                 <item row="0" column="0" >
-                  <widget class="QPushButton" name="pushButton_2" >
-                   <property name="text" >
+                <layout class="QGridLayout" name="gridLayout_2">
+                 <item row="0" column="0">
+                  <widget class="QPushButton" name="pushButton_2">
+                   <property name="text">
                     <string>PushButton</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="0" column="1" >
-                  <widget class="QTabWidget" name="tabWidget_2" >
-                   <property name="currentIndex" >
+                 <item row="0" column="1">
+                  <widget class="QTabWidget" name="tabWidget_2">
+                   <property name="currentIndex">
                     <number>1</number>
                    </property>
-                   <widget class="QWidget" name="tab_4" >
-                    <attribute name="title" >
+                   <widget class="QWidget" name="tab_4">
+                    <attribute name="title">
                      <string>Tab 1</string>
                     </attribute>
-                    <layout class="QVBoxLayout" name="verticalLayout_4" >
+                    <layout class="QVBoxLayout" name="verticalLayout_4">
                      <item>
-                      <layout class="QFormLayout" name="formLayout" >
-                       <item row="0" column="0" >
-                        <widget class="QPushButton" name="pushButton_3" >
-                         <property name="text" >
+                      <layout class="QFormLayout" name="formLayout">
+                       <item row="0" column="0">
+                        <widget class="QPushButton" name="pushButton_3">
+                         <property name="text">
                           <string>PushButton</string>
                          </property>
                         </widget>
                        </item>
-                       <item row="0" column="1" >
-                        <widget class="QLabel" name="label_2" >
-                         <property name="text" >
+                       <item row="0" column="1">
+                        <widget class="QLabel" name="label_2">
+                         <property name="text">
                           <string>TextLabel</string>
                          </property>
                         </widget>
                        </item>
-                       <item row="1" column="1" >
-                        <widget class="QSlider" name="horizontalSlider" >
-                         <property name="orientation" >
+                       <item row="1" column="1">
+                        <widget class="QSlider" name="horizontalSlider">
+                         <property name="orientation">
                           <enum>Qt::Horizontal</enum>
                          </property>
                         </widget>
                        </item>
-                       <item row="1" column="0" >
-                        <widget class="QSlider" name="verticalSlider" >
-                         <property name="orientation" >
+                       <item row="1" column="0">
+                        <widget class="QSlider" name="verticalSlider">
+                         <property name="orientation">
                           <enum>Qt::Vertical</enum>
                          </property>
                         </widget>
                        </item>
-                       <item row="2" column="1" >
-                        <widget class="QScrollBar" name="verticalScrollBar" >
-                         <property name="orientation" >
+                       <item row="2" column="1">
+                        <widget class="QScrollBar" name="verticalScrollBar">
+                         <property name="orientation">
                           <enum>Qt::Vertical</enum>
                          </property>
                         </widget>
                        </item>
-                       <item row="2" column="0" >
-                        <widget class="QScrollBar" name="horizontalScrollBar" >
-                         <property name="orientation" >
+                       <item row="2" column="0">
+                        <widget class="QScrollBar" name="horizontalScrollBar">
+                         <property name="orientation">
                           <enum>Qt::Horizontal</enum>
                          </property>
                         </widget>
@@ -561,86 +562,86 @@
                      </item>
                     </layout>
                    </widget>
-                   <widget class="QWidget" name="tab_5" >
-                    <attribute name="title" >
+                   <widget class="QWidget" name="tab_5">
+                    <attribute name="title">
                      <string>Tab 2</string>
                     </attribute>
-                    <layout class="QVBoxLayout" name="verticalLayout_6" >
+                    <layout class="QVBoxLayout" name="verticalLayout_6">
                      <item>
-                      <widget class="QScrollArea" name="scrollArea_2" >
-                       <property name="sizePolicy" >
-                        <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                      <widget class="QScrollArea" name="scrollArea_2">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                          <horstretch>0</horstretch>
                          <verstretch>0</verstretch>
                         </sizepolicy>
                        </property>
-                       <property name="widgetResizable" >
+                       <property name="widgetResizable">
                         <bool>true</bool>
                        </property>
-                       <widget class="QWidget" name="scrollAreaWidgetContents_2" >
-                        <property name="geometry" >
+                       <widget class="QWidget" name="scrollAreaWidgetContents_2">
+                        <property name="geometry">
                          <rect>
                           <x>0</x>
-                          <y>0</y>
-                          <width>431</width>
-                          <height>355</height>
+                          <y>-16</y>
+                          <width>438</width>
+                          <height>366</height>
                          </rect>
                         </property>
-                        <layout class="QVBoxLayout" name="verticalLayout_5" >
+                        <layout class="QVBoxLayout" name="verticalLayout_5">
                          <item>
-                          <widget class="QGroupBox" name="groupBox_3" >
-                           <property name="maximumSize" >
+                          <widget class="QGroupBox" name="groupBox_3">
+                           <property name="maximumSize">
                             <size>
                              <width>16777215</width>
                              <height>16777215</height>
                             </size>
                            </property>
-                           <property name="title" >
+                           <property name="title">
                             <string>Add</string>
                            </property>
-                           <layout class="QGridLayout" name="gridLayout_3" >
-                            <item row="0" column="0" >
-                             <widget class="QLabel" name="lblCompany_2" >
-                              <property name="text" >
+                           <layout class="QGridLayout" name="gridLayout_3">
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="lblCompany_2">
+                              <property name="text">
                                <string>Company :</string>
                               </property>
                              </widget>
                             </item>
-                            <item row="0" column="2" >
-                             <widget class="QLineEdit" name="edtCompany_2" >
-                              <property name="sizePolicy" >
-                               <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+                            <item row="0" column="2">
+                             <widget class="QLineEdit" name="edtCompany_2">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                                 <horstretch>0</horstretch>
                                 <verstretch>0</verstretch>
                                </sizepolicy>
                               </property>
-                              <property name="readOnly" >
+                              <property name="readOnly">
                                <bool>true</bool>
                               </property>
                              </widget>
                             </item>
-                            <item row="1" column="0" >
-                             <widget class="QLabel" name="lblName_2" >
-                              <property name="text" >
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="lblName_2">
+                              <property name="text">
                                <string>Name :</string>
                               </property>
                              </widget>
                             </item>
-                            <item row="1" column="2" >
-                             <widget class="QLineEdit" name="edtName_2" >
-                              <property name="sizePolicy" >
-                               <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                            <item row="1" column="2">
+                             <widget class="QLineEdit" name="edtName_2">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                                 <horstretch>0</horstretch>
                                 <verstretch>0</verstretch>
                                </sizepolicy>
                               </property>
-                              <property name="minimumSize" >
+                              <property name="minimumSize">
                                <size>
                                 <width>300</width>
                                 <height>0</height>
                                </size>
                               </property>
-                              <property name="maximumSize" >
+                              <property name="maximumSize">
                                <size>
                                 <width>400</width>
                                 <height>16777215</height>
@@ -648,76 +649,76 @@
                               </property>
                              </widget>
                             </item>
-                            <item row="2" column="0" >
-                             <widget class="QLabel" name="lblIdentifers_2" >
-                              <property name="text" >
+                            <item row="2" column="0">
+                             <widget class="QLabel" name="lblIdentifers_2">
+                              <property name="text">
                                <string>Identifiers:</string>
                               </property>
                              </widget>
                             </item>
-                            <item row="2" column="2" >
-                             <layout class="QHBoxLayout" name="horizontalLayout_7" >
+                            <item row="2" column="2">
+                             <layout class="QHBoxLayout" name="horizontalLayout_7">
                               <item>
-                               <widget class="QLabel" name="lblIOWN_2" >
-                                <property name="text" >
+                               <widget class="QLabel" name="lblIOWN_2">
+                                <property name="text">
                                  <string>OWN::</string>
                                 </property>
                                </widget>
                               </item>
                               <item>
-                               <widget class="QLineEdit" name="edtIOWN_2" />
+                               <widget class="QLineEdit" name="edtIOWN_2"/>
                               </item>
                               <item>
-                               <widget class="QLabel" name="lblTerminalSN_2" >
-                                <property name="text" >
+                               <widget class="QLabel" name="lblTerminalSN_2">
+                                <property name="text">
                                  <string>S/N:</string>
                                 </property>
                                </widget>
                               </item>
                               <item>
-                               <widget class="QLineEdit" name="edtTerminalSN_2" />
+                               <widget class="QLineEdit" name="edtTerminalSN_2"/>
                               </item>
                              </layout>
                             </item>
-                            <item row="3" column="0" >
-                             <widget class="QLabel" name="lblDetails_2" >
-                              <property name="text" >
+                            <item row="3" column="0">
+                             <widget class="QLabel" name="lblDetails_2">
+                              <property name="text">
                                <string>Details:</string>
                               </property>
                              </widget>
                             </item>
-                            <item row="3" column="2" >
-                             <layout class="QHBoxLayout" name="horizontalLayout_8" >
+                            <item row="3" column="2">
+                             <layout class="QHBoxLayout" name="horizontalLayout_8">
                               <item>
-                               <widget class="QLabel" name="lblDNID_2" >
-                                <property name="text" >
+                               <widget class="QLabel" name="lblDNID_2">
+                                <property name="text">
                                  <string>ABC:</string>
                                 </property>
                                </widget>
                               </item>
                               <item>
-                               <widget class="QLineEdit" name="edtDNID_2" >
-                                <property name="minimumSize" >
+                               <widget class="QLineEdit" name="edtDNID_2">
+                                <property name="minimumSize">
                                  <size>
                                   <width>50</width>
                                   <height>0</height>
                                  </size>
                                 </property>
-                                <property name="text" >
+                                <property name="text">
                                  <string>0000</string>
                                 </property>
                                </widget>
                               </item>
                               <item>
-                               <widget class="QLabel" name="lblMN_2" >
-                                <property name="text" >
+                               <widget class="QLabel" name="lblMN_2">
+                                <property name="text">
                                  <string>MN:</string>
                                 </property>
                                </widget>
                               </item>
                               <item>
-                               <widget class="QLineEdit" name="edtMN_2" >
-                                <property name="minimumSize" >
+                               <widget class="QLineEdit" name="edtMN_2">
+                                <property name="minimumSize">
                                  <size>
                                   <width>30</width>
                                   <height>0</height>
@@ -726,52 +727,52 @@
                                </widget>
                               </item>
                               <item>
-                               <widget class="QLabel" name="lblSubAddress_2" >
-                                <property name="text" >
+                               <widget class="QLabel" name="lblSubAddress_2">
+                                <property name="text">
                                  <string>SA</string>
                                 </property>
                                </widget>
                               </item>
                               <item>
-                               <widget class="QComboBox" name="comboSubAddress_2" >
-                                <property name="minimumSize" >
+                               <widget class="QComboBox" name="comboSubAddress_2">
+                                <property name="minimumSize">
                                  <size>
                                   <width>80</width>
                                   <height>0</height>
                                  </size>
                                 </property>
                                 <item>
-                                 <property name="text" >
+                                 <property name="text">
                                   <string>1</string>
                                  </property>
                                 </item>
                                 <item>
-                                 <property name="text" >
+                                 <property name="text">
                                   <string>2</string>
                                  </property>
                                 </item>
                                 <item>
-                                 <property name="text" >
+                                 <property name="text">
                                   <string>3</string>
                                  </property>
                                 </item>
                                 <item>
-                                 <property name="text" >
+                                 <property name="text">
                                   <string>4</string>
                                  </property>
                                 </item>
                                 <item>
-                                 <property name="text" >
+                                 <property name="text">
                                   <string>5</string>
                                  </property>
                                 </item>
                                 <item>
-                                 <property name="text" >
+                                 <property name="text">
                                   <string>6</string>
                                  </property>
                                 </item>
                                 <item>
-                                 <property name="text" >
+                                 <property name="text">
                                   <string>7</string>
                                  </property>
                                 </item>
@@ -779,31 +780,31 @@
                               </item>
                              </layout>
                             </item>
-                            <item row="4" column="0" >
-                             <widget class="QLabel" name="lblEmail_2" >
-                              <property name="text" >
+                            <item row="4" column="0">
+                             <widget class="QLabel" name="lblEmail_2">
+                              <property name="text">
                                <string>Email:</string>
                               </property>
                              </widget>
                             </item>
-                            <item row="5" column="0" >
-                             <widget class="QLabel" name="lblTrackingMethod_2" >
-                              <property name="text" >
+                            <item row="5" column="0">
+                             <widget class="QLabel" name="lblTrackingMethod_2">
+                              <property name="text">
                                <string>Method :</string>
                               </property>
                              </widget>
                             </item>
-                            <item row="5" column="2" >
-                             <layout class="QHBoxLayout" name="HLTrackingMethod_2" >
+                            <item row="5" column="2">
+                             <layout class="QHBoxLayout" name="HLTrackingMethod_2">
                               <item>
-                               <widget class="QComboBox" name="comboTrackingMethod_2" />
+                               <widget class="QComboBox" name="comboTrackingMethod_2"/>
                               </item>
                               <item>
-                               <spacer name="horizontalSpacer" >
-                                <property name="orientation" >
+                               <spacer name="horizontalSpacer">
+                                <property name="orientation">
                                  <enum>Qt::Horizontal</enum>
                                 </property>
-                                <property name="sizeHint" stdset="0" >
+                                <property name="sizeHint" stdset="0">
                                  <size>
                                   <width>40</width>
                                   <height>20</height>
@@ -812,27 +813,27 @@
                                </spacer>
                               </item>
                               <item>
-                               <widget class="QLabel" name="lblInterval_2" >
-                                <property name="sizePolicy" >
-                                 <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+                               <widget class="QLabel" name="lblInterval_2">
+                                <property name="sizePolicy">
+                                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                                   <horstretch>0</horstretch>
                                   <verstretch>0</verstretch>
                                  </sizepolicy>
                                 </property>
-                                <property name="text" >
+                                <property name="text">
                                  <string>Interval</string>
                                 </property>
                                </widget>
                               </item>
                               <item>
-                               <widget class="QComboBox" name="comboInterval_2" />
+                               <widget class="QComboBox" name="comboInterval_2"/>
                               </item>
                               <item>
-                               <spacer name="horizontalSpacer_2" >
-                                <property name="orientation" >
+                               <spacer name="horizontalSpacer_2">
+                                <property name="orientation">
                                  <enum>Qt::Horizontal</enum>
                                 </property>
-                                <property name="sizeHint" stdset="0" >
+                                <property name="sizeHint" stdset="0">
                                  <size>
                                   <width>40</width>
                                   <height>20</height>
@@ -842,76 +843,76 @@
                               </item>
                              </layout>
                             </item>
-                            <item row="6" column="0" >
-                             <widget class="QLabel" name="lblTest_2" >
-                              <property name="text" >
+                            <item row="6" column="0">
+                             <widget class="QLabel" name="lblTest_2">
+                              <property name="text">
                                <string>BJ Test:</string>
                               </property>
                              </widget>
                             </item>
-                            <item row="6" column="2" >
-                             <layout class="QHBoxLayout" name="HLTest_2" >
+                            <item row="6" column="2">
+                             <layout class="QHBoxLayout" name="HLTest_2">
                               <item>
-                               <widget class="QCheckBox" name="chkLRITTest_2" >
-                                <property name="text" >
+                               <widget class="QCheckBox" name="chkLRITTest_2">
+                                <property name="text">
                                  <string>Start</string>
                                 </property>
                                </widget>
                               </item>
                               <item>
-                               <widget class="QRadioButton" name="radioButton_6" >
-                                <property name="text" >
+                               <widget class="QRadioButton" name="radioButton_6">
+                                <property name="text">
                                  <string>Now</string>
                                 </property>
                                </widget>
                               </item>
                               <item>
-                               <widget class="QRadioButton" name="radioButton_7" >
-                                <property name="text" >
+                               <widget class="QRadioButton" name="radioButton_7">
+                                <property name="text">
                                  <string>Later</string>
                                 </property>
                                </widget>
                               </item>
                              </layout>
                             </item>
-                            <item row="7" column="0" >
-                             <widget class="QLabel" name="lblAnswerBack_2" >
-                              <property name="text" >
+                            <item row="7" column="0">
+                             <widget class="QLabel" name="lblAnswerBack_2">
+                              <property name="text">
                                <string>Answer Back :</string>
                               </property>
                              </widget>
                             </item>
-                            <item row="7" column="2" >
-                             <widget class="QLineEdit" name="edtAnswerBack_2" />
+                            <item row="7" column="2">
+                             <widget class="QLineEdit" name="edtAnswerBack_2"/>
                             </item>
-                            <item row="8" column="0" >
-                             <widget class="QLabel" name="label_3" >
-                              <property name="text" >
+                            <item row="8" column="0">
+                             <widget class="QLabel" name="label_3">
+                              <property name="text">
                                <string>Time &amp; Count:</string>
                               </property>
                              </widget>
                             </item>
-                            <item row="8" column="2" >
-                             <layout class="QHBoxLayout" name="horizontalLayout_9" >
+                            <item row="8" column="2">
+                             <layout class="QHBoxLayout" name="horizontalLayout_9">
                               <item>
-                               <widget class="QSpinBox" name="spinBox_2" >
-                                <property name="minimum" >
+                               <widget class="QSpinBox" name="spinBox_2">
+                                <property name="minimum">
                                  <number>44</number>
                                 </property>
-                                <property name="maximum" >
+                                <property name="maximum">
                                  <number>88</number>
                                 </property>
-                                <property name="singleStep" >
+                                <property name="singleStep">
                                  <number>4</number>
                                 </property>
-                                <property name="value" >
+                                <property name="value">
                                  <number>55</number>
                                 </property>
                                </widget>
                               </item>
                               <item>
-                               <widget class="QDateEdit" name="dateEdit_2" >
-                                <property name="dateTime" >
+                               <widget class="QDateEdit" name="dateEdit_2">
+                                <property name="dateTime">
                                  <datetime>
                                   <hour>12</hour>
                                   <minute>12</minute>
@@ -925,36 +926,36 @@
                               </item>
                              </layout>
                             </item>
-                            <item row="4" column="2" >
-                             <layout class="QVBoxLayout" name="VLEmail_2" >
+                            <item row="4" column="2">
+                             <layout class="QVBoxLayout" name="VLEmail_2">
                               <item>
-                               <widget class="QLineEdit" name="edtEmail_2" />
+                               <widget class="QLineEdit" name="edtEmail_2"/>
                               </item>
                               <item>
-                               <layout class="QHBoxLayout" name="horizontalLayout_10" >
+                               <layout class="QHBoxLayout" name="horizontalLayout_10">
                                 <item>
-                                 <widget class="QRadioButton" name="radioButton_8" >
-                                  <property name="text" >
+                                 <widget class="QRadioButton" name="radioButton_8">
+                                  <property name="text">
                                    <string>don't</string>
                                   </property>
                                  </widget>
                                 </item>
                                 <item>
-                                 <widget class="QCheckBox" name="chkEmail_2" >
-                                  <property name="text" >
+                                 <widget class="QCheckBox" name="chkEmail_2">
+                                  <property name="text">
                                    <string>No Email</string>
                                   </property>
-                                  <property name="checked" >
+                                  <property name="checked">
                                    <bool>true</bool>
                                   </property>
-                                  <property name="autoRepeat" >
+                                  <property name="autoRepeat">
                                    <bool>false</bool>
                                   </property>
                                  </widget>
                                 </item>
                                 <item>
-                                 <widget class="QRadioButton" name="radioButton_9" >
-                                  <property name="text" >
+                                 <widget class="QRadioButton" name="radioButton_9">
+                                  <property name="text">
                                    <string>do</string>
                                   </property>
                                  </widget>

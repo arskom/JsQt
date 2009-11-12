@@ -113,6 +113,16 @@ class DecimalInteger(Base):
     def to_stream(self, os):
         os.write(str(self.__value))
 
+class Boolean(Base):
+    def __init__(self, value):
+        self.__value=value
+
+    def to_stream(self, os):
+        if self.__value:
+            os.write("true")
+        else:
+            os.write("false")
+
 class Object(Base):
     def __init__(self):
         self.__members = DuckTypedDict(['to_stream'])

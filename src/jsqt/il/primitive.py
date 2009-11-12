@@ -68,10 +68,49 @@ class MultiPartCompilable(Compilable):
 
 class DecimalInteger(SinglePartCompilable):
     def __init__(self, value):
-        self.__value = value
+        self.value = value
+
+    @staticmethod
+    def from_elt(elt):
+        return DecimalInteger(int(elt.text))
+
+    def __eq__(self, other):
+        if isinstance(other, int):
+            return self.value == other
+        else:
+            return id(self) == id(other)
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __repr__(self):
+        return "<il.DecimalInteger(%d)>" % self.value
 
     def compile(self, dialect):
-        return js.primitive.DecimalInteger(self.__value)
+        return js.primitive.DecimalInteger(self.value)
+
+class Boolean(SinglePartCompilable):
+    def __init__(self, value):
+        self.value = value
+
+    @staticmethod
+    def from_elt(elt):
+        return Boolean(bool(elt.text))
+
+    def __eq__(self, other):
+        if isinstance(other, bool):
+            return self.value == other
+        else:
+            return id(self) == id(other)
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __repr__(self):
+        return "<il.Boolean(%d)>" % self.value
+
+    def compile(self, dialect):
+        return js.primitive.Boolean(self.value)
 
 class ObjectReference(SinglePartCompilable):
     def __init__(self, object_name):
@@ -85,39 +124,34 @@ class ObjectReference(SinglePartCompilable):
     def compile(self, dialect):
         return js.primitive.ObjectReference(self.__object_name)
 
-class Instantiation(object):
-    def __init__(self, class_name, init_arguments=[]):
-        if len(class_name) ==0:
-            raise Exception("Empty class name not allowed")
-        self.__class_name = class_name
-        self.__args = DuckTypedList(['compile'],init_arguments)
-
-    def compile(self, dialect):
-        return js.primitive.Instantiation(self.__class_name,
-                                      [a.compile(dialect) for a in self.__args])
-
 class String(SinglePartCompilable):
     def __init__(self, string):
-        self.__string=string
+        self._string=string
+
+    @staticmethod
+    def from_elt(elt):
+        return String(elt.text)
+
+    def __eq__(self, other):
+        if isinstance(other, str) or isinstance(other, unicode):
+            return self.value == other
+        else:
+            return id(self) == id(other)
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
 
     def compile(self, dialect):
-        return js.primitive.String(self.__string.replace("\n","\\n"))
+        return js.primitive.String(self._string.replace("\n","\\n"))
 
-class TranslatableString(SinglePartCompilable):
-    def __init__(self, string):
-        self.__string=string
+class TranslatableString(String):
+    @staticmethod
+    def from_elt(elt):
+        return TranslatableString(elt.text)
 
     def compile(self, dialect):
         return js.primitive.FunctionCall("this.tr",[
-                       js.primitive.String(self.__string.replace("\n","\\n")) ])
-
-class Concatenation(SinglePartCompilable):
-    def __init__(self, sub_strings):
-        self.__sub_strings = sub_strings
-
-    def compile(self, dialect):
-        compiled_sub_strings = [s.compile(dialect) for s in self.__sub_strings]
-        return js.primitive.Concatenation(compiled_sub_strings)
+                       js.primitive.String(self._string.replace("\n","\\n")) ])
 
 class Comment(SinglePartCompilable):
     def __init__(self, comment):
@@ -129,6 +163,25 @@ class Comment(SinglePartCompilable):
 
     def compile(self, dialect):
         return js.primitive.Comment(self.__comment)
+
+class Instantiation(object):
+    def __init__(self, class_name, init_arguments=[]):
+        if len(class_name) ==0:
+            raise Exception("Empty class name not allowed")
+        self.__class_name = class_name
+        self.__args = DuckTypedList(['compile'],init_arguments)
+
+    def compile(self, dialect):
+        return js.primitive.Instantiation(self.__class_name,
+                                      [a.compile(dialect) for a in self.__args])
+
+class Concatenation(SinglePartCompilable):
+    def __init__(self, sub_strings):
+        self.__sub_strings = sub_strings
+
+    def compile(self, dialect):
+        compiled_sub_strings = [s.compile(dialect) for s in self.__sub_strings]
+        return js.primitive.Concatenation(compiled_sub_strings)
 
 class Assignment(SinglePartCompilable):
     def __init__(self, left=None, right=None):

@@ -22,7 +22,6 @@
 #
 
 from jsqt import il
-from jsqt.il.qt.form import MWithCaption
 from gui import ContainerBase
 
 class QMainWindow(ContainerBase):
@@ -46,21 +45,15 @@ class QTabWidget(ContainerBase):
     def _compile_layout(self, dialect, ret):
         pass
 
-class TabPage(ContainerBase,MWithCaption):
+class TabPage(ContainerBase):
     type = "qx.ui.tabview.Page"
-
+    known_simple_props = {
+        "title": ("setLabel", il.primitive.TranslatableString),
+    }
+    
     def __init__(self, elt, name=None):
         self.layout_properties = None
-        MWithCaption.__init__(self, "title")
         ContainerBase.__init__(self, elt, name)                
-
-    def compile(self, dialect, ret):
-        ContainerBase.compile(self, dialect, ret)
-        MWithCaption.compile(self, dialect, ret)
-
-    def set_property(self, elt):
-        ContainerBase.set_property(self, elt)
-        MWithCaption.set_property(self, elt)
 
 class QSplitter(ContainerBase):
     type = "qx.ui.splitpane.Pane"
@@ -103,21 +96,15 @@ class QSplitter(ContainerBase):
 
         ret.set_member(self.name, il.primitive.ObjectReference('null'))
 
-class QGroupBox(ContainerBase,MWithCaption):
+class QGroupBox(ContainerBase):
     type = "qx.ui.groupbox.GroupBox"
+    known_simple_props = {
+        "title": ("setLegend", il.primitive.TranslatableString),
+    }
 
     def __init__(self, elt, name=None):
         self.layout_properties = None
-        MWithCaption.__init__(self, "title")
         ContainerBase.__init__(self, elt, name)
-
-    def compile(self, dialect, ret):
-        ContainerBase.compile(self, dialect, ret)
-        MWithCaption.compile(self, dialect, ret, "setLegend")
-
-    def set_property(self, elt):
-        ContainerBase.set_property(self, elt)
-        MWithCaption.set_property(self, elt)
 
 class QScrollArea(ContainerBase):
     type = "qx.ui.container.Scroll"
@@ -127,5 +114,5 @@ class QScrollArea(ContainerBase):
 
     def add_child(self, instance):
         if len(self.children)>0:
-            raise Exception("QScrollArea can have one child widget")
+            raise Exception("QScrollArea can have only one child widget")
         ContainerBase.add_child(self, instance)

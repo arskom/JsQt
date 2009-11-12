@@ -50,8 +50,8 @@ qx.Class.define("test.draw.Add", {
         ,comboTrackingMethod_2: null
         ,create_Add: function create_Add() {
             this.Add = new qx.ui.container.Composite();
-            this.Add.setWidth(629);
             this.Add.setHeight(484);
+            this.Add.setWidth(629);
             this.Add.setMarginBottom(1);
             this.Add.setMarginTop(1);
             this.Add.setMarginLeft(1);
@@ -204,57 +204,59 @@ qx.Class.define("test.draw.Add", {
         
         ,create_checkBox: function create_checkBox() {
             this.checkBox = new qx.ui.form.CheckBox();
-            this.checkBox.setWidth(81);
             this.checkBox.setHeight(21);
+            this.checkBox.setWidth(81);
+            this.checkBox.setLabel(this.tr("CheckBox"));
             this.checkBox.setMarginBottom(1);
             this.checkBox.setMarginTop(1);
             this.checkBox.setMarginLeft(1);
             this.checkBox.setMarginRight(1);
-            this.checkBox.setLabel(this.tr("CheckBox"));
             return this.checkBox;
             
         }
         
         ,create_chkEmail: function create_chkEmail() {
             this.chkEmail = new qx.ui.form.CheckBox();
+            this.chkEmail.setValue(true);
+            this.chkEmail.setLabel(this.tr("No Email"));
             this.chkEmail.setMarginBottom(1);
             this.chkEmail.setMarginTop(1);
             this.chkEmail.setMarginLeft(1);
             this.chkEmail.setMarginRight(1);
-            this.chkEmail.setLabel(this.tr("No Email"));
             return this.chkEmail;
             
         }
         
         ,create_chkEmail_2: function create_chkEmail_2() {
             this.chkEmail_2 = new qx.ui.form.CheckBox();
+            this.chkEmail_2.setValue(true);
+            this.chkEmail_2.setLabel(this.tr("No Email"));
             this.chkEmail_2.setMarginBottom(1);
             this.chkEmail_2.setMarginTop(1);
             this.chkEmail_2.setMarginLeft(1);
             this.chkEmail_2.setMarginRight(1);
-            this.chkEmail_2.setLabel(this.tr("No Email"));
             return this.chkEmail_2;
             
         }
         
         ,create_chkLRITTest: function create_chkLRITTest() {
             this.chkLRITTest = new qx.ui.form.CheckBox();
+            this.chkLRITTest.setLabel(this.tr("Start"));
             this.chkLRITTest.setMarginBottom(1);
             this.chkLRITTest.setMarginTop(1);
             this.chkLRITTest.setMarginLeft(1);
             this.chkLRITTest.setMarginRight(1);
-            this.chkLRITTest.setLabel(this.tr("Start"));
             return this.chkLRITTest;
             
         }
         
         ,create_chkLRITTest_2: function create_chkLRITTest_2() {
             this.chkLRITTest_2 = new qx.ui.form.CheckBox();
+            this.chkLRITTest_2.setLabel(this.tr("Start"));
             this.chkLRITTest_2.setMarginBottom(1);
             this.chkLRITTest_2.setMarginTop(1);
             this.chkLRITTest_2.setMarginLeft(1);
             this.chkLRITTest_2.setMarginRight(1);
-            this.chkLRITTest_2.setLabel(this.tr("Start"));
             return this.chkLRITTest_2;
             
         }
@@ -281,6 +283,7 @@ qx.Class.define("test.draw.Add", {
         
         ,create_comboSubAddress: function create_comboSubAddress() {
             this.comboSubAddress = new qx.ui.form.SelectBox();
+            this.comboSubAddress.setMinHeight(0);
             this.comboSubAddress.setMinWidth(80);
             this.comboSubAddress.setMarginBottom(1);
             this.comboSubAddress.setMarginTop(1);
@@ -299,6 +302,7 @@ qx.Class.define("test.draw.Add", {
         
         ,create_comboSubAddress_2: function create_comboSubAddress_2() {
             this.comboSubAddress_2 = new qx.ui.form.SelectBox();
+            this.comboSubAddress_2.setMinHeight(0);
             this.comboSubAddress_2.setMinWidth(80);
             this.comboSubAddress_2.setMarginBottom(1);
             this.comboSubAddress_2.setMarginTop(1);
@@ -377,8 +381,10 @@ qx.Class.define("test.draw.Add", {
         
         ,create_edtCompany: function create_edtCompany() {
             this.edtCompany = new qx.ui.form.TextField();
-            this.edtCompany.setMinWidth(300);
+            this.edtCompany.setMaxHeight(16777215);
             this.edtCompany.setMaxWidth(5);
+            this.edtCompany.setMinHeight(0);
+            this.edtCompany.setMinWidth(300);
             this.edtCompany.setMarginBottom(1);
             this.edtCompany.setMarginTop(1);
             this.edtCompany.setMarginLeft(1);
@@ -399,6 +405,7 @@ qx.Class.define("test.draw.Add", {
         
         ,create_edtDNID: function create_edtDNID() {
             this.edtDNID = new qx.ui.form.TextField();
+            this.edtDNID.setMinHeight(0);
             this.edtDNID.setMinWidth(50);
             this.edtDNID.setMarginBottom(1);
             this.edtDNID.setMarginTop(1);
@@ -410,6 +417,7 @@ qx.Class.define("test.draw.Add", {
         
         ,create_edtDNID_2: function create_edtDNID_2() {
             this.edtDNID_2 = new qx.ui.form.TextField();
+            this.edtDNID_2.setMinHeight(0);
             this.edtDNID_2.setMinWidth(50);
             this.edtDNID_2.setMarginBottom(1);
             this.edtDNID_2.setMarginTop(1);
@@ -461,6 +469,7 @@ qx.Class.define("test.draw.Add", {
         
         ,create_edtMN: function create_edtMN() {
             this.edtMN = new qx.ui.form.TextField();
+            this.edtMN.setMinHeight(0);
             this.edtMN.setMinWidth(30);
             this.edtMN.setMarginBottom(1);
             this.edtMN.setMarginTop(1);
@@ -472,6 +481,7 @@ qx.Class.define("test.draw.Add", {
         
         ,create_edtMN_2: function create_edtMN_2() {
             this.edtMN_2 = new qx.ui.form.TextField();
+            this.edtMN_2.setMinHeight(0);
             this.edtMN_2.setMinWidth(30);
             this.edtMN_2.setMarginBottom(1);
             this.edtMN_2.setMarginTop(1);
@@ -493,8 +503,10 @@ qx.Class.define("test.draw.Add", {
         
         ,create_edtName_2: function create_edtName_2() {
             this.edtName_2 = new qx.ui.form.TextField();
-            this.edtName_2.setMinWidth(300);
+            this.edtName_2.setMaxHeight(16777215);
             this.edtName_2.setMaxWidth(400);
+            this.edtName_2.setMinHeight(0);
+            this.edtName_2.setMinWidth(300);
             this.edtName_2.setMarginBottom(1);
             this.edtName_2.setMarginTop(1);
             this.edtName_2.setMarginLeft(1);
@@ -603,8 +615,11 @@ qx.Class.define("test.draw.Add", {
         
         ,create_groupBox: function create_groupBox() {
             this.groupBox = new qx.ui.groupbox.GroupBox();
-            this.groupBox.setMinWidth(400);
+            this.groupBox.setMaxHeight(16777215);
             this.groupBox.setMaxWidth(600);
+            this.groupBox.setMinHeight(0);
+            this.groupBox.setMinWidth(400);
+            this.groupBox.setLegend(this.tr("Add"));
             this.groupBox.setMarginBottom(1);
             this.groupBox.setMarginTop(1);
             this.groupBox.setMarginLeft(1);
@@ -628,26 +643,28 @@ qx.Class.define("test.draw.Add", {
             this.groupBox.add(this.create_label(), {column: 0,row: 8});
             this.groupBox.add(this.create_horizontalLayout_4_implicit_container(), {column: 2,row: 8});
             this.groupBox.add(this.create_VLEmail_implicit_container(), {column: 2,row: 4});
-            this.groupBox.setLegend(this.tr("Add"));
             return this.groupBox;
             
         }
         
         ,create_groupBox_2: function create_groupBox_2() {
             this.groupBox_2 = new qx.ui.groupbox.GroupBox();
+            this.groupBox_2.setLegend(this.tr("GroupBox"));
             this.groupBox_2.setMarginBottom(1);
             this.groupBox_2.setMarginTop(1);
             this.groupBox_2.setMarginLeft(1);
             this.groupBox_2.setMarginRight(1);
             this.groupBox_2.setLayout(this.create_verticalLayout_3());
             this.groupBox_2.add(this.create_gridLayout_2_implicit_container(), {flex: 1});
-            this.groupBox_2.setLegend(this.tr("GroupBox"));
             return this.groupBox_2;
             
         }
         
         ,create_groupBox_3: function create_groupBox_3() {
             this.groupBox_3 = new qx.ui.groupbox.GroupBox();
+            this.groupBox_3.setMaxHeight(16777215);
+            this.groupBox_3.setMaxWidth(16777215);
+            this.groupBox_3.setLegend(this.tr("Add"));
             this.groupBox_3.setMarginBottom(1);
             this.groupBox_3.setMarginTop(1);
             this.groupBox_3.setMarginLeft(1);
@@ -671,7 +688,6 @@ qx.Class.define("test.draw.Add", {
             this.groupBox_3.add(this.create_label_3(), {column: 0,row: 8});
             this.groupBox_3.add(this.create_horizontalLayout_9_implicit_container(), {column: 2,row: 8});
             this.groupBox_3.add(this.create_VLEmail_2_implicit_container(), {column: 2,row: 4});
-            this.groupBox_3.setLegend(this.tr("Add"));
             return this.groupBox_3;
             
         }
@@ -856,6 +872,8 @@ qx.Class.define("test.draw.Add", {
         
         ,create_horizontalSpacer: function create_horizontalSpacer() {
             this.horizontalSpacer = new qx.ui.core.Spacer();
+            this.horizontalSpacer.setHeight(20);
+            this.horizontalSpacer.setWidth(40);
             this.horizontalSpacer.setMarginBottom(1);
             this.horizontalSpacer.setMarginTop(1);
             this.horizontalSpacer.setMarginLeft(1);
@@ -866,6 +884,8 @@ qx.Class.define("test.draw.Add", {
         
         ,create_horizontalSpacer_2: function create_horizontalSpacer_2() {
             this.horizontalSpacer_2 = new qx.ui.core.Spacer();
+            this.horizontalSpacer_2.setHeight(20);
+            this.horizontalSpacer_2.setWidth(40);
             this.horizontalSpacer_2.setMarginBottom(1);
             this.horizontalSpacer_2.setMarginTop(1);
             this.horizontalSpacer_2.setMarginLeft(1);
@@ -876,477 +896,477 @@ qx.Class.define("test.draw.Add", {
         
         ,create_label: function create_label() {
             this.label = new qx.ui.basic.Label();
+            this.label.setLabel(this.tr("Date & Count: "));
             this.label.setMarginBottom(1);
             this.label.setMarginTop(1);
             this.label.setMarginLeft(1);
             this.label.setMarginRight(1);
-            this.label.setValue(this.tr("Date & Count: "));
             return this.label;
             
         }
         
         ,create_label_2: function create_label_2() {
             this.label_2 = new qx.ui.basic.Label();
+            this.label_2.setLabel(this.tr("TextLabel"));
             this.label_2.setMarginBottom(1);
             this.label_2.setMarginTop(1);
             this.label_2.setMarginLeft(1);
             this.label_2.setMarginRight(1);
-            this.label_2.setValue(this.tr("TextLabel"));
             return this.label_2;
             
         }
         
         ,create_label_3: function create_label_3() {
             this.label_3 = new qx.ui.basic.Label();
+            this.label_3.setLabel(this.tr("Time & Count: "));
             this.label_3.setMarginBottom(1);
             this.label_3.setMarginTop(1);
             this.label_3.setMarginLeft(1);
             this.label_3.setMarginRight(1);
-            this.label_3.setValue(this.tr("Time & Count: "));
             return this.label_3;
             
         }
         
         ,create_lblAnswerBack: function create_lblAnswerBack() {
             this.lblAnswerBack = new qx.ui.basic.Label();
+            this.lblAnswerBack.setLabel(this.tr("Answer Back : "));
             this.lblAnswerBack.setMarginBottom(1);
             this.lblAnswerBack.setMarginTop(1);
             this.lblAnswerBack.setMarginLeft(1);
             this.lblAnswerBack.setMarginRight(1);
-            this.lblAnswerBack.setValue(this.tr("Answer Back : "));
             return this.lblAnswerBack;
             
         }
         
         ,create_lblAnswerBack_2: function create_lblAnswerBack_2() {
             this.lblAnswerBack_2 = new qx.ui.basic.Label();
+            this.lblAnswerBack_2.setLabel(this.tr("Answer Back : "));
             this.lblAnswerBack_2.setMarginBottom(1);
             this.lblAnswerBack_2.setMarginTop(1);
             this.lblAnswerBack_2.setMarginLeft(1);
             this.lblAnswerBack_2.setMarginRight(1);
-            this.lblAnswerBack_2.setValue(this.tr("Answer Back : "));
             return this.lblAnswerBack_2;
             
         }
         
         ,create_lblCompany: function create_lblCompany() {
             this.lblCompany = new qx.ui.basic.Label();
+            this.lblCompany.setLabel(this.tr("Company : "));
             this.lblCompany.setMarginBottom(1);
             this.lblCompany.setMarginTop(1);
             this.lblCompany.setMarginLeft(1);
             this.lblCompany.setMarginRight(1);
-            this.lblCompany.setValue(this.tr("Company : "));
             return this.lblCompany;
             
         }
         
         ,create_lblCompany_2: function create_lblCompany_2() {
             this.lblCompany_2 = new qx.ui.basic.Label();
+            this.lblCompany_2.setLabel(this.tr("Company : "));
             this.lblCompany_2.setMarginBottom(1);
             this.lblCompany_2.setMarginTop(1);
             this.lblCompany_2.setMarginLeft(1);
             this.lblCompany_2.setMarginRight(1);
-            this.lblCompany_2.setValue(this.tr("Company : "));
             return this.lblCompany_2;
             
         }
         
         ,create_lblDNID: function create_lblDNID() {
             this.lblDNID = new qx.ui.basic.Label();
+            this.lblDNID.setLabel(this.tr("ABC: "));
             this.lblDNID.setMarginBottom(1);
             this.lblDNID.setMarginTop(1);
             this.lblDNID.setMarginLeft(1);
             this.lblDNID.setMarginRight(1);
-            this.lblDNID.setValue(this.tr("ABC: "));
             return this.lblDNID;
             
         }
         
         ,create_lblDNID_2: function create_lblDNID_2() {
             this.lblDNID_2 = new qx.ui.basic.Label();
+            this.lblDNID_2.setLabel(this.tr("ABC: "));
             this.lblDNID_2.setMarginBottom(1);
             this.lblDNID_2.setMarginTop(1);
             this.lblDNID_2.setMarginLeft(1);
             this.lblDNID_2.setMarginRight(1);
-            this.lblDNID_2.setValue(this.tr("ABC: "));
             return this.lblDNID_2;
             
         }
         
         ,create_lblDetails: function create_lblDetails() {
             this.lblDetails = new qx.ui.basic.Label();
+            this.lblDetails.setLabel(this.tr("Details: "));
             this.lblDetails.setMarginBottom(1);
             this.lblDetails.setMarginTop(1);
             this.lblDetails.setMarginLeft(1);
             this.lblDetails.setMarginRight(1);
-            this.lblDetails.setValue(this.tr("Details: "));
             return this.lblDetails;
             
         }
         
         ,create_lblDetails_2: function create_lblDetails_2() {
             this.lblDetails_2 = new qx.ui.basic.Label();
+            this.lblDetails_2.setLabel(this.tr("Details: "));
             this.lblDetails_2.setMarginBottom(1);
             this.lblDetails_2.setMarginTop(1);
             this.lblDetails_2.setMarginLeft(1);
             this.lblDetails_2.setMarginRight(1);
-            this.lblDetails_2.setValue(this.tr("Details: "));
             return this.lblDetails_2;
             
         }
         
         ,create_lblEmail: function create_lblEmail() {
             this.lblEmail = new qx.ui.basic.Label();
+            this.lblEmail.setLabel(this.tr("Email: "));
             this.lblEmail.setMarginBottom(1);
             this.lblEmail.setMarginTop(1);
             this.lblEmail.setMarginLeft(1);
             this.lblEmail.setMarginRight(1);
-            this.lblEmail.setValue(this.tr("Email: "));
             return this.lblEmail;
             
         }
         
         ,create_lblEmail_2: function create_lblEmail_2() {
             this.lblEmail_2 = new qx.ui.basic.Label();
+            this.lblEmail_2.setLabel(this.tr("Email: "));
             this.lblEmail_2.setMarginBottom(1);
             this.lblEmail_2.setMarginTop(1);
             this.lblEmail_2.setMarginLeft(1);
             this.lblEmail_2.setMarginRight(1);
-            this.lblEmail_2.setValue(this.tr("Email: "));
             return this.lblEmail_2;
             
         }
         
         ,create_lblIOWN: function create_lblIOWN() {
             this.lblIOWN = new qx.ui.basic.Label();
+            this.lblIOWN.setLabel(this.tr("OWN: : "));
             this.lblIOWN.setMarginBottom(1);
             this.lblIOWN.setMarginTop(1);
             this.lblIOWN.setMarginLeft(1);
             this.lblIOWN.setMarginRight(1);
-            this.lblIOWN.setValue(this.tr("OWN: : "));
             return this.lblIOWN;
             
         }
         
         ,create_lblIOWN_2: function create_lblIOWN_2() {
             this.lblIOWN_2 = new qx.ui.basic.Label();
+            this.lblIOWN_2.setLabel(this.tr("OWN: : "));
             this.lblIOWN_2.setMarginBottom(1);
             this.lblIOWN_2.setMarginTop(1);
             this.lblIOWN_2.setMarginLeft(1);
             this.lblIOWN_2.setMarginRight(1);
-            this.lblIOWN_2.setValue(this.tr("OWN: : "));
             return this.lblIOWN_2;
             
         }
         
         ,create_lblIdentifers: function create_lblIdentifers() {
             this.lblIdentifers = new qx.ui.basic.Label();
+            this.lblIdentifers.setLabel(this.tr("Identifiers: "));
             this.lblIdentifers.setMarginBottom(1);
             this.lblIdentifers.setMarginTop(1);
             this.lblIdentifers.setMarginLeft(1);
             this.lblIdentifers.setMarginRight(1);
-            this.lblIdentifers.setValue(this.tr("Identifiers: "));
             return this.lblIdentifers;
             
         }
         
         ,create_lblIdentifers_2: function create_lblIdentifers_2() {
             this.lblIdentifers_2 = new qx.ui.basic.Label();
+            this.lblIdentifers_2.setLabel(this.tr("Identifiers: "));
             this.lblIdentifers_2.setMarginBottom(1);
             this.lblIdentifers_2.setMarginTop(1);
             this.lblIdentifers_2.setMarginLeft(1);
             this.lblIdentifers_2.setMarginRight(1);
-            this.lblIdentifers_2.setValue(this.tr("Identifiers: "));
             return this.lblIdentifers_2;
             
         }
         
         ,create_lblInterval: function create_lblInterval() {
             this.lblInterval = new qx.ui.basic.Label();
+            this.lblInterval.setLabel(this.tr("Interval"));
             this.lblInterval.setMarginBottom(1);
             this.lblInterval.setMarginTop(1);
             this.lblInterval.setMarginLeft(1);
             this.lblInterval.setMarginRight(1);
-            this.lblInterval.setValue(this.tr("Interval"));
             return this.lblInterval;
             
         }
         
         ,create_lblInterval_2: function create_lblInterval_2() {
             this.lblInterval_2 = new qx.ui.basic.Label();
+            this.lblInterval_2.setLabel(this.tr("Interval"));
             this.lblInterval_2.setMarginBottom(1);
             this.lblInterval_2.setMarginTop(1);
             this.lblInterval_2.setMarginLeft(1);
             this.lblInterval_2.setMarginRight(1);
-            this.lblInterval_2.setValue(this.tr("Interval"));
             return this.lblInterval_2;
             
         }
         
         ,create_lblMN: function create_lblMN() {
             this.lblMN = new qx.ui.basic.Label();
+            this.lblMN.setLabel(this.tr("MN: "));
             this.lblMN.setMarginBottom(1);
             this.lblMN.setMarginTop(1);
             this.lblMN.setMarginLeft(1);
             this.lblMN.setMarginRight(1);
-            this.lblMN.setValue(this.tr("MN: "));
             return this.lblMN;
             
         }
         
         ,create_lblMN_2: function create_lblMN_2() {
             this.lblMN_2 = new qx.ui.basic.Label();
+            this.lblMN_2.setLabel(this.tr("MN: "));
             this.lblMN_2.setMarginBottom(1);
             this.lblMN_2.setMarginTop(1);
             this.lblMN_2.setMarginLeft(1);
             this.lblMN_2.setMarginRight(1);
-            this.lblMN_2.setValue(this.tr("MN: "));
             return this.lblMN_2;
             
         }
         
         ,create_lblName: function create_lblName() {
             this.lblName = new qx.ui.basic.Label();
+            this.lblName.setLabel(this.tr("Name : "));
             this.lblName.setMarginBottom(1);
             this.lblName.setMarginTop(1);
             this.lblName.setMarginLeft(1);
             this.lblName.setMarginRight(1);
-            this.lblName.setValue(this.tr("Name : "));
             return this.lblName;
             
         }
         
         ,create_lblName_2: function create_lblName_2() {
             this.lblName_2 = new qx.ui.basic.Label();
+            this.lblName_2.setLabel(this.tr("Name : "));
             this.lblName_2.setMarginBottom(1);
             this.lblName_2.setMarginTop(1);
             this.lblName_2.setMarginLeft(1);
             this.lblName_2.setMarginRight(1);
-            this.lblName_2.setValue(this.tr("Name : "));
             return this.lblName_2;
             
         }
         
         ,create_lblSubAddress: function create_lblSubAddress() {
             this.lblSubAddress = new qx.ui.basic.Label();
+            this.lblSubAddress.setLabel(this.tr("SA"));
             this.lblSubAddress.setMarginBottom(1);
             this.lblSubAddress.setMarginTop(1);
             this.lblSubAddress.setMarginLeft(1);
             this.lblSubAddress.setMarginRight(1);
-            this.lblSubAddress.setValue(this.tr("SA"));
             return this.lblSubAddress;
             
         }
         
         ,create_lblSubAddress_2: function create_lblSubAddress_2() {
             this.lblSubAddress_2 = new qx.ui.basic.Label();
+            this.lblSubAddress_2.setLabel(this.tr("SA"));
             this.lblSubAddress_2.setMarginBottom(1);
             this.lblSubAddress_2.setMarginTop(1);
             this.lblSubAddress_2.setMarginLeft(1);
             this.lblSubAddress_2.setMarginRight(1);
-            this.lblSubAddress_2.setValue(this.tr("SA"));
             return this.lblSubAddress_2;
             
         }
         
         ,create_lblTerminalSN: function create_lblTerminalSN() {
             this.lblTerminalSN = new qx.ui.basic.Label();
+            this.lblTerminalSN.setLabel(this.tr("S/N: "));
             this.lblTerminalSN.setMarginBottom(1);
             this.lblTerminalSN.setMarginTop(1);
             this.lblTerminalSN.setMarginLeft(1);
             this.lblTerminalSN.setMarginRight(1);
-            this.lblTerminalSN.setValue(this.tr("S/N: "));
             return this.lblTerminalSN;
             
         }
         
         ,create_lblTerminalSN_2: function create_lblTerminalSN_2() {
             this.lblTerminalSN_2 = new qx.ui.basic.Label();
+            this.lblTerminalSN_2.setLabel(this.tr("S/N: "));
             this.lblTerminalSN_2.setMarginBottom(1);
             this.lblTerminalSN_2.setMarginTop(1);
             this.lblTerminalSN_2.setMarginLeft(1);
             this.lblTerminalSN_2.setMarginRight(1);
-            this.lblTerminalSN_2.setValue(this.tr("S/N: "));
             return this.lblTerminalSN_2;
             
         }
         
         ,create_lblTest: function create_lblTest() {
             this.lblTest = new qx.ui.basic.Label();
+            this.lblTest.setLabel(this.tr("BJ Test: "));
             this.lblTest.setMarginBottom(1);
             this.lblTest.setMarginTop(1);
             this.lblTest.setMarginLeft(1);
             this.lblTest.setMarginRight(1);
-            this.lblTest.setValue(this.tr("BJ Test: "));
             return this.lblTest;
             
         }
         
         ,create_lblTest_2: function create_lblTest_2() {
             this.lblTest_2 = new qx.ui.basic.Label();
+            this.lblTest_2.setLabel(this.tr("BJ Test: "));
             this.lblTest_2.setMarginBottom(1);
             this.lblTest_2.setMarginTop(1);
             this.lblTest_2.setMarginLeft(1);
             this.lblTest_2.setMarginRight(1);
-            this.lblTest_2.setValue(this.tr("BJ Test: "));
             return this.lblTest_2;
             
         }
         
         ,create_lblTrackingMethod: function create_lblTrackingMethod() {
             this.lblTrackingMethod = new qx.ui.basic.Label();
+            this.lblTrackingMethod.setLabel(this.tr("Method : "));
             this.lblTrackingMethod.setMarginBottom(1);
             this.lblTrackingMethod.setMarginTop(1);
             this.lblTrackingMethod.setMarginLeft(1);
             this.lblTrackingMethod.setMarginRight(1);
-            this.lblTrackingMethod.setValue(this.tr("Method : "));
             return this.lblTrackingMethod;
             
         }
         
         ,create_lblTrackingMethod_2: function create_lblTrackingMethod_2() {
             this.lblTrackingMethod_2 = new qx.ui.basic.Label();
+            this.lblTrackingMethod_2.setLabel(this.tr("Method : "));
             this.lblTrackingMethod_2.setMarginBottom(1);
             this.lblTrackingMethod_2.setMarginTop(1);
             this.lblTrackingMethod_2.setMarginLeft(1);
             this.lblTrackingMethod_2.setMarginRight(1);
-            this.lblTrackingMethod_2.setValue(this.tr("Method : "));
             return this.lblTrackingMethod_2;
             
         }
         
         ,create_pushButton: function create_pushButton() {
             this.pushButton = new qx.ui.form.Button();
-            this.pushButton.setWidth(75);
             this.pushButton.setHeight(26);
+            this.pushButton.setWidth(75);
+            this.pushButton.setLabel(this.tr("PushButton"));
             this.pushButton.setMarginBottom(1);
             this.pushButton.setMarginTop(1);
             this.pushButton.setMarginLeft(1);
             this.pushButton.setMarginRight(1);
-            this.pushButton.setLabel(this.tr("PushButton"));
             return this.pushButton;
             
         }
         
         ,create_pushButton_2: function create_pushButton_2() {
             this.pushButton_2 = new qx.ui.form.Button();
+            this.pushButton_2.setLabel(this.tr("PushButton"));
             this.pushButton_2.setMarginBottom(1);
             this.pushButton_2.setMarginTop(1);
             this.pushButton_2.setMarginLeft(1);
             this.pushButton_2.setMarginRight(1);
-            this.pushButton_2.setLabel(this.tr("PushButton"));
             return this.pushButton_2;
             
         }
         
         ,create_pushButton_3: function create_pushButton_3() {
             this.pushButton_3 = new qx.ui.form.Button();
+            this.pushButton_3.setLabel(this.tr("PushButton"));
             this.pushButton_3.setMarginBottom(1);
             this.pushButton_3.setMarginTop(1);
             this.pushButton_3.setMarginLeft(1);
             this.pushButton_3.setMarginRight(1);
-            this.pushButton_3.setLabel(this.tr("PushButton"));
             return this.pushButton_3;
             
         }
         
         ,create_radioButton: function create_radioButton() {
             this.radioButton = new qx.ui.form.RadioButton();
+            this.radioButton.setLabel(this.tr("Later"));
             this.radioButton.setMarginBottom(1);
             this.radioButton.setMarginTop(1);
             this.radioButton.setMarginLeft(1);
             this.radioButton.setMarginRight(1);
-            this.radioButton.setLabel(this.tr("Later"));
             return this.radioButton;
             
         }
         
         ,create_radioButton_2: function create_radioButton_2() {
             this.radioButton_2 = new qx.ui.form.RadioButton();
+            this.radioButton_2.setLabel(this.tr("Now"));
             this.radioButton_2.setMarginBottom(1);
             this.radioButton_2.setMarginTop(1);
             this.radioButton_2.setMarginLeft(1);
             this.radioButton_2.setMarginRight(1);
-            this.radioButton_2.setLabel(this.tr("Now"));
             return this.radioButton_2;
             
         }
         
         ,create_radioButton_3: function create_radioButton_3() {
             this.radioButton_3 = new qx.ui.form.RadioButton();
+            this.radioButton_3.setLabel(this.tr("do"));
             this.radioButton_3.setMarginBottom(1);
             this.radioButton_3.setMarginTop(1);
             this.radioButton_3.setMarginLeft(1);
             this.radioButton_3.setMarginRight(1);
-            this.radioButton_3.setLabel(this.tr("do"));
             return this.radioButton_3;
             
         }
         
         ,create_radioButton_4: function create_radioButton_4() {
             this.radioButton_4 = new qx.ui.form.RadioButton();
+            this.radioButton_4.setLabel(this.tr("don't"));
             this.radioButton_4.setMarginBottom(1);
             this.radioButton_4.setMarginTop(1);
             this.radioButton_4.setMarginLeft(1);
             this.radioButton_4.setMarginRight(1);
-            this.radioButton_4.setLabel(this.tr("don't"));
             return this.radioButton_4;
             
         }
         
         ,create_radioButton_5: function create_radioButton_5() {
             this.radioButton_5 = new qx.ui.form.RadioButton();
-            this.radioButton_5.setWidth(91);
             this.radioButton_5.setHeight(22);
+            this.radioButton_5.setWidth(91);
+            this.radioButton_5.setLabel(this.tr("RadioButton"));
             this.radioButton_5.setMarginBottom(1);
             this.radioButton_5.setMarginTop(1);
             this.radioButton_5.setMarginLeft(1);
             this.radioButton_5.setMarginRight(1);
-            this.radioButton_5.setLabel(this.tr("RadioButton"));
             return this.radioButton_5;
             
         }
         
         ,create_radioButton_6: function create_radioButton_6() {
             this.radioButton_6 = new qx.ui.form.RadioButton();
+            this.radioButton_6.setLabel(this.tr("Now"));
             this.radioButton_6.setMarginBottom(1);
             this.radioButton_6.setMarginTop(1);
             this.radioButton_6.setMarginLeft(1);
             this.radioButton_6.setMarginRight(1);
-            this.radioButton_6.setLabel(this.tr("Now"));
             return this.radioButton_6;
             
         }
         
         ,create_radioButton_7: function create_radioButton_7() {
             this.radioButton_7 = new qx.ui.form.RadioButton();
+            this.radioButton_7.setLabel(this.tr("Later"));
             this.radioButton_7.setMarginBottom(1);
             this.radioButton_7.setMarginTop(1);
             this.radioButton_7.setMarginLeft(1);
             this.radioButton_7.setMarginRight(1);
-            this.radioButton_7.setLabel(this.tr("Later"));
             return this.radioButton_7;
             
         }
         
         ,create_radioButton_8: function create_radioButton_8() {
             this.radioButton_8 = new qx.ui.form.RadioButton();
+            this.radioButton_8.setLabel(this.tr("don't"));
             this.radioButton_8.setMarginBottom(1);
             this.radioButton_8.setMarginTop(1);
             this.radioButton_8.setMarginLeft(1);
             this.radioButton_8.setMarginRight(1);
-            this.radioButton_8.setLabel(this.tr("don't"));
             return this.radioButton_8;
             
         }
         
         ,create_radioButton_9: function create_radioButton_9() {
             this.radioButton_9 = new qx.ui.form.RadioButton();
+            this.radioButton_9.setLabel(this.tr("do"));
             this.radioButton_9.setMarginBottom(1);
             this.radioButton_9.setMarginTop(1);
             this.radioButton_9.setMarginLeft(1);
             this.radioButton_9.setMarginRight(1);
-            this.radioButton_9.setLabel(this.tr("do"));
             return this.radioButton_9;
             
         }
@@ -1364,8 +1384,8 @@ qx.Class.define("test.draw.Add", {
         
         ,create_scrollAreaWidgetContents: function create_scrollAreaWidgetContents() {
             this.scrollAreaWidgetContents = new qx.ui.container.Composite();
+            this.scrollAreaWidgetContents.setHeight(478);
             this.scrollAreaWidgetContents.setWidth(569);
-            this.scrollAreaWidgetContents.setHeight(463);
             this.scrollAreaWidgetContents.setMarginBottom(1);
             this.scrollAreaWidgetContents.setMarginTop(1);
             this.scrollAreaWidgetContents.setMarginLeft(1);
@@ -1378,8 +1398,8 @@ qx.Class.define("test.draw.Add", {
         
         ,create_scrollAreaWidgetContents_2: function create_scrollAreaWidgetContents_2() {
             this.scrollAreaWidgetContents_2 = new qx.ui.container.Composite();
-            this.scrollAreaWidgetContents_2.setWidth(431);
-            this.scrollAreaWidgetContents_2.setHeight(355);
+            this.scrollAreaWidgetContents_2.setHeight(366);
+            this.scrollAreaWidgetContents_2.setWidth(438);
             this.scrollAreaWidgetContents_2.setMarginBottom(1);
             this.scrollAreaWidgetContents_2.setMarginTop(1);
             this.scrollAreaWidgetContents_2.setMarginLeft(1);
@@ -1396,52 +1416,55 @@ qx.Class.define("test.draw.Add", {
             this.scrollArea_2.setMarginTop(1);
             this.scrollArea_2.setMarginLeft(1);
             this.scrollArea_2.setMarginRight(1);
-            this.scrollArea_2.add(this.create_scrollAreaWidgetContents_2(), {left: 0,top: 0});
+            this.scrollArea_2.add(this.create_scrollAreaWidgetContents_2(), {left: 0,top: -16});
             return this.scrollArea_2;
             
         }
         
         ,create_spinBox: function create_spinBox() {
             this.spinBox = new qx.ui.form.Spinner();
+            this.spinBox.setMaximum(88);
+            this.spinBox.setMinimum(44);
+            this.spinBox.setSingleStep(4);
+            this.spinBox.setValue(55);
             this.spinBox.setMarginBottom(1);
             this.spinBox.setMarginTop(1);
             this.spinBox.setMarginLeft(1);
             this.spinBox.setMarginRight(1);
-            this.spinBox.setValue(55);
-            this.spinBox.setMax(88);
-            this.spinBox.setMargin(1);
             return this.spinBox;
             
         }
         
         ,create_spinBox_2: function create_spinBox_2() {
             this.spinBox_2 = new qx.ui.form.Spinner();
+            this.spinBox_2.setMaximum(88);
+            this.spinBox_2.setMinimum(44);
+            this.spinBox_2.setSingleStep(4);
+            this.spinBox_2.setValue(55);
             this.spinBox_2.setMarginBottom(1);
             this.spinBox_2.setMarginTop(1);
             this.spinBox_2.setMarginLeft(1);
             this.spinBox_2.setMarginRight(1);
-            this.spinBox_2.setValue(55);
-            this.spinBox_2.setMax(88);
-            this.spinBox_2.setMargin(1);
             return this.spinBox_2;
             
         }
         
         ,create_tab: function create_tab() {
             this.tab = new qx.ui.tabview.Page();
+            this.tab.setLabel(this.tr("Tab 1"));
             this.tab.setMarginBottom(1);
             this.tab.setMarginTop(1);
             this.tab.setMarginLeft(1);
             this.tab.setMarginRight(1);
             this.tab.setLayout(this.create_horizontalLayout_6());
             this.tab.add(this.create_groupBox(), {flex: 1});
-            this.tab.setLabel(this.tr("Tab 1"));
             return this.tab;
             
         }
         
         ,create_tabWidget: function create_tabWidget() {
             this.tabWidget = new qx.ui.tabview.TabView();
+            this.tabWidget.setMaxHeight(16777215);
             this.tabWidget.setMaxWidth(1200);
             this.tabWidget.setMarginBottom(1);
             this.tabWidget.setMarginTop(1);
@@ -1468,6 +1491,7 @@ qx.Class.define("test.draw.Add", {
         
         ,create_tab_2: function create_tab_2() {
             this.tab_2 = new qx.ui.tabview.Page();
+            this.tab_2.setLabel(this.tr("Tab 2"));
             this.tab_2.setMarginBottom(1);
             this.tab_2.setMarginTop(1);
             this.tab_2.setMarginLeft(1);
@@ -1476,7 +1500,6 @@ qx.Class.define("test.draw.Add", {
             this.tab_2.add(this.create_checkBox(), {left: 180,top: 180});
             this.tab_2.add(this.create_radioButton_5(), {left: 130,top: 290});
             this.tab_2.add(this.create_pushButton(), {left: 180,top: 120});
-            this.tab_2.setLabel(this.tr("Tab 2"));
             return this.tab_2;
             
         }
@@ -1489,39 +1512,39 @@ qx.Class.define("test.draw.Add", {
         
         ,create_tab_3: function create_tab_3() {
             this.tab_3 = new qx.ui.tabview.Page();
+            this.tab_3.setLabel(this.tr("Page"));
             this.tab_3.setMarginBottom(1);
             this.tab_3.setMarginTop(1);
             this.tab_3.setMarginLeft(1);
             this.tab_3.setMarginRight(1);
             this.tab_3.setLayout(this.create_verticalLayout());
             this.tab_3.add(this.create_scrollArea(), {flex: 1});
-            this.tab_3.setLabel(this.tr("Page"));
             return this.tab_3;
             
         }
         
         ,create_tab_4: function create_tab_4() {
             this.tab_4 = new qx.ui.tabview.Page();
+            this.tab_4.setLabel(this.tr("Tab 1"));
             this.tab_4.setMarginBottom(1);
             this.tab_4.setMarginTop(1);
             this.tab_4.setMarginLeft(1);
             this.tab_4.setMarginRight(1);
             this.tab_4.setLayout(this.create_verticalLayout_4());
             this.tab_4.add(this.create_formLayout_implicit_container(), {flex: 1});
-            this.tab_4.setLabel(this.tr("Tab 1"));
             return this.tab_4;
             
         }
         
         ,create_tab_5: function create_tab_5() {
             this.tab_5 = new qx.ui.tabview.Page();
+            this.tab_5.setLabel(this.tr("Tab 2"));
             this.tab_5.setMarginBottom(1);
             this.tab_5.setMarginTop(1);
             this.tab_5.setMarginLeft(1);
             this.tab_5.setMarginRight(1);
             this.tab_5.setLayout(this.create_verticalLayout_6());
             this.tab_5.add(this.create_scrollArea_2(), {flex: 0});
-            this.tab_5.setLabel(this.tr("Tab 2"));
             return this.tab_5;
             
         }
