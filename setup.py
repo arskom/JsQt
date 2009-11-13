@@ -32,9 +32,8 @@ setup(
 JsQt is a tool to compile Qt Designer's .ui files to javascript code, 
 which is targeted to work with the Qooxdoo framework.
 """,
-
     url = 'http://jsqt.org',
     license = 'GPLv2',
-    platforms = ['Linux','Mac OSX','Windows 7/Vista/XP/2000/NT','Windows 95/98/ME']
+    platforms = ['Linux','Mac OSX','Windows 7/Vista/XP/2000/NT','Windows 95/98/ME'],
 )
 
