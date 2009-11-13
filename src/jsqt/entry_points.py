@@ -26,11 +26,12 @@ import sys
 import os
 import stat
 
-import jsqt
-from jsqt import JsPp
-from jsqt.parser import UiParser
+from misc import JsPp
+from parser import UiParser
 
-def walktree (top = ".", depthfirst = False):
+import jsqt
+
+def walktree(top = ".", depthfirst = False):
     names = os.listdir(top)
     if not depthfirst:
         yield top, names
@@ -44,11 +45,11 @@ def walktree (top = ".", depthfirst = False):
         if stat.S_ISDIR(st.st_mode):
             for (newtop, children) in walktree (os.path.join(top, name), depthfirst):
                 yield newtop, children
-    
+
     if depthfirst:
         yield top, names
 
-def usage():
+def usage_jsqt():
     print "Usage:", sys.argv[0], "xml_input_path js_output_path root_namespace"
 
 def compile(ui_file_name, js_file_name, root_namespace, dialect):
@@ -69,7 +70,9 @@ def compile(ui_file_name, js_file_name, root_namespace, dialect):
     f.write(";\n") # FIXME: Hack!
     f.close()
 
-def main(argv):
+def main_jsqt():
+    argv = sys.argv
+
     print jsqt.header_string
     print "cwd:",os.getcwd()
 
@@ -79,6 +82,7 @@ def main(argv):
                 argv[1]+=os.sep
             if not argv[2].endswith(os.sep):
                 argv[2]+=os.sep
+
             for (basepath, children) in walktree(argv[1]):
                 for c in children:
                     if c[-3:] == '.ui':
@@ -93,15 +97,88 @@ def main(argv):
 
                         compile(ui_file_name, js_file_name, root_namespace, 'javascript-qooxdoo-0.8.3')
         else:
-            usage()
+            usage_jsqt()
             print '       First argument must be a directory!'
             print
 
     else:
-        usage()
+        usage_jsqt()
         print
 
-if __name__ == "__main__":
-    main(sys.argv)
+def usage_jsuic():
+    sys.stderr.write(jsqt.header_string)
+    print """
+Usage: %s [options] <.ui file>"
+    -o <file>                 place the output into <file>
+    -v                        enable verbose output
+    """ % sys.argv[0]
+    #-tr <func>                use func() for i18n
+    sys.exit(1)
+
+def main_jsuic():
+    argv = sys.argv
+    input_file_name = "-"
+    output_file_name = "-"
+    i18n_function = ""
+
+    for i in range(len(sys.argv)):
+        if sys.argv[i] == "-v":
+            jsqt.loglevel = 1
+            break
+
+    for i in range(1,len(argv)):
+        if argv[i] == "-o":
+            if output_file_name == "-":
+                try:
+                    output_file_name = argv[i+1]
+                except IndexError:
+                    usage_jsuic()
+            else:
+                usage_jsuic()
+
+            i+=1
+  
+        elif argv[i] == "-h":
+            usage_jsuic()
+
+        elif argv[i] == "-v":
+            pass
+
+        elif argv[i] == "-tr":
+            try:
+                i18n_function = argv[i+1]
+            except IndexError:
+                usage()
+            i+=1
+
+        elif argv[i][0] == "-":
+            usage_jsuic()
+
+        else:
+            if input_file_name == "-":
+                input_file_name = argv[i]
+            else:
+                usage_jsuic()
+
+    if input_file_name == "-":
+        input_file = sys.stdin
+    else:
+        input_file = open(input_file_name, 'r')
+
+
+    parser = UiParser()
+    parser.parse(input_file)
+    compiled_object = parser.clazz.compile('javascript-qooxdoo-0.8.3')
+
+    if output_file_name == "-":
+        output_file = sys.stdout
+    else:
+        output_file = open(output_file_name, 'w')
+
+    compiled_object.to_stream(JsPp(output_file))
+    output_file.write(";\n") # FIXME: Hack!
+
+    if output_file_name != "-":
+        output_file.close()
 
 
