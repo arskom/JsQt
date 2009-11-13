@@ -68,7 +68,9 @@ class MultiPartCompilable(Compilable):
 
 class DecimalInteger(SinglePartCompilable):
     def __init__(self, value):
-        self.value = value
+        SinglePartCompilable.__init__(self)
+        
+        self.__value = int(value)
 
     @staticmethod
     def from_elt(elt):
@@ -76,7 +78,7 @@ class DecimalInteger(SinglePartCompilable):
 
     def __eq__(self, other):
         if isinstance(other, int):
-            return self.value == other
+            return self.__value == other
         else:
             return id(self) == id(other)
 
@@ -84,14 +86,16 @@ class DecimalInteger(SinglePartCompilable):
         return not self.__eq__(other)
 
     def __repr__(self):
-        return "<il.DecimalInteger(%d)>" % self.value
+        return "<il.DecimalInteger(%d)>" % self.__value
 
     def compile(self, dialect):
-        return js.primitive.DecimalInteger(self.value)
+        return js.primitive.DecimalInteger(self.__value)
 
 class Boolean(SinglePartCompilable):
     def __init__(self, value):
-        self.value = value
+        SinglePartCompilable.__init__(self)
+
+        self.__value = bool(value)
 
     @staticmethod
     def from_elt(elt):
@@ -99,7 +103,7 @@ class Boolean(SinglePartCompilable):
 
     def __eq__(self, other):
         if isinstance(other, bool):
-            return self.value == other
+            return self.__value == other
         else:
             return id(self) == id(other)
 
@@ -107,13 +111,15 @@ class Boolean(SinglePartCompilable):
         return not self.__eq__(other)
 
     def __repr__(self):
-        return "<il.Boolean(%d)>" % self.value
+        return "<il.Boolean(%d)>" % self.__value
 
     def compile(self, dialect):
-        return js.primitive.Boolean(self.value)
+        return js.primitive.Boolean(self.__value)
 
 class ObjectReference(SinglePartCompilable):
     def __init__(self, object_name):
+        SinglePartCompilable.__init__(self)
+
         if len(object_name) ==0:
             raise Exception("Empty object name not allowed")
         self.__object_name = object_name
@@ -126,7 +132,9 @@ class ObjectReference(SinglePartCompilable):
 
 class String(SinglePartCompilable):
     def __init__(self, string):
-        self._string=string
+        SinglePartCompilable.__init__(self)
+
+        self._string=str(string)
 
     @staticmethod
     def from_elt(elt):
@@ -134,7 +142,7 @@ class String(SinglePartCompilable):
 
     def __eq__(self, other):
         if isinstance(other, str) or isinstance(other, unicode):
-            return self.value == other
+            return self.__value == other
         else:
             return id(self) == id(other)
 
@@ -157,15 +165,15 @@ class Comment(SinglePartCompilable):
     def __init__(self, comment):
         SinglePartCompilable.__init__(self)
 
-        if not isinstance(comment,str):
-            raise Exception("Comments only accept strings")
-        self.__comment = comment
+        self.__comment = str(comment)
 
     def compile(self, dialect):
         return js.primitive.Comment(self.__comment)
 
-class Instantiation(object):
+class Instantiation(SinglePartCompilable):
     def __init__(self, class_name, init_arguments=[]):
+        SinglePartCompilable.__init__(self)
+
         if len(class_name) ==0:
             raise Exception("Empty class name not allowed")
         self.__class_name = class_name
@@ -177,6 +185,8 @@ class Instantiation(object):
 
 class Concatenation(SinglePartCompilable):
     def __init__(self, sub_strings):
+        SinglePartCompilable.__init__(self)
+
         self.__sub_strings = sub_strings
 
     def compile(self, dialect):
@@ -185,6 +195,8 @@ class Concatenation(SinglePartCompilable):
 
 class Assignment(SinglePartCompilable):
     def __init__(self, left=None, right=None):
+        SinglePartCompilable.__init__(self)
+        
         self.__left = left
         self.__right = right
 
@@ -200,6 +212,8 @@ class Assignment(SinglePartCompilable):
 
 class FunctionCall(object):
     def __init__(self, function_name, arguments=[]):
+        SinglePartCompilable.__init__(self)
+        
         self.__function_name = function_name
         self.__arguments = DuckTypedList(['compile'],arguments)
 
@@ -355,6 +369,7 @@ class AssociativeArrayInitialization(SinglePartCompilable):
     }
 
     def __init__(self, aai):
+        SinglePartCompilable.__init__(self)
         self.__aai = DuckTypedDict(['compile'])
         for k,v in aai.items():
             if isinstance(v, SinglePartCompilable):
@@ -374,11 +389,13 @@ class ContiguousArrayInitialization(SinglePartCompilable):
     type_map={
         int: DecimalInteger,
         str: String,
+        unicode: TranslatableString,
     }
 
-    def __init__(self, aai):
-        self.__aai = DuckTypedList(['compile'])
-        for v in aai.items():
+    def __init__(self, cai):
+        SinglePartCompilable.__init__(self)
+        self.__cai = DuckTypedList(['compile'])
+        for v in cai.items():
             if isinstance(v, SinglePartCompilable):
                 self.__aai.append(v)
             else:

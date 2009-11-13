@@ -48,7 +48,7 @@
         <string>a simple tooltip for tab 2</string>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -117,7 +117,22 @@
            <property name="title">
             <string>GroupBox</string>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_6">
+           <layout class="QVBoxLayout" name="verticalLayout_6" stretch="1,2,3,4">
+            <property name="spacing">
+             <number>5</number>
+            </property>
+            <property name="leftMargin">
+             <number>6</number>
+            </property>
+            <property name="topMargin">
+             <number>7</number>
+            </property>
+            <property name="rightMargin">
+             <number>8</number>
+            </property>
+            <property name="bottomMargin">
+             <number>9</number>
+            </property>
             <item>
              <widget class="QRadioButton" name="radioButton">
               <property name="text">
@@ -220,7 +235,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>186</width>
+              <width>197</width>
               <height>518</height>
              </rect>
             </property>
@@ -555,7 +570,7 @@
      <x>0</x>
      <y>0</y>
      <width>747</width>
-     <height>28</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMenu1">

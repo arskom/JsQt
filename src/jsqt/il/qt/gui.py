@@ -30,16 +30,22 @@ widget_dict = {}
 layout_dict = {}
 custom_dict = {}
 
+class SimpleProp(object):
+    def __init__(self, function_name, wrapper_type, default_value=None):
+        self.function_name = function_name
+        self.wrapper_type = wrapper_type
+        self.default_value = default_value
+
 class WidgetMeta(type):
     def __init__(cls, name, bases, members):
         try:
             cls.known_simple_props
-        except:
+        except AttributeError:
             cls.known_simple_props = {}
 
         try:
             cls.known_complex_props
-        except:
+        except AttributeError:
             cls.known_complex_props = {}
 
         for b in bases:
@@ -79,10 +85,11 @@ class WidgetMeta(type):
 
 class MGeometryProperties(object):
     def __init__(self):
-        self.__margin_t = 1
-        self.__margin_b = 1
-        self.__margin_l = 1
-        self.__margin_r = 1
+        self.__margin_t = etree.fromstring("<number>1</number>")
+        self.__margin_b = etree.fromstring("<number>1</number>")
+        self.__margin_l = etree.fromstring("<number>1</number>")
+        self.__margin_r = etree.fromstring("<number>1</number>")
+        self.__margin = etree.fromstring("<number>1</number>")
 
         self.__h_stretch_pol = "Expanding"
         self.__h_stretch_coef = 1
@@ -91,14 +98,14 @@ class MGeometryProperties(object):
 
     def get_geometry_top(self):
         if "geometry.y" in self.simple_prop_data:
-            return self.simple_prop_data["geometry.y"].value
+            return int(self.simple_prop_data["geometry.y"].text)
         else:
             return 0
     geometry_top = property(get_geometry_top)
 
     def get_geometry_left(self):
         if "geometry.x" in self.simple_prop_data:
-            return self.simple_prop_data["geometry.x"].value
+            return int(self.simple_prop_data["geometry.x"].text)
         else:
             return 0
     geometry_left = property(get_geometry_left)
@@ -122,11 +129,11 @@ class MGeometryProperties(object):
     def __handle_size_policy(self, elt):
         if elt[0].tag == 'sizepolicy':
             tmp = self._decode_nested_prop(elt[0])
-            
+
             self.__h_stretch_pol = elt[0].attrib['hsizetype']
-            self.__h_stretch_coef = tmp['horstretch']
+            self.__h_stretch_coef = int(tmp['horstretch'].text)
             self.__v_stretch_pol = elt[0].attrib['vsizetype']
-            self.__v_stretch_coef = tmp['verstretch']
+            self.__v_stretch_coef = int(tmp['verstretch'].text)
 
             if self.__h_stretch_pol != "Fixed":
                 if self.__h_stretch_coef == 0:
@@ -141,28 +148,29 @@ class MGeometryProperties(object):
                                                             " 'sizepolicy' tag")
 
     def compile(self, dialect, ret):
-        self._compile_simple_prop("setMarginBottom", il.primitive.DecimalInteger(self.__margin_b), 0)
-        self._compile_simple_prop("setMarginTop", il.primitive.DecimalInteger(self.__margin_t), 0)
-        self._compile_simple_prop("setMarginLeft", il.primitive.DecimalInteger(self.__margin_l), 0)
-        self._compile_simple_prop("setMarginRight", il.primitive.DecimalInteger(self.__margin_r), 0)
+        if not self._compile_simple_prop(SimpleProp("setMargin", il.primitive.DecimalInteger, 0), self.__margin):
+            self._compile_simple_prop(SimpleProp("setMarginTop", il.primitive.DecimalInteger, 0), self.__margin_t)
+            self._compile_simple_prop(SimpleProp("setMarginLeft", il.primitive.DecimalInteger, 0), self.__margin_l)
+            self._compile_simple_prop(SimpleProp("setMarginRight", il.primitive.DecimalInteger, 0), self.__margin_r)
+            self._compile_simple_prop(SimpleProp("setMarginBottom", il.primitive.DecimalInteger, 0), self.__margin_b)
 
     known_simple_props = {
         "geometry": {
-            "x": ("", il.primitive.DecimalInteger, 0),
-            "y": ("", il.primitive.DecimalInteger, 0),
-            "width": ("setWidth", il.primitive.DecimalInteger, 0),
-            "height": ("setHeight", il.primitive.DecimalInteger, 0),
+            "x": SimpleProp("", il.primitive.DecimalInteger, 0),
+            "y": SimpleProp("", il.primitive.DecimalInteger, 0),
+            "width": SimpleProp("setWidth", il.primitive.DecimalInteger, 0),
+            "height": SimpleProp("setHeight", il.primitive.DecimalInteger, 0),
         },
         "minimumSize": {
-            "width": ("setMinWidth", il.primitive.DecimalInteger, 0),
-            "height": ("setMinHeight", il.primitive.DecimalInteger, 0),
+            "width": SimpleProp("setMinWidth", il.primitive.DecimalInteger, 0),
+            "height": SimpleProp("setMinHeight", il.primitive.DecimalInteger, 0),
         },
         "maximumSize": {
-            "width": ("setMaxWidth", il.primitive.DecimalInteger, 0),
-            "height": ("setMaxHeight", il.primitive.DecimalInteger, 0),
+            "width": SimpleProp("setMaxWidth", il.primitive.DecimalInteger, 16777215),
+            "height": SimpleProp("setMaxHeight", il.primitive.DecimalInteger, 16777215),
         }
     }
-    
+
     known_complex_props = {
         "sizePolicy": __handle_size_policy,
     }
@@ -224,7 +232,7 @@ class ObjectBase(il.primitive.MultiPartCompilable):
             else:
                 self.factory_function.add_statement(
                     il.primitive.Comment("The '%s' tag for widget named '%s'"
-                     "of type '%s' is not supported (yet?)"
+                             "of type '%s' is not supported (yet?)"
                                         % (e.tag, self.name, type(self) )))
 
     @staticmethod
@@ -248,17 +256,17 @@ class ObjectBase(il.primitive.MultiPartCompilable):
         return ObjectBase.get_class(class_name)(elt)
 
     def _compile_instantiation(self, dialect, ret):
-        factory_function_retval = il.primitive.ObjectReference('this.%s'
-                                                                    % self.name)
+        factory_function_retval = il.primitive.ObjectReference('retval')
         instantiation = il.primitive.Assignment()
-        instantiation.set_left(factory_function_retval)
+        instantiation.set_left(il.primitive.ObjectReference('this.%s' % self.name))
         instantiation.set_right(il.primitive.Instantiation(self.type))
 
         self.factory_function.add_statement(instantiation)
+        self.factory_function.add_statement(il.primitive.ObjectReference("var retval = this.%s" % self.name)) # FIXME: hack
 
         ret.set_member(self.factory_function.name, self.factory_function)
         self.factory_function.set_return_statement(
-                            il.primitive.ObjectReference('this.%s' % self.name))
+                            il.primitive.ObjectReference('retval'))
 
         ret.set_member(self.name, il.primitive.ObjectReference('null'))
 
@@ -267,22 +275,21 @@ class ObjectBase(il.primitive.MultiPartCompilable):
         keys.sort()
         for k in keys:
             if "." in k:
-                tmp=k.split(".")
-                prop_func = self.known_simple_props[tmp[0]][tmp[1]][0]
-                if prop_func == "":
-                    continue
-
+                tmp = k.split(".")
+                prop = self.known_simple_props[tmp[0]][tmp[1]]
             else:
-                prop_func = self.known_simple_props[k][0]
+                prop = self.known_simple_props[k]
 
-            self._compile_simple_prop(prop_func, self.simple_prop_data[k], None)
+            self._compile_simple_prop(prop, self.simple_prop_data[k])
 
-    def _compile_simple_prop(self, function_name, data, default_value):
-        if data != default_value:
-            fc=il.primitive.FunctionCall("this.%s.%s"%(self.name,function_name),
-                                                                         [data])
-            
+    def _compile_simple_prop(self, prop, data):
+        data=prop.wrapper_type.from_elt(data)
+        if prop.default_value != data and prop.function_name != "" :
+            fc=il.primitive.FunctionCall("retval.%s"%(prop.function_name),[data])
             self.factory_function.add_statement(fc)
+            return True
+        else:
+            return False
 
     def compile(self, dialect, ret):
         self._compile_instantiation(dialect, ret)
@@ -296,16 +303,6 @@ class ObjectBase(il.primitive.MultiPartCompilable):
 
 class WidgetBase(ObjectBase, MGeometryProperties):
     __metaclass__ = WidgetMeta
-
-    primitive_prop_types = {
-        'x': int,
-        'y': int,
-        'width': int,
-        'height': int,
-        'string': str,
-        'horstretch': int,
-        'verstretch': int,
-    }
 
     def __init__(self, elt, name=None):
         MGeometryProperties.__init__(self)
@@ -323,18 +320,18 @@ class WidgetBase(ObjectBase, MGeometryProperties):
             if isinstance(prop,dict):
                 tmp = self._decode_nested_prop(elt[0])
                 for k in tmp:
-                    self.simple_prop_data["%s.%s" % (prop_name,k)] = \
-                                                     prop[k][1](tmp[k])
+                    self.simple_prop_data["%s.%s" % (prop_name,k)] = tmp[k]
+
             else:
-                self.simple_prop_data[prop_name] = prop[1].from_elt(elt[0])
+                self.simple_prop_data[prop_name] = elt[0]
 
         elif prop_name in self.known_complex_props:
-            self.known_complex_props[prop_name](self,elt)
-        
+            self.known_complex_props[prop_name](self, elt)
+
     def _decode_nested_prop(self, elt):
         retval = {}
         for e in elt:
-            retval[e.tag] = self.primitive_prop_types[e.tag](e.text)
+            retval[e.tag] = e
 
         return retval
 
@@ -369,7 +366,7 @@ class ContainerBase(WidgetBase):
 
     def _compile_layout(self, dialect, ret):
         self.layout.compile(dialect, ret)
-        set_layout = il.primitive.FunctionCall('this.%s.setLayout' % self.name,
+        set_layout = il.primitive.FunctionCall('retval.setLayout',
                [il.primitive.FunctionCall("this.create_%s" % self.layout.name)])
 
         self.factory_function.add_statement(set_layout)
@@ -383,16 +380,8 @@ class ContainerBase(WidgetBase):
                 args = [il.primitive.FunctionCall("this.create_%s" % c.name)]
                 c.layout_properties = c.parent.layout.get_properties(
                                                           c._elt.getparent(), c)
-
-                if isinstance(c.layout_properties, dict):
-                    args.append(il.primitive.AssociativeArrayInitialization(
-                                c.layout_properties))
-                                
-                elif isinstance(c.layout_properties, int):
-                    args.append(il.primitive.DecimalInteger(c.layout_properties))
-
-                add_children=il.primitive.FunctionCall('this.%s.add'% self.name,
-                                                                           args)
+                args.append(c.layout_properties)
+                add_children=il.primitive.FunctionCall('retval.add', args)
                 self.factory_function.add_statement(add_children)
 
     def compile(self, dialect, ret):
@@ -422,8 +411,8 @@ class QSpacer(WidgetBase):
 
     known_simple_props = {
         "sizeHint": {
-            "width": ("setWidth", il.primitive.DecimalInteger, 0),
-            "height": ("setHeight", il.primitive.DecimalInteger, 0),
+            "width": SimpleProp("setWidth", il.primitive.DecimalInteger, 0),
+            "height": SimpleProp("setHeight", il.primitive.DecimalInteger, 0),
         },
     }
 

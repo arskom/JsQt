@@ -45,24 +45,28 @@ class CanvasLayout(QLayout):
 
     def get_properties(self, elt, inst):
         if self.parent == None:
-            return {"edge": 0}
+            return il.primitive.AssociativeArrayInitialization({
+                "edge": 0
+            })
         else:
-            return {
+            return il.primitive.AssociativeArrayInitialization({
                 "top": inst.geometry_top,
                 "left": inst.geometry_left,
-            }
+            })
 
 class QVBoxLayout(QLayout):
     type = "qx.ui.layout.VBox"
 
     def get_properties(self, elt, inst):
-        return {"flex": inst.ver_stretch_coef}
+        return il.primitive.AssociativeArrayInitialization(
+	                                        {"flex": inst.ver_stretch_coef})
 
 class QHBoxLayout(QLayout):
     type = "qx.ui.layout.HBox"
 
     def get_properties(self, elt, inst):
-        return {"flex": inst.hor_stretch_coef}
+        return il.primitive.AssociativeArrayInitialization(
+                                                {"flex": inst.hor_stretch_coef})
 
 class AutoExpandingList(list):
     def __getitem__(self, key):
@@ -96,7 +100,7 @@ class QGridLayout(QLayout):
 
         for i in range(len(self.row_flex)):
             if self.row_flex[i] and self.row_flex[i].pol == "Expanding":
-                fc = il.primitive.FunctionCall("this.%s.setRowFlex" % self.name,
+                fc = il.primitive.FunctionCall("retval.setRowFlex",
                     [il.primitive.DecimalInteger(i),
                      il.primitive.DecimalInteger(self.row_flex[i].coef)],
                 )
@@ -104,7 +108,7 @@ class QGridLayout(QLayout):
 
         for i in range(len(self.col_flex)):
             if self.col_flex[i] and self.col_flex[i].pol == "Expanding":
-                fc=il.primitive.FunctionCall("this.%s.setColumnFlex"% self.name,
+                fc=il.primitive.FunctionCall("retval.setColumnFlex",
                     [il.primitive.DecimalInteger(i),
                      il.primitive.DecimalInteger(self.col_flex[i].coef)],
                 )
@@ -142,7 +146,7 @@ class QGridLayout(QLayout):
         if inst.ver_stretch_pol == "Fixed":
             self.col_flex[retval['column']].pol = "Fixed"
 
-        return retval
+        return il.primitive.AssociativeArrayInitialization(retval)
 
 class SplitPaneLayout(QLayout):
     type = None
@@ -152,9 +156,9 @@ class SplitPaneLayout(QLayout):
 
     def get_properties(self, elt, inst):
         if self.parent.orientation == "horizontal":
-            return inst.hor_stretch_coef
+            return il.primitive.DecimalInteger(inst.hor_stretch_coef)
         elif self.parent.orientation == "vertical":
-            return inst.ver_stretch_coef
+            return il.primitive.DecimalInteger(inst.ver_stretch_coef)
 
 class TabViewLayout(QLayout):
     type = None
@@ -163,6 +167,6 @@ class TabViewLayout(QLayout):
         pass
     
     def get_properties(self, elt, inst):
-        return None
+        return il.primitive.AssociativeArrayInitialization({})
 
     

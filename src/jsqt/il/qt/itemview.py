@@ -73,7 +73,7 @@ class MItemView(object):
 
     def compile(self, dialect, elt, function_name = "setLabel"):
         for a in self.__items:
-            fc = il.primitive.FunctionCall("this.%s.add" % (self.name),
+            fc = il.primitive.FunctionCall("retval.add",
                 [il.primitive.Instantiation("qx.ui.form.ListItem",
                                                        [a.name,a.icon,a.value])]
             )
@@ -107,8 +107,7 @@ class QTableWidget(QAbstractItemView):
         WidgetBase.__init__(self,elt,name)
         
     def _compile_instantiation(self, dialect, ret):
-        factory_function_retval = il.primitive.ObjectReference('this.%s' % 
-                                                                      self.name)
+        factory_function_retval = il.primitive.ObjectReference('retval')
         assignment = il.primitive.Assignment()
         assignment.set_left(factory_function_retval)
 
@@ -138,7 +137,7 @@ class QTableWidget(QAbstractItemView):
 
         ret.set_member(self.factory_function.name, self.factory_function)
         self.factory_function.set_return_statement(
-                            il.primitive.ObjectReference('this.%s' % self.name))
+                            il.primitive.ObjectReference('retval'))
 
         ret.set_member(self.name, il.primitive.ObjectReference('null'))
 

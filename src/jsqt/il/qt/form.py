@@ -21,20 +21,20 @@
 # 02110-1301, USA.
 #
 
-from gui import WidgetBase
+from gui import WidgetBase, SimpleProp
 from itemview import MItemView
 from jsqt import il
 
 class QLabel(WidgetBase):
     type = "qx.ui.basic.Label"
     known_simple_props = {
-        "text": ("setLabel", il.primitive.TranslatableString),
+        "text": SimpleProp("setValue", il.primitive.TranslatableString),
     }
 
 class QPushButton(WidgetBase):
     type = "qx.ui.form.Button"
     known_simple_props = {
-        "text": ("setLabel", il.primitive.TranslatableString),
+        "text": SimpleProp("setLabel", il.primitive.TranslatableString),
     }
 
 class QLineEdit(WidgetBase):
@@ -46,10 +46,10 @@ class QTextEdit(WidgetBase):
 class QSpinBox(WidgetBase):
     type="qx.ui.form.Spinner"
     known_simple_props = {
-        "maximum": ("setMaximum", il.primitive.DecimalInteger),
-        "value": ("setValue", il.primitive.DecimalInteger),
-        "minimum": ("setMinimum", il.primitive.DecimalInteger),
-        "singleStep": ("setSingleStep", il.primitive.DecimalInteger),
+        "maximum": SimpleProp("setMaximum", il.primitive.DecimalInteger),
+        "value": SimpleProp("setValue", il.primitive.DecimalInteger),
+        "minimum": SimpleProp("setMinimum", il.primitive.DecimalInteger),
+        "singleStep": SimpleProp("setSingleStep", il.primitive.DecimalInteger),
     }
 
 class QDateEdit(WidgetBase):
@@ -58,15 +58,15 @@ class QDateEdit(WidgetBase):
 class QCheckBox(WidgetBase):
     type="qx.ui.form.CheckBox"
     known_simple_props = {
-        "text": ("setLabel", il.primitive.TranslatableString),
-        "checked": ("setValue", il.primitive.Boolean),
+        "text": SimpleProp("setLabel", il.primitive.TranslatableString),
+        "checked": SimpleProp("setValue", il.primitive.Boolean),
     }
 
 class QRadioButton(WidgetBase):
     type="qx.ui.form.RadioButton"
     known_simple_props = {
-        "text": ("setLabel", il.primitive.TranslatableString),
-        "checked": ("setValue", il.primitive.Boolean),
+        "text": SimpleProp("setLabel", il.primitive.TranslatableString),
+        "checked": SimpleProp("setValue", il.primitive.Boolean),
     }
     
 class QComboBox(WidgetBase, MItemView):

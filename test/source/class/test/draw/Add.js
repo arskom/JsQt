@@ -50,1538 +50,1335 @@ qx.Class.define("test.draw.Add", {
         ,comboTrackingMethod_2: null
         ,create_Add: function create_Add() {
             this.Add = new qx.ui.container.Composite();
-            this.Add.setHeight(484);
-            this.Add.setWidth(629);
-            this.Add.setMarginBottom(1);
-            this.Add.setMarginTop(1);
-            this.Add.setMarginLeft(1);
-            this.Add.setMarginRight(1);
-            this.Add.setLayout(this.create___lv());
-            this.Add.add(this.create_centralwidget(), {flex: 1});
-            return this.Add;
+            var retval  =  this.Add;
+            retval.setHeight(484);
+            retval.setWidth(629);
+            retval.setMargin(1);
+            retval.setLayout(this.create___lv());
+            retval.add(this.create_centralwidget(), {flex: 1});
+            return retval;
             
         }
         
         ,create_HLTest: function create_HLTest() {
             this.HLTest = new qx.ui.layout.HBox();
-            return this.HLTest;
+            var retval  =  this.HLTest;
+            return retval;
             
         }
         
         ,create_HLTest_2: function create_HLTest_2() {
             this.HLTest_2 = new qx.ui.layout.HBox();
-            return this.HLTest_2;
+            var retval  =  this.HLTest_2;
+            return retval;
             
         }
         
         ,create_HLTest_2_implicit_container: function create_HLTest_2_implicit_container() {
             this.HLTest_2_implicit_container = new qx.ui.container.Composite();
-            this.HLTest_2_implicit_container.setMarginBottom(1);
-            this.HLTest_2_implicit_container.setMarginTop(1);
-            this.HLTest_2_implicit_container.setMarginLeft(1);
-            this.HLTest_2_implicit_container.setMarginRight(1);
-            this.HLTest_2_implicit_container.setLayout(this.create_HLTest_2());
-            this.HLTest_2_implicit_container.add(this.create_chkLRITTest_2(), {flex: 1});
-            this.HLTest_2_implicit_container.add(this.create_radioButton_6(), {flex: 1});
-            this.HLTest_2_implicit_container.add(this.create_radioButton_7(), {flex: 1});
-            return this.HLTest_2_implicit_container;
+            var retval  =  this.HLTest_2_implicit_container;
+            retval.setMargin(1);
+            retval.setLayout(this.create_HLTest_2());
+            retval.add(this.create_chkLRITTest_2(), {flex: 1});
+            retval.add(this.create_radioButton_6(), {flex: 1});
+            retval.add(this.create_radioButton_7(), {flex: 1});
+            return retval;
             
         }
         
         ,create_HLTest_implicit_container: function create_HLTest_implicit_container() {
             this.HLTest_implicit_container = new qx.ui.container.Composite();
-            this.HLTest_implicit_container.setMarginBottom(1);
-            this.HLTest_implicit_container.setMarginTop(1);
-            this.HLTest_implicit_container.setMarginLeft(1);
-            this.HLTest_implicit_container.setMarginRight(1);
-            this.HLTest_implicit_container.setLayout(this.create_HLTest());
-            this.HLTest_implicit_container.add(this.create_chkLRITTest(), {flex: 1});
-            this.HLTest_implicit_container.add(this.create_radioButton_2(), {flex: 1});
-            this.HLTest_implicit_container.add(this.create_radioButton(), {flex: 1});
-            return this.HLTest_implicit_container;
+            var retval  =  this.HLTest_implicit_container;
+            retval.setMargin(1);
+            retval.setLayout(this.create_HLTest());
+            retval.add(this.create_chkLRITTest(), {flex: 1});
+            retval.add(this.create_radioButton_2(), {flex: 1});
+            retval.add(this.create_radioButton(), {flex: 1});
+            return retval;
             
         }
         
         ,create_HLTrackingMethod: function create_HLTrackingMethod() {
             this.HLTrackingMethod = new qx.ui.layout.HBox();
-            return this.HLTrackingMethod;
+            var retval  =  this.HLTrackingMethod;
+            return retval;
             
         }
         
         ,create_HLTrackingMethod_2: function create_HLTrackingMethod_2() {
             this.HLTrackingMethod_2 = new qx.ui.layout.HBox();
-            return this.HLTrackingMethod_2;
+            var retval  =  this.HLTrackingMethod_2;
+            return retval;
             
         }
         
         ,create_HLTrackingMethod_2_implicit_container: function create_HLTrackingMethod_2_implicit_container() {
             this.HLTrackingMethod_2_implicit_container = new qx.ui.container.Composite();
-            this.HLTrackingMethod_2_implicit_container.setMarginBottom(1);
-            this.HLTrackingMethod_2_implicit_container.setMarginTop(1);
-            this.HLTrackingMethod_2_implicit_container.setMarginLeft(1);
-            this.HLTrackingMethod_2_implicit_container.setMarginRight(1);
-            this.HLTrackingMethod_2_implicit_container.setLayout(this.create_HLTrackingMethod_2());
-            this.HLTrackingMethod_2_implicit_container.add(this.create_comboTrackingMethod_2(), {flex: 1});
-            this.HLTrackingMethod_2_implicit_container.add(this.create_horizontalSpacer(), {flex: 1});
-            this.HLTrackingMethod_2_implicit_container.add(this.create_lblInterval_2(), {flex: 1});
-            this.HLTrackingMethod_2_implicit_container.add(this.create_comboInterval_2(), {flex: 1});
-            this.HLTrackingMethod_2_implicit_container.add(this.create_horizontalSpacer_2(), {flex: 1});
-            return this.HLTrackingMethod_2_implicit_container;
+            var retval  =  this.HLTrackingMethod_2_implicit_container;
+            retval.setMargin(1);
+            retval.setLayout(this.create_HLTrackingMethod_2());
+            retval.add(this.create_comboTrackingMethod_2(), {flex: 1});
+            retval.add(this.create_horizontalSpacer(), {flex: 1});
+            retval.add(this.create_lblInterval_2(), {flex: 1});
+            retval.add(this.create_comboInterval_2(), {flex: 1});
+            retval.add(this.create_horizontalSpacer_2(), {flex: 1});
+            return retval;
             
         }
         
         ,create_HLTrackingMethod_implicit_container: function create_HLTrackingMethod_implicit_container() {
             this.HLTrackingMethod_implicit_container = new qx.ui.container.Composite();
-            this.HLTrackingMethod_implicit_container.setMarginBottom(1);
-            this.HLTrackingMethod_implicit_container.setMarginTop(1);
-            this.HLTrackingMethod_implicit_container.setMarginLeft(1);
-            this.HLTrackingMethod_implicit_container.setMarginRight(1);
-            this.HLTrackingMethod_implicit_container.setLayout(this.create_HLTrackingMethod());
-            this.HLTrackingMethod_implicit_container.add(this.create_comboTrackingMethod(), {flex: 1});
-            this.HLTrackingMethod_implicit_container.add(this.create_horizontalSpacer(), {flex: 1});
-            this.HLTrackingMethod_implicit_container.add(this.create_lblInterval(), {flex: 1});
-            this.HLTrackingMethod_implicit_container.add(this.create_comboInterval(), {flex: 1});
-            this.HLTrackingMethod_implicit_container.add(this.create_horizontalSpacer_2(), {flex: 1});
-            return this.HLTrackingMethod_implicit_container;
+            var retval  =  this.HLTrackingMethod_implicit_container;
+            retval.setMargin(1);
+            retval.setLayout(this.create_HLTrackingMethod());
+            retval.add(this.create_comboTrackingMethod(), {flex: 1});
+            retval.add(this.create_horizontalSpacer(), {flex: 1});
+            retval.add(this.create_lblInterval(), {flex: 1});
+            retval.add(this.create_comboInterval(), {flex: 1});
+            retval.add(this.create_horizontalSpacer_2(), {flex: 1});
+            return retval;
             
         }
         
         ,create_VLEmail: function create_VLEmail() {
             this.VLEmail = new qx.ui.layout.VBox();
-            return this.VLEmail;
+            var retval  =  this.VLEmail;
+            return retval;
             
         }
         
         ,create_VLEmail_2: function create_VLEmail_2() {
             this.VLEmail_2 = new qx.ui.layout.VBox();
-            return this.VLEmail_2;
+            var retval  =  this.VLEmail_2;
+            return retval;
             
         }
         
         ,create_VLEmail_2_implicit_container: function create_VLEmail_2_implicit_container() {
             this.VLEmail_2_implicit_container = new qx.ui.container.Composite();
-            this.VLEmail_2_implicit_container.setMarginBottom(1);
-            this.VLEmail_2_implicit_container.setMarginTop(1);
-            this.VLEmail_2_implicit_container.setMarginLeft(1);
-            this.VLEmail_2_implicit_container.setMarginRight(1);
-            this.VLEmail_2_implicit_container.setLayout(this.create_VLEmail_2());
-            this.VLEmail_2_implicit_container.add(this.create_edtEmail_2(), {flex: 1});
-            this.VLEmail_2_implicit_container.add(this.create_horizontalLayout_10_implicit_container(), {flex: 1});
-            return this.VLEmail_2_implicit_container;
+            var retval  =  this.VLEmail_2_implicit_container;
+            retval.setMargin(1);
+            retval.setLayout(this.create_VLEmail_2());
+            retval.add(this.create_edtEmail_2(), {flex: 1});
+            retval.add(this.create_horizontalLayout_10_implicit_container(), {flex: 1});
+            return retval;
             
         }
         
         ,create_VLEmail_implicit_container: function create_VLEmail_implicit_container() {
             this.VLEmail_implicit_container = new qx.ui.container.Composite();
-            this.VLEmail_implicit_container.setMarginBottom(1);
-            this.VLEmail_implicit_container.setMarginTop(1);
-            this.VLEmail_implicit_container.setMarginLeft(1);
-            this.VLEmail_implicit_container.setMarginRight(1);
-            this.VLEmail_implicit_container.setLayout(this.create_VLEmail());
-            this.VLEmail_implicit_container.add(this.create_edtEmail(), {flex: 1});
-            this.VLEmail_implicit_container.add(this.create_horizontalLayout_5_implicit_container(), {flex: 1});
-            return this.VLEmail_implicit_container;
+            var retval  =  this.VLEmail_implicit_container;
+            retval.setMargin(1);
+            retval.setLayout(this.create_VLEmail());
+            retval.add(this.create_edtEmail(), {flex: 1});
+            retval.add(this.create_horizontalLayout_5_implicit_container(), {flex: 1});
+            return retval;
             
         }
         
         ,create___lv: function create___lv() {
             this.__lv = new qx.ui.layout.VBox();
-            return this.__lv;
+            var retval  =  this.__lv;
+            return retval;
             
         }
         
         ,create_centralwidget: function create_centralwidget() {
             this.centralwidget = new qx.ui.container.Composite();
-            this.centralwidget.setMarginBottom(1);
-            this.centralwidget.setMarginTop(1);
-            this.centralwidget.setMarginLeft(1);
-            this.centralwidget.setMarginRight(1);
-            this.centralwidget.setLayout(this.create_horizontalLayout_3());
-            this.centralwidget.add(this.create_tabWidget(), {flex: 1});
-            return this.centralwidget;
+            var retval  =  this.centralwidget;
+            retval.setMargin(1);
+            retval.setLayout(this.create_horizontalLayout_3());
+            retval.add(this.create_tabWidget(), {flex: 1});
+            return retval;
             
         }
         
         ,create_checkBox: function create_checkBox() {
             this.checkBox = new qx.ui.form.CheckBox();
-            this.checkBox.setHeight(21);
-            this.checkBox.setWidth(81);
-            this.checkBox.setLabel(this.tr("CheckBox"));
-            this.checkBox.setMarginBottom(1);
-            this.checkBox.setMarginTop(1);
-            this.checkBox.setMarginLeft(1);
-            this.checkBox.setMarginRight(1);
-            return this.checkBox;
+            var retval  =  this.checkBox;
+            retval.setHeight(21);
+            retval.setWidth(81);
+            retval.setLabel(this.tr("CheckBox"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_chkEmail: function create_chkEmail() {
             this.chkEmail = new qx.ui.form.CheckBox();
-            this.chkEmail.setValue(true);
-            this.chkEmail.setLabel(this.tr("No Email"));
-            this.chkEmail.setMarginBottom(1);
-            this.chkEmail.setMarginTop(1);
-            this.chkEmail.setMarginLeft(1);
-            this.chkEmail.setMarginRight(1);
-            return this.chkEmail;
+            var retval  =  this.chkEmail;
+            retval.setValue(true);
+            retval.setLabel(this.tr("No Email"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_chkEmail_2: function create_chkEmail_2() {
             this.chkEmail_2 = new qx.ui.form.CheckBox();
-            this.chkEmail_2.setValue(true);
-            this.chkEmail_2.setLabel(this.tr("No Email"));
-            this.chkEmail_2.setMarginBottom(1);
-            this.chkEmail_2.setMarginTop(1);
-            this.chkEmail_2.setMarginLeft(1);
-            this.chkEmail_2.setMarginRight(1);
-            return this.chkEmail_2;
+            var retval  =  this.chkEmail_2;
+            retval.setValue(true);
+            retval.setLabel(this.tr("No Email"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_chkLRITTest: function create_chkLRITTest() {
             this.chkLRITTest = new qx.ui.form.CheckBox();
-            this.chkLRITTest.setLabel(this.tr("Start"));
-            this.chkLRITTest.setMarginBottom(1);
-            this.chkLRITTest.setMarginTop(1);
-            this.chkLRITTest.setMarginLeft(1);
-            this.chkLRITTest.setMarginRight(1);
-            return this.chkLRITTest;
+            var retval  =  this.chkLRITTest;
+            retval.setLabel(this.tr("Start"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_chkLRITTest_2: function create_chkLRITTest_2() {
             this.chkLRITTest_2 = new qx.ui.form.CheckBox();
-            this.chkLRITTest_2.setLabel(this.tr("Start"));
-            this.chkLRITTest_2.setMarginBottom(1);
-            this.chkLRITTest_2.setMarginTop(1);
-            this.chkLRITTest_2.setMarginLeft(1);
-            this.chkLRITTest_2.setMarginRight(1);
-            return this.chkLRITTest_2;
+            var retval  =  this.chkLRITTest_2;
+            retval.setLabel(this.tr("Start"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_comboInterval: function create_comboInterval() {
             this.comboInterval = new qx.ui.form.SelectBox();
-            this.comboInterval.setMarginBottom(1);
-            this.comboInterval.setMarginTop(1);
-            this.comboInterval.setMarginLeft(1);
-            this.comboInterval.setMarginRight(1);
-            return this.comboInterval;
+            var retval  =  this.comboInterval;
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_comboInterval_2: function create_comboInterval_2() {
             this.comboInterval_2 = new qx.ui.form.SelectBox();
-            this.comboInterval_2.setMarginBottom(1);
-            this.comboInterval_2.setMarginTop(1);
-            this.comboInterval_2.setMarginLeft(1);
-            this.comboInterval_2.setMarginRight(1);
-            return this.comboInterval_2;
+            var retval  =  this.comboInterval_2;
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_comboSubAddress: function create_comboSubAddress() {
             this.comboSubAddress = new qx.ui.form.SelectBox();
-            this.comboSubAddress.setMinHeight(0);
-            this.comboSubAddress.setMinWidth(80);
-            this.comboSubAddress.setMarginBottom(1);
-            this.comboSubAddress.setMarginTop(1);
-            this.comboSubAddress.setMarginLeft(1);
-            this.comboSubAddress.setMarginRight(1);
-            this.comboSubAddress.add(new qx.ui.form.ListItem("1",null,null));
-            this.comboSubAddress.add(new qx.ui.form.ListItem("2",null,null));
-            this.comboSubAddress.add(new qx.ui.form.ListItem("3",null,null));
-            this.comboSubAddress.add(new qx.ui.form.ListItem("4",null,null));
-            this.comboSubAddress.add(new qx.ui.form.ListItem("5",null,null));
-            this.comboSubAddress.add(new qx.ui.form.ListItem("6",null,null));
-            this.comboSubAddress.add(new qx.ui.form.ListItem("7",null,null));
-            return this.comboSubAddress;
+            var retval  =  this.comboSubAddress;
+            retval.setMinWidth(80);
+            retval.setMargin(1);
+            retval.add(new qx.ui.form.ListItem("1",null,null));
+            retval.add(new qx.ui.form.ListItem("2",null,null));
+            retval.add(new qx.ui.form.ListItem("3",null,null));
+            retval.add(new qx.ui.form.ListItem("4",null,null));
+            retval.add(new qx.ui.form.ListItem("5",null,null));
+            retval.add(new qx.ui.form.ListItem("6",null,null));
+            retval.add(new qx.ui.form.ListItem("7",null,null));
+            return retval;
             
         }
         
         ,create_comboSubAddress_2: function create_comboSubAddress_2() {
             this.comboSubAddress_2 = new qx.ui.form.SelectBox();
-            this.comboSubAddress_2.setMinHeight(0);
-            this.comboSubAddress_2.setMinWidth(80);
-            this.comboSubAddress_2.setMarginBottom(1);
-            this.comboSubAddress_2.setMarginTop(1);
-            this.comboSubAddress_2.setMarginLeft(1);
-            this.comboSubAddress_2.setMarginRight(1);
-            this.comboSubAddress_2.add(new qx.ui.form.ListItem("1",null,null));
-            this.comboSubAddress_2.add(new qx.ui.form.ListItem("2",null,null));
-            this.comboSubAddress_2.add(new qx.ui.form.ListItem("3",null,null));
-            this.comboSubAddress_2.add(new qx.ui.form.ListItem("4",null,null));
-            this.comboSubAddress_2.add(new qx.ui.form.ListItem("5",null,null));
-            this.comboSubAddress_2.add(new qx.ui.form.ListItem("6",null,null));
-            this.comboSubAddress_2.add(new qx.ui.form.ListItem("7",null,null));
-            return this.comboSubAddress_2;
+            var retval  =  this.comboSubAddress_2;
+            retval.setMinWidth(80);
+            retval.setMargin(1);
+            retval.add(new qx.ui.form.ListItem("1",null,null));
+            retval.add(new qx.ui.form.ListItem("2",null,null));
+            retval.add(new qx.ui.form.ListItem("3",null,null));
+            retval.add(new qx.ui.form.ListItem("4",null,null));
+            retval.add(new qx.ui.form.ListItem("5",null,null));
+            retval.add(new qx.ui.form.ListItem("6",null,null));
+            retval.add(new qx.ui.form.ListItem("7",null,null));
+            return retval;
             
         }
         
         ,create_comboTrackingMethod: function create_comboTrackingMethod() {
             this.comboTrackingMethod = new qx.ui.form.SelectBox();
-            this.comboTrackingMethod.setMarginBottom(1);
-            this.comboTrackingMethod.setMarginTop(1);
-            this.comboTrackingMethod.setMarginLeft(1);
-            this.comboTrackingMethod.setMarginRight(1);
-            return this.comboTrackingMethod;
+            var retval  =  this.comboTrackingMethod;
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_comboTrackingMethod_2: function create_comboTrackingMethod_2() {
             this.comboTrackingMethod_2 = new qx.ui.form.SelectBox();
-            this.comboTrackingMethod_2.setMarginBottom(1);
-            this.comboTrackingMethod_2.setMarginTop(1);
-            this.comboTrackingMethod_2.setMarginLeft(1);
-            this.comboTrackingMethod_2.setMarginRight(1);
-            return this.comboTrackingMethod_2;
+            var retval  =  this.comboTrackingMethod_2;
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_dateEdit: function create_dateEdit() {
             this.dateEdit = new qx.ui.form.DateField();
-            this.dateEdit.setMarginBottom(1);
-            this.dateEdit.setMarginTop(1);
-            this.dateEdit.setMarginLeft(1);
-            this.dateEdit.setMarginRight(1);
-            return this.dateEdit;
+            var retval  =  this.dateEdit;
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_dateEdit_2: function create_dateEdit_2() {
             this.dateEdit_2 = new qx.ui.form.DateField();
-            this.dateEdit_2.setMarginBottom(1);
-            this.dateEdit_2.setMarginTop(1);
-            this.dateEdit_2.setMarginLeft(1);
-            this.dateEdit_2.setMarginRight(1);
-            return this.dateEdit_2;
+            var retval  =  this.dateEdit_2;
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_edtAnswerBack: function create_edtAnswerBack() {
             this.edtAnswerBack = new qx.ui.form.TextField();
-            this.edtAnswerBack.setMarginBottom(1);
-            this.edtAnswerBack.setMarginTop(1);
-            this.edtAnswerBack.setMarginLeft(1);
-            this.edtAnswerBack.setMarginRight(1);
-            return this.edtAnswerBack;
+            var retval  =  this.edtAnswerBack;
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_edtAnswerBack_2: function create_edtAnswerBack_2() {
             this.edtAnswerBack_2 = new qx.ui.form.TextField();
-            this.edtAnswerBack_2.setMarginBottom(1);
-            this.edtAnswerBack_2.setMarginTop(1);
-            this.edtAnswerBack_2.setMarginLeft(1);
-            this.edtAnswerBack_2.setMarginRight(1);
-            return this.edtAnswerBack_2;
+            var retval  =  this.edtAnswerBack_2;
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_edtCompany: function create_edtCompany() {
             this.edtCompany = new qx.ui.form.TextField();
-            this.edtCompany.setMaxHeight(16777215);
-            this.edtCompany.setMaxWidth(5);
-            this.edtCompany.setMinHeight(0);
-            this.edtCompany.setMinWidth(300);
-            this.edtCompany.setMarginBottom(1);
-            this.edtCompany.setMarginTop(1);
-            this.edtCompany.setMarginLeft(1);
-            this.edtCompany.setMarginRight(1);
-            return this.edtCompany;
+            var retval  =  this.edtCompany;
+            retval.setMaxWidth(5);
+            retval.setMinWidth(300);
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_edtCompany_2: function create_edtCompany_2() {
             this.edtCompany_2 = new qx.ui.form.TextField();
-            this.edtCompany_2.setMarginBottom(1);
-            this.edtCompany_2.setMarginTop(1);
-            this.edtCompany_2.setMarginLeft(1);
-            this.edtCompany_2.setMarginRight(1);
-            return this.edtCompany_2;
+            var retval  =  this.edtCompany_2;
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_edtDNID: function create_edtDNID() {
             this.edtDNID = new qx.ui.form.TextField();
-            this.edtDNID.setMinHeight(0);
-            this.edtDNID.setMinWidth(50);
-            this.edtDNID.setMarginBottom(1);
-            this.edtDNID.setMarginTop(1);
-            this.edtDNID.setMarginLeft(1);
-            this.edtDNID.setMarginRight(1);
-            return this.edtDNID;
+            var retval  =  this.edtDNID;
+            retval.setMinWidth(50);
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_edtDNID_2: function create_edtDNID_2() {
             this.edtDNID_2 = new qx.ui.form.TextField();
-            this.edtDNID_2.setMinHeight(0);
-            this.edtDNID_2.setMinWidth(50);
-            this.edtDNID_2.setMarginBottom(1);
-            this.edtDNID_2.setMarginTop(1);
-            this.edtDNID_2.setMarginLeft(1);
-            this.edtDNID_2.setMarginRight(1);
-            return this.edtDNID_2;
+            var retval  =  this.edtDNID_2;
+            retval.setMinWidth(50);
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_edtEmail: function create_edtEmail() {
             this.edtEmail = new qx.ui.form.TextField();
-            this.edtEmail.setMarginBottom(1);
-            this.edtEmail.setMarginTop(1);
-            this.edtEmail.setMarginLeft(1);
-            this.edtEmail.setMarginRight(1);
-            return this.edtEmail;
+            var retval  =  this.edtEmail;
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_edtEmail_2: function create_edtEmail_2() {
             this.edtEmail_2 = new qx.ui.form.TextField();
-            this.edtEmail_2.setMarginBottom(1);
-            this.edtEmail_2.setMarginTop(1);
-            this.edtEmail_2.setMarginLeft(1);
-            this.edtEmail_2.setMarginRight(1);
-            return this.edtEmail_2;
+            var retval  =  this.edtEmail_2;
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_edtIOWN: function create_edtIOWN() {
             this.edtIOWN = new qx.ui.form.TextField();
-            this.edtIOWN.setMarginBottom(1);
-            this.edtIOWN.setMarginTop(1);
-            this.edtIOWN.setMarginLeft(1);
-            this.edtIOWN.setMarginRight(1);
-            return this.edtIOWN;
+            var retval  =  this.edtIOWN;
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_edtIOWN_2: function create_edtIOWN_2() {
             this.edtIOWN_2 = new qx.ui.form.TextField();
-            this.edtIOWN_2.setMarginBottom(1);
-            this.edtIOWN_2.setMarginTop(1);
-            this.edtIOWN_2.setMarginLeft(1);
-            this.edtIOWN_2.setMarginRight(1);
-            return this.edtIOWN_2;
+            var retval  =  this.edtIOWN_2;
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_edtMN: function create_edtMN() {
             this.edtMN = new qx.ui.form.TextField();
-            this.edtMN.setMinHeight(0);
-            this.edtMN.setMinWidth(30);
-            this.edtMN.setMarginBottom(1);
-            this.edtMN.setMarginTop(1);
-            this.edtMN.setMarginLeft(1);
-            this.edtMN.setMarginRight(1);
-            return this.edtMN;
+            var retval  =  this.edtMN;
+            retval.setMinWidth(30);
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_edtMN_2: function create_edtMN_2() {
             this.edtMN_2 = new qx.ui.form.TextField();
-            this.edtMN_2.setMinHeight(0);
-            this.edtMN_2.setMinWidth(30);
-            this.edtMN_2.setMarginBottom(1);
-            this.edtMN_2.setMarginTop(1);
-            this.edtMN_2.setMarginLeft(1);
-            this.edtMN_2.setMarginRight(1);
-            return this.edtMN_2;
+            var retval  =  this.edtMN_2;
+            retval.setMinWidth(30);
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_edtName: function create_edtName() {
             this.edtName = new qx.ui.form.TextField();
-            this.edtName.setMarginBottom(1);
-            this.edtName.setMarginTop(1);
-            this.edtName.setMarginLeft(1);
-            this.edtName.setMarginRight(1);
-            return this.edtName;
+            var retval  =  this.edtName;
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_edtName_2: function create_edtName_2() {
             this.edtName_2 = new qx.ui.form.TextField();
-            this.edtName_2.setMaxHeight(16777215);
-            this.edtName_2.setMaxWidth(400);
-            this.edtName_2.setMinHeight(0);
-            this.edtName_2.setMinWidth(300);
-            this.edtName_2.setMarginBottom(1);
-            this.edtName_2.setMarginTop(1);
-            this.edtName_2.setMarginLeft(1);
-            this.edtName_2.setMarginRight(1);
-            return this.edtName_2;
+            var retval  =  this.edtName_2;
+            retval.setMaxWidth(400);
+            retval.setMinWidth(300);
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_edtTerminalSN: function create_edtTerminalSN() {
             this.edtTerminalSN = new qx.ui.form.TextField();
-            this.edtTerminalSN.setMarginBottom(1);
-            this.edtTerminalSN.setMarginTop(1);
-            this.edtTerminalSN.setMarginLeft(1);
-            this.edtTerminalSN.setMarginRight(1);
-            return this.edtTerminalSN;
+            var retval  =  this.edtTerminalSN;
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_edtTerminalSN_2: function create_edtTerminalSN_2() {
             this.edtTerminalSN_2 = new qx.ui.form.TextField();
-            this.edtTerminalSN_2.setMarginBottom(1);
-            this.edtTerminalSN_2.setMarginTop(1);
-            this.edtTerminalSN_2.setMarginLeft(1);
-            this.edtTerminalSN_2.setMarginRight(1);
-            return this.edtTerminalSN_2;
+            var retval  =  this.edtTerminalSN_2;
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_formLayout: function create_formLayout() {
             this.formLayout = new qx.ui.layout.Grid();
-            this.formLayout.setRowFlex(0,1);
-            this.formLayout.setRowFlex(1,1);
-            this.formLayout.setRowFlex(2,1);
-            this.formLayout.setColumnFlex(0,1);
-            this.formLayout.setColumnFlex(1,1);
-            return this.formLayout;
+            var retval  =  this.formLayout;
+            retval.setRowFlex(0,1);
+            retval.setRowFlex(1,1);
+            retval.setRowFlex(2,1);
+            retval.setColumnFlex(0,1);
+            retval.setColumnFlex(1,1);
+            return retval;
             
         }
         
         ,create_formLayout_implicit_container: function create_formLayout_implicit_container() {
             this.formLayout_implicit_container = new qx.ui.container.Composite();
-            this.formLayout_implicit_container.setMarginBottom(1);
-            this.formLayout_implicit_container.setMarginTop(1);
-            this.formLayout_implicit_container.setMarginLeft(1);
-            this.formLayout_implicit_container.setMarginRight(1);
-            this.formLayout_implicit_container.setLayout(this.create_formLayout());
-            this.formLayout_implicit_container.add(this.create_pushButton_3(), {column: 0,row: 0});
-            this.formLayout_implicit_container.add(this.create_label_2(), {column: 1,row: 0});
-            return this.formLayout_implicit_container;
+            var retval  =  this.formLayout_implicit_container;
+            retval.setMargin(1);
+            retval.setLayout(this.create_formLayout());
+            retval.add(this.create_pushButton_3(), {column: 0,row: 0});
+            retval.add(this.create_label_2(), {column: 1,row: 0});
+            return retval;
             
         }
         
         ,create_gridLayout: function create_gridLayout() {
             this.gridLayout = new qx.ui.layout.Grid();
-            this.gridLayout.setRowFlex(0,1);
-            this.gridLayout.setRowFlex(1,1);
-            this.gridLayout.setRowFlex(2,1);
-            this.gridLayout.setRowFlex(3,1);
-            this.gridLayout.setRowFlex(4,1);
-            this.gridLayout.setRowFlex(5,1);
-            this.gridLayout.setRowFlex(6,1);
-            this.gridLayout.setRowFlex(7,1);
-            this.gridLayout.setRowFlex(8,1);
-            this.gridLayout.setColumnFlex(0,1);
-            this.gridLayout.setColumnFlex(2,1);
-            return this.gridLayout;
+            var retval  =  this.gridLayout;
+            retval.setRowFlex(0,1);
+            retval.setRowFlex(1,1);
+            retval.setRowFlex(2,1);
+            retval.setRowFlex(3,1);
+            retval.setRowFlex(4,1);
+            retval.setRowFlex(5,1);
+            retval.setRowFlex(6,1);
+            retval.setRowFlex(7,1);
+            retval.setRowFlex(8,1);
+            retval.setColumnFlex(0,1);
+            retval.setColumnFlex(2,1);
+            return retval;
             
         }
         
         ,create_gridLayout_2: function create_gridLayout_2() {
             this.gridLayout_2 = new qx.ui.layout.Grid();
-            this.gridLayout_2.setRowFlex(0,1);
-            this.gridLayout_2.setColumnFlex(0,1);
-            this.gridLayout_2.setColumnFlex(1,1);
-            return this.gridLayout_2;
+            var retval  =  this.gridLayout_2;
+            retval.setRowFlex(0,1);
+            retval.setColumnFlex(0,1);
+            retval.setColumnFlex(1,1);
+            return retval;
             
         }
         
         ,create_gridLayout_2_implicit_container: function create_gridLayout_2_implicit_container() {
             this.gridLayout_2_implicit_container = new qx.ui.container.Composite();
-            this.gridLayout_2_implicit_container.setMarginBottom(1);
-            this.gridLayout_2_implicit_container.setMarginTop(1);
-            this.gridLayout_2_implicit_container.setMarginLeft(1);
-            this.gridLayout_2_implicit_container.setMarginRight(1);
-            this.gridLayout_2_implicit_container.setLayout(this.create_gridLayout_2());
-            this.gridLayout_2_implicit_container.add(this.create_pushButton_2(), {column: 0,row: 0});
-            this.gridLayout_2_implicit_container.add(this.create_tabWidget_2(), {column: 1,row: 0});
-            return this.gridLayout_2_implicit_container;
+            var retval  =  this.gridLayout_2_implicit_container;
+            retval.setMargin(1);
+            retval.setLayout(this.create_gridLayout_2());
+            retval.add(this.create_pushButton_2(), {column: 0,row: 0});
+            retval.add(this.create_tabWidget_2(), {column: 1,row: 0});
+            return retval;
             
         }
         
         ,create_gridLayout_3: function create_gridLayout_3() {
             this.gridLayout_3 = new qx.ui.layout.Grid();
-            this.gridLayout_3.setRowFlex(1,1);
-            this.gridLayout_3.setRowFlex(2,1);
-            this.gridLayout_3.setRowFlex(3,1);
-            this.gridLayout_3.setRowFlex(4,1);
-            this.gridLayout_3.setRowFlex(5,1);
-            this.gridLayout_3.setRowFlex(6,1);
-            this.gridLayout_3.setRowFlex(7,1);
-            this.gridLayout_3.setRowFlex(8,1);
-            this.gridLayout_3.setColumnFlex(0,1);
-            return this.gridLayout_3;
+            var retval  =  this.gridLayout_3;
+            retval.setRowFlex(1,1);
+            retval.setRowFlex(2,1);
+            retval.setRowFlex(3,1);
+            retval.setRowFlex(4,1);
+            retval.setRowFlex(5,1);
+            retval.setRowFlex(6,1);
+            retval.setRowFlex(7,1);
+            retval.setRowFlex(8,1);
+            retval.setColumnFlex(0,1);
+            return retval;
             
         }
         
         ,create_groupBox: function create_groupBox() {
             this.groupBox = new qx.ui.groupbox.GroupBox();
-            this.groupBox.setMaxHeight(16777215);
-            this.groupBox.setMaxWidth(600);
-            this.groupBox.setMinHeight(0);
-            this.groupBox.setMinWidth(400);
-            this.groupBox.setLegend(this.tr("Add"));
-            this.groupBox.setMarginBottom(1);
-            this.groupBox.setMarginTop(1);
-            this.groupBox.setMarginLeft(1);
-            this.groupBox.setMarginRight(1);
-            this.groupBox.setLayout(this.create_gridLayout());
-            this.groupBox.add(this.create_lblCompany(), {column: 0,row: 0});
-            this.groupBox.add(this.create_edtCompany(), {column: 2,row: 0});
-            this.groupBox.add(this.create_lblName(), {column: 0,row: 1});
-            this.groupBox.add(this.create_edtName(), {column: 2,row: 1});
-            this.groupBox.add(this.create_lblIdentifers(), {column: 0,row: 2});
-            this.groupBox.add(this.create_horizontalLayout_implicit_container(), {column: 2,row: 2});
-            this.groupBox.add(this.create_lblDetails(), {column: 0,row: 3});
-            this.groupBox.add(this.create_horizontalLayout_2_implicit_container(), {column: 2,row: 3});
-            this.groupBox.add(this.create_lblEmail(), {column: 0,row: 4});
-            this.groupBox.add(this.create_lblTrackingMethod(), {column: 0,row: 5});
-            this.groupBox.add(this.create_HLTrackingMethod_implicit_container(), {column: 2,row: 5});
-            this.groupBox.add(this.create_lblTest(), {column: 0,row: 6});
-            this.groupBox.add(this.create_HLTest_implicit_container(), {column: 2,row: 6});
-            this.groupBox.add(this.create_lblAnswerBack(), {column: 0,row: 7});
-            this.groupBox.add(this.create_edtAnswerBack(), {column: 2,row: 7});
-            this.groupBox.add(this.create_label(), {column: 0,row: 8});
-            this.groupBox.add(this.create_horizontalLayout_4_implicit_container(), {column: 2,row: 8});
-            this.groupBox.add(this.create_VLEmail_implicit_container(), {column: 2,row: 4});
-            return this.groupBox;
+            var retval  =  this.groupBox;
+            retval.setMaxWidth(600);
+            retval.setMinWidth(400);
+            retval.setLegend(this.tr("Add"));
+            retval.setMargin(1);
+            retval.setLayout(this.create_gridLayout());
+            retval.add(this.create_lblCompany(), {column: 0,row: 0});
+            retval.add(this.create_edtCompany(), {column: 2,row: 0});
+            retval.add(this.create_lblName(), {column: 0,row: 1});
+            retval.add(this.create_edtName(), {column: 2,row: 1});
+            retval.add(this.create_lblIdentifers(), {column: 0,row: 2});
+            retval.add(this.create_horizontalLayout_implicit_container(), {column: 2,row: 2});
+            retval.add(this.create_lblDetails(), {column: 0,row: 3});
+            retval.add(this.create_horizontalLayout_2_implicit_container(), {column: 2,row: 3});
+            retval.add(this.create_lblEmail(), {column: 0,row: 4});
+            retval.add(this.create_lblTrackingMethod(), {column: 0,row: 5});
+            retval.add(this.create_HLTrackingMethod_implicit_container(), {column: 2,row: 5});
+            retval.add(this.create_lblTest(), {column: 0,row: 6});
+            retval.add(this.create_HLTest_implicit_container(), {column: 2,row: 6});
+            retval.add(this.create_lblAnswerBack(), {column: 0,row: 7});
+            retval.add(this.create_edtAnswerBack(), {column: 2,row: 7});
+            retval.add(this.create_label(), {column: 0,row: 8});
+            retval.add(this.create_horizontalLayout_4_implicit_container(), {column: 2,row: 8});
+            retval.add(this.create_VLEmail_implicit_container(), {column: 2,row: 4});
+            return retval;
             
         }
         
         ,create_groupBox_2: function create_groupBox_2() {
             this.groupBox_2 = new qx.ui.groupbox.GroupBox();
-            this.groupBox_2.setLegend(this.tr("GroupBox"));
-            this.groupBox_2.setMarginBottom(1);
-            this.groupBox_2.setMarginTop(1);
-            this.groupBox_2.setMarginLeft(1);
-            this.groupBox_2.setMarginRight(1);
-            this.groupBox_2.setLayout(this.create_verticalLayout_3());
-            this.groupBox_2.add(this.create_gridLayout_2_implicit_container(), {flex: 1});
-            return this.groupBox_2;
+            var retval  =  this.groupBox_2;
+            retval.setLegend(this.tr("GroupBox"));
+            retval.setMargin(1);
+            retval.setLayout(this.create_verticalLayout_3());
+            retval.add(this.create_gridLayout_2_implicit_container(), {flex: 1});
+            return retval;
             
         }
         
         ,create_groupBox_3: function create_groupBox_3() {
             this.groupBox_3 = new qx.ui.groupbox.GroupBox();
-            this.groupBox_3.setMaxHeight(16777215);
-            this.groupBox_3.setMaxWidth(16777215);
-            this.groupBox_3.setLegend(this.tr("Add"));
-            this.groupBox_3.setMarginBottom(1);
-            this.groupBox_3.setMarginTop(1);
-            this.groupBox_3.setMarginLeft(1);
-            this.groupBox_3.setMarginRight(1);
-            this.groupBox_3.setLayout(this.create_gridLayout_3());
-            this.groupBox_3.add(this.create_lblCompany_2(), {column: 0,row: 0});
-            this.groupBox_3.add(this.create_edtCompany_2(), {column: 2,row: 0});
-            this.groupBox_3.add(this.create_lblName_2(), {column: 0,row: 1});
-            this.groupBox_3.add(this.create_edtName_2(), {column: 2,row: 1});
-            this.groupBox_3.add(this.create_lblIdentifers_2(), {column: 0,row: 2});
-            this.groupBox_3.add(this.create_horizontalLayout_7_implicit_container(), {column: 2,row: 2});
-            this.groupBox_3.add(this.create_lblDetails_2(), {column: 0,row: 3});
-            this.groupBox_3.add(this.create_horizontalLayout_8_implicit_container(), {column: 2,row: 3});
-            this.groupBox_3.add(this.create_lblEmail_2(), {column: 0,row: 4});
-            this.groupBox_3.add(this.create_lblTrackingMethod_2(), {column: 0,row: 5});
-            this.groupBox_3.add(this.create_HLTrackingMethod_2_implicit_container(), {column: 2,row: 5});
-            this.groupBox_3.add(this.create_lblTest_2(), {column: 0,row: 6});
-            this.groupBox_3.add(this.create_HLTest_2_implicit_container(), {column: 2,row: 6});
-            this.groupBox_3.add(this.create_lblAnswerBack_2(), {column: 0,row: 7});
-            this.groupBox_3.add(this.create_edtAnswerBack_2(), {column: 2,row: 7});
-            this.groupBox_3.add(this.create_label_3(), {column: 0,row: 8});
-            this.groupBox_3.add(this.create_horizontalLayout_9_implicit_container(), {column: 2,row: 8});
-            this.groupBox_3.add(this.create_VLEmail_2_implicit_container(), {column: 2,row: 4});
-            return this.groupBox_3;
+            var retval  =  this.groupBox_3;
+            retval.setLegend(this.tr("Add"));
+            retval.setMargin(1);
+            retval.setLayout(this.create_gridLayout_3());
+            retval.add(this.create_lblCompany_2(), {column: 0,row: 0});
+            retval.add(this.create_edtCompany_2(), {column: 2,row: 0});
+            retval.add(this.create_lblName_2(), {column: 0,row: 1});
+            retval.add(this.create_edtName_2(), {column: 2,row: 1});
+            retval.add(this.create_lblIdentifers_2(), {column: 0,row: 2});
+            retval.add(this.create_horizontalLayout_7_implicit_container(), {column: 2,row: 2});
+            retval.add(this.create_lblDetails_2(), {column: 0,row: 3});
+            retval.add(this.create_horizontalLayout_8_implicit_container(), {column: 2,row: 3});
+            retval.add(this.create_lblEmail_2(), {column: 0,row: 4});
+            retval.add(this.create_lblTrackingMethod_2(), {column: 0,row: 5});
+            retval.add(this.create_HLTrackingMethod_2_implicit_container(), {column: 2,row: 5});
+            retval.add(this.create_lblTest_2(), {column: 0,row: 6});
+            retval.add(this.create_HLTest_2_implicit_container(), {column: 2,row: 6});
+            retval.add(this.create_lblAnswerBack_2(), {column: 0,row: 7});
+            retval.add(this.create_edtAnswerBack_2(), {column: 2,row: 7});
+            retval.add(this.create_label_3(), {column: 0,row: 8});
+            retval.add(this.create_horizontalLayout_9_implicit_container(), {column: 2,row: 8});
+            retval.add(this.create_VLEmail_2_implicit_container(), {column: 2,row: 4});
+            return retval;
             
         }
         
         ,create_horizontalLayout: function create_horizontalLayout() {
             this.horizontalLayout = new qx.ui.layout.HBox();
-            return this.horizontalLayout;
+            var retval  =  this.horizontalLayout;
+            return retval;
             
         }
         
         ,create_horizontalLayout_10: function create_horizontalLayout_10() {
             this.horizontalLayout_10 = new qx.ui.layout.HBox();
-            return this.horizontalLayout_10;
+            var retval  =  this.horizontalLayout_10;
+            return retval;
             
         }
         
         ,create_horizontalLayout_10_implicit_container: function create_horizontalLayout_10_implicit_container() {
             this.horizontalLayout_10_implicit_container = new qx.ui.container.Composite();
-            this.horizontalLayout_10_implicit_container.setMarginBottom(1);
-            this.horizontalLayout_10_implicit_container.setMarginTop(1);
-            this.horizontalLayout_10_implicit_container.setMarginLeft(1);
-            this.horizontalLayout_10_implicit_container.setMarginRight(1);
-            this.horizontalLayout_10_implicit_container.setLayout(this.create_horizontalLayout_10());
-            this.horizontalLayout_10_implicit_container.add(this.create_radioButton_8(), {flex: 1});
-            this.horizontalLayout_10_implicit_container.add(this.create_chkEmail_2(), {flex: 1});
-            this.horizontalLayout_10_implicit_container.add(this.create_radioButton_9(), {flex: 1});
-            return this.horizontalLayout_10_implicit_container;
+            var retval  =  this.horizontalLayout_10_implicit_container;
+            retval.setMargin(1);
+            retval.setLayout(this.create_horizontalLayout_10());
+            retval.add(this.create_radioButton_8(), {flex: 1});
+            retval.add(this.create_chkEmail_2(), {flex: 1});
+            retval.add(this.create_radioButton_9(), {flex: 1});
+            return retval;
             
         }
         
         ,create_horizontalLayout_2: function create_horizontalLayout_2() {
             this.horizontalLayout_2 = new qx.ui.layout.HBox();
-            return this.horizontalLayout_2;
+            var retval  =  this.horizontalLayout_2;
+            return retval;
             
         }
         
         ,create_horizontalLayout_2_implicit_container: function create_horizontalLayout_2_implicit_container() {
             this.horizontalLayout_2_implicit_container = new qx.ui.container.Composite();
-            this.horizontalLayout_2_implicit_container.setMarginBottom(1);
-            this.horizontalLayout_2_implicit_container.setMarginTop(1);
-            this.horizontalLayout_2_implicit_container.setMarginLeft(1);
-            this.horizontalLayout_2_implicit_container.setMarginRight(1);
-            this.horizontalLayout_2_implicit_container.setLayout(this.create_horizontalLayout_2());
-            this.horizontalLayout_2_implicit_container.add(this.create_lblDNID(), {flex: 1});
-            this.horizontalLayout_2_implicit_container.add(this.create_edtDNID(), {flex: 1});
-            this.horizontalLayout_2_implicit_container.add(this.create_lblMN(), {flex: 1});
-            this.horizontalLayout_2_implicit_container.add(this.create_edtMN(), {flex: 1});
-            this.horizontalLayout_2_implicit_container.add(this.create_lblSubAddress(), {flex: 1});
-            this.horizontalLayout_2_implicit_container.add(this.create_comboSubAddress(), {flex: 1});
-            return this.horizontalLayout_2_implicit_container;
+            var retval  =  this.horizontalLayout_2_implicit_container;
+            retval.setMargin(1);
+            retval.setLayout(this.create_horizontalLayout_2());
+            retval.add(this.create_lblDNID(), {flex: 1});
+            retval.add(this.create_edtDNID(), {flex: 1});
+            retval.add(this.create_lblMN(), {flex: 1});
+            retval.add(this.create_edtMN(), {flex: 1});
+            retval.add(this.create_lblSubAddress(), {flex: 1});
+            retval.add(this.create_comboSubAddress(), {flex: 1});
+            return retval;
             
         }
         
         ,create_horizontalLayout_3: function create_horizontalLayout_3() {
             this.horizontalLayout_3 = new qx.ui.layout.HBox();
-            return this.horizontalLayout_3;
+            var retval  =  this.horizontalLayout_3;
+            return retval;
             
         }
         
         ,create_horizontalLayout_4: function create_horizontalLayout_4() {
             this.horizontalLayout_4 = new qx.ui.layout.HBox();
-            return this.horizontalLayout_4;
+            var retval  =  this.horizontalLayout_4;
+            return retval;
             
         }
         
         ,create_horizontalLayout_4_implicit_container: function create_horizontalLayout_4_implicit_container() {
             this.horizontalLayout_4_implicit_container = new qx.ui.container.Composite();
-            this.horizontalLayout_4_implicit_container.setMarginBottom(1);
-            this.horizontalLayout_4_implicit_container.setMarginTop(1);
-            this.horizontalLayout_4_implicit_container.setMarginLeft(1);
-            this.horizontalLayout_4_implicit_container.setMarginRight(1);
-            this.horizontalLayout_4_implicit_container.setLayout(this.create_horizontalLayout_4());
-            this.horizontalLayout_4_implicit_container.add(this.create_dateEdit(), {flex: 1});
-            this.horizontalLayout_4_implicit_container.add(this.create_spinBox(), {flex: 1});
-            return this.horizontalLayout_4_implicit_container;
+            var retval  =  this.horizontalLayout_4_implicit_container;
+            retval.setMargin(1);
+            retval.setLayout(this.create_horizontalLayout_4());
+            retval.add(this.create_dateEdit(), {flex: 1});
+            retval.add(this.create_spinBox(), {flex: 1});
+            return retval;
             
         }
         
         ,create_horizontalLayout_5: function create_horizontalLayout_5() {
             this.horizontalLayout_5 = new qx.ui.layout.HBox();
-            return this.horizontalLayout_5;
+            var retval  =  this.horizontalLayout_5;
+            return retval;
             
         }
         
         ,create_horizontalLayout_5_implicit_container: function create_horizontalLayout_5_implicit_container() {
             this.horizontalLayout_5_implicit_container = new qx.ui.container.Composite();
-            this.horizontalLayout_5_implicit_container.setMarginBottom(1);
-            this.horizontalLayout_5_implicit_container.setMarginTop(1);
-            this.horizontalLayout_5_implicit_container.setMarginLeft(1);
-            this.horizontalLayout_5_implicit_container.setMarginRight(1);
-            this.horizontalLayout_5_implicit_container.setLayout(this.create_horizontalLayout_5());
-            this.horizontalLayout_5_implicit_container.add(this.create_radioButton_4(), {flex: 1});
-            this.horizontalLayout_5_implicit_container.add(this.create_chkEmail(), {flex: 1});
-            this.horizontalLayout_5_implicit_container.add(this.create_radioButton_3(), {flex: 1});
-            return this.horizontalLayout_5_implicit_container;
+            var retval  =  this.horizontalLayout_5_implicit_container;
+            retval.setMargin(1);
+            retval.setLayout(this.create_horizontalLayout_5());
+            retval.add(this.create_radioButton_4(), {flex: 1});
+            retval.add(this.create_chkEmail(), {flex: 1});
+            retval.add(this.create_radioButton_3(), {flex: 1});
+            return retval;
             
         }
         
         ,create_horizontalLayout_6: function create_horizontalLayout_6() {
             this.horizontalLayout_6 = new qx.ui.layout.HBox();
-            return this.horizontalLayout_6;
+            var retval  =  this.horizontalLayout_6;
+            return retval;
             
         }
         
         ,create_horizontalLayout_7: function create_horizontalLayout_7() {
             this.horizontalLayout_7 = new qx.ui.layout.HBox();
-            return this.horizontalLayout_7;
+            var retval  =  this.horizontalLayout_7;
+            return retval;
             
         }
         
         ,create_horizontalLayout_7_implicit_container: function create_horizontalLayout_7_implicit_container() {
             this.horizontalLayout_7_implicit_container = new qx.ui.container.Composite();
-            this.horizontalLayout_7_implicit_container.setMarginBottom(1);
-            this.horizontalLayout_7_implicit_container.setMarginTop(1);
-            this.horizontalLayout_7_implicit_container.setMarginLeft(1);
-            this.horizontalLayout_7_implicit_container.setMarginRight(1);
-            this.horizontalLayout_7_implicit_container.setLayout(this.create_horizontalLayout_7());
-            this.horizontalLayout_7_implicit_container.add(this.create_lblIOWN_2(), {flex: 1});
-            this.horizontalLayout_7_implicit_container.add(this.create_edtIOWN_2(), {flex: 1});
-            this.horizontalLayout_7_implicit_container.add(this.create_lblTerminalSN_2(), {flex: 1});
-            this.horizontalLayout_7_implicit_container.add(this.create_edtTerminalSN_2(), {flex: 1});
-            return this.horizontalLayout_7_implicit_container;
+            var retval  =  this.horizontalLayout_7_implicit_container;
+            retval.setMargin(1);
+            retval.setLayout(this.create_horizontalLayout_7());
+            retval.add(this.create_lblIOWN_2(), {flex: 1});
+            retval.add(this.create_edtIOWN_2(), {flex: 1});
+            retval.add(this.create_lblTerminalSN_2(), {flex: 1});
+            retval.add(this.create_edtTerminalSN_2(), {flex: 1});
+            return retval;
             
         }
         
         ,create_horizontalLayout_8: function create_horizontalLayout_8() {
             this.horizontalLayout_8 = new qx.ui.layout.HBox();
-            return this.horizontalLayout_8;
+            var retval  =  this.horizontalLayout_8;
+            return retval;
             
         }
         
         ,create_horizontalLayout_8_implicit_container: function create_horizontalLayout_8_implicit_container() {
             this.horizontalLayout_8_implicit_container = new qx.ui.container.Composite();
-            this.horizontalLayout_8_implicit_container.setMarginBottom(1);
-            this.horizontalLayout_8_implicit_container.setMarginTop(1);
-            this.horizontalLayout_8_implicit_container.setMarginLeft(1);
-            this.horizontalLayout_8_implicit_container.setMarginRight(1);
-            this.horizontalLayout_8_implicit_container.setLayout(this.create_horizontalLayout_8());
-            this.horizontalLayout_8_implicit_container.add(this.create_lblDNID_2(), {flex: 1});
-            this.horizontalLayout_8_implicit_container.add(this.create_edtDNID_2(), {flex: 1});
-            this.horizontalLayout_8_implicit_container.add(this.create_lblMN_2(), {flex: 1});
-            this.horizontalLayout_8_implicit_container.add(this.create_edtMN_2(), {flex: 1});
-            this.horizontalLayout_8_implicit_container.add(this.create_lblSubAddress_2(), {flex: 1});
-            this.horizontalLayout_8_implicit_container.add(this.create_comboSubAddress_2(), {flex: 1});
-            return this.horizontalLayout_8_implicit_container;
+            var retval  =  this.horizontalLayout_8_implicit_container;
+            retval.setMargin(1);
+            retval.setLayout(this.create_horizontalLayout_8());
+            retval.add(this.create_lblDNID_2(), {flex: 1});
+            retval.add(this.create_edtDNID_2(), {flex: 1});
+            retval.add(this.create_lblMN_2(), {flex: 1});
+            retval.add(this.create_edtMN_2(), {flex: 1});
+            retval.add(this.create_lblSubAddress_2(), {flex: 1});
+            retval.add(this.create_comboSubAddress_2(), {flex: 1});
+            return retval;
             
         }
         
         ,create_horizontalLayout_9: function create_horizontalLayout_9() {
             this.horizontalLayout_9 = new qx.ui.layout.HBox();
-            return this.horizontalLayout_9;
+            var retval  =  this.horizontalLayout_9;
+            return retval;
             
         }
         
         ,create_horizontalLayout_9_implicit_container: function create_horizontalLayout_9_implicit_container() {
             this.horizontalLayout_9_implicit_container = new qx.ui.container.Composite();
-            this.horizontalLayout_9_implicit_container.setMarginBottom(1);
-            this.horizontalLayout_9_implicit_container.setMarginTop(1);
-            this.horizontalLayout_9_implicit_container.setMarginLeft(1);
-            this.horizontalLayout_9_implicit_container.setMarginRight(1);
-            this.horizontalLayout_9_implicit_container.setLayout(this.create_horizontalLayout_9());
-            this.horizontalLayout_9_implicit_container.add(this.create_spinBox_2(), {flex: 1});
-            this.horizontalLayout_9_implicit_container.add(this.create_dateEdit_2(), {flex: 1});
-            return this.horizontalLayout_9_implicit_container;
+            var retval  =  this.horizontalLayout_9_implicit_container;
+            retval.setMargin(1);
+            retval.setLayout(this.create_horizontalLayout_9());
+            retval.add(this.create_spinBox_2(), {flex: 1});
+            retval.add(this.create_dateEdit_2(), {flex: 1});
+            return retval;
             
         }
         
         ,create_horizontalLayout_implicit_container: function create_horizontalLayout_implicit_container() {
             this.horizontalLayout_implicit_container = new qx.ui.container.Composite();
-            this.horizontalLayout_implicit_container.setMarginBottom(1);
-            this.horizontalLayout_implicit_container.setMarginTop(1);
-            this.horizontalLayout_implicit_container.setMarginLeft(1);
-            this.horizontalLayout_implicit_container.setMarginRight(1);
-            this.horizontalLayout_implicit_container.setLayout(this.create_horizontalLayout());
-            this.horizontalLayout_implicit_container.add(this.create_lblIOWN(), {flex: 1});
-            this.horizontalLayout_implicit_container.add(this.create_edtIOWN(), {flex: 1});
-            this.horizontalLayout_implicit_container.add(this.create_lblTerminalSN(), {flex: 1});
-            this.horizontalLayout_implicit_container.add(this.create_edtTerminalSN(), {flex: 1});
-            return this.horizontalLayout_implicit_container;
+            var retval  =  this.horizontalLayout_implicit_container;
+            retval.setMargin(1);
+            retval.setLayout(this.create_horizontalLayout());
+            retval.add(this.create_lblIOWN(), {flex: 1});
+            retval.add(this.create_edtIOWN(), {flex: 1});
+            retval.add(this.create_lblTerminalSN(), {flex: 1});
+            retval.add(this.create_edtTerminalSN(), {flex: 1});
+            return retval;
             
         }
         
         ,create_horizontalSpacer: function create_horizontalSpacer() {
             this.horizontalSpacer = new qx.ui.core.Spacer();
-            this.horizontalSpacer.setHeight(20);
-            this.horizontalSpacer.setWidth(40);
-            this.horizontalSpacer.setMarginBottom(1);
-            this.horizontalSpacer.setMarginTop(1);
-            this.horizontalSpacer.setMarginLeft(1);
-            this.horizontalSpacer.setMarginRight(1);
-            return this.horizontalSpacer;
+            var retval  =  this.horizontalSpacer;
+            retval.setHeight(20);
+            retval.setWidth(40);
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_horizontalSpacer_2: function create_horizontalSpacer_2() {
             this.horizontalSpacer_2 = new qx.ui.core.Spacer();
-            this.horizontalSpacer_2.setHeight(20);
-            this.horizontalSpacer_2.setWidth(40);
-            this.horizontalSpacer_2.setMarginBottom(1);
-            this.horizontalSpacer_2.setMarginTop(1);
-            this.horizontalSpacer_2.setMarginLeft(1);
-            this.horizontalSpacer_2.setMarginRight(1);
-            return this.horizontalSpacer_2;
+            var retval  =  this.horizontalSpacer_2;
+            retval.setHeight(20);
+            retval.setWidth(40);
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_label: function create_label() {
             this.label = new qx.ui.basic.Label();
-            this.label.setLabel(this.tr("Date & Count: "));
-            this.label.setMarginBottom(1);
-            this.label.setMarginTop(1);
-            this.label.setMarginLeft(1);
-            this.label.setMarginRight(1);
-            return this.label;
+            var retval  =  this.label;
+            retval.setValue(this.tr("Date & Count: "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_label_2: function create_label_2() {
             this.label_2 = new qx.ui.basic.Label();
-            this.label_2.setLabel(this.tr("TextLabel"));
-            this.label_2.setMarginBottom(1);
-            this.label_2.setMarginTop(1);
-            this.label_2.setMarginLeft(1);
-            this.label_2.setMarginRight(1);
-            return this.label_2;
+            var retval  =  this.label_2;
+            retval.setValue(this.tr("TextLabel"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_label_3: function create_label_3() {
             this.label_3 = new qx.ui.basic.Label();
-            this.label_3.setLabel(this.tr("Time & Count: "));
-            this.label_3.setMarginBottom(1);
-            this.label_3.setMarginTop(1);
-            this.label_3.setMarginLeft(1);
-            this.label_3.setMarginRight(1);
-            return this.label_3;
+            var retval  =  this.label_3;
+            retval.setValue(this.tr("Time & Count: "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblAnswerBack: function create_lblAnswerBack() {
             this.lblAnswerBack = new qx.ui.basic.Label();
-            this.lblAnswerBack.setLabel(this.tr("Answer Back : "));
-            this.lblAnswerBack.setMarginBottom(1);
-            this.lblAnswerBack.setMarginTop(1);
-            this.lblAnswerBack.setMarginLeft(1);
-            this.lblAnswerBack.setMarginRight(1);
-            return this.lblAnswerBack;
+            var retval  =  this.lblAnswerBack;
+            retval.setValue(this.tr("Answer Back : "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblAnswerBack_2: function create_lblAnswerBack_2() {
             this.lblAnswerBack_2 = new qx.ui.basic.Label();
-            this.lblAnswerBack_2.setLabel(this.tr("Answer Back : "));
-            this.lblAnswerBack_2.setMarginBottom(1);
-            this.lblAnswerBack_2.setMarginTop(1);
-            this.lblAnswerBack_2.setMarginLeft(1);
-            this.lblAnswerBack_2.setMarginRight(1);
-            return this.lblAnswerBack_2;
+            var retval  =  this.lblAnswerBack_2;
+            retval.setValue(this.tr("Answer Back : "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblCompany: function create_lblCompany() {
             this.lblCompany = new qx.ui.basic.Label();
-            this.lblCompany.setLabel(this.tr("Company : "));
-            this.lblCompany.setMarginBottom(1);
-            this.lblCompany.setMarginTop(1);
-            this.lblCompany.setMarginLeft(1);
-            this.lblCompany.setMarginRight(1);
-            return this.lblCompany;
+            var retval  =  this.lblCompany;
+            retval.setValue(this.tr("Company : "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblCompany_2: function create_lblCompany_2() {
             this.lblCompany_2 = new qx.ui.basic.Label();
-            this.lblCompany_2.setLabel(this.tr("Company : "));
-            this.lblCompany_2.setMarginBottom(1);
-            this.lblCompany_2.setMarginTop(1);
-            this.lblCompany_2.setMarginLeft(1);
-            this.lblCompany_2.setMarginRight(1);
-            return this.lblCompany_2;
+            var retval  =  this.lblCompany_2;
+            retval.setValue(this.tr("Company : "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblDNID: function create_lblDNID() {
             this.lblDNID = new qx.ui.basic.Label();
-            this.lblDNID.setLabel(this.tr("ABC: "));
-            this.lblDNID.setMarginBottom(1);
-            this.lblDNID.setMarginTop(1);
-            this.lblDNID.setMarginLeft(1);
-            this.lblDNID.setMarginRight(1);
-            return this.lblDNID;
+            var retval  =  this.lblDNID;
+            retval.setValue(this.tr("ABC: "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblDNID_2: function create_lblDNID_2() {
             this.lblDNID_2 = new qx.ui.basic.Label();
-            this.lblDNID_2.setLabel(this.tr("ABC: "));
-            this.lblDNID_2.setMarginBottom(1);
-            this.lblDNID_2.setMarginTop(1);
-            this.lblDNID_2.setMarginLeft(1);
-            this.lblDNID_2.setMarginRight(1);
-            return this.lblDNID_2;
+            var retval  =  this.lblDNID_2;
+            retval.setValue(this.tr("ABC: "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblDetails: function create_lblDetails() {
             this.lblDetails = new qx.ui.basic.Label();
-            this.lblDetails.setLabel(this.tr("Details: "));
-            this.lblDetails.setMarginBottom(1);
-            this.lblDetails.setMarginTop(1);
-            this.lblDetails.setMarginLeft(1);
-            this.lblDetails.setMarginRight(1);
-            return this.lblDetails;
+            var retval  =  this.lblDetails;
+            retval.setValue(this.tr("Details: "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblDetails_2: function create_lblDetails_2() {
             this.lblDetails_2 = new qx.ui.basic.Label();
-            this.lblDetails_2.setLabel(this.tr("Details: "));
-            this.lblDetails_2.setMarginBottom(1);
-            this.lblDetails_2.setMarginTop(1);
-            this.lblDetails_2.setMarginLeft(1);
-            this.lblDetails_2.setMarginRight(1);
-            return this.lblDetails_2;
+            var retval  =  this.lblDetails_2;
+            retval.setValue(this.tr("Details: "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblEmail: function create_lblEmail() {
             this.lblEmail = new qx.ui.basic.Label();
-            this.lblEmail.setLabel(this.tr("Email: "));
-            this.lblEmail.setMarginBottom(1);
-            this.lblEmail.setMarginTop(1);
-            this.lblEmail.setMarginLeft(1);
-            this.lblEmail.setMarginRight(1);
-            return this.lblEmail;
+            var retval  =  this.lblEmail;
+            retval.setValue(this.tr("Email: "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblEmail_2: function create_lblEmail_2() {
             this.lblEmail_2 = new qx.ui.basic.Label();
-            this.lblEmail_2.setLabel(this.tr("Email: "));
-            this.lblEmail_2.setMarginBottom(1);
-            this.lblEmail_2.setMarginTop(1);
-            this.lblEmail_2.setMarginLeft(1);
-            this.lblEmail_2.setMarginRight(1);
-            return this.lblEmail_2;
+            var retval  =  this.lblEmail_2;
+            retval.setValue(this.tr("Email: "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblIOWN: function create_lblIOWN() {
             this.lblIOWN = new qx.ui.basic.Label();
-            this.lblIOWN.setLabel(this.tr("OWN: : "));
-            this.lblIOWN.setMarginBottom(1);
-            this.lblIOWN.setMarginTop(1);
-            this.lblIOWN.setMarginLeft(1);
-            this.lblIOWN.setMarginRight(1);
-            return this.lblIOWN;
+            var retval  =  this.lblIOWN;
+            retval.setValue(this.tr("OWN: : "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblIOWN_2: function create_lblIOWN_2() {
             this.lblIOWN_2 = new qx.ui.basic.Label();
-            this.lblIOWN_2.setLabel(this.tr("OWN: : "));
-            this.lblIOWN_2.setMarginBottom(1);
-            this.lblIOWN_2.setMarginTop(1);
-            this.lblIOWN_2.setMarginLeft(1);
-            this.lblIOWN_2.setMarginRight(1);
-            return this.lblIOWN_2;
+            var retval  =  this.lblIOWN_2;
+            retval.setValue(this.tr("OWN: : "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblIdentifers: function create_lblIdentifers() {
             this.lblIdentifers = new qx.ui.basic.Label();
-            this.lblIdentifers.setLabel(this.tr("Identifiers: "));
-            this.lblIdentifers.setMarginBottom(1);
-            this.lblIdentifers.setMarginTop(1);
-            this.lblIdentifers.setMarginLeft(1);
-            this.lblIdentifers.setMarginRight(1);
-            return this.lblIdentifers;
+            var retval  =  this.lblIdentifers;
+            retval.setValue(this.tr("Identifiers: "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblIdentifers_2: function create_lblIdentifers_2() {
             this.lblIdentifers_2 = new qx.ui.basic.Label();
-            this.lblIdentifers_2.setLabel(this.tr("Identifiers: "));
-            this.lblIdentifers_2.setMarginBottom(1);
-            this.lblIdentifers_2.setMarginTop(1);
-            this.lblIdentifers_2.setMarginLeft(1);
-            this.lblIdentifers_2.setMarginRight(1);
-            return this.lblIdentifers_2;
+            var retval  =  this.lblIdentifers_2;
+            retval.setValue(this.tr("Identifiers: "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblInterval: function create_lblInterval() {
             this.lblInterval = new qx.ui.basic.Label();
-            this.lblInterval.setLabel(this.tr("Interval"));
-            this.lblInterval.setMarginBottom(1);
-            this.lblInterval.setMarginTop(1);
-            this.lblInterval.setMarginLeft(1);
-            this.lblInterval.setMarginRight(1);
-            return this.lblInterval;
+            var retval  =  this.lblInterval;
+            retval.setValue(this.tr("Interval"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblInterval_2: function create_lblInterval_2() {
             this.lblInterval_2 = new qx.ui.basic.Label();
-            this.lblInterval_2.setLabel(this.tr("Interval"));
-            this.lblInterval_2.setMarginBottom(1);
-            this.lblInterval_2.setMarginTop(1);
-            this.lblInterval_2.setMarginLeft(1);
-            this.lblInterval_2.setMarginRight(1);
-            return this.lblInterval_2;
+            var retval  =  this.lblInterval_2;
+            retval.setValue(this.tr("Interval"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblMN: function create_lblMN() {
             this.lblMN = new qx.ui.basic.Label();
-            this.lblMN.setLabel(this.tr("MN: "));
-            this.lblMN.setMarginBottom(1);
-            this.lblMN.setMarginTop(1);
-            this.lblMN.setMarginLeft(1);
-            this.lblMN.setMarginRight(1);
-            return this.lblMN;
+            var retval  =  this.lblMN;
+            retval.setValue(this.tr("MN: "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblMN_2: function create_lblMN_2() {
             this.lblMN_2 = new qx.ui.basic.Label();
-            this.lblMN_2.setLabel(this.tr("MN: "));
-            this.lblMN_2.setMarginBottom(1);
-            this.lblMN_2.setMarginTop(1);
-            this.lblMN_2.setMarginLeft(1);
-            this.lblMN_2.setMarginRight(1);
-            return this.lblMN_2;
+            var retval  =  this.lblMN_2;
+            retval.setValue(this.tr("MN: "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblName: function create_lblName() {
             this.lblName = new qx.ui.basic.Label();
-            this.lblName.setLabel(this.tr("Name : "));
-            this.lblName.setMarginBottom(1);
-            this.lblName.setMarginTop(1);
-            this.lblName.setMarginLeft(1);
-            this.lblName.setMarginRight(1);
-            return this.lblName;
+            var retval  =  this.lblName;
+            retval.setValue(this.tr("Name : "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblName_2: function create_lblName_2() {
             this.lblName_2 = new qx.ui.basic.Label();
-            this.lblName_2.setLabel(this.tr("Name : "));
-            this.lblName_2.setMarginBottom(1);
-            this.lblName_2.setMarginTop(1);
-            this.lblName_2.setMarginLeft(1);
-            this.lblName_2.setMarginRight(1);
-            return this.lblName_2;
+            var retval  =  this.lblName_2;
+            retval.setValue(this.tr("Name : "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblSubAddress: function create_lblSubAddress() {
             this.lblSubAddress = new qx.ui.basic.Label();
-            this.lblSubAddress.setLabel(this.tr("SA"));
-            this.lblSubAddress.setMarginBottom(1);
-            this.lblSubAddress.setMarginTop(1);
-            this.lblSubAddress.setMarginLeft(1);
-            this.lblSubAddress.setMarginRight(1);
-            return this.lblSubAddress;
+            var retval  =  this.lblSubAddress;
+            retval.setValue(this.tr("SA"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblSubAddress_2: function create_lblSubAddress_2() {
             this.lblSubAddress_2 = new qx.ui.basic.Label();
-            this.lblSubAddress_2.setLabel(this.tr("SA"));
-            this.lblSubAddress_2.setMarginBottom(1);
-            this.lblSubAddress_2.setMarginTop(1);
-            this.lblSubAddress_2.setMarginLeft(1);
-            this.lblSubAddress_2.setMarginRight(1);
-            return this.lblSubAddress_2;
+            var retval  =  this.lblSubAddress_2;
+            retval.setValue(this.tr("SA"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblTerminalSN: function create_lblTerminalSN() {
             this.lblTerminalSN = new qx.ui.basic.Label();
-            this.lblTerminalSN.setLabel(this.tr("S/N: "));
-            this.lblTerminalSN.setMarginBottom(1);
-            this.lblTerminalSN.setMarginTop(1);
-            this.lblTerminalSN.setMarginLeft(1);
-            this.lblTerminalSN.setMarginRight(1);
-            return this.lblTerminalSN;
+            var retval  =  this.lblTerminalSN;
+            retval.setValue(this.tr("S/N: "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblTerminalSN_2: function create_lblTerminalSN_2() {
             this.lblTerminalSN_2 = new qx.ui.basic.Label();
-            this.lblTerminalSN_2.setLabel(this.tr("S/N: "));
-            this.lblTerminalSN_2.setMarginBottom(1);
-            this.lblTerminalSN_2.setMarginTop(1);
-            this.lblTerminalSN_2.setMarginLeft(1);
-            this.lblTerminalSN_2.setMarginRight(1);
-            return this.lblTerminalSN_2;
+            var retval  =  this.lblTerminalSN_2;
+            retval.setValue(this.tr("S/N: "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblTest: function create_lblTest() {
             this.lblTest = new qx.ui.basic.Label();
-            this.lblTest.setLabel(this.tr("BJ Test: "));
-            this.lblTest.setMarginBottom(1);
-            this.lblTest.setMarginTop(1);
-            this.lblTest.setMarginLeft(1);
-            this.lblTest.setMarginRight(1);
-            return this.lblTest;
+            var retval  =  this.lblTest;
+            retval.setValue(this.tr("BJ Test: "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblTest_2: function create_lblTest_2() {
             this.lblTest_2 = new qx.ui.basic.Label();
-            this.lblTest_2.setLabel(this.tr("BJ Test: "));
-            this.lblTest_2.setMarginBottom(1);
-            this.lblTest_2.setMarginTop(1);
-            this.lblTest_2.setMarginLeft(1);
-            this.lblTest_2.setMarginRight(1);
-            return this.lblTest_2;
+            var retval  =  this.lblTest_2;
+            retval.setValue(this.tr("BJ Test: "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblTrackingMethod: function create_lblTrackingMethod() {
             this.lblTrackingMethod = new qx.ui.basic.Label();
-            this.lblTrackingMethod.setLabel(this.tr("Method : "));
-            this.lblTrackingMethod.setMarginBottom(1);
-            this.lblTrackingMethod.setMarginTop(1);
-            this.lblTrackingMethod.setMarginLeft(1);
-            this.lblTrackingMethod.setMarginRight(1);
-            return this.lblTrackingMethod;
+            var retval  =  this.lblTrackingMethod;
+            retval.setValue(this.tr("Method : "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_lblTrackingMethod_2: function create_lblTrackingMethod_2() {
             this.lblTrackingMethod_2 = new qx.ui.basic.Label();
-            this.lblTrackingMethod_2.setLabel(this.tr("Method : "));
-            this.lblTrackingMethod_2.setMarginBottom(1);
-            this.lblTrackingMethod_2.setMarginTop(1);
-            this.lblTrackingMethod_2.setMarginLeft(1);
-            this.lblTrackingMethod_2.setMarginRight(1);
-            return this.lblTrackingMethod_2;
+            var retval  =  this.lblTrackingMethod_2;
+            retval.setValue(this.tr("Method : "));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_pushButton: function create_pushButton() {
             this.pushButton = new qx.ui.form.Button();
-            this.pushButton.setHeight(26);
-            this.pushButton.setWidth(75);
-            this.pushButton.setLabel(this.tr("PushButton"));
-            this.pushButton.setMarginBottom(1);
-            this.pushButton.setMarginTop(1);
-            this.pushButton.setMarginLeft(1);
-            this.pushButton.setMarginRight(1);
-            return this.pushButton;
+            var retval  =  this.pushButton;
+            retval.setHeight(26);
+            retval.setWidth(75);
+            retval.setLabel(this.tr("PushButton"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_pushButton_2: function create_pushButton_2() {
             this.pushButton_2 = new qx.ui.form.Button();
-            this.pushButton_2.setLabel(this.tr("PushButton"));
-            this.pushButton_2.setMarginBottom(1);
-            this.pushButton_2.setMarginTop(1);
-            this.pushButton_2.setMarginLeft(1);
-            this.pushButton_2.setMarginRight(1);
-            return this.pushButton_2;
+            var retval  =  this.pushButton_2;
+            retval.setLabel(this.tr("PushButton"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_pushButton_3: function create_pushButton_3() {
             this.pushButton_3 = new qx.ui.form.Button();
-            this.pushButton_3.setLabel(this.tr("PushButton"));
-            this.pushButton_3.setMarginBottom(1);
-            this.pushButton_3.setMarginTop(1);
-            this.pushButton_3.setMarginLeft(1);
-            this.pushButton_3.setMarginRight(1);
-            return this.pushButton_3;
+            var retval  =  this.pushButton_3;
+            retval.setLabel(this.tr("PushButton"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_radioButton: function create_radioButton() {
             this.radioButton = new qx.ui.form.RadioButton();
-            this.radioButton.setLabel(this.tr("Later"));
-            this.radioButton.setMarginBottom(1);
-            this.radioButton.setMarginTop(1);
-            this.radioButton.setMarginLeft(1);
-            this.radioButton.setMarginRight(1);
-            return this.radioButton;
+            var retval  =  this.radioButton;
+            retval.setLabel(this.tr("Later"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_radioButton_2: function create_radioButton_2() {
             this.radioButton_2 = new qx.ui.form.RadioButton();
-            this.radioButton_2.setLabel(this.tr("Now"));
-            this.radioButton_2.setMarginBottom(1);
-            this.radioButton_2.setMarginTop(1);
-            this.radioButton_2.setMarginLeft(1);
-            this.radioButton_2.setMarginRight(1);
-            return this.radioButton_2;
+            var retval  =  this.radioButton_2;
+            retval.setLabel(this.tr("Now"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_radioButton_3: function create_radioButton_3() {
             this.radioButton_3 = new qx.ui.form.RadioButton();
-            this.radioButton_3.setLabel(this.tr("do"));
-            this.radioButton_3.setMarginBottom(1);
-            this.radioButton_3.setMarginTop(1);
-            this.radioButton_3.setMarginLeft(1);
-            this.radioButton_3.setMarginRight(1);
-            return this.radioButton_3;
+            var retval  =  this.radioButton_3;
+            retval.setLabel(this.tr("do"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_radioButton_4: function create_radioButton_4() {
             this.radioButton_4 = new qx.ui.form.RadioButton();
-            this.radioButton_4.setLabel(this.tr("don't"));
-            this.radioButton_4.setMarginBottom(1);
-            this.radioButton_4.setMarginTop(1);
-            this.radioButton_4.setMarginLeft(1);
-            this.radioButton_4.setMarginRight(1);
-            return this.radioButton_4;
+            var retval  =  this.radioButton_4;
+            retval.setLabel(this.tr("don't"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_radioButton_5: function create_radioButton_5() {
             this.radioButton_5 = new qx.ui.form.RadioButton();
-            this.radioButton_5.setHeight(22);
-            this.radioButton_5.setWidth(91);
-            this.radioButton_5.setLabel(this.tr("RadioButton"));
-            this.radioButton_5.setMarginBottom(1);
-            this.radioButton_5.setMarginTop(1);
-            this.radioButton_5.setMarginLeft(1);
-            this.radioButton_5.setMarginRight(1);
-            return this.radioButton_5;
+            var retval  =  this.radioButton_5;
+            retval.setHeight(22);
+            retval.setWidth(91);
+            retval.setLabel(this.tr("RadioButton"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_radioButton_6: function create_radioButton_6() {
             this.radioButton_6 = new qx.ui.form.RadioButton();
-            this.radioButton_6.setLabel(this.tr("Now"));
-            this.radioButton_6.setMarginBottom(1);
-            this.radioButton_6.setMarginTop(1);
-            this.radioButton_6.setMarginLeft(1);
-            this.radioButton_6.setMarginRight(1);
-            return this.radioButton_6;
+            var retval  =  this.radioButton_6;
+            retval.setLabel(this.tr("Now"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_radioButton_7: function create_radioButton_7() {
             this.radioButton_7 = new qx.ui.form.RadioButton();
-            this.radioButton_7.setLabel(this.tr("Later"));
-            this.radioButton_7.setMarginBottom(1);
-            this.radioButton_7.setMarginTop(1);
-            this.radioButton_7.setMarginLeft(1);
-            this.radioButton_7.setMarginRight(1);
-            return this.radioButton_7;
+            var retval  =  this.radioButton_7;
+            retval.setLabel(this.tr("Later"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_radioButton_8: function create_radioButton_8() {
             this.radioButton_8 = new qx.ui.form.RadioButton();
-            this.radioButton_8.setLabel(this.tr("don't"));
-            this.radioButton_8.setMarginBottom(1);
-            this.radioButton_8.setMarginTop(1);
-            this.radioButton_8.setMarginLeft(1);
-            this.radioButton_8.setMarginRight(1);
-            return this.radioButton_8;
+            var retval  =  this.radioButton_8;
+            retval.setLabel(this.tr("don't"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_radioButton_9: function create_radioButton_9() {
             this.radioButton_9 = new qx.ui.form.RadioButton();
-            this.radioButton_9.setLabel(this.tr("do"));
-            this.radioButton_9.setMarginBottom(1);
-            this.radioButton_9.setMarginTop(1);
-            this.radioButton_9.setMarginLeft(1);
-            this.radioButton_9.setMarginRight(1);
-            return this.radioButton_9;
+            var retval  =  this.radioButton_9;
+            retval.setLabel(this.tr("do"));
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_scrollArea: function create_scrollArea() {
             this.scrollArea = new qx.ui.container.Scroll();
-            this.scrollArea.setMarginBottom(1);
-            this.scrollArea.setMarginTop(1);
-            this.scrollArea.setMarginLeft(1);
-            this.scrollArea.setMarginRight(1);
-            this.scrollArea.add(this.create_scrollAreaWidgetContents(), {left: 0,top: 0});
-            return this.scrollArea;
+            var retval  =  this.scrollArea;
+            retval.setMargin(1);
+            retval.add(this.create_scrollAreaWidgetContents(), {left: 0,top: 0});
+            return retval;
             
         }
         
         ,create_scrollAreaWidgetContents: function create_scrollAreaWidgetContents() {
             this.scrollAreaWidgetContents = new qx.ui.container.Composite();
-            this.scrollAreaWidgetContents.setHeight(478);
-            this.scrollAreaWidgetContents.setWidth(569);
-            this.scrollAreaWidgetContents.setMarginBottom(1);
-            this.scrollAreaWidgetContents.setMarginTop(1);
-            this.scrollAreaWidgetContents.setMarginLeft(1);
-            this.scrollAreaWidgetContents.setMarginRight(1);
-            this.scrollAreaWidgetContents.setLayout(this.create_verticalLayout_2());
-            this.scrollAreaWidgetContents.add(this.create_groupBox_2(), {flex: 1});
-            return this.scrollAreaWidgetContents;
+            var retval  =  this.scrollAreaWidgetContents;
+            retval.setHeight(478);
+            retval.setWidth(569);
+            retval.setMargin(1);
+            retval.setLayout(this.create_verticalLayout_2());
+            retval.add(this.create_groupBox_2(), {flex: 1});
+            return retval;
             
         }
         
         ,create_scrollAreaWidgetContents_2: function create_scrollAreaWidgetContents_2() {
             this.scrollAreaWidgetContents_2 = new qx.ui.container.Composite();
-            this.scrollAreaWidgetContents_2.setHeight(366);
-            this.scrollAreaWidgetContents_2.setWidth(438);
-            this.scrollAreaWidgetContents_2.setMarginBottom(1);
-            this.scrollAreaWidgetContents_2.setMarginTop(1);
-            this.scrollAreaWidgetContents_2.setMarginLeft(1);
-            this.scrollAreaWidgetContents_2.setMarginRight(1);
-            this.scrollAreaWidgetContents_2.setLayout(this.create_verticalLayout_5());
-            this.scrollAreaWidgetContents_2.add(this.create_groupBox_3(), {flex: 1});
-            return this.scrollAreaWidgetContents_2;
+            var retval  =  this.scrollAreaWidgetContents_2;
+            retval.setHeight(366);
+            retval.setWidth(438);
+            retval.setMargin(1);
+            retval.setLayout(this.create_verticalLayout_5());
+            retval.add(this.create_groupBox_3(), {flex: 1});
+            return retval;
             
         }
         
         ,create_scrollArea_2: function create_scrollArea_2() {
             this.scrollArea_2 = new qx.ui.container.Scroll();
-            this.scrollArea_2.setMarginBottom(1);
-            this.scrollArea_2.setMarginTop(1);
-            this.scrollArea_2.setMarginLeft(1);
-            this.scrollArea_2.setMarginRight(1);
-            this.scrollArea_2.add(this.create_scrollAreaWidgetContents_2(), {left: 0,top: -16});
-            return this.scrollArea_2;
+            var retval  =  this.scrollArea_2;
+            retval.setMargin(1);
+            retval.add(this.create_scrollAreaWidgetContents_2(), {left: 0,top: -16});
+            return retval;
             
         }
         
         ,create_spinBox: function create_spinBox() {
             this.spinBox = new qx.ui.form.Spinner();
-            this.spinBox.setMaximum(88);
-            this.spinBox.setMinimum(44);
-            this.spinBox.setSingleStep(4);
-            this.spinBox.setValue(55);
-            this.spinBox.setMarginBottom(1);
-            this.spinBox.setMarginTop(1);
-            this.spinBox.setMarginLeft(1);
-            this.spinBox.setMarginRight(1);
-            return this.spinBox;
+            var retval  =  this.spinBox;
+            retval.setMaximum(88);
+            retval.setMinimum(44);
+            retval.setSingleStep(4);
+            retval.setValue(55);
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_spinBox_2: function create_spinBox_2() {
             this.spinBox_2 = new qx.ui.form.Spinner();
-            this.spinBox_2.setMaximum(88);
-            this.spinBox_2.setMinimum(44);
-            this.spinBox_2.setSingleStep(4);
-            this.spinBox_2.setValue(55);
-            this.spinBox_2.setMarginBottom(1);
-            this.spinBox_2.setMarginTop(1);
-            this.spinBox_2.setMarginLeft(1);
-            this.spinBox_2.setMarginRight(1);
-            return this.spinBox_2;
+            var retval  =  this.spinBox_2;
+            retval.setMaximum(88);
+            retval.setMinimum(44);
+            retval.setSingleStep(4);
+            retval.setValue(55);
+            retval.setMargin(1);
+            return retval;
             
         }
         
         ,create_tab: function create_tab() {
             this.tab = new qx.ui.tabview.Page();
-            this.tab.setLabel(this.tr("Tab 1"));
-            this.tab.setMarginBottom(1);
-            this.tab.setMarginTop(1);
-            this.tab.setMarginLeft(1);
-            this.tab.setMarginRight(1);
-            this.tab.setLayout(this.create_horizontalLayout_6());
-            this.tab.add(this.create_groupBox(), {flex: 1});
-            return this.tab;
+            var retval  =  this.tab;
+            retval.setLabel(this.tr("Tab 1"));
+            retval.setMargin(1);
+            retval.setLayout(this.create_horizontalLayout_6());
+            retval.add(this.create_groupBox(), {flex: 1});
+            return retval;
             
         }
         
         ,create_tabWidget: function create_tabWidget() {
             this.tabWidget = new qx.ui.tabview.TabView();
-            this.tabWidget.setMaxHeight(16777215);
-            this.tabWidget.setMaxWidth(1200);
-            this.tabWidget.setMarginBottom(1);
-            this.tabWidget.setMarginTop(1);
-            this.tabWidget.setMarginLeft(1);
-            this.tabWidget.setMarginRight(1);
-            this.tabWidget.add(this.create_tab());
-            this.tabWidget.add(this.create_tab_2());
-            this.tabWidget.add(this.create_tab_3());
-            return this.tabWidget;
+            var retval  =  this.tabWidget;
+            retval.setMaxWidth(1200);
+            retval.setMargin(1);
+            retval.add(this.create_tab(), {});
+            retval.add(this.create_tab_2(), {});
+            retval.add(this.create_tab_3(), {});
+            return retval;
             
         }
         
         ,create_tabWidget_2: function create_tabWidget_2() {
             this.tabWidget_2 = new qx.ui.tabview.TabView();
-            this.tabWidget_2.setMarginBottom(1);
-            this.tabWidget_2.setMarginTop(1);
-            this.tabWidget_2.setMarginLeft(1);
-            this.tabWidget_2.setMarginRight(1);
-            this.tabWidget_2.add(this.create_tab_4());
-            this.tabWidget_2.add(this.create_tab_5());
-            return this.tabWidget_2;
+            var retval  =  this.tabWidget_2;
+            retval.setMargin(1);
+            retval.add(this.create_tab_4(), {});
+            retval.add(this.create_tab_5(), {});
+            return retval;
             
         }
         
         ,create_tab_2: function create_tab_2() {
             this.tab_2 = new qx.ui.tabview.Page();
-            this.tab_2.setLabel(this.tr("Tab 2"));
-            this.tab_2.setMarginBottom(1);
-            this.tab_2.setMarginTop(1);
-            this.tab_2.setMarginLeft(1);
-            this.tab_2.setMarginRight(1);
-            this.tab_2.setLayout(this.create_tab_2_il());
-            this.tab_2.add(this.create_checkBox(), {left: 180,top: 180});
-            this.tab_2.add(this.create_radioButton_5(), {left: 130,top: 290});
-            this.tab_2.add(this.create_pushButton(), {left: 180,top: 120});
-            return this.tab_2;
+            var retval  =  this.tab_2;
+            retval.setLabel(this.tr("Tab 2"));
+            retval.setMargin(1);
+            retval.setLayout(this.create_tab_2_il());
+            retval.add(this.create_checkBox(), {left: 180,top: 180});
+            retval.add(this.create_radioButton_5(), {left: 130,top: 290});
+            retval.add(this.create_pushButton(), {left: 180,top: 120});
+            return retval;
             
         }
         
         ,create_tab_2_il: function create_tab_2_il() {
             this.tab_2_il = new qx.ui.layout.Canvas();
-            return this.tab_2_il;
+            var retval  =  this.tab_2_il;
+            return retval;
             
         }
         
         ,create_tab_3: function create_tab_3() {
             this.tab_3 = new qx.ui.tabview.Page();
-            this.tab_3.setLabel(this.tr("Page"));
-            this.tab_3.setMarginBottom(1);
-            this.tab_3.setMarginTop(1);
-            this.tab_3.setMarginLeft(1);
-            this.tab_3.setMarginRight(1);
-            this.tab_3.setLayout(this.create_verticalLayout());
-            this.tab_3.add(this.create_scrollArea(), {flex: 1});
-            return this.tab_3;
+            var retval  =  this.tab_3;
+            retval.setLabel(this.tr("Page"));
+            retval.setMargin(1);
+            retval.setLayout(this.create_verticalLayout());
+            retval.add(this.create_scrollArea(), {flex: 1});
+            return retval;
             
         }
         
         ,create_tab_4: function create_tab_4() {
             this.tab_4 = new qx.ui.tabview.Page();
-            this.tab_4.setLabel(this.tr("Tab 1"));
-            this.tab_4.setMarginBottom(1);
-            this.tab_4.setMarginTop(1);
-            this.tab_4.setMarginLeft(1);
-            this.tab_4.setMarginRight(1);
-            this.tab_4.setLayout(this.create_verticalLayout_4());
-            this.tab_4.add(this.create_formLayout_implicit_container(), {flex: 1});
-            return this.tab_4;
+            var retval  =  this.tab_4;
+            retval.setLabel(this.tr("Tab 1"));
+            retval.setMargin(1);
+            retval.setLayout(this.create_verticalLayout_4());
+            retval.add(this.create_formLayout_implicit_container(), {flex: 1});
+            return retval;
             
         }
         
         ,create_tab_5: function create_tab_5() {
             this.tab_5 = new qx.ui.tabview.Page();
-            this.tab_5.setLabel(this.tr("Tab 2"));
-            this.tab_5.setMarginBottom(1);
-            this.tab_5.setMarginTop(1);
-            this.tab_5.setMarginLeft(1);
-            this.tab_5.setMarginRight(1);
-            this.tab_5.setLayout(this.create_verticalLayout_6());
-            this.tab_5.add(this.create_scrollArea_2(), {flex: 0});
-            return this.tab_5;
+            var retval  =  this.tab_5;
+            retval.setLabel(this.tr("Tab 2"));
+            retval.setMargin(1);
+            retval.setLayout(this.create_verticalLayout_6());
+            retval.add(this.create_scrollArea_2(), {flex: 0});
+            return retval;
             
         }
         
         ,create_verticalLayout: function create_verticalLayout() {
             this.verticalLayout = new qx.ui.layout.VBox();
-            return this.verticalLayout;
+            var retval  =  this.verticalLayout;
+            return retval;
             
         }
         
         ,create_verticalLayout_2: function create_verticalLayout_2() {
             this.verticalLayout_2 = new qx.ui.layout.VBox();
-            return this.verticalLayout_2;
+            var retval  =  this.verticalLayout_2;
+            return retval;
             
         }
         
         ,create_verticalLayout_3: function create_verticalLayout_3() {
             this.verticalLayout_3 = new qx.ui.layout.VBox();
-            return this.verticalLayout_3;
+            var retval  =  this.verticalLayout_3;
+            return retval;
             
         }
         
         ,create_verticalLayout_4: function create_verticalLayout_4() {
             this.verticalLayout_4 = new qx.ui.layout.VBox();
-            return this.verticalLayout_4;
+            var retval  =  this.verticalLayout_4;
+            return retval;
             
         }
         
         ,create_verticalLayout_5: function create_verticalLayout_5() {
             this.verticalLayout_5 = new qx.ui.layout.VBox();
-            return this.verticalLayout_5;
+            var retval  =  this.verticalLayout_5;
+            return retval;
             
         }
         
         ,create_verticalLayout_6: function create_verticalLayout_6() {
             this.verticalLayout_6 = new qx.ui.layout.VBox();
-            return this.verticalLayout_6;
+            var retval  =  this.verticalLayout_6;
+            return retval;
             
         }
         

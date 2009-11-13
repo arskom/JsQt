@@ -22,7 +22,7 @@
 #
 
 from jsqt import il
-from gui import ContainerBase
+from gui import ContainerBase, SimpleProp
 
 class QMainWindow(ContainerBase):
     type = "qx.ui.container.Composite"
@@ -48,12 +48,12 @@ class QTabWidget(ContainerBase):
 class TabPage(ContainerBase):
     type = "qx.ui.tabview.Page"
     known_simple_props = {
-        "title": ("setLabel", il.primitive.TranslatableString),
+        "title": SimpleProp("setLabel", il.primitive.TranslatableString),
     }
     
     def __init__(self, elt, name=None):
         self.layout_properties = None
-        ContainerBase.__init__(self, elt, name)                
+        ContainerBase.__init__(self, elt, name)
 
 class QSplitter(ContainerBase):
     type = "qx.ui.splitpane.Pane"
@@ -81,25 +81,25 @@ class QSplitter(ContainerBase):
         pass
 
     def _compile_instantiation(self, dialect, ret):
-        factory_function_retval = il.primitive.ObjectReference('this.%s'
-                                                                    % self.name)
+        factory_function_retval = il.primitive.ObjectReference('retval')
         instantiation = il.primitive.Assignment()
-        instantiation.set_left(factory_function_retval)
+        instantiation.set_left(il.primitive.ObjectReference('this.%s' % self.name))
         instantiation.set_right(il.primitive.Instantiation(self.type,[
             il.primitive.String(self.__orientation)]))
 
         self.factory_function.add_statement(instantiation)
+        self.factory_function.add_statement(il.primitive.ObjectReference("var retval = this.%s" % self.name)) # FIXME: hack
 
         ret.set_member(self.factory_function.name, self.factory_function)
         self.factory_function.set_return_statement(
-                            il.primitive.ObjectReference('this.%s' % self.name))
+                            il.primitive.ObjectReference('retval'))
 
         ret.set_member(self.name, il.primitive.ObjectReference('null'))
 
 class QGroupBox(ContainerBase):
     type = "qx.ui.groupbox.GroupBox"
     known_simple_props = {
-        "title": ("setLegend", il.primitive.TranslatableString),
+        "title": SimpleProp("setLegend", il.primitive.TranslatableString),
     }
 
     def __init__(self, elt, name=None):
