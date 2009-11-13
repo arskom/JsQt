@@ -11,7 +11,7 @@ sys.path.append("src")
 import jsqt
 
 setup(
-    name = 'jsqt',
+    name = 'JsQt',
     version = jsqt.version,
     packages = find_packages('src'),
     package_dir = {'':'src'},
