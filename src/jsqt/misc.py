@@ -23,14 +23,6 @@
 
 import sys
 
-def debug_print(*args):
-    if loglevel > 0:
-        for i in range(len(args)):
-            sys.stderr.write(str(args[i]))
-            if i != len(args)-1:
-                sys.stderr.write(" ")
-        sys.stderr.write("\n")
-
 class DuckTypedList(list):
     """
     Not exactly duck typing, but it comes close.
