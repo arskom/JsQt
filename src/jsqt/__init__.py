@@ -29,4 +29,13 @@ header_string = """JsQt %s
 
 loglevel = 0
 
+def debug_print(*args):
+    if loglevel > 0:
+        for i in range(len(args)):
+            sys.stderr.write(str(args[i]))
+            if i != len(args)-1:
+                sys.stderr.write(" ")
+        sys.stderr.write("\n")
+
+
 from misc import *
