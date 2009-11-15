@@ -23,6 +23,7 @@
 
 from jsqt import il
 from container import ContainerWithoutLayout, SimpleProp
+from gui import ObjectBase
 
 class QMenuBar(ContainerWithoutLayout):
     type = "qx.ui.menubar.MenuBar"
@@ -31,6 +32,53 @@ class QMenuBar(ContainerWithoutLayout):
         instance.type = "qx.ui.menubar.Button"
 
         ContainerWithoutLayout.add_child(self, instance)
+
+class Separator(ObjectBase):
+    
+    def __init__(self):
+        ObjectBase.__init__(self, None, "")
+        self.real = False
+
+    def _compile_instantiation(self, dialect, ret):
+        pass
+    
+    def compile(self, dialect, ret):
+        add_separator = il.primitive.FunctionCall('retval.addSeparator')
+        self.parent.factory_function.add_statement(add_separator)
+
+class QMenu(ContainerWithoutLayout):
+    type = "qx.ui.menu.Menu"
+
+    def __init__(self, elt, name=None):
+        self.actions = set()
+
+        ContainerWithoutLayout.__init__(self, elt, name)
+
+    def _handle_addaction_tag(self, elt):
+        self.actions.add(elt.attrib['name'])
+
+    def compile(self, dialect, ret):
+        for a in self.actions:
+            cont = False
+            for c in self.children:
+                if c.name == a:
+                    cont = True
+                    break
+            if cont:
+                continue
+
+            if a == "separator":
+                self.add_child(Separator())
+                
+            else:
+                action = ret.main_widget.actions[a]
+                button = Button(None, action.name)
+                button.simple_prop_data['title'] = action.prop_text
+
+                self.add_child(button)
+
+        ContainerWithoutLayout.compile(self, dialect, ret)
+
 
 class Button(ContainerWithoutLayout):
     type = "qx.ui.menu.Button"
@@ -44,26 +92,37 @@ class Button(ContainerWithoutLayout):
 
         ContainerWithoutLayout.__init__(self, elt, name)
 
-    def _compile_sub_menu(self, dialect, ret):
-        if self.menu != None:
-            set_menu = il.primitive.FunctionCall('retval.setMenu',
-                   [il.primitive.FunctionCall("this.create_%s" % self.menu.name)])
+    def _init_before_parse(self):
+        ContainerWithoutLayout._init_before_parse(self)
+        self.tag_handlers['addaction'] = self._handle_addaction_tag
 
-            self.factory_function.add_statement(set_menu)
+    def _handle_addaction_tag(self, elt):
+        if self.menu == None:
+            self.menu = QMenu(None, "%s_implicit_menu" % self.name)
+
+        self.menu._handle_addaction_tag(elt)
+
+    def _compile_sub_menu(self, dialect, ret):
+        set_menu = il.primitive.FunctionCall('retval.setMenu',
+                 [il.primitive.FunctionCall("this.create_%s" % self.menu.name)])
+
+        self.factory_function.add_statement(set_menu)
 
     def compile(self, dialect, ret):
         ContainerWithoutLayout.compile(self, dialect, ret)
 
         if self.menu != None:
             self.menu.compile(dialect, ret)
-        self._compile_sub_menu(dialect, ret)
+            self._compile_sub_menu(dialect, ret)
 
     def add_child(self, instance):
         if self.menu == None:
             self.menu = QMenu(None, "%s_implicit_menu" % self.name)
 
-        self.menu.add_child(instance)
+        if instance.name == "separator":
+            raise Exception("As there is no way to tell a non-leaf menu item "
+                "named 'separator' from a real separator, you are not allowed "
+                "to add a menu item named 'separator'. Sorry.")
 
-class QMenu(ContainerWithoutLayout):
-    type = "qx.ui.menu.Menu"
+        self.menu.add_child(instance)
 

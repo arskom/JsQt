@@ -316,7 +316,7 @@ class ClassDefinition(SinglePartCompilable):
     def get_member(self, key, val, default=None):
         return self.__elts['members'].get(key, default)
 
-    def compile(self, dialect, ret=None):
+    def compile(self, dialect):
         lang = js.primitive.FunctionCall("qx.Class.define")
         lang.add_argument(js.primitive.String(self.name))
 

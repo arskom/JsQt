@@ -147,7 +147,7 @@ class MGeometryProperties(object):
             jsqt.debug_print("\t\t", "WARNING: property 'geometry' doesn't have"
                                                             " 'sizepolicy' tag")
 
-    def compile(self, dialect, ret):
+    def _compile_geometry(self, dialect, ret):
         if not self._compile_simple_prop(SimpleProp("setMargin", il.primitive.DecimalInteger, 0), self.__margin):
             self._compile_simple_prop(SimpleProp("setMarginTop", il.primitive.DecimalInteger, 0), self.__margin_t)
             self._compile_simple_prop(SimpleProp("setMarginLeft", il.primitive.DecimalInteger, 0), self.__margin_l)
@@ -176,6 +176,7 @@ class MGeometryProperties(object):
     }
 
 class ObjectBase(il.primitive.MultiPartCompilable):
+    __metaclass__ = WidgetMeta
     type = None
 
     def __init__(self, elt, name=None):
@@ -184,12 +185,13 @@ class ObjectBase(il.primitive.MultiPartCompilable):
         self.simple_prop_data={}
 
         self.children = DuckTypedList(['compile'])
-        self.supported = True
         self.parent = None
         self.tag_handlers = {}
+        self.real = True
 
         self.tag_handlers["property"] = self._handle_property_tag
         self.tag_handlers["attribute"] = self._handle_property_tag
+        self._elt = None
 
         if name != None:
             if elt != None:
@@ -219,10 +221,6 @@ class ObjectBase(il.primitive.MultiPartCompilable):
     
     def _handle_property_tag(self, elt):
         self.set_property(elt)
-
-    def set_property(self, elt):
-        jsqt.debug_print("\t\t", elt.tag, elt.attrib)
-        MGeometryProperties.set_property(self, elt)
 
     def _loop_children(self, elt):
         self._elt = elt
@@ -256,7 +254,6 @@ class ObjectBase(il.primitive.MultiPartCompilable):
         return ObjectBase.get_class(class_name)(elt)
 
     def _compile_instantiation(self, dialect, ret):
-        factory_function_retval = il.primitive.ObjectReference('retval')
         instantiation = il.primitive.Assignment()
         instantiation.set_left(il.primitive.ObjectReference('this.%s' % self.name))
         instantiation.set_right(il.primitive.Instantiation(self.type))
@@ -298,20 +295,6 @@ class ObjectBase(il.primitive.MultiPartCompilable):
     def set_parent(self, parent):
         self.parent = parent
 
-    def is_primitive(self):
-        return False
-
-class WidgetBase(ObjectBase, MGeometryProperties):
-    __metaclass__ = WidgetMeta
-
-    def __init__(self, elt, name=None):
-        MGeometryProperties.__init__(self)
-        ObjectBase.__init__(self, elt, name)
-
-    def compile(self, dialect, ret):
-        ObjectBase.compile(self, dialect, ret)
-        MGeometryProperties.compile(self, dialect, ret)
-
     def set_property(self, elt):
         prop_name = elt.attrib['name']
 
@@ -327,6 +310,23 @@ class WidgetBase(ObjectBase, MGeometryProperties):
 
         elif prop_name in self.known_complex_props:
             self.known_complex_props[prop_name](self, elt)
+
+class Action(ObjectBase):
+    def _handle_text(self, elt):
+        self.prop_text = elt[0]
+
+    known_complex_props = {
+        "text": _handle_text
+    }
+
+class WidgetBase(ObjectBase, MGeometryProperties):
+    def __init__(self, elt, name=None):
+        MGeometryProperties.__init__(self)
+        ObjectBase.__init__(self, elt, name)
+
+    def compile(self, dialect, ret):
+        ObjectBase.compile(self, dialect, ret)
+        self._compile_geometry(dialect, ret)
 
     def _decode_nested_prop(self, elt):
         retval = {}
@@ -378,12 +378,14 @@ class ContainerBase(WidgetBase):
         for c in self.children:
             c.compile(dialect, ret)
 
-            if c.supported:
+            if c.real:
                 args = [il.primitive.FunctionCall("this.create_%s" % c.name)]
-                c.layout_properties = c.parent.layout.get_properties(
+
+                if c._elt != None:
+                    c.layout_properties = c.parent.layout.get_properties(
                                                           c._elt.getparent(), c)
-                if c.layout_properties != None:
-                    args.append(c.layout_properties)
+                    if c.layout_properties != None:
+                        args.append(c.layout_properties)
 
                 add_children=il.primitive.FunctionCall('retval.%s' % self.add_method_name, args)
                 self.factory_function.add_statement(add_children)
@@ -425,7 +427,7 @@ class QWidgetStub(WidgetBase):
         WidgetBase.__init__(self, elt, name)
 
         self.class_name = elt.attrib['class']
-        self.supported = False
+        self.real = False
 
     def compile(self, dialect, ret=None):
         ret.ctor.add_statement(

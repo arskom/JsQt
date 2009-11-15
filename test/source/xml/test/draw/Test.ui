@@ -48,6 +48,46 @@
          <string>Signals</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>Gobbledygook</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>A new Sub</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Inside</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Hey</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>Nested</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Up to Three Levels</string>
+          </property>
+         </item>
+        </item>
+        <item>
+         <property name="text">
+          <string>Second Level</string>
+         </property>
+        </item>
+       </item>
+       <item>
+        <property name="text">
+         <string>Top Level</string>
+        </property>
+       </item>
       </widget>
       <widget class="QTabWidget" name="tabWidget">
        <property name="toolTip">
@@ -657,6 +697,11 @@
    </property>
    <property name="toolTip">
     <string>This is a toolbar action, the first one.</string>
+   </property>
+  </action>
+  <action name="actionDeneme">
+   <property name="text">
+    <string>deneme</string>
    </property>
   </action>
  </widget>

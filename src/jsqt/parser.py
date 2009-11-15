@@ -127,6 +127,7 @@ class UiParser(object):
         self.clazz.ctor.add_statement(set_main_widget)
 
         self.clazz.set_member(elt.attrib['name'], instance)
+        self.clazz.main_widget = instance
 
     def parse_custom_widgets(self,elt):
         for e in elt:

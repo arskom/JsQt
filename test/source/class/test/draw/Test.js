@@ -18,6 +18,12 @@ qx.Class.define("test.draw.Test", {
     ,members:  {
         MainWindow: null
         ,__lv: null
+        ,actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm: null
+        ,actionFineMenuItem: null
+        ,actionMenuItem1: null
+        ,actionSubMenuItem1: null
+        ,actionSubMenuItem2: null
+        ,actionSubMenuItem3: null
         ,centralwidget: null
         ,checkBox: null
         ,checkBox_2: null
@@ -25,20 +31,6 @@ qx.Class.define("test.draw.Test", {
         ,checkBox_4: null
         ,comboBox: null
         ,create_MainWindow: function create_MainWindow() {
-             /* The 'action' tag for widget named 'MainWindow'of type '<class 'jsqt.il.qt.container.QMainWindow'>' is not supported (yet?) */
-            
-             /* The 'action' tag for widget named 'MainWindow'of type '<class 'jsqt.il.qt.container.QMainWindow'>' is not supported (yet?) */
-            
-             /* The 'action' tag for widget named 'MainWindow'of type '<class 'jsqt.il.qt.container.QMainWindow'>' is not supported (yet?) */
-            
-             /* The 'action' tag for widget named 'MainWindow'of type '<class 'jsqt.il.qt.container.QMainWindow'>' is not supported (yet?) */
-            
-             /* The 'action' tag for widget named 'MainWindow'of type '<class 'jsqt.il.qt.container.QMainWindow'>' is not supported (yet?) */
-            
-             /* The 'action' tag for widget named 'MainWindow'of type '<class 'jsqt.il.qt.container.QMainWindow'>' is not supported (yet?) */
-            
-             /* The 'action' tag for widget named 'MainWindow'of type '<class 'jsqt.il.qt.container.QMainWindow'>' is not supported (yet?) */
-            
             this.MainWindow = new qx.ui.container.Composite();
             var retval  =  this.MainWindow;
             retval.setHeight(456);
@@ -54,6 +46,60 @@ qx.Class.define("test.draw.Test", {
         ,create___lv: function create___lv() {
             this.__lv = new qx.ui.layout.VBox();
             var retval  =  this.__lv;
+            return retval;
+            
+        }
+        
+        ,create_actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm: function create_actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm() {
+            this.actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm = new qx.ui.menu.Button();
+            var retval  =  this.actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm;
+            retval.setLabel(this.tr("AMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm"));
+            retval.setMargin(1);
+            return retval;
+            
+        }
+        
+        ,create_actionFineMenuItem: function create_actionFineMenuItem() {
+            this.actionFineMenuItem = new qx.ui.menu.Button();
+            var retval  =  this.actionFineMenuItem;
+            retval.setLabel(this.tr("FineMenuItem"));
+            retval.setMargin(1);
+            return retval;
+            
+        }
+        
+        ,create_actionMenuItem1: function create_actionMenuItem1() {
+            this.actionMenuItem1 = new qx.ui.menu.Button();
+            var retval  =  this.actionMenuItem1;
+            retval.setLabel(this.tr("MenuItem1"));
+            retval.setMargin(1);
+            return retval;
+            
+        }
+        
+        ,create_actionSubMenuItem1: function create_actionSubMenuItem1() {
+            this.actionSubMenuItem1 = new qx.ui.menu.Button();
+            var retval  =  this.actionSubMenuItem1;
+            retval.setLabel(this.tr("SubMenuItem1"));
+            retval.setMargin(1);
+            return retval;
+            
+        }
+        
+        ,create_actionSubMenuItem2: function create_actionSubMenuItem2() {
+            this.actionSubMenuItem2 = new qx.ui.menu.Button();
+            var retval  =  this.actionSubMenuItem2;
+            retval.setLabel(this.tr("SubMenuItem2"));
+            retval.setMargin(1);
+            return retval;
+            
+        }
+        
+        ,create_actionSubMenuItem3: function create_actionSubMenuItem3() {
+            this.actionSubMenuItem3 = new qx.ui.menu.Button();
+            var retval  =  this.actionSubMenuItem3;
+            retval.setLabel(this.tr("SubMenuItem3"));
+            retval.setMargin(1);
             return retval;
             
         }
@@ -522,12 +568,6 @@ qx.Class.define("test.draw.Test", {
         }
         
         ,create_menuMenu1: function create_menuMenu1() {
-             /* The 'addaction' tag for widget named 'menuMenu1'of type '<class 'jsqt.il.qt.menu.Button'>' is not supported (yet?) */
-            
-             /* The 'addaction' tag for widget named 'menuMenu1'of type '<class 'jsqt.il.qt.menu.Button'>' is not supported (yet?) */
-            
-             /* The 'addaction' tag for widget named 'menuMenu1'of type '<class 'jsqt.il.qt.menu.Button'>' is not supported (yet?) */
-            
             this.menuMenu1 = new qx.ui.menubar.Button();
             var retval  =  this.menuMenu1;
             retval.setLabel(this.tr("Menu1"));
@@ -542,38 +582,51 @@ qx.Class.define("test.draw.Test", {
             var retval  =  this.menuMenu1_implicit_menu;
             retval.setMargin(1);
             retval.add(this.create_menuMenuItem2());
+            retval.add(this.create_actionMenuItem1());
+            retval.addSeparator();
             return retval;
             
         }
         
         ,create_menuMenu2: function create_menuMenu2() {
-             /* The 'addaction' tag for widget named 'menuMenu2'of type '<class 'jsqt.il.qt.menu.Button'>' is not supported (yet?) */
-            
-             /* The 'addaction' tag for widget named 'menuMenu2'of type '<class 'jsqt.il.qt.menu.Button'>' is not supported (yet?) */
-            
-             /* The 'addaction' tag for widget named 'menuMenu2'of type '<class 'jsqt.il.qt.menu.Button'>' is not supported (yet?) */
-            
             this.menuMenu2 = new qx.ui.menubar.Button();
             var retval  =  this.menuMenu2;
             retval.setLabel(this.tr("Menu2"));
             retval.setMargin(1);
+            retval.setMenu(this.create_menuMenu2_implicit_menu());
+            return retval;
+            
+        }
+        
+        ,create_menuMenu2_implicit_menu: function create_menuMenu2_implicit_menu() {
+            this.menuMenu2_implicit_menu = new qx.ui.menu.Menu();
+            var retval  =  this.menuMenu2_implicit_menu;
+            retval.setMargin(1);
+            retval.add(this.create_actionFineMenuItem());
+            retval.add(this.create_actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm());
+            retval.addSeparator();
             return retval;
             
         }
         
         ,create_menuMenuItem2: function create_menuMenuItem2() {
-             /* The 'addaction' tag for widget named 'menuMenuItem2'of type '<class 'jsqt.il.qt.menu.Button'>' is not supported (yet?) */
-            
-             /* The 'addaction' tag for widget named 'menuMenuItem2'of type '<class 'jsqt.il.qt.menu.Button'>' is not supported (yet?) */
-            
-             /* The 'addaction' tag for widget named 'menuMenuItem2'of type '<class 'jsqt.il.qt.menu.Button'>' is not supported (yet?) */
-            
-             /* The 'addaction' tag for widget named 'menuMenuItem2'of type '<class 'jsqt.il.qt.menu.Button'>' is not supported (yet?) */
-            
             this.menuMenuItem2 = new qx.ui.menu.Button();
             var retval  =  this.menuMenuItem2;
             retval.setLabel(this.tr("MenuItem2"));
             retval.setMargin(1);
+            retval.setMenu(this.create_menuMenuItem2_implicit_menu());
+            return retval;
+            
+        }
+        
+        ,create_menuMenuItem2_implicit_menu: function create_menuMenuItem2_implicit_menu() {
+            this.menuMenuItem2_implicit_menu = new qx.ui.menu.Menu();
+            var retval  =  this.menuMenuItem2_implicit_menu;
+            retval.setMargin(1);
+            retval.add(this.create_actionSubMenuItem2());
+            retval.add(this.create_actionSubMenuItem3());
+            retval.add(this.create_actionSubMenuItem1());
+            retval.addSeparator();
             return retval;
             
         }
@@ -856,6 +909,10 @@ qx.Class.define("test.draw.Test", {
             
              /* The 'item' tag for widget named 'treeWidget'of type '<class 'jsqt.il.qt.itemview.QTreeWidget'>' is not supported (yet?) */
             
+             /* The 'item' tag for widget named 'treeWidget'of type '<class 'jsqt.il.qt.itemview.QTreeWidget'>' is not supported (yet?) */
+            
+             /* The 'item' tag for widget named 'treeWidget'of type '<class 'jsqt.il.qt.itemview.QTreeWidget'>' is not supported (yet?) */
+            
             this.treeWidget = new qx.ui.tree.Tree();
             var retval  =  this.treeWidget;
             retval.setMaxWidth(250);
@@ -975,7 +1032,9 @@ qx.Class.define("test.draw.Test", {
         ,menuMenu1: null
         ,menuMenu1_implicit_menu: null
         ,menuMenu2: null
+        ,menuMenu2_implicit_menu: null
         ,menuMenuItem2: null
+        ,menuMenuItem2_implicit_menu: null
         ,menubar: null
         ,pushButton: null
         ,pushButton_2: null

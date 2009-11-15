@@ -22,7 +22,7 @@
 #
 
 from jsqt import il
-from gui import ContainerBase, SimpleProp
+from gui import ContainerBase, SimpleProp, Action
 
 class ContainerWithoutLayout(ContainerBase):
     def __init__(self, elt, name=None):
@@ -35,6 +35,19 @@ class ContainerWithoutLayout(ContainerBase):
 
 class QMainWindow(ContainerBase):
     type = "qx.ui.container.Composite"
+
+    def __init__(self, elt, name=None):
+        self.actions = {}
+
+        ContainerBase.__init__(self, elt, name)
+
+    def _init_before_parse(self):
+        ContainerBase._init_before_parse(self)
+
+        self.tag_handlers['action'] = self._handle_actions_tag
+
+    def _handle_actions_tag(self, elt):
+        self.actions[elt.attrib['name']] = Action(elt)
 
 class QTabWidget(ContainerWithoutLayout):
     type = "qx.ui.tabview.TabView"
