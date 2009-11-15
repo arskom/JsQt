@@ -95,6 +95,7 @@ class MenuButton(ContainerWithoutLayout):
 class QMenu(ContainerWithoutLayout):
     type = "qx.ui.menu.Menu"
     Button = MenuButton
+    postfix = "_menu"
 
     def __init__(self, elt, name=None):
         self.actions = []
@@ -115,7 +116,7 @@ class QMenu(ContainerWithoutLayout):
 
             elif a in ret.main_widget.actions:
                 action = ret.main_widget.actions[a]
-                button = self.Button(None, action.name)
+                button = self.Button(None, action.name + self.postfix)
                 button.simple_prop_data['title'] = action.prop_text
 
                 self.add_child(button)
@@ -136,6 +137,7 @@ class QToolBar(QMenu):
     type = "qx.ui.toolbar.ToolBar"
     ver_stretch_pol = "Fixed"
     Button = ToolBarButton
+    postfix = "_toolbar"
 
     def _init_before_parse(self):
         ContainerWithoutLayout._init_before_parse(self)

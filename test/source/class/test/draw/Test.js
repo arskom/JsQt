@@ -16,13 +16,14 @@ qx.Class.define("test.draw.Test", {
     ,members:  {
         MainWindow: null
         ,__lv: null
-        ,actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm: null
-        ,actionFineMenuItem: null
-        ,actionMenuItem1: null
-        ,actionSubMenuItem1: null
-        ,actionSubMenuItem2: null
-        ,actionSubMenuItem3: null
-        ,actionToolBarAction1: null
+        ,actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm_menu: null
+        ,actionFineMenuItem_menu: null
+        ,actionMenuItem1_menu: null
+        ,actionMenuItem1_toolbar: null
+        ,actionSubMenuItem1_menu: null
+        ,actionSubMenuItem2_menu: null
+        ,actionSubMenuItem3_menu: null
+        ,actionToolBarAction1_toolbar: null
         ,centralwidget: null
         ,checkBox: null
         ,checkBox_2: null
@@ -50,62 +51,71 @@ qx.Class.define("test.draw.Test", {
             
         }
         
-        ,create_actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm: function create_actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm() {
-            this.actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm = new qx.ui.menu.Button();
-            var retval  =  this.actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm;
+        ,create_actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm_menu: function create_actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm_menu() {
+            this.actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm_menu = new qx.ui.menu.Button();
+            var retval  =  this.actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm_menu;
             retval.setLabel(this.tr("AMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm"));
             retval.setMargin(1);
             return retval;
             
         }
         
-        ,create_actionFineMenuItem: function create_actionFineMenuItem() {
-            this.actionFineMenuItem = new qx.ui.menu.Button();
-            var retval  =  this.actionFineMenuItem;
+        ,create_actionFineMenuItem_menu: function create_actionFineMenuItem_menu() {
+            this.actionFineMenuItem_menu = new qx.ui.menu.Button();
+            var retval  =  this.actionFineMenuItem_menu;
             retval.setLabel(this.tr("FineMenuItem"));
             retval.setMargin(1);
             return retval;
             
         }
         
-        ,create_actionMenuItem1: function create_actionMenuItem1() {
-            this.actionMenuItem1 = new qx.ui.toolbar.Button();
-            var retval  =  this.actionMenuItem1;
+        ,create_actionMenuItem1_menu: function create_actionMenuItem1_menu() {
+            this.actionMenuItem1_menu = new qx.ui.menu.Button();
+            var retval  =  this.actionMenuItem1_menu;
+            retval.setLabel(this.tr("MenuItem1"));
+            retval.setMargin(1);
+            return retval;
+            
+        }
+        
+        ,create_actionMenuItem1_toolbar: function create_actionMenuItem1_toolbar() {
+            this.actionMenuItem1_toolbar = new qx.ui.toolbar.Button();
+            var retval  =  this.actionMenuItem1_toolbar;
             retval.setLabel(this.tr("MenuItem1"));
             return retval;
             
         }
         
-        ,create_actionSubMenuItem1: function create_actionSubMenuItem1() {
-            this.actionSubMenuItem1 = new qx.ui.menu.Button();
-            var retval  =  this.actionSubMenuItem1;
+        ,create_actionSubMenuItem1_menu: function create_actionSubMenuItem1_menu() {
+            this.actionSubMenuItem1_menu = new qx.ui.menu.Button();
+            var retval  =  this.actionSubMenuItem1_menu;
             retval.setLabel(this.tr("SubMenuItem1"));
             retval.setMargin(1);
             return retval;
             
         }
         
-        ,create_actionSubMenuItem2: function create_actionSubMenuItem2() {
-            this.actionSubMenuItem2 = new qx.ui.menu.Button();
-            var retval  =  this.actionSubMenuItem2;
+        ,create_actionSubMenuItem2_menu: function create_actionSubMenuItem2_menu() {
+            this.actionSubMenuItem2_menu = new qx.ui.menu.Button();
+            var retval  =  this.actionSubMenuItem2_menu;
             retval.setLabel(this.tr("SubMenuItem2"));
             retval.setMargin(1);
             return retval;
             
         }
         
-        ,create_actionSubMenuItem3: function create_actionSubMenuItem3() {
-            this.actionSubMenuItem3 = new qx.ui.menu.Button();
-            var retval  =  this.actionSubMenuItem3;
+        ,create_actionSubMenuItem3_menu: function create_actionSubMenuItem3_menu() {
+            this.actionSubMenuItem3_menu = new qx.ui.menu.Button();
+            var retval  =  this.actionSubMenuItem3_menu;
             retval.setLabel(this.tr("SubMenuItem3"));
             retval.setMargin(1);
             return retval;
             
         }
         
-        ,create_actionToolBarAction1: function create_actionToolBarAction1() {
-            this.actionToolBarAction1 = new qx.ui.toolbar.Button();
-            var retval  =  this.actionToolBarAction1;
+        ,create_actionToolBarAction1_toolbar: function create_actionToolBarAction1_toolbar() {
+            this.actionToolBarAction1_toolbar = new qx.ui.toolbar.Button();
+            var retval  =  this.actionToolBarAction1_toolbar;
             retval.setLabel(this.tr("ToolBarAction1"));
             return retval;
             
@@ -577,7 +587,7 @@ qx.Class.define("test.draw.Test", {
             this.menuMenu1_implicit_menu = new qx.ui.menu.Menu();
             var retval  =  this.menuMenu1_implicit_menu;
             retval.setMargin(1);
-            retval.add(this.create_actionMenuItem1());
+            retval.add(this.create_actionMenuItem1_menu());
             retval.addSeparator();
             retval.add(this.create_menuMenuItem2());
             return retval;
@@ -598,9 +608,9 @@ qx.Class.define("test.draw.Test", {
             this.menuMenu2_implicit_menu = new qx.ui.menu.Menu();
             var retval  =  this.menuMenu2_implicit_menu;
             retval.setMargin(1);
-            retval.add(this.create_actionFineMenuItem());
+            retval.add(this.create_actionFineMenuItem_menu());
             retval.addSeparator();
-            retval.add(this.create_actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm());
+            retval.add(this.create_actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm_menu());
             return retval;
             
         }
@@ -619,10 +629,10 @@ qx.Class.define("test.draw.Test", {
             this.menuMenuItem2_implicit_menu = new qx.ui.menu.Menu();
             var retval  =  this.menuMenuItem2_implicit_menu;
             retval.setMargin(1);
-            retval.add(this.create_actionSubMenuItem1());
-            retval.add(this.create_actionSubMenuItem2());
+            retval.add(this.create_actionSubMenuItem1_menu());
+            retval.add(this.create_actionSubMenuItem2_menu());
             retval.addSeparator();
-            retval.add(this.create_actionSubMenuItem3());
+            retval.add(this.create_actionSubMenuItem3_menu());
             return retval;
             
         }
@@ -905,8 +915,8 @@ qx.Class.define("test.draw.Test", {
             var retval  =  this.toolBar;
             retval.setMargin(1);
             retval.setAllowGrowY(false);
-            retval.add(this.create_actionMenuItem1());
-            retval.add(this.create_actionToolBarAction1());
+            retval.add(this.create_actionMenuItem1_toolbar());
+            retval.add(this.create_actionToolBarAction1_toolbar());
             return retval;
             
         }
