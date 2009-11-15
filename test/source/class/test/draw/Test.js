@@ -2,8 +2,6 @@ qx.Class.define("test.draw.Test", {
     construct: function() {
         this.base(arguments);
         this.setWidget(this.create_MainWindow());
-         /* The instance named 'treeWidget' is of type 'QTreeWidget' which is not supported (yet?) */
-        
          /* The instance named 'menuMenu1' is of type 'QMenu' which is not supported (yet?) */
         
          /* The instance named 'menuMenu2' is of type 'QMenu' which is not supported (yet?) */
@@ -625,7 +623,7 @@ qx.Class.define("test.draw.Test", {
             this.scrollAreaWidgetContents_2 = new qx.ui.container.Composite();
             var retval  =  this.scrollAreaWidgetContents_2;
             retval.setHeight(518);
-            retval.setWidth(101);
+            retval.setWidth(443);
             retval.setMargin(1);
             retval.setLayout(this.create_verticalLayout_3());
             retval.add(this.create_groupBox_6(), {flex: 1});
@@ -656,6 +654,7 @@ qx.Class.define("test.draw.Test", {
             this.splitter = new qx.ui.splitpane.Pane("horizontal");
             var retval  =  this.splitter;
             retval.setMargin(1);
+            retval.add(this.create_treeWidget(),1);
             retval.add(this.create_tabWidget(),1);
             return retval;
             
@@ -795,6 +794,21 @@ qx.Class.define("test.draw.Test", {
             
         }
         
+        ,create_treeWidget: function create_treeWidget() {
+             /* The 'column' tag for widget named 'treeWidget'of type '<class 'jsqt.il.qt.itemview.QTreeWidget'>' is not supported (yet?) */
+            
+             /* The 'item' tag for widget named 'treeWidget'of type '<class 'jsqt.il.qt.itemview.QTreeWidget'>' is not supported (yet?) */
+            
+             /* The 'item' tag for widget named 'treeWidget'of type '<class 'jsqt.il.qt.itemview.QTreeWidget'>' is not supported (yet?) */
+            
+            this.treeWidget = new qx.ui.tree.Tree();
+            var retval  =  this.treeWidget;
+            retval.setMaxWidth(250);
+            retval.setMargin(1);
+            return retval;
+            
+        }
+        
         ,create_verticalLayout: function create_verticalLayout() {
             this.verticalLayout = new qx.ui.layout.VBox();
             var retval  =  this.verticalLayout;
@@ -927,6 +941,7 @@ qx.Class.define("test.draw.Test", {
         ,tab_il: null
         ,tableWidget: null
         ,textEdit: null
+        ,treeWidget: null
         ,verticalLayout: null
         ,verticalLayout_2: null
         ,verticalLayout_3: null

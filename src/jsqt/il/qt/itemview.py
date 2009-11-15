@@ -141,3 +141,6 @@ class QTableWidget(QAbstractItemView):
 
         ret.set_member(self.name, il.primitive.ObjectReference('null'))
 
+class QTreeWidget(QAbstractItemView):
+    type="qx.ui.tree.Tree"
+
