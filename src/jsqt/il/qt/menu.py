@@ -34,7 +34,6 @@ class QMenuBar(ContainerWithoutLayout):
         ContainerWithoutLayout.add_child(self, instance)
 
 class Separator(ObjectBase):
-    
     def __init__(self):
         ObjectBase.__init__(self, None, "")
         self.real = False

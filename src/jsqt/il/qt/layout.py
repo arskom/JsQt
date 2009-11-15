@@ -40,6 +40,9 @@ class QLayout(ObjectBase):
     def get_properties(self, elt, inst):
         raise Exception("please inherit and override.")
 
+    def meet_child(self, inst):
+        pass
+    
 class CanvasLayout(QLayout):
     type = "qx.ui.layout.Canvas"
 
@@ -75,7 +78,7 @@ class AutoExpandingList(list):
         try:
             retval = list.__getitem__(self,key)
 
-        except IndexError,e:
+        except IndexError:
             self.extend( [None] * (key-len(self)+1))
 
         return retval
@@ -94,6 +97,22 @@ class QGridLayout(QLayout):
         QLayout.__init__(self, *args)
         self.row_flex=AutoExpandingList()
         self.col_flex=AutoExpandingList()
+
+    def meet_child(self, inst):
+        lp = inst.layout_properties.value
+        if self.row_flex[lp['row'].value] == None:
+            self.row_flex[lp['row'].value] = \
+                                    FlexProp("Expanding", inst.ver_stretch_coef)
+
+        if self.col_flex[lp['column'].value] == None:
+            self.col_flex[lp['column'].value] = \
+                                    FlexProp("Expanding", inst.hor_stretch_coef)
+
+        if inst.hor_stretch_pol == "Fixed":
+            self.row_flex[lp['row'].value].pol = "Fixed"
+
+        if inst.ver_stretch_pol == "Fixed":
+            self.col_flex[lp['column'].value].pol = "Fixed"
 
     def compile(self, dialect, ret):
         QLayout.compile(self, dialect, ret)
@@ -131,20 +150,6 @@ class QGridLayout(QLayout):
         retval={}
         for k in attr:
             retval[map_[k]]=int(attr[k])
-        
-        if self.row_flex[retval['row']] == None:
-            self.row_flex[retval['row']] = \
-                                    FlexProp("Expanding", inst.ver_stretch_coef)
-
-        if self.col_flex[retval['column']] == None:
-            self.col_flex[retval['column']] = \
-                                    FlexProp("Expanding", inst.hor_stretch_coef)
-
-        if inst.hor_stretch_pol == "Fixed":
-            self.row_flex[retval['row']].pol = "Fixed"
-
-        if inst.ver_stretch_pol == "Fixed":
-            self.col_flex[retval['column']].pol = "Fixed"
 
         return il.primitive.AssociativeArrayInitialization(retval)
 

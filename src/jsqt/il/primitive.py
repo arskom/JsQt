@@ -70,7 +70,7 @@ class DecimalInteger(SinglePartCompilable):
     def __init__(self, value):
         SinglePartCompilable.__init__(self)
         
-        self.__value = int(value)
+        self.value = int(value)
 
     @staticmethod
     def from_elt(elt):
@@ -78,7 +78,7 @@ class DecimalInteger(SinglePartCompilable):
 
     def __eq__(self, other):
         if isinstance(other, int):
-            return self.__value == other
+            return self.value == other
         else:
             return id(self) == id(other)
 
@@ -86,10 +86,10 @@ class DecimalInteger(SinglePartCompilable):
         return not self.__eq__(other)
 
     def __repr__(self):
-        return "<il.DecimalInteger(%d)>" % self.__value
+        return "<il.DecimalInteger(%d)>" % self.value
 
     def compile(self, dialect):
-        return js.primitive.DecimalInteger(self.__value)
+        return js.primitive.DecimalInteger(self.value)
 
 class Boolean(SinglePartCompilable):
     def __init__(self, value):
@@ -370,20 +370,20 @@ class AssociativeArrayInitialization(SinglePartCompilable):
 
     def __init__(self, aai):
         SinglePartCompilable.__init__(self)
-        self.__aai = DuckTypedDict(['compile'])
+        self.value = DuckTypedDict(['compile'])
         for k,v in aai.items():
             if isinstance(v, SinglePartCompilable):
-                self.__aai[k] = v
+                self.value[k] = v
             else:
-                self.__aai[k] = self.type_map[type(v)](v)
+                self.value[k] = self.type_map[type(v)](v)
 
     def __len__(self):
-        return len(self.__aai)
+        return len(self.value)
 
     def compile(self, dialect):
         retval = js.primitive.Object()
 
-        for k,v in self.__aai.items():
+        for k,v in self.value.items():
             retval.set_member(k, v.compile(dialect))
 
         return retval

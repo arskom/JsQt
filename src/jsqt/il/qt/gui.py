@@ -192,6 +192,7 @@ class ObjectBase(il.primitive.MultiPartCompilable):
         self.tag_handlers["property"] = self._handle_property_tag
         self.tag_handlers["attribute"] = self._handle_property_tag
         self._elt = None
+        self.layout_properties = {}
 
         if name != None:
             if elt != None:
@@ -367,6 +368,9 @@ class ContainerBase(WidgetBase):
         instance.set_parent(self)
 
     def _compile_layout(self, dialect, ret):
+        for c in self.children:
+            self.layout.meet_child(c)
+            
         self.layout.compile(dialect, ret)
         set_layout = il.primitive.FunctionCall('retval.setLayout',
                [il.primitive.FunctionCall("this.create_%s" % self.layout.name)])
@@ -374,7 +378,6 @@ class ContainerBase(WidgetBase):
         self.factory_function.add_statement(set_layout)
 
     def __compile_children(self, dialect, ret):
-        # children
         for c in self.children:
             c.compile(dialect, ret)
 
@@ -382,12 +385,13 @@ class ContainerBase(WidgetBase):
                 args = [il.primitive.FunctionCall("this.create_%s" % c.name)]
 
                 if c._elt != None:
-                    c.layout_properties = c.parent.layout.get_properties(
+                    c.layout_properties = self.layout.get_properties(
                                                           c._elt.getparent(), c)
                     if c.layout_properties != None:
                         args.append(c.layout_properties)
 
-                add_children=il.primitive.FunctionCall('retval.%s' % self.add_method_name, args)
+                add_children=il.primitive.FunctionCall('retval.%s' %
+                                                     self.add_method_name, args)
                 self.factory_function.add_statement(add_children)
 
     def compile(self, dialect, ret):
