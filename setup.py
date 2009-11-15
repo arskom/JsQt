@@ -6,7 +6,7 @@ __date__  = "$Nov 13, 2009 10:38:45 PM$"
 
 from setuptools import setup,find_packages
 import sys
-sys.path.append("src")
+sys.path.insert(0,"src")
 
 import jsqt
 
