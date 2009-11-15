@@ -56,6 +56,7 @@ il.qt.gui.widget_dict = {
     "QGroupBox": il.qt.container.QGroupBox,
     "QLabel": il.qt.form.QLabel,
     "Spacer": il.qt.gui.QSpacer,
+    "QMenuBar": il.qt.menu.QMenuBar,
 
     #"QDateTimeEdit": NoQooxdooEquivalent,
     #"QTimeEdit": NoQooxdooEquivalent,

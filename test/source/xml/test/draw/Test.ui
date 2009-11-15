@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>747</width>
-    <height>593</height>
+    <width>759</width>
+    <height>456</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,6 +27,12 @@
          <height>16777215</height>
         </size>
        </property>
+       <attribute name="headerVisible">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="headerVisible">
+        <bool>true</bool>
+       </attribute>
        <column>
         <property name="text">
          <string>Main</string>
@@ -235,7 +241,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>197</width>
+              <width>201</width>
               <height>518</height>
              </rect>
             </property>
@@ -375,7 +381,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>431</width>
+              <width>443</width>
               <height>518</height>
              </rect>
             </property>
@@ -569,8 +575,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>747</width>
-     <height>26</height>
+     <width>759</width>
+     <height>28</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMenu1">

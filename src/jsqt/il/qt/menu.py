@@ -21,10 +21,8 @@
 # 02110-1301, USA.
 #
 
-#
-# This is the interlingua module. It contains target-language-agnostic
-# data structures.
-#
+from jsqt import il
+from container import ContainerWithoutLayout, SimpleProp
 
-import primitive
-
+class QMenuBar(ContainerWithoutLayout):
+    type = "qx.ui.menubar.MenuBar"

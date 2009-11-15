@@ -160,7 +160,7 @@ class SplitPaneLayout(QLayout):
         elif self.parent.orientation == "vertical":
             return il.primitive.DecimalInteger(inst.ver_stretch_coef)
 
-class TabViewLayout(QLayout):
+class DummyLayout(QLayout):
     type = None
 
     def _compile_instantiation(self, dialect, ret):

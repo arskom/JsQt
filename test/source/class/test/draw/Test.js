@@ -4,7 +4,9 @@ qx.Class.define("test.draw.Test", {
         this.setWidget(this.create_MainWindow());
          /* The instance named 'treeWidget' is of type 'QTreeWidget' which is not supported (yet?) */
         
-         /* The instance named 'menubar' is of type 'QMenuBar' which is not supported (yet?) */
+         /* The instance named 'menuMenu1' is of type 'QMenu' which is not supported (yet?) */
+        
+         /* The instance named 'menuMenu2' is of type 'QMenu' which is not supported (yet?) */
         
          /* The instance named 'statusbar' is of type 'QStatusBar' which is not supported (yet?) */
         
@@ -45,11 +47,12 @@ qx.Class.define("test.draw.Test", {
             
             this.MainWindow = new qx.ui.container.Composite();
             var retval  =  this.MainWindow;
-            retval.setHeight(593);
-            retval.setWidth(747);
+            retval.setHeight(456);
+            retval.setWidth(759);
             retval.setMargin(1);
             retval.setLayout(this.create___lv());
             retval.add(this.create_centralwidget(), {flex: 1});
+            retval.add(this.create_menubar(), {flex: 1});
             return retval;
             
         }
@@ -524,6 +527,20 @@ qx.Class.define("test.draw.Test", {
             
         }
         
+        ,create_menubar: function create_menubar() {
+             /* The 'addaction' tag for widget named 'menubar'of type '<class 'jsqt.il.qt.menu.QMenuBar'>' is not supported (yet?) */
+            
+             /* The 'addaction' tag for widget named 'menubar'of type '<class 'jsqt.il.qt.menu.QMenuBar'>' is not supported (yet?) */
+            
+            this.menubar = new qx.ui.menubar.MenuBar();
+            var retval  =  this.menubar;
+            retval.setHeight(28);
+            retval.setWidth(759);
+            retval.setMargin(1);
+            return retval;
+            
+        }
+        
         ,create_pushButton: function create_pushButton() {
             this.pushButton = new qx.ui.form.Button();
             var retval  =  this.pushButton;
@@ -596,7 +613,7 @@ qx.Class.define("test.draw.Test", {
             this.scrollAreaWidgetContents = new qx.ui.container.Composite();
             var retval  =  this.scrollAreaWidgetContents;
             retval.setHeight(518);
-            retval.setWidth(197);
+            retval.setWidth(201);
             retval.setMargin(1);
             retval.setLayout(this.create_verticalLayout_2());
             retval.add(this.create_groupBox_3(), {flex: 1});
@@ -608,7 +625,7 @@ qx.Class.define("test.draw.Test", {
             this.scrollAreaWidgetContents_2 = new qx.ui.container.Composite();
             var retval  =  this.scrollAreaWidgetContents_2;
             retval.setHeight(518);
-            retval.setWidth(431);
+            retval.setWidth(101);
             retval.setMargin(1);
             retval.setLayout(this.create_verticalLayout_3());
             retval.add(this.create_groupBox_6(), {flex: 1});
@@ -886,6 +903,7 @@ qx.Class.define("test.draw.Test", {
         ,label_4: null
         ,lineEdit: null
         ,listWidget: null
+        ,menubar: null
         ,pushButton: null
         ,pushButton_2: null
         ,radioButton: null

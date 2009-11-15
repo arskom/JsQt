@@ -24,26 +24,24 @@
 from jsqt import il
 from gui import ContainerBase, SimpleProp
 
+class ContainerWithoutLayout(ContainerBase):
+    def __init__(self, elt, name=None):
+        ContainerBase.__init__(self, elt, name)
+
+        self.layout = il.qt.layout.DummyLayout(None, "")
+
+    def _compile_layout(self, dialect, ret):
+        pass
+
 class QMainWindow(ContainerBase):
     type = "qx.ui.container.Composite"
 
-    def __init__(self, elt, name=None):
-        ContainerBase.__init__(self, elt, name)
-
-class QTabWidget(ContainerBase):
+class QTabWidget(ContainerWithoutLayout):
     type = "qx.ui.tabview.TabView"
     
-    def __init__(self, elt, name=None):
-        ContainerBase.__init__(self, elt, name)
-
-        self.layout = il.qt.layout.TabViewLayout(None, "")
-
     def _handle_widget_tag(self, elt):
         elt.set("class", "TabPage")
         ContainerBase._handle_widget_tag(self, elt)
-    
-    def _compile_layout(self, dialect, ret):
-        pass
 
 class TabPage(ContainerBase):
     type = "qx.ui.tabview.Page"
@@ -81,7 +79,6 @@ class QSplitter(ContainerBase):
         pass
 
     def _compile_instantiation(self, dialect, ret):
-        factory_function_retval = il.primitive.ObjectReference('retval')
         instantiation = il.primitive.Assignment()
         instantiation.set_left(il.primitive.ObjectReference('this.%s' % self.name))
         instantiation.set_right(il.primitive.Instantiation(self.type,[
@@ -91,6 +88,7 @@ class QSplitter(ContainerBase):
         self.factory_function.add_statement(il.primitive.ObjectReference("var retval = this.%s" % self.name)) # FIXME: hack
 
         ret.set_member(self.factory_function.name, self.factory_function)
+
         self.factory_function.set_return_statement(
                             il.primitive.ObjectReference('retval'))
 
