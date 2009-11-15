@@ -142,7 +142,7 @@ class String(SinglePartCompilable):
 
     def __eq__(self, other):
         if isinstance(other, str) or isinstance(other, unicode):
-            return self.__value == other
+            return self._string == other
         else:
             return id(self) == id(other)
 
@@ -376,6 +376,9 @@ class AssociativeArrayInitialization(SinglePartCompilable):
                 self.__aai[k] = v
             else:
                 self.__aai[k] = self.type_map[type(v)](v)
+
+    def __len__(self):
+        return len(self.__aai)
 
     def compile(self, dialect):
         retval = js.primitive.Object()
