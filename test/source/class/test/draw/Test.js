@@ -522,30 +522,57 @@ qx.Class.define("test.draw.Test", {
         }
         
         ,create_menuMenu1: function create_menuMenu1() {
-             /* The 'addaction' tag for widget named 'menuMenu1'of type '<class 'jsqt.il.qt.menu.QMenu'>' is not supported (yet?) */
+             /* The 'addaction' tag for widget named 'menuMenu1'of type '<class 'jsqt.il.qt.menu.Button'>' is not supported (yet?) */
             
-             /* The 'addaction' tag for widget named 'menuMenu1'of type '<class 'jsqt.il.qt.menu.QMenu'>' is not supported (yet?) */
+             /* The 'addaction' tag for widget named 'menuMenu1'of type '<class 'jsqt.il.qt.menu.Button'>' is not supported (yet?) */
             
-             /* The 'addaction' tag for widget named 'menuMenu1'of type '<class 'jsqt.il.qt.menu.QMenu'>' is not supported (yet?) */
+             /* The 'addaction' tag for widget named 'menuMenu1'of type '<class 'jsqt.il.qt.menu.Button'>' is not supported (yet?) */
             
             this.menuMenu1 = new qx.ui.menubar.Button();
             var retval  =  this.menuMenu1;
             retval.setLabel(this.tr("Menu1"));
             retval.setMargin(1);
+            retval.setMenu(this.create_menuMenu1_implicit_menu());
+            return retval;
+            
+        }
+        
+        ,create_menuMenu1_implicit_menu: function create_menuMenu1_implicit_menu() {
+            this.menuMenu1_implicit_menu = new qx.ui.menu.Menu();
+            var retval  =  this.menuMenu1_implicit_menu;
+            retval.setMargin(1);
+            retval.add(this.create_menuMenuItem2());
             return retval;
             
         }
         
         ,create_menuMenu2: function create_menuMenu2() {
-             /* The 'addaction' tag for widget named 'menuMenu2'of type '<class 'jsqt.il.qt.menu.QMenu'>' is not supported (yet?) */
+             /* The 'addaction' tag for widget named 'menuMenu2'of type '<class 'jsqt.il.qt.menu.Button'>' is not supported (yet?) */
             
-             /* The 'addaction' tag for widget named 'menuMenu2'of type '<class 'jsqt.il.qt.menu.QMenu'>' is not supported (yet?) */
+             /* The 'addaction' tag for widget named 'menuMenu2'of type '<class 'jsqt.il.qt.menu.Button'>' is not supported (yet?) */
             
-             /* The 'addaction' tag for widget named 'menuMenu2'of type '<class 'jsqt.il.qt.menu.QMenu'>' is not supported (yet?) */
+             /* The 'addaction' tag for widget named 'menuMenu2'of type '<class 'jsqt.il.qt.menu.Button'>' is not supported (yet?) */
             
             this.menuMenu2 = new qx.ui.menubar.Button();
             var retval  =  this.menuMenu2;
             retval.setLabel(this.tr("Menu2"));
+            retval.setMargin(1);
+            return retval;
+            
+        }
+        
+        ,create_menuMenuItem2: function create_menuMenuItem2() {
+             /* The 'addaction' tag for widget named 'menuMenuItem2'of type '<class 'jsqt.il.qt.menu.Button'>' is not supported (yet?) */
+            
+             /* The 'addaction' tag for widget named 'menuMenuItem2'of type '<class 'jsqt.il.qt.menu.Button'>' is not supported (yet?) */
+            
+             /* The 'addaction' tag for widget named 'menuMenuItem2'of type '<class 'jsqt.il.qt.menu.Button'>' is not supported (yet?) */
+            
+             /* The 'addaction' tag for widget named 'menuMenuItem2'of type '<class 'jsqt.il.qt.menu.Button'>' is not supported (yet?) */
+            
+            this.menuMenuItem2 = new qx.ui.menu.Button();
+            var retval  =  this.menuMenuItem2;
+            retval.setLabel(this.tr("MenuItem2"));
             retval.setMargin(1);
             return retval;
             
@@ -946,7 +973,9 @@ qx.Class.define("test.draw.Test", {
         ,lineEdit: null
         ,listWidget: null
         ,menuMenu1: null
+        ,menuMenu1_implicit_menu: null
         ,menuMenu2: null
+        ,menuMenuItem2: null
         ,menubar: null
         ,pushButton: null
         ,pushButton_2: null

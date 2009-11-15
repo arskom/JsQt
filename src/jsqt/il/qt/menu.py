@@ -32,11 +32,38 @@ class QMenuBar(ContainerWithoutLayout):
 
         ContainerWithoutLayout.add_child(self, instance)
 
-class QMenu(ContainerWithoutLayout):
+class Button(ContainerWithoutLayout):
     type = "qx.ui.menu.Button"
+    add_function = "setMenu"
     known_simple_props = {
         "title": SimpleProp("setLabel", il.primitive.TranslatableString, ""),
     }
 
+    def __init__(self, elt, name=None):
+        self.menu = None
+
+        ContainerWithoutLayout.__init__(self, elt, name)
+
+    def _compile_sub_menu(self, dialect, ret):
+        if self.menu != None:
+            set_menu = il.primitive.FunctionCall('retval.setMenu',
+                   [il.primitive.FunctionCall("this.create_%s" % self.menu.name)])
+
+            self.factory_function.add_statement(set_menu)
+
+    def compile(self, dialect, ret):
+        ContainerWithoutLayout.compile(self, dialect, ret)
+
+        if self.menu != None:
+            self.menu.compile(dialect, ret)
+        self._compile_sub_menu(dialect, ret)
+
     def add_child(self, instance):
-        pass
+        if self.menu == None:
+            self.menu = QMenu(None, "%s_implicit_menu" % self.name)
+
+        self.menu.add_child(instance)
+
+class QMenu(ContainerWithoutLayout):
+    type = "qx.ui.menu.Menu"
+
