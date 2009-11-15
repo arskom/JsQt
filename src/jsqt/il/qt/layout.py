@@ -61,7 +61,7 @@ class QVBoxLayout(QLayout):
     type = "qx.ui.layout.VBox"
 
     def get_properties(self, elt, inst):
-        if inst.likes_to_flex:
+        if inst.ver_stretch_pol != "Fixed":
             return il.primitive.AssociativeArrayInitialization(
 	                                        {"flex": inst.ver_stretch_coef})
         else:
@@ -71,7 +71,7 @@ class QHBoxLayout(QLayout):
     type = "qx.ui.layout.HBox"
 
     def get_properties(self, elt, inst):
-        if inst.likes_to_flex:
+        if inst.hor_stretch_pol != "Fixed":
             return il.primitive.AssociativeArrayInitialization(
                                                 {"flex": inst.hor_stretch_coef})
         else:
@@ -114,6 +114,7 @@ class QGridLayout(QLayout):
             self.col_flex[lp['column'].value] = \
                                     FlexProp("Expanding", inst.hor_stretch_coef)
 
+        return
         if inst.hor_stretch_pol == "Fixed":
             self.row_flex[lp['row'].value].pol = "Fixed"
 

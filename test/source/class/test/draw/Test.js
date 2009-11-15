@@ -154,6 +154,7 @@ qx.Class.define("test.draw.Test", {
             this.comboBox = new qx.ui.form.SelectBox();
             var retval  =  this.comboBox;
             retval.setMargin(1);
+            retval.setAllowGrowY(false);
             retval.add(new qx.ui.form.ListItem("asd",null,null));
             return retval;
             
@@ -184,7 +185,9 @@ qx.Class.define("test.draw.Test", {
         ,create_gridLayout_2: function create_gridLayout_2() {
             this.gridLayout_2 = new qx.ui.layout.Grid();
             var retval  =  this.gridLayout_2;
+            retval.setRowFlex(0,0);
             retval.setRowFlex(1,1);
+            retval.setColumnFlex(0,0);
             retval.setColumnFlex(1,1);
             return retval;
             
@@ -247,57 +250,6 @@ qx.Class.define("test.draw.Test", {
         ,create_groupBox_11_il: function create_groupBox_11_il() {
             this.groupBox_11_il = new qx.ui.layout.Canvas();
             var retval  =  this.groupBox_11_il;
-            return retval;
-            
-        }
-        
-        ,create_groupBox_12: function create_groupBox_12() {
-            this.groupBox_12 = new qx.ui.groupbox.GroupBox();
-            var retval  =  this.groupBox_12;
-            retval.setLegend(this.tr("GroupBox"));
-            retval.setMargin(1);
-            retval.setLayout(this.create_groupBox_12_il());
-            return retval;
-            
-        }
-        
-        ,create_groupBox_12_il: function create_groupBox_12_il() {
-            this.groupBox_12_il = new qx.ui.layout.Canvas();
-            var retval  =  this.groupBox_12_il;
-            return retval;
-            
-        }
-        
-        ,create_groupBox_13: function create_groupBox_13() {
-            this.groupBox_13 = new qx.ui.groupbox.GroupBox();
-            var retval  =  this.groupBox_13;
-            retval.setLegend(this.tr("GroupBox"));
-            retval.setMargin(1);
-            retval.setLayout(this.create_groupBox_13_il());
-            return retval;
-            
-        }
-        
-        ,create_groupBox_13_il: function create_groupBox_13_il() {
-            this.groupBox_13_il = new qx.ui.layout.Canvas();
-            var retval  =  this.groupBox_13_il;
-            return retval;
-            
-        }
-        
-        ,create_groupBox_14: function create_groupBox_14() {
-            this.groupBox_14 = new qx.ui.groupbox.GroupBox();
-            var retval  =  this.groupBox_14;
-            retval.setLegend(this.tr("GroupBox"));
-            retval.setMargin(1);
-            retval.setLayout(this.create_groupBox_14_il());
-            return retval;
-            
-        }
-        
-        ,create_groupBox_14_il: function create_groupBox_14_il() {
-            this.groupBox_14_il = new qx.ui.layout.Canvas();
-            var retval  =  this.groupBox_14_il;
             return retval;
             
         }
@@ -432,21 +384,36 @@ qx.Class.define("test.draw.Test", {
             
         }
         
-        ,create_groupBox_9: function create_groupBox_9() {
-            this.groupBox_9 = new qx.ui.groupbox.GroupBox();
-            var retval  =  this.groupBox_9;
-            retval.setMinHeight(100);
-            retval.setMinWidth(100);
+        ,create_groupBox_bl: function create_groupBox_bl() {
+            this.groupBox_bl = new qx.ui.groupbox.GroupBox();
+            var retval  =  this.groupBox_bl;
             retval.setLegend(this.tr("GroupBox"));
             retval.setMargin(1);
-            retval.setLayout(this.create_groupBox_9_il());
+            retval.setLayout(this.create_groupBox_bl_il());
             return retval;
             
         }
         
-        ,create_groupBox_9_il: function create_groupBox_9_il() {
-            this.groupBox_9_il = new qx.ui.layout.Canvas();
-            var retval  =  this.groupBox_9_il;
+        ,create_groupBox_bl_il: function create_groupBox_bl_il() {
+            this.groupBox_bl_il = new qx.ui.layout.Canvas();
+            var retval  =  this.groupBox_bl_il;
+            return retval;
+            
+        }
+        
+        ,create_groupBox_br: function create_groupBox_br() {
+            this.groupBox_br = new qx.ui.groupbox.GroupBox();
+            var retval  =  this.groupBox_br;
+            retval.setLegend(this.tr("GroupBox"));
+            retval.setMargin(1);
+            retval.setLayout(this.create_groupBox_br_il());
+            return retval;
+            
+        }
+        
+        ,create_groupBox_br_il: function create_groupBox_br_il() {
+            this.groupBox_br_il = new qx.ui.layout.Canvas();
+            var retval  =  this.groupBox_br_il;
             return retval;
             
         }
@@ -457,7 +424,45 @@ qx.Class.define("test.draw.Test", {
             retval.setLegend(this.tr("GroupBox"));
             retval.setMargin(1);
             retval.setLayout(this.create_horizontalLayout_3());
-            retval.add(this.create_comboBox());
+            retval.add(this.create_comboBox(), {flex: 1});
+            return retval;
+            
+        }
+        
+        ,create_groupBox_tl: function create_groupBox_tl() {
+            this.groupBox_tl = new qx.ui.groupbox.GroupBox();
+            var retval  =  this.groupBox_tl;
+            retval.setMinHeight(200);
+            retval.setMinWidth(200);
+            retval.setLegend(this.tr("GroupBox"));
+            retval.setMargin(1);
+            retval.setAllowGrowX(false);
+            retval.setAllowGrowY(false);
+            retval.setLayout(this.create_groupBox_tl_il());
+            return retval;
+            
+        }
+        
+        ,create_groupBox_tl_il: function create_groupBox_tl_il() {
+            this.groupBox_tl_il = new qx.ui.layout.Canvas();
+            var retval  =  this.groupBox_tl_il;
+            return retval;
+            
+        }
+        
+        ,create_groupBox_tr: function create_groupBox_tr() {
+            this.groupBox_tr = new qx.ui.groupbox.GroupBox();
+            var retval  =  this.groupBox_tr;
+            retval.setLegend(this.tr("GroupBox"));
+            retval.setMargin(1);
+            retval.setLayout(this.create_groupBox_tr_il());
+            return retval;
+            
+        }
+        
+        ,create_groupBox_tr_il: function create_groupBox_tr_il() {
+            this.groupBox_tr_il = new qx.ui.layout.Canvas();
+            var retval  =  this.groupBox_tr_il;
             return retval;
             
         }
@@ -625,6 +630,7 @@ qx.Class.define("test.draw.Test", {
             retval.setHeight(28);
             retval.setWidth(759);
             retval.setMargin(1);
+            retval.setAllowGrowY(false);
             retval.add(this.create_menuMenu1());
             retval.add(this.create_menuMenu2());
             return retval;
@@ -738,6 +744,7 @@ qx.Class.define("test.draw.Test", {
             this.spinBox = new qx.ui.form.Spinner();
             var retval  =  this.spinBox;
             retval.setMargin(1);
+            retval.setAllowGrowY(false);
             return retval;
             
         }
@@ -774,7 +781,7 @@ qx.Class.define("test.draw.Test", {
             retval.add(this.create_tab_2());
             retval.add(this.create_tab_3());
             retval.add(this.create_tab_4());
-            retval.add(this.create_tab_5());
+            retval.add(this.create_tab_grid_fixed());
             retval.add(this.create_tab_6());
             return retval;
             
@@ -822,20 +829,6 @@ qx.Class.define("test.draw.Test", {
             
         }
         
-        ,create_tab_5: function create_tab_5() {
-            this.tab_5 = new qx.ui.tabview.Page();
-            var retval  =  this.tab_5;
-            retval.setLabel(this.tr("Grid Fixed"));
-            retval.setMargin(1);
-            retval.setLayout(this.create_gridLayout_2());
-            retval.add(this.create_groupBox_9(), {column: 0,row: 0});
-            retval.add(this.create_groupBox_12(), {column: 1,row: 0});
-            retval.add(this.create_groupBox_13(), {column: 1,row: 1});
-            retval.add(this.create_groupBox_14(), {column: 0,row: 1});
-            return retval;
-            
-        }
-        
         ,create_tab_6: function create_tab_6() {
             this.tab_6 = new qx.ui.tabview.Page();
             var retval  =  this.tab_6;
@@ -851,6 +844,20 @@ qx.Class.define("test.draw.Test", {
         ,create_tab_6_il: function create_tab_6_il() {
             this.tab_6_il = new qx.ui.layout.Canvas();
             var retval  =  this.tab_6_il;
+            return retval;
+            
+        }
+        
+        ,create_tab_grid_fixed: function create_tab_grid_fixed() {
+            this.tab_grid_fixed = new qx.ui.tabview.Page();
+            var retval  =  this.tab_grid_fixed;
+            retval.setLabel(this.tr("Grid Fixed"));
+            retval.setMargin(1);
+            retval.setLayout(this.create_gridLayout_2());
+            retval.add(this.create_groupBox_tl(), {column: 0,row: 0});
+            retval.add(this.create_groupBox_tr(), {column: 1,row: 0});
+            retval.add(this.create_groupBox_br(), {column: 1,row: 1});
+            retval.add(this.create_groupBox_bl(), {column: 0,row: 1});
             return retval;
             
         }
@@ -973,12 +980,6 @@ qx.Class.define("test.draw.Test", {
         ,groupBox_10_il: null
         ,groupBox_11: null
         ,groupBox_11_il: null
-        ,groupBox_12: null
-        ,groupBox_12_il: null
-        ,groupBox_13: null
-        ,groupBox_13_il: null
-        ,groupBox_14: null
-        ,groupBox_14_il: null
         ,groupBox_15: null
         ,groupBox_15_il: null
         ,groupBox_16: null
@@ -992,9 +993,15 @@ qx.Class.define("test.draw.Test", {
         ,groupBox_7_il: null
         ,groupBox_8: null
         ,groupBox_8_il: null
-        ,groupBox_9: null
-        ,groupBox_9_il: null
+        ,groupBox_bl: null
+        ,groupBox_bl_il: null
+        ,groupBox_br: null
+        ,groupBox_br_il: null
         ,groupBox_centered: null
+        ,groupBox_tl: null
+        ,groupBox_tl_il: null
+        ,groupBox_tr: null
+        ,groupBox_tr_il: null
         ,horizontalLayout: null
         ,horizontalLayout_2: null
         ,horizontalLayout_2_implicit_container: null
@@ -1029,9 +1036,9 @@ qx.Class.define("test.draw.Test", {
         ,tab_2: null
         ,tab_3: null
         ,tab_4: null
-        ,tab_5: null
         ,tab_6: null
         ,tab_6_il: null
+        ,tab_grid_fixed: null
         ,tab_il: null
         ,tableWidget: null
         ,textEdit: null

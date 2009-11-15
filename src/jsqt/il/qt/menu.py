@@ -27,8 +27,8 @@ from gui import ObjectBase
 
 class QMenuBar(ContainerWithoutLayout):
     type = "qx.ui.menubar.MenuBar"
-    likes_to_flex = False
-  
+    ver_stretch_pol = "Fixed"
+
     def add_child(self, instance):
         instance.type = "qx.ui.menubar.Button"
 

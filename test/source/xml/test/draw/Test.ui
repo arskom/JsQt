@@ -91,7 +91,7 @@
         <string>a simple tooltip for tab 2</string>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>4</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -498,13 +498,13 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="tab_5">
+       <widget class="QWidget" name="tab_grid_fixed">
         <attribute name="title">
          <string>Grid Fixed</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="0">
-          <widget class="QGroupBox" name="groupBox_9">
+          <widget class="QGroupBox" name="groupBox_tl">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -513,8 +513,8 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>100</width>
-             <height>100</height>
+             <width>200</width>
+             <height>200</height>
             </size>
            </property>
            <property name="title">
@@ -523,21 +523,21 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QGroupBox" name="groupBox_12">
+          <widget class="QGroupBox" name="groupBox_tr">
            <property name="title">
             <string>GroupBox</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QGroupBox" name="groupBox_13">
+          <widget class="QGroupBox" name="groupBox_br">
            <property name="title">
             <string>GroupBox</string>
            </property>
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QGroupBox" name="groupBox_14">
+          <widget class="QGroupBox" name="groupBox_bl">
            <property name="title">
             <string>GroupBox</string>
            </property>

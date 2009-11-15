@@ -99,7 +99,7 @@ class Boolean(SinglePartCompilable):
 
     @staticmethod
     def from_elt(elt):
-        return Boolean(bool(elt.text))
+        return Boolean(elt.text.lower() == "true")
 
     def __eq__(self, other):
         if isinstance(other, bool):

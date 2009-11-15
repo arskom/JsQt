@@ -117,10 +117,10 @@ qx.Class.define("test.draw.Add", {
             var retval  =  this.HLTrackingMethod_2_implicit_container;
             retval.setMargin(1);
             retval.setLayout(this.create_HLTrackingMethod_2());
-            retval.add(this.create_comboTrackingMethod_2());
+            retval.add(this.create_comboTrackingMethod_2(), {flex: 1});
             retval.add(this.create_horizontalSpacer(), {flex: 1});
             retval.add(this.create_lblInterval_2(), {flex: 1});
-            retval.add(this.create_comboInterval_2());
+            retval.add(this.create_comboInterval_2(), {flex: 1});
             retval.add(this.create_horizontalSpacer_2(), {flex: 1});
             return retval;
             
@@ -131,10 +131,10 @@ qx.Class.define("test.draw.Add", {
             var retval  =  this.HLTrackingMethod_implicit_container;
             retval.setMargin(1);
             retval.setLayout(this.create_HLTrackingMethod());
-            retval.add(this.create_comboTrackingMethod());
+            retval.add(this.create_comboTrackingMethod(), {flex: 1});
             retval.add(this.create_horizontalSpacer(), {flex: 1});
             retval.add(this.create_lblInterval(), {flex: 1});
-            retval.add(this.create_comboInterval());
+            retval.add(this.create_comboInterval(), {flex: 1});
             retval.add(this.create_horizontalSpacer_2(), {flex: 1});
             return retval;
             
@@ -159,7 +159,7 @@ qx.Class.define("test.draw.Add", {
             var retval  =  this.VLEmail_2_implicit_container;
             retval.setMargin(1);
             retval.setLayout(this.create_VLEmail_2());
-            retval.add(this.create_edtEmail_2());
+            retval.add(this.create_edtEmail_2(), {flex: 1});
             retval.add(this.create_horizontalLayout_10_implicit_container(), {flex: 1});
             return retval;
             
@@ -170,7 +170,7 @@ qx.Class.define("test.draw.Add", {
             var retval  =  this.VLEmail_implicit_container;
             retval.setMargin(1);
             retval.setLayout(this.create_VLEmail());
-            retval.add(this.create_edtEmail());
+            retval.add(this.create_edtEmail(), {flex: 1});
             retval.add(this.create_horizontalLayout_5_implicit_container(), {flex: 1});
             return retval;
             
@@ -246,6 +246,7 @@ qx.Class.define("test.draw.Add", {
             this.comboInterval = new qx.ui.form.SelectBox();
             var retval  =  this.comboInterval;
             retval.setMargin(1);
+            retval.setAllowGrowY(false);
             return retval;
             
         }
@@ -254,6 +255,7 @@ qx.Class.define("test.draw.Add", {
             this.comboInterval_2 = new qx.ui.form.SelectBox();
             var retval  =  this.comboInterval_2;
             retval.setMargin(1);
+            retval.setAllowGrowY(false);
             return retval;
             
         }
@@ -263,6 +265,7 @@ qx.Class.define("test.draw.Add", {
             var retval  =  this.comboSubAddress;
             retval.setMinWidth(80);
             retval.setMargin(1);
+            retval.setAllowGrowY(false);
             retval.add(new qx.ui.form.ListItem("1",null,null));
             retval.add(new qx.ui.form.ListItem("2",null,null));
             retval.add(new qx.ui.form.ListItem("3",null,null));
@@ -279,6 +282,7 @@ qx.Class.define("test.draw.Add", {
             var retval  =  this.comboSubAddress_2;
             retval.setMinWidth(80);
             retval.setMargin(1);
+            retval.setAllowGrowY(false);
             retval.add(new qx.ui.form.ListItem("1",null,null));
             retval.add(new qx.ui.form.ListItem("2",null,null));
             retval.add(new qx.ui.form.ListItem("3",null,null));
@@ -294,6 +298,7 @@ qx.Class.define("test.draw.Add", {
             this.comboTrackingMethod = new qx.ui.form.SelectBox();
             var retval  =  this.comboTrackingMethod;
             retval.setMargin(1);
+            retval.setAllowGrowY(false);
             return retval;
             
         }
@@ -302,6 +307,7 @@ qx.Class.define("test.draw.Add", {
             this.comboTrackingMethod_2 = new qx.ui.form.SelectBox();
             var retval  =  this.comboTrackingMethod_2;
             retval.setMargin(1);
+            retval.setAllowGrowY(false);
             return retval;
             
         }
@@ -352,6 +358,8 @@ qx.Class.define("test.draw.Add", {
             this.edtCompany_2 = new qx.ui.form.TextField();
             var retval  =  this.edtCompany_2;
             retval.setMargin(1);
+            retval.setAllowGrowX(false);
+            retval.setAllowGrowY(false);
             return retval;
             
         }
@@ -438,6 +446,7 @@ qx.Class.define("test.draw.Add", {
             retval.setMaxWidth(400);
             retval.setMinWidth(300);
             retval.setMargin(1);
+            retval.setAllowGrowY(false);
             return retval;
             
         }
@@ -523,6 +532,7 @@ qx.Class.define("test.draw.Add", {
         ,create_gridLayout_3: function create_gridLayout_3() {
             this.gridLayout_3 = new qx.ui.layout.Grid();
             var retval  =  this.gridLayout_3;
+            retval.setRowFlex(0,1);
             retval.setRowFlex(1,1);
             retval.setRowFlex(2,1);
             retval.setRowFlex(3,1);
@@ -532,6 +542,7 @@ qx.Class.define("test.draw.Add", {
             retval.setRowFlex(7,1);
             retval.setRowFlex(8,1);
             retval.setColumnFlex(0,1);
+            retval.setColumnFlex(2,0);
             return retval;
             
         }
@@ -644,11 +655,11 @@ qx.Class.define("test.draw.Add", {
             retval.setMargin(1);
             retval.setLayout(this.create_horizontalLayout_2());
             retval.add(this.create_lblDNID(), {flex: 1});
-            retval.add(this.create_edtDNID());
+            retval.add(this.create_edtDNID(), {flex: 1});
             retval.add(this.create_lblMN(), {flex: 1});
-            retval.add(this.create_edtMN());
+            retval.add(this.create_edtMN(), {flex: 1});
             retval.add(this.create_lblSubAddress(), {flex: 1});
-            retval.add(this.create_comboSubAddress());
+            retval.add(this.create_comboSubAddress(), {flex: 1});
             return retval;
             
         }
@@ -717,9 +728,9 @@ qx.Class.define("test.draw.Add", {
             retval.setMargin(1);
             retval.setLayout(this.create_horizontalLayout_7());
             retval.add(this.create_lblIOWN_2(), {flex: 1});
-            retval.add(this.create_edtIOWN_2());
+            retval.add(this.create_edtIOWN_2(), {flex: 1});
             retval.add(this.create_lblTerminalSN_2(), {flex: 1});
-            retval.add(this.create_edtTerminalSN_2());
+            retval.add(this.create_edtTerminalSN_2(), {flex: 1});
             return retval;
             
         }
@@ -737,11 +748,11 @@ qx.Class.define("test.draw.Add", {
             retval.setMargin(1);
             retval.setLayout(this.create_horizontalLayout_8());
             retval.add(this.create_lblDNID_2(), {flex: 1});
-            retval.add(this.create_edtDNID_2());
+            retval.add(this.create_edtDNID_2(), {flex: 1});
             retval.add(this.create_lblMN_2(), {flex: 1});
-            retval.add(this.create_edtMN_2());
+            retval.add(this.create_edtMN_2(), {flex: 1});
             retval.add(this.create_lblSubAddress_2(), {flex: 1});
-            retval.add(this.create_comboSubAddress_2());
+            retval.add(this.create_comboSubAddress_2(), {flex: 1});
             return retval;
             
         }
@@ -770,9 +781,9 @@ qx.Class.define("test.draw.Add", {
             retval.setMargin(1);
             retval.setLayout(this.create_horizontalLayout());
             retval.add(this.create_lblIOWN(), {flex: 1});
-            retval.add(this.create_edtIOWN());
+            retval.add(this.create_edtIOWN(), {flex: 1});
             retval.add(this.create_lblTerminalSN(), {flex: 1});
-            retval.add(this.create_edtTerminalSN());
+            retval.add(this.create_edtTerminalSN(), {flex: 1});
             return retval;
             
         }
@@ -1225,6 +1236,7 @@ qx.Class.define("test.draw.Add", {
             this.scrollArea_2 = new qx.ui.container.Scroll();
             var retval  =  this.scrollArea_2;
             retval.setMargin(1);
+            retval.setAllowGrowY(false);
             retval.add(this.create_scrollAreaWidgetContents_2(), {left: 0,top: -16});
             return retval;
             
@@ -1238,6 +1250,7 @@ qx.Class.define("test.draw.Add", {
             retval.setSingleStep(4);
             retval.setValue(55);
             retval.setMargin(1);
+            retval.setAllowGrowY(false);
             return retval;
             
         }
@@ -1250,6 +1263,7 @@ qx.Class.define("test.draw.Add", {
             retval.setSingleStep(4);
             retval.setValue(55);
             retval.setMargin(1);
+            retval.setAllowGrowY(false);
             return retval;
             
         }
@@ -1335,7 +1349,7 @@ qx.Class.define("test.draw.Add", {
             retval.setLabel(this.tr("Tab 2"));
             retval.setMargin(1);
             retval.setLayout(this.create_verticalLayout_6());
-            retval.add(this.create_scrollArea_2(), {flex: 0});
+            retval.add(this.create_scrollArea_2());
             return retval;
             
         }

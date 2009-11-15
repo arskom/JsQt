@@ -46,9 +46,11 @@ class QTextEdit(WidgetBase):
 
 class QSpinBox(WidgetBase):
     type="qx.ui.form.Spinner"
+    ver_stretch_pol = "Fixed"
+
     known_simple_props = {
-        "maximum": SimpleProp("setMaximum", il.primitive.DecimalInteger),
         "value": SimpleProp("setValue", il.primitive.DecimalInteger),
+        "maximum": SimpleProp("setMaximum", il.primitive.DecimalInteger),
         "minimum": SimpleProp("setMinimum", il.primitive.DecimalInteger),
         "singleStep": SimpleProp("setSingleStep", il.primitive.DecimalInteger),
     }
@@ -72,7 +74,7 @@ class QRadioButton(WidgetBase):
     
 class QComboBox(WidgetBase, MItemView):
     type = "qx.ui.form.SelectBox"
-    likes_to_flex = False
+    ver_stretch_pol = "Fixed"
 
     def __init__(self, elt, name=None):
         MItemView.__init__(self)

@@ -84,17 +84,17 @@ class WidgetMeta(type):
                 cls.known_complex_props[k] = v
 
 class MGeometryProperties(object):
+    hor_stretch_pol = "Expanding"
+    ver_stretch_pol = "Expanding"
+    hor_stretch_coef = 1
+    ver_stretch_coef = 1
+
     def __init__(self):
         self.__margin_t = etree.fromstring("<number>1</number>")
         self.__margin_b = etree.fromstring("<number>1</number>")
         self.__margin_l = etree.fromstring("<number>1</number>")
         self.__margin_r = etree.fromstring("<number>1</number>")
         self.__margin = etree.fromstring("<number>1</number>")
-
-        self.__h_stretch_pol = "Expanding"
-        self.__h_stretch_coef = 1
-        self.__v_stretch_pol = "Expanding"
-        self.__v_stretch_coef = 1
 
     def get_geometry_top(self):
         if "geometry.y" in self.simple_prop_data:
@@ -110,42 +110,26 @@ class MGeometryProperties(object):
             return 0
     geometry_left = property(get_geometry_left)
 
-    def get_hor_stretch_coef(self):
-        return self.__h_stretch_coef
-    hor_stretch_coef = property(get_hor_stretch_coef)
-
-    def get_ver_stretch_coef(self):
-        return self.__v_stretch_coef
-    ver_stretch_coef = property(get_ver_stretch_coef)
-
-    def get_hor_stretch_pol(self):
-        return self.__h_stretch_pol
-    hor_stretch_pol = property(get_hor_stretch_pol)
-
-    def get_ver_stretch_pol(self):
-        return self.__v_stretch_pol
-    ver_stretch_pol = property(get_ver_stretch_pol)
-
     def __handle_size_policy(self, elt):
         if elt[0].tag == 'sizepolicy':
             tmp = self._decode_nested_prop(elt[0])
 
-            self.__h_stretch_pol = elt[0].attrib['hsizetype']
-            self.__h_stretch_coef = int(tmp['horstretch'].text)
-            self.__v_stretch_pol = elt[0].attrib['vsizetype']
-            self.__v_stretch_coef = int(tmp['verstretch'].text)
+            self.hor_stretch_pol = elt[0].attrib['hsizetype']
+            self.hor_stretch_coef = int(tmp['horstretch'].text)
+            self.ver_stretch_pol = elt[0].attrib['vsizetype']
+            self.ver_stretch_coef = int(tmp['verstretch'].text)
 
-            if self.__h_stretch_pol != "Fixed":
-                if self.__h_stretch_coef == 0:
-                    self.__h_stretch_coef = 1
+            if self.hor_stretch_pol != "Fixed":
+                if self.hor_stretch_coef == 0:
+                    self.hor_stretch_coef = 1
 
-            if self.__v_stretch_pol != "Fixed":
-                if self.__v_stretch_coef == 0:
-                    self.__v_stretch_coef = 1
+            if self.ver_stretch_pol != "Fixed":
+                if self.ver_stretch_coef == 0:
+                    self.ver_stretch_coef = 1
 
         else:
-            jsqt.debug_print("\t\t", "WARNING: property 'geometry' doesn't have"
-                                                            " 'sizepolicy' tag")
+            jsqt.debug_print("\t\t", "WARNING: property 'sizePolicy' doesn't "
+                                                      "have a 'sizepolicy' tag")
 
     def _compile_geometry(self, dialect, ret):
         if not self._compile_simple_prop(SimpleProp("setMargin", il.primitive.DecimalInteger, 0), self.__margin):
@@ -153,6 +137,14 @@ class MGeometryProperties(object):
             self._compile_simple_prop(SimpleProp("setMarginLeft", il.primitive.DecimalInteger, 0), self.__margin_l)
             self._compile_simple_prop(SimpleProp("setMarginRight", il.primitive.DecimalInteger, 0), self.__margin_r)
             self._compile_simple_prop(SimpleProp("setMarginBottom", il.primitive.DecimalInteger, 0), self.__margin_b)
+
+        xml_false = etree.fromstring("<bool>false</bool>")
+        if self.hor_stretch_pol == "Fixed":
+            self._compile_simple_prop(SimpleProp("setAllowGrowX",
+                                               il.primitive.Boolean), xml_false)
+        if self.ver_stretch_pol == "Fixed":
+            self._compile_simple_prop(SimpleProp("setAllowGrowY",
+                                               il.primitive.Boolean), xml_false)
 
     known_simple_props = {
         "geometry": {
