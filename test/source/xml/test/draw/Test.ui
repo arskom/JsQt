@@ -513,8 +513,8 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>200</width>
-             <height>200</height>
+             <width>100</width>
+             <height>100</height>
             </size>
            </property>
            <property name="title">

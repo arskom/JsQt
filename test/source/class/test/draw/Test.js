@@ -432,8 +432,8 @@ qx.Class.define("test.draw.Test", {
         ,create_groupBox_tl: function create_groupBox_tl() {
             this.groupBox_tl = new qx.ui.groupbox.GroupBox();
             var retval  =  this.groupBox_tl;
-            retval.setMinHeight(200);
-            retval.setMinWidth(200);
+            retval.setMinHeight(100);
+            retval.setMinWidth(100);
             retval.setLegend(this.tr("GroupBox"));
             retval.setMargin(1);
             retval.setAllowGrowX(false);
