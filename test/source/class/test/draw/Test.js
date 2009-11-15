@@ -33,12 +33,12 @@ qx.Class.define("test.draw.Test", {
         ,create_MainWindow: function create_MainWindow() {
             this.MainWindow = new qx.ui.container.Composite();
             var retval  =  this.MainWindow;
-            retval.setHeight(456);
+            retval.setHeight(540);
             retval.setWidth(759);
             retval.setMargin(1);
             retval.setLayout(this.create___lv());
+            retval.add(this.create_menubar());
             retval.add(this.create_centralwidget(), {flex: 1});
-            retval.add(this.create_menubar(), {flex: 1});
             return retval;
             
         }
@@ -454,11 +454,10 @@ qx.Class.define("test.draw.Test", {
         ,create_groupBox_centered: function create_groupBox_centered() {
             this.groupBox_centered = new qx.ui.groupbox.GroupBox();
             var retval  =  this.groupBox_centered;
-            retval.setMaxWidth(150);
             retval.setLegend(this.tr("GroupBox"));
             retval.setMargin(1);
-            retval.setLayout(this.create_verticalLayout_5());
-            retval.add(this.create_comboBox(), {flex: 1});
+            retval.setLayout(this.create_horizontalLayout_3());
+            retval.add(this.create_comboBox());
             return retval;
             
         }
@@ -482,29 +481,14 @@ qx.Class.define("test.draw.Test", {
             var retval  =  this.horizontalLayout_2_implicit_container;
             retval.setMargin(1);
             retval.setLayout(this.create_horizontalLayout_2());
-            retval.add(this.create_horizontalSpacer(), {flex: 1});
             retval.add(this.create_groupBox_centered(), {flex: 1});
-            retval.add(this.create_horizontalSpacer_2(), {flex: 1});
             return retval;
             
         }
         
-        ,create_horizontalSpacer: function create_horizontalSpacer() {
-            this.horizontalSpacer = new qx.ui.core.Spacer();
-            var retval  =  this.horizontalSpacer;
-            retval.setHeight(20);
-            retval.setWidth(40);
-            retval.setMargin(1);
-            return retval;
-            
-        }
-        
-        ,create_horizontalSpacer_2: function create_horizontalSpacer_2() {
-            this.horizontalSpacer_2 = new qx.ui.core.Spacer();
-            var retval  =  this.horizontalSpacer_2;
-            retval.setHeight(20);
-            retval.setWidth(40);
-            retval.setMargin(1);
+        ,create_horizontalLayout_3: function create_horizontalLayout_3() {
+            this.horizontalLayout_3 = new qx.ui.layout.HBox();
+            var retval  =  this.horizontalLayout_3;
             return retval;
             
         }
@@ -731,7 +715,7 @@ qx.Class.define("test.draw.Test", {
             this.scrollAreaWidgetContents_2 = new qx.ui.container.Composite();
             var retval  =  this.scrollAreaWidgetContents_2;
             retval.setHeight(518);
-            retval.setWidth(101);
+            retval.setWidth(443);
             retval.setMargin(1);
             retval.setLayout(this.create_verticalLayout_3());
             retval.add(this.create_groupBox_6(), {flex: 1});
@@ -949,13 +933,6 @@ qx.Class.define("test.draw.Test", {
             
         }
         
-        ,create_verticalLayout_5: function create_verticalLayout_5() {
-            this.verticalLayout_5 = new qx.ui.layout.VBox();
-            var retval  =  this.verticalLayout_5;
-            return retval;
-            
-        }
-        
         ,create_verticalLayout_6: function create_verticalLayout_6() {
             this.verticalLayout_6 = new qx.ui.layout.VBox();
             var retval  =  this.verticalLayout_6;
@@ -1021,8 +998,7 @@ qx.Class.define("test.draw.Test", {
         ,horizontalLayout: null
         ,horizontalLayout_2: null
         ,horizontalLayout_2_implicit_container: null
-        ,horizontalSpacer: null
-        ,horizontalSpacer_2: null
+        ,horizontalLayout_3: null
         ,label: null
         ,label_2: null
         ,label_3: null
@@ -1064,7 +1040,6 @@ qx.Class.define("test.draw.Test", {
         ,verticalLayout_2: null
         ,verticalLayout_3: null
         ,verticalLayout_4: null
-        ,verticalLayout_5: null
         ,verticalLayout_6: null
         ,verticalLayout_7: null
         ,verticalLayout_8: null

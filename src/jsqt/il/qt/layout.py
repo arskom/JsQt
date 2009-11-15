@@ -61,15 +61,21 @@ class QVBoxLayout(QLayout):
     type = "qx.ui.layout.VBox"
 
     def get_properties(self, elt, inst):
-        return il.primitive.AssociativeArrayInitialization(
+        if inst.likes_to_flex:
+            return il.primitive.AssociativeArrayInitialization(
 	                                        {"flex": inst.ver_stretch_coef})
+        else:
+            return None
 
 class QHBoxLayout(QLayout):
     type = "qx.ui.layout.HBox"
 
     def get_properties(self, elt, inst):
-        return il.primitive.AssociativeArrayInitialization(
+        if inst.likes_to_flex:
+            return il.primitive.AssociativeArrayInitialization(
                                                 {"flex": inst.hor_stretch_coef})
+        else:
+            return None
 
 class AutoExpandingList(list):
     def __getitem__(self, key):

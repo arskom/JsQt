@@ -39,6 +39,7 @@ class QPushButton(WidgetBase):
 
 class QLineEdit(WidgetBase):
     type="qx.ui.form.TextField"
+    likes_to_flex = False
 
 class QTextEdit(WidgetBase):
     type="qx.ui.form.TextArea"
@@ -71,6 +72,7 @@ class QRadioButton(WidgetBase):
     
 class QComboBox(WidgetBase, MItemView):
     type = "qx.ui.form.SelectBox"
+    likes_to_flex = False
 
     def __init__(self, elt, name=None):
         MItemView.__init__(self)

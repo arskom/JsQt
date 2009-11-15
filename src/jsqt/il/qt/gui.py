@@ -178,7 +178,9 @@ class MGeometryProperties(object):
 class ObjectBase(il.primitive.MultiPartCompilable):
     __metaclass__ = WidgetMeta
     type = None
-
+    likes_to_flex = True
+    real = True
+    
     def __init__(self, elt, name=None):
         il.primitive.MultiPartCompilable.__init__(self)
 
@@ -187,7 +189,6 @@ class ObjectBase(il.primitive.MultiPartCompilable):
         self.children = DuckTypedList(['compile'])
         self.parent = None
         self.tag_handlers = {}
-        self.real = True
 
         self.tag_handlers["property"] = self._handle_property_tag
         self.tag_handlers["attribute"] = self._handle_property_tag
@@ -377,27 +378,30 @@ class ContainerBase(WidgetBase):
 
         self.factory_function.add_statement(set_layout)
 
-    def __compile_children(self, dialect, ret):
-        for c in self.children:
-            c.compile(dialect, ret)
+    def _compile_child(self, dialect, ret, c):
+        c.compile(dialect, ret)
 
-            if c.real:
-                args = [il.primitive.FunctionCall("this.create_%s" % c.name)]
+        if c.real:
+            args = [il.primitive.FunctionCall("this.create_%s" % c.name)]
 
-                if c._elt != None:
-                    c.layout_properties = self.layout.get_properties(
-                                                          c._elt.getparent(), c)
-                    if c.layout_properties != None:
-                        args.append(c.layout_properties)
+            if c._elt != None:
+                c.layout_properties = self.layout.get_properties(
+                                                      c._elt.getparent(), c)
+                if c.layout_properties != None:
+                    args.append(c.layout_properties)
 
-                add_children=il.primitive.FunctionCall('retval.%s' %
+            add_children=il.primitive.FunctionCall('retval.%s' %
                                                      self.add_method_name, args)
-                self.factory_function.add_statement(add_children)
+            self.factory_function.add_statement(add_children)
+
+    def _compile_children(self, dialect, ret):
+        for c in self.children:
+            self._compile_child(dialect, ret, c)
 
     def compile(self, dialect, ret):
         WidgetBase.compile(self, dialect, ret)
         self._compile_layout(dialect, ret)
-        self.__compile_children(dialect, ret)
+        self._compile_children(dialect, ret)
 
     def _handle_layout_tag(self, elt):
         instance = self.get_instance(elt)
@@ -427,11 +431,12 @@ class QSpacer(WidgetBase):
     }
 
 class QWidgetStub(WidgetBase):
+    real = False
+
     def __init__(self, elt, name=None):
         WidgetBase.__init__(self, elt, name)
 
         self.class_name = elt.attrib['class']
-        self.real = False
 
     def compile(self, dialect, ret=None):
         ret.ctor.add_statement(
