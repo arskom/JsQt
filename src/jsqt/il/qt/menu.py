@@ -49,35 +49,33 @@ class QMenu(ContainerWithoutLayout):
     type = "qx.ui.menu.Menu"
 
     def __init__(self, elt, name=None):
-        self.actions = set()
+        self.actions = []
+        self.child_actions = {}
 
         ContainerWithoutLayout.__init__(self, elt, name)
 
     def _handle_addaction_tag(self, elt):
-        self.actions.add(elt.attrib['name'])
+        self.actions.append(elt.attrib['name'])
+
+    def add_child_action(self, inst):
+        self.child_actions[inst.name] = inst
 
     def compile(self, dialect, ret):
         for a in self.actions:
-            cont = False
-            for c in self.children:
-                if c.name == a:
-                    cont = True
-                    break
-            if cont:
-                continue
-
             if a == "separator":
                 self.add_child(Separator())
                 
-            else:
+            elif a in ret.main_widget.actions:
                 action = ret.main_widget.actions[a]
                 button = Button(None, action.name)
                 button.simple_prop_data['title'] = action.prop_text
 
                 self.add_child(button)
+            
+            else:
+                self.add_child(self.child_actions[a])
 
         ContainerWithoutLayout.compile(self, dialect, ret)
-
 
 class Button(ContainerWithoutLayout):
     type = "qx.ui.menu.Button"
@@ -123,5 +121,5 @@ class Button(ContainerWithoutLayout):
                 "named 'separator' from a real separator, you are not allowed "
                 "to add a menu item named 'separator'. Sorry.")
 
-        self.menu.add_child(instance)
+        self.menu.add_child_action(instance)
 

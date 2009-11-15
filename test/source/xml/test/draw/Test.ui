@@ -30,9 +30,6 @@
        <attribute name="headerVisible">
         <bool>true</bool>
        </attribute>
-       <attribute name="headerVisible">
-        <bool>true</bool>
-       </attribute>
        <column>
         <property name="text">
          <string>Main</string>
@@ -421,7 +418,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>443</width>
+              <width>101</width>
               <height>518</height>
              </rect>
             </property>
@@ -640,8 +637,8 @@
     <property name="title">
      <string>Menu2</string>
     </property>
-    <addaction name="separator"/>
     <addaction name="actionFineMenuItem"/>
+    <addaction name="separator"/>
     <addaction name="actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm"/>
    </widget>
    <addaction name="menuMenu1"/>

@@ -581,9 +581,9 @@ qx.Class.define("test.draw.Test", {
             this.menuMenu1_implicit_menu = new qx.ui.menu.Menu();
             var retval  =  this.menuMenu1_implicit_menu;
             retval.setMargin(1);
-            retval.add(this.create_menuMenuItem2());
             retval.add(this.create_actionMenuItem1());
             retval.addSeparator();
+            retval.add(this.create_menuMenuItem2());
             return retval;
             
         }
@@ -603,8 +603,8 @@ qx.Class.define("test.draw.Test", {
             var retval  =  this.menuMenu2_implicit_menu;
             retval.setMargin(1);
             retval.add(this.create_actionFineMenuItem());
-            retval.add(this.create_actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm());
             retval.addSeparator();
+            retval.add(this.create_actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm());
             return retval;
             
         }
@@ -623,10 +623,10 @@ qx.Class.define("test.draw.Test", {
             this.menuMenuItem2_implicit_menu = new qx.ui.menu.Menu();
             var retval  =  this.menuMenuItem2_implicit_menu;
             retval.setMargin(1);
-            retval.add(this.create_actionSubMenuItem2());
-            retval.add(this.create_actionSubMenuItem3());
             retval.add(this.create_actionSubMenuItem1());
+            retval.add(this.create_actionSubMenuItem2());
             retval.addSeparator();
+            retval.add(this.create_actionSubMenuItem3());
             return retval;
             
         }
@@ -731,7 +731,7 @@ qx.Class.define("test.draw.Test", {
             this.scrollAreaWidgetContents_2 = new qx.ui.container.Composite();
             var retval  =  this.scrollAreaWidgetContents_2;
             retval.setHeight(518);
-            retval.setWidth(443);
+            retval.setWidth(101);
             retval.setMargin(1);
             retval.setLayout(this.create_verticalLayout_3());
             retval.add(this.create_groupBox_6(), {flex: 1});
