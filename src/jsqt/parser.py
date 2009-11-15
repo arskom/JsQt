@@ -57,6 +57,8 @@ il.qt.gui.widget_dict = {
     "QLabel": il.qt.form.QLabel,
     "Spacer": il.qt.gui.QSpacer,
     "QMenuBar": il.qt.menu.QMenuBar,
+    "QMenu": il.qt.menu.QMenu,
+
     "QTreeWidget": il.qt.itemview.QTreeWidget,
 
     #"QDateTimeEdit": NoQooxdooEquivalent,

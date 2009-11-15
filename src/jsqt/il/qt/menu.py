@@ -26,3 +26,17 @@ from container import ContainerWithoutLayout, SimpleProp
 
 class QMenuBar(ContainerWithoutLayout):
     type = "qx.ui.menubar.MenuBar"
+  
+    def add_child(self, instance):
+        instance.type = "qx.ui.menubar.Button"
+
+        ContainerWithoutLayout.add_child(self, instance)
+
+class QMenu(ContainerWithoutLayout):
+    type = "qx.ui.menu.Button"
+    known_simple_props = {
+        "title": SimpleProp("setLabel", il.primitive.TranslatableString, ""),
+    }
+
+    def add_child(self, instance):
+        pass

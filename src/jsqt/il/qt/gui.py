@@ -336,6 +336,8 @@ class WidgetBase(ObjectBase, MGeometryProperties):
         return retval
 
 class ContainerBase(WidgetBase):
+    add_method_name = "add"
+
     def _init_before_parse(self):
         WidgetBase._init_before_parse(self)
         self.tag_handlers["widget"] = self._handle_widget_tag
@@ -380,8 +382,10 @@ class ContainerBase(WidgetBase):
                 args = [il.primitive.FunctionCall("this.create_%s" % c.name)]
                 c.layout_properties = c.parent.layout.get_properties(
                                                           c._elt.getparent(), c)
-                args.append(c.layout_properties)
-                add_children=il.primitive.FunctionCall('retval.add', args)
+                if c.layout_properties != None:
+                    args.append(c.layout_properties)
+
+                add_children=il.primitive.FunctionCall('retval.%s' % self.add_method_name, args)
                 self.factory_function.add_statement(add_children)
 
     def compile(self, dialect, ret):

@@ -167,6 +167,6 @@ class DummyLayout(QLayout):
         pass
     
     def get_properties(self, elt, inst):
-        return il.primitive.AssociativeArrayInitialization({})
+        return None
 
     

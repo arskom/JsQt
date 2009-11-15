@@ -1270,9 +1270,9 @@ qx.Class.define("test.draw.Add", {
             var retval  =  this.tabWidget;
             retval.setMaxWidth(1200);
             retval.setMargin(1);
-            retval.add(this.create_tab(), {});
-            retval.add(this.create_tab_2(), {});
-            retval.add(this.create_tab_3(), {});
+            retval.add(this.create_tab());
+            retval.add(this.create_tab_2());
+            retval.add(this.create_tab_3());
             return retval;
             
         }
@@ -1281,8 +1281,8 @@ qx.Class.define("test.draw.Add", {
             this.tabWidget_2 = new qx.ui.tabview.TabView();
             var retval  =  this.tabWidget_2;
             retval.setMargin(1);
-            retval.add(this.create_tab_4(), {});
-            retval.add(this.create_tab_5(), {});
+            retval.add(this.create_tab_4());
+            retval.add(this.create_tab_5());
             return retval;
             
         }
