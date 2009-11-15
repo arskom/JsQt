@@ -4,8 +4,6 @@ qx.Class.define("test.draw.Test", {
         this.setWidget(this.create_MainWindow());
          /* The instance named 'statusbar' is of type 'QStatusBar' which is not supported (yet?) */
         
-         /* The instance named 'toolBar' is of type 'QToolBar' which is not supported (yet?) */
-        
         
     }
     
@@ -24,6 +22,7 @@ qx.Class.define("test.draw.Test", {
         ,actionSubMenuItem1: null
         ,actionSubMenuItem2: null
         ,actionSubMenuItem3: null
+        ,actionToolBarAction1: null
         ,centralwidget: null
         ,checkBox: null
         ,checkBox_2: null
@@ -39,6 +38,7 @@ qx.Class.define("test.draw.Test", {
             retval.setLayout(this.create___lv());
             retval.add(this.create_menubar());
             retval.add(this.create_centralwidget(), {flex: 1});
+            retval.add(this.create_toolBar());
             return retval;
             
         }
@@ -69,10 +69,9 @@ qx.Class.define("test.draw.Test", {
         }
         
         ,create_actionMenuItem1: function create_actionMenuItem1() {
-            this.actionMenuItem1 = new qx.ui.menu.Button();
+            this.actionMenuItem1 = new qx.ui.toolbar.Button();
             var retval  =  this.actionMenuItem1;
             retval.setLabel(this.tr("MenuItem1"));
-            retval.setMargin(1);
             return retval;
             
         }
@@ -100,6 +99,14 @@ qx.Class.define("test.draw.Test", {
             var retval  =  this.actionSubMenuItem3;
             retval.setLabel(this.tr("SubMenuItem3"));
             retval.setMargin(1);
+            return retval;
+            
+        }
+        
+        ,create_actionToolBarAction1: function create_actionToolBarAction1() {
+            this.actionToolBarAction1 = new qx.ui.toolbar.Button();
+            var retval  =  this.actionToolBarAction1;
+            retval.setLabel(this.tr("ToolBarAction1"));
             return retval;
             
         }
@@ -893,6 +900,17 @@ qx.Class.define("test.draw.Test", {
             
         }
         
+        ,create_toolBar: function create_toolBar() {
+            this.toolBar = new qx.ui.toolbar.ToolBar();
+            var retval  =  this.toolBar;
+            retval.setMargin(1);
+            retval.setAllowGrowY(false);
+            retval.add(this.create_actionMenuItem1());
+            retval.add(this.create_actionToolBarAction1());
+            return retval;
+            
+        }
+        
         ,create_treeWidget: function create_treeWidget() {
              /* The 'column' tag for widget named 'treeWidget'of type '<class 'jsqt.il.qt.itemview.QTreeWidget'>' is not supported (yet?) */
             
@@ -1042,6 +1060,7 @@ qx.Class.define("test.draw.Test", {
         ,tab_il: null
         ,tableWidget: null
         ,textEdit: null
+        ,toolBar: null
         ,treeWidget: null
         ,verticalLayout: null
         ,verticalLayout_2: null

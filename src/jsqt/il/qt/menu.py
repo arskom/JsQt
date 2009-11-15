@@ -46,39 +46,7 @@ class Separator(ObjectBase):
         add_separator = il.primitive.FunctionCall('retval.addSeparator')
         self.parent.factory_function.add_statement(add_separator)
 
-class QMenu(ContainerWithoutLayout):
-    type = "qx.ui.menu.Menu"
-
-    def __init__(self, elt, name=None):
-        self.actions = []
-        self.child_actions = {}
-
-        ContainerWithoutLayout.__init__(self, elt, name)
-
-    def _handle_addaction_tag(self, elt):
-        self.actions.append(elt.attrib['name'])
-
-    def add_child_action(self, inst):
-        self.child_actions[inst.name] = inst
-
-    def compile(self, dialect, ret):
-        for a in self.actions:
-            if a == "separator":
-                self.add_child(Separator())
-                
-            elif a in ret.main_widget.actions:
-                action = ret.main_widget.actions[a]
-                button = Button(None, action.name)
-                button.simple_prop_data['title'] = action.prop_text
-
-                self.add_child(button)
-            
-            else:
-                self.add_child(self.child_actions[a])
-
-        ContainerWithoutLayout.compile(self, dialect, ret)
-
-class Button(ContainerWithoutLayout):
+class MenuButton(ContainerWithoutLayout):
     type = "qx.ui.menu.Button"
     add_function = "setMenu"
     known_simple_props = {
@@ -124,3 +92,60 @@ class Button(ContainerWithoutLayout):
 
         self.menu.add_child_action(instance)
 
+class QMenu(ContainerWithoutLayout):
+    type = "qx.ui.menu.Menu"
+    Button = MenuButton
+
+    def __init__(self, elt, name=None):
+        self.actions = []
+        self.child_actions = {}
+
+        ContainerWithoutLayout.__init__(self, elt, name)
+
+    def _handle_addaction_tag(self, elt):
+        self.actions.append(elt.attrib['name'])
+
+    def add_child_action(self, inst):
+        self.child_actions[inst.name] = inst
+
+    def compile(self, dialect, ret):
+        for a in self.actions:
+            if a == "separator":
+                self.add_child(Separator())
+
+            elif a in ret.main_widget.actions:
+                action = ret.main_widget.actions[a]
+                button = self.Button(None, action.name)
+                button.simple_prop_data['title'] = action.prop_text
+
+                self.add_child(button)
+
+            else:
+                self.add_child(self.child_actions[a])
+
+        ContainerWithoutLayout.compile(self, dialect, ret)
+
+
+class ToolBarButton(ObjectBase):
+    type = "qx.ui.toolbar.Button"
+    known_simple_props = {
+        "title": SimpleProp("setLabel", il.primitive.TranslatableString, ""),
+    }
+
+class QToolBar(QMenu):
+    type = "qx.ui.toolbar.ToolBar"
+    ver_stretch_pol = "Fixed"
+    Button = ToolBarButton
+
+    def _init_before_parse(self):
+        ContainerWithoutLayout._init_before_parse(self)
+        self.tag_handlers['addaction'] = self._handle_addaction_tag
+
+    def _handle_addaction_tag(self, elt):
+        self.actions.append(elt.attrib['name'])
+
+    def compile(self, dialect, ret):
+        for a in self.actions:
+            print a
+
+        QMenu.compile(self, dialect, ret)

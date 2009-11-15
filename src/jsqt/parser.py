@@ -57,7 +57,8 @@ il.qt.gui.widget_dict = {
     "QLabel": il.qt.form.QLabel,
     "Spacer": il.qt.gui.QSpacer,
     "QMenuBar": il.qt.menu.QMenuBar,
-    "QMenu": il.qt.menu.Button,
+    "QMenu": il.qt.menu.MenuButton,
+    "QToolBar": il.qt.menu.QToolBar,
 
     "QTreeWidget": il.qt.itemview.QTreeWidget,
 
