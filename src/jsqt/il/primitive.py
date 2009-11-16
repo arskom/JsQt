@@ -69,7 +69,7 @@ class MultiPartCompilable(Compilable):
 class DecimalInteger(SinglePartCompilable):
     def __init__(self, value):
         SinglePartCompilable.__init__(self)
-        
+
         self.value = int(value)
 
     @staticmethod
@@ -196,7 +196,7 @@ class Concatenation(SinglePartCompilable):
 class Assignment(SinglePartCompilable):
     def __init__(self, left=None, right=None):
         SinglePartCompilable.__init__(self)
-        
+
         self.__left = left
         self.__right = right
 
@@ -213,7 +213,7 @@ class Assignment(SinglePartCompilable):
 class FunctionCall(object):
     def __init__(self, function_name, arguments=[]):
         SinglePartCompilable.__init__(self)
-        
+
         self.__function_name = function_name
         self.__arguments = DuckTypedList(['compile'],arguments)
 
@@ -238,7 +238,7 @@ class Return(SinglePartCompilable):
 class FunctionDefinition(SinglePartCompilable):
     def __init__(self, name, args=[], source=[]):
         SinglePartCompilable.__init__(self)
-        
+
         self._source = DuckTypedList(['compile'], source)
         self.name = name
         self.args = args

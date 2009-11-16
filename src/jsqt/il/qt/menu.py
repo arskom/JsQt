@@ -41,7 +41,7 @@ class MenuSeparator(ObjectBase):
 
     def _compile_instantiation(self, dialect, ret):
         pass
-    
+
     def compile(self, dialect, ret):
         add_separator = il.primitive.FunctionCall('retval.addSeparator')
         self.parent.factory_function.add_statement(add_separator)
@@ -112,7 +112,7 @@ class Bar(ContainerWithoutLayout):
 
             elif a in ret.main_widget.actions:
                 action = ret.main_widget.actions[a]
-                button = self.Button(None, action.name + self.postfix)
+                button = self.Button(None, action.name + self.suffix)
                 button.simple_prop_data['title'] = action.prop_text
 
                 self.add_child(button)
@@ -125,7 +125,7 @@ class Bar(ContainerWithoutLayout):
 class QMenu(Bar):
     type = "qx.ui.menu.Menu"
     Button = MenuButton
-    postfix = "_menu"
+    suffix = "_menu"
     Separator = MenuSeparator
 
 class ToolBarSeparator(ObjectBase):
@@ -151,7 +151,7 @@ class QToolBar(Bar):
     type = "qx.ui.toolbar.ToolBar"
     ver_stretch_pol = "Fixed"
     Button = ToolBarButton
-    postfix = "_toolbar"
+    suffix = "_toolbar"
     Separator = ToolBarSeparator
 
     def _init_before_parse(self):
