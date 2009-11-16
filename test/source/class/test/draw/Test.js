@@ -14,9 +14,9 @@ qx.Class.define("test.draw.Test", {
     ,extend: qx.core.Object
     ,include: [qx.locale.MTranslation]
     ,members:  {
-        MainWindow: null
+        FinestMenuItem_menu: null
+        ,MainWindow: null
         ,__lv: null
-        ,actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm_menu: null
         ,actionDeneme_toolbar: null
         ,actionFineMenuItem_menu: null
         ,actionMenuItem1_menu: null
@@ -25,12 +25,22 @@ qx.Class.define("test.draw.Test", {
         ,actionSubMenuItem2_menu: null
         ,actionSubMenuItem3_menu: null
         ,actionToolBarAction1_toolbar: null
+        ,actionZopa_toolbar: null
         ,centralwidget: null
         ,checkBox: null
         ,checkBox_2: null
         ,checkBox_3: null
         ,checkBox_4: null
         ,comboBox: null
+        ,create_FinestMenuItem_menu: function create_FinestMenuItem_menu() {
+            this.FinestMenuItem_menu = new qx.ui.menu.Button();
+            var retval  =  this.FinestMenuItem_menu;
+            retval.setLabel(this.tr("FinestMenuItem"));
+            retval.setMargin(1);
+            return retval;
+            
+        }
+        
         ,create_MainWindow: function create_MainWindow() {
             this.MainWindow = new qx.ui.container.Composite();
             var retval  =  this.MainWindow;
@@ -49,15 +59,6 @@ qx.Class.define("test.draw.Test", {
         ,create___lv: function create___lv() {
             this.__lv = new qx.ui.layout.VBox();
             var retval  =  this.__lv;
-            return retval;
-            
-        }
-        
-        ,create_actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm_menu: function create_actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm_menu() {
-            this.actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm_menu = new qx.ui.menu.Button();
-            var retval  =  this.actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm_menu;
-            retval.setLabel(this.tr("AMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm"));
-            retval.setMargin(1);
             return retval;
             
         }
@@ -127,6 +128,14 @@ qx.Class.define("test.draw.Test", {
             this.actionToolBarAction1_toolbar = new qx.ui.toolbar.Button();
             var retval  =  this.actionToolBarAction1_toolbar;
             retval.setLabel(this.tr("ToolBarAction1"));
+            return retval;
+            
+        }
+        
+        ,create_actionZopa_toolbar: function create_actionZopa_toolbar() {
+            this.actionZopa_toolbar = new qx.ui.toolbar.Button();
+            var retval  =  this.actionZopa_toolbar;
+            retval.setLabel(this.tr("zopa"));
             return retval;
             
         }
@@ -212,9 +221,7 @@ qx.Class.define("test.draw.Test", {
         ,create_gridLayout_2: function create_gridLayout_2() {
             this.gridLayout_2 = new qx.ui.layout.Grid();
             var retval  =  this.gridLayout_2;
-            retval.setRowFlex(0,0);
             retval.setRowFlex(1,1);
-            retval.setColumnFlex(0,0);
             retval.setColumnFlex(1,1);
             return retval;
             
@@ -226,7 +233,6 @@ qx.Class.define("test.draw.Test", {
             retval.setRowFlex(0,1);
             retval.setRowFlex(1,1);
             retval.setRowFlex(2,1);
-            retval.setColumnFlex(0,1);
             retval.setColumnFlex(1,1);
             return retval;
             
@@ -235,9 +241,7 @@ qx.Class.define("test.draw.Test", {
         ,create_gridLayout_4: function create_gridLayout_4() {
             this.gridLayout_4 = new qx.ui.layout.Grid();
             var retval  =  this.gridLayout_4;
-            retval.setRowFlex(0,0);
             retval.setRowFlex(1,1);
-            retval.setColumnFlex(0,0);
             retval.setColumnFlex(1,1);
             return retval;
             
@@ -729,7 +733,7 @@ qx.Class.define("test.draw.Test", {
             retval.setMargin(1);
             retval.add(this.create_actionFineMenuItem_menu());
             retval.addSeparator();
-            retval.add(this.create_actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm_menu());
+            retval.add(this.create_FinestMenuItem_menu());
             return retval;
             
         }
@@ -845,7 +849,7 @@ qx.Class.define("test.draw.Test", {
             this.scrollAreaWidgetContents = new qx.ui.container.Composite();
             var retval  =  this.scrollAreaWidgetContents;
             retval.setHeight(518);
-            retval.setWidth(140);
+            retval.setWidth(211);
             retval.setMargin(1);
             retval.setLayout(this.create_verticalLayout_2());
             retval.add(this.create_groupBox_3(), {flex: 1});
@@ -1070,6 +1074,7 @@ qx.Class.define("test.draw.Test", {
             retval.setMargin(1);
             retval.setAllowGrowY(false);
             retval.add(this.create_actionDeneme_toolbar());
+            retval.add(this.create_actionZopa_toolbar());
             return retval;
             
         }

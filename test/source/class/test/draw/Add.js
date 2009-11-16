@@ -532,7 +532,6 @@ qx.Class.define("test.draw.Add", {
         ,create_gridLayout_3: function create_gridLayout_3() {
             this.gridLayout_3 = new qx.ui.layout.Grid();
             var retval  =  this.gridLayout_3;
-            retval.setRowFlex(0,1);
             retval.setRowFlex(1,1);
             retval.setRowFlex(2,1);
             retval.setRowFlex(3,1);
@@ -542,7 +541,6 @@ qx.Class.define("test.draw.Add", {
             retval.setRowFlex(7,1);
             retval.setRowFlex(8,1);
             retval.setColumnFlex(0,1);
-            retval.setColumnFlex(2,0);
             return retval;
             
         }
