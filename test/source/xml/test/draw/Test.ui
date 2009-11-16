@@ -696,7 +696,7 @@
     </property>
     <addaction name="actionFineMenuItem"/>
     <addaction name="separator"/>
-    <addaction name="actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm"/>
+    <addaction name="FinestMenuItem"/>
    </widget>
    <addaction name="menuMenu1"/>
    <addaction name="menuMenu2"/>
@@ -710,11 +710,24 @@
     <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>true</bool>
+    <bool>false</bool>
    </attribute>
    <addaction name="actionMenuItem1"/>
    <addaction name="separator"/>
    <addaction name="actionToolBarAction1"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar_2">
+   <property name="windowTitle">
+    <string>toolBar_2</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionDeneme"/>
+   <addaction name="actionZopa"/>
   </widget>
   <action name="actionMenuItem1">
    <property name="text">
@@ -741,9 +754,9 @@
     <string>FineMenuItem</string>
    </property>
   </action>
-  <action name="actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm">
+  <action name="FinestMenuItem">
    <property name="text">
-    <string>AMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm</string>
+    <string>FinestMenuItem</string>
    </property>
   </action>
   <action name="actionToolBarAction1">
@@ -757,6 +770,11 @@
   <action name="actionDeneme">
    <property name="text">
     <string>deneme</string>
+   </property>
+  </action>
+  <action name="actionZopa">
+   <property name="text">
+    <string>zopa</string>
    </property>
   </action>
  </widget>

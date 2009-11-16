@@ -17,6 +17,7 @@ qx.Class.define("test.draw.Test", {
         MainWindow: null
         ,__lv: null
         ,actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm_menu: null
+        ,actionDeneme_toolbar: null
         ,actionFineMenuItem_menu: null
         ,actionMenuItem1_menu: null
         ,actionMenuItem1_toolbar: null
@@ -39,6 +40,7 @@ qx.Class.define("test.draw.Test", {
             retval.setLayout(this.create___lv());
             retval.add(this.create_menubar());
             retval.add(this.create_toolBar());
+            retval.add(this.create_toolBar_2());
             retval.add(this.create_centralwidget(), {flex: 1});
             return retval;
             
@@ -56,6 +58,14 @@ qx.Class.define("test.draw.Test", {
             var retval  =  this.actionAMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm_menu;
             retval.setLabel(this.tr("AMenuItemWithQuiteALongNameWhichMayOrMayNotBeDangerousForTheLayoutingAlgorithm"));
             retval.setMargin(1);
+            return retval;
+            
+        }
+        
+        ,create_actionDeneme_toolbar: function create_actionDeneme_toolbar() {
+            this.actionDeneme_toolbar = new qx.ui.toolbar.Button();
+            var retval  =  this.actionDeneme_toolbar;
+            retval.setLabel(this.tr("deneme"));
             return retval;
             
         }
@@ -835,7 +845,7 @@ qx.Class.define("test.draw.Test", {
             this.scrollAreaWidgetContents = new qx.ui.container.Composite();
             var retval  =  this.scrollAreaWidgetContents;
             retval.setHeight(518);
-            retval.setWidth(211);
+            retval.setWidth(140);
             retval.setMargin(1);
             retval.setLayout(this.create_verticalLayout_2());
             retval.add(this.create_groupBox_3(), {flex: 1});
@@ -1054,6 +1064,16 @@ qx.Class.define("test.draw.Test", {
             
         }
         
+        ,create_toolBar_2: function create_toolBar_2() {
+            this.toolBar_2 = new qx.ui.toolbar.ToolBar();
+            var retval  =  this.toolBar_2;
+            retval.setMargin(1);
+            retval.setAllowGrowY(false);
+            retval.add(this.create_actionDeneme_toolbar());
+            return retval;
+            
+        }
+        
         ,create_treeWidget: function create_treeWidget() {
              /* The 'column' tag for widget named 'treeWidget'of type '<class 'jsqt.il.qt.itemview.QTreeWidget'>' is not supported (yet?) */
             
@@ -1231,6 +1251,7 @@ qx.Class.define("test.draw.Test", {
         ,textEdit: null
         ,textEdit_3: null
         ,toolBar: null
+        ,toolBar_2: null
         ,treeWidget: null
         ,verticalLayout: null
         ,verticalLayout_2: null

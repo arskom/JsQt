@@ -55,13 +55,14 @@ class QMainWindow(ContainerBase):
                 self._compile_child(dialect, ret, self.children[i])
                 del self.children[i]
                 break
-
-        for i in range(len(self.children)):
+        i=0
+        while i < len(self.children):
             if (self.children[i]._elt.attrib['class'] == 'QToolBar' and
                              self.children[i].toolbar_area == "TopToolBarArea"):
                 self._compile_child(dialect, ret, self.children[i])
                 del self.children[i]
-                break
+            else:
+                i+=1
 
         for i in range(len(self.children)):
             self._compile_child(dialect, ret, self.children[i])
