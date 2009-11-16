@@ -139,7 +139,7 @@ class ToolBarSeparator(ObjectBase):
 
     def compile(self, dialect, ret):
         add_separator = il.primitive.FunctionCall('retval.add',
-                         [il.primitive.Intantiation('qx.ui.toolbar.Separator')])
+                         [il.primitive.Instantiation('qx.ui.toolbar.Separator')])
         self.parent.factory_function.add_statement(add_separator)
 
 class ToolBarButton(ObjectBase):

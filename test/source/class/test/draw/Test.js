@@ -1048,7 +1048,7 @@ qx.Class.define("test.draw.Test", {
             retval.setMargin(1);
             retval.setAllowGrowY(false);
             retval.add(this.create_actionMenuItem1_toolbar());
-            retval.addSeparator();
+            retval.add(new qx.ui.toolbar.Separator());
             retval.add(this.create_actionToolBarAction1_toolbar());
             return retval;
             

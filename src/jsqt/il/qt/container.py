@@ -50,16 +50,14 @@ class QMainWindow(ContainerBase):
         self.actions[elt.attrib['name']] = Action(elt)
 
     def _compile_children(self, dialect, ret):
-        has_menubar = False
-        for m in range(len(self.children)):
-            if self.children[m]._elt.attrib['class'] == 'QMenuBar':
-                self._compile_child(dialect, ret, self.children[m])
-                has_menubar = True
+        for i in range(len(self.children)):
+            if self.children[i]._elt.attrib['class'] == 'QMenuBar':
+                self._compile_child(dialect, ret, self.children[i])
+                del self.children[i]
                 break
 
         for i in range(len(self.children)):
-            if i!=m or not has_menubar:
-                self._compile_child(dialect, ret, self.children[i])
+            self._compile_child(dialect, ret, self.children[i])
 
 class QTabWidget(ContainerWithoutLayout):
     type = "qx.ui.tabview.TabView"
