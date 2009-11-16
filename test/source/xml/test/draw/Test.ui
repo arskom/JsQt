@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>759</width>
-    <height>540</height>
+    <width>774</width>
+    <height>521</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -91,7 +91,7 @@
         <string>a simple tooltip for tab 2</string>
        </property>
        <property name="currentIndex">
-        <number>4</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -278,7 +278,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>201</width>
+              <width>211</width>
               <height>518</height>
              </rect>
             </property>
@@ -392,7 +392,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>443</width>
+              <width>458</width>
               <height>518</height>
              </rect>
             </property>
@@ -415,37 +415,67 @@
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBox_4">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>1</horstretch>
-             <verstretch>1</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>300</width>
-             <height>150</height>
-            </size>
-           </property>
-           <property name="title">
-            <string>GroupBox</string>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_3">
-            <item row="0" column="0">
-             <widget class="QDateEdit" name="dateEdit"/>
-            </item>
-            <item row="0" column="1" rowspan="4">
-             <widget class="QTextEdit" name="textEdit"/>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLineEdit" name="lineEdit"/>
-            </item>
-            <item row="1" column="0">
-             <widget class="QSpinBox" name="spinBox"/>
-            </item>
-           </layout>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_4">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>1</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>300</width>
+               <height>150</height>
+              </size>
+             </property>
+             <property name="title">
+              <string>GroupBox</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_3">
+              <item row="0" column="0">
+               <widget class="QDateEdit" name="dateEdit"/>
+              </item>
+              <item row="0" column="1" rowspan="4">
+               <widget class="QTextEdit" name="textEdit"/>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLineEdit" name="lineEdit"/>
+              </item>
+              <item row="1" column="0">
+               <widget class="QSpinBox" name="spinBox"/>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
          </item>
         </layout>
        </widget>
@@ -500,7 +530,7 @@
        </widget>
        <widget class="QWidget" name="tab_grid_fixed">
         <attribute name="title">
-         <string>Grid Fixed</string>
+         <string>Grid Fixed Empty</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="0">
@@ -520,6 +550,7 @@
            <property name="title">
             <string>GroupBox</string>
            </property>
+           <layout class="QVBoxLayout" name="verticalLayout_5"/>
           </widget>
          </item>
          <item row="0" column="1">
@@ -538,6 +569,58 @@
          </item>
          <item row="1" column="0">
           <widget class="QGroupBox" name="groupBox_bl">
+           <property name="title">
+            <string>GroupBox</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_grid_fixed_filled">
+        <attribute name="title">
+         <string>Grid Fixed Filled</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_4">
+         <item row="0" column="0">
+          <widget class="QGroupBox" name="groupBox_tl_2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>100</height>
+            </size>
+           </property>
+           <property name="title">
+            <string>GroupBox</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_9">
+            <item>
+             <widget class="QTextEdit" name="textEdit_3"/>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QGroupBox" name="groupBox_tr_2">
+           <property name="title">
+            <string>GroupBox</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QGroupBox" name="groupBox_bl_2">
+           <property name="title">
+            <string>GroupBox</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QGroupBox" name="groupBox_br_2">
            <property name="title">
             <string>GroupBox</string>
            </property>
@@ -586,7 +669,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>759</width>
+     <width>774</width>
      <height>28</height>
     </rect>
    </property>
@@ -627,7 +710,7 @@
     <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>false</bool>
+    <bool>true</bool>
    </attribute>
    <addaction name="actionMenuItem1"/>
    <addaction name="actionToolBarAction1"/>

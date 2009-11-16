@@ -92,11 +92,7 @@ class MenuButton(ContainerWithoutLayout):
 
         self.menu.add_child_action(instance)
 
-class QMenu(ContainerWithoutLayout):
-    type = "qx.ui.menu.Menu"
-    Button = MenuButton
-    postfix = "_menu"
-
+class Bar(ContainerWithoutLayout):
     def __init__(self, elt, name=None):
         self.actions = []
         self.child_actions = {}
@@ -126,6 +122,11 @@ class QMenu(ContainerWithoutLayout):
 
         ContainerWithoutLayout.compile(self, dialect, ret)
 
+class QMenu(Bar):
+    type = "qx.ui.menu.Menu"
+    Button = MenuButton
+    postfix = "_menu"
+
 
 class ToolBarButton(ObjectBase):
     type = "qx.ui.toolbar.Button"
@@ -133,7 +134,7 @@ class ToolBarButton(ObjectBase):
         "title": SimpleProp("setLabel", il.primitive.TranslatableString, ""),
     }
 
-class QToolBar(QMenu):
+class QToolBar(Bar):
     type = "qx.ui.toolbar.ToolBar"
     ver_stretch_pol = "Fixed"
     Button = ToolBarButton
@@ -145,9 +146,3 @@ class QToolBar(QMenu):
 
     def _handle_addaction_tag(self, elt):
         self.actions.append(elt.attrib['name'])
-
-    def compile(self, dialect, ret):
-        for a in self.actions:
-            print a
-
-        QMenu.compile(self, dialect, ret)
