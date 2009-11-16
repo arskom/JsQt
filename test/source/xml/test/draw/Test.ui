@@ -713,6 +713,7 @@
     <bool>true</bool>
    </attribute>
    <addaction name="actionMenuItem1"/>
+   <addaction name="separator"/>
    <addaction name="actionToolBarAction1"/>
   </widget>
   <action name="actionMenuItem1">

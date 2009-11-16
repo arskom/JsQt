@@ -34,7 +34,7 @@ class QMenuBar(ContainerWithoutLayout):
 
         ContainerWithoutLayout.add_child(self, instance)
 
-class Separator(ObjectBase):
+class MenuSeparator(ObjectBase):
     def __init__(self):
         ObjectBase.__init__(self, None, "")
         self.real = False
@@ -108,7 +108,7 @@ class Bar(ContainerWithoutLayout):
     def compile(self, dialect, ret):
         for a in self.actions:
             if a == "separator":
-                self.add_child(Separator())
+                self.add_child(self.Separator())
 
             elif a in ret.main_widget.actions:
                 action = ret.main_widget.actions[a]
@@ -126,7 +126,21 @@ class QMenu(Bar):
     type = "qx.ui.menu.Menu"
     Button = MenuButton
     postfix = "_menu"
+    Separator = MenuSeparator
 
+
+class ToolBarSeparator(ObjectBase):
+    def __init__(self):
+        ObjectBase.__init__(self, None, "")
+        self.real = False
+
+    def _compile_instantiation(self, dialect, ret):
+        pass
+
+    def compile(self, dialect, ret):
+        add_separator = il.primitive.FunctionCall('retval.add',
+                         [il.primitive.Intantiation('qx.ui.toolbar.Separator')])
+        self.parent.factory_function.add_statement(add_separator)
 
 class ToolBarButton(ObjectBase):
     type = "qx.ui.toolbar.Button"
@@ -139,6 +153,7 @@ class QToolBar(Bar):
     ver_stretch_pol = "Fixed"
     Button = ToolBarButton
     postfix = "_toolbar"
+    Separator = ToolBarSeparator
 
     def _init_before_parse(self):
         ContainerWithoutLayout._init_before_parse(self)
