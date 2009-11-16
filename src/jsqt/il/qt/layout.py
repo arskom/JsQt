@@ -114,7 +114,6 @@ class QGridLayout(QLayout):
             self.col_flex[lp['column'].value] = \
                                     FlexProp("Expanding", inst.hor_stretch_coef)
 
-        return
         if inst.hor_stretch_pol == "Fixed":
             self.row_flex[lp['row'].value].pol = "Fixed"
 
