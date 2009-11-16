@@ -57,6 +57,13 @@ class QMainWindow(ContainerBase):
                 break
 
         for i in range(len(self.children)):
+            if (self.children[i]._elt.attrib['class'] == 'QToolBar' and
+                             self.children[i].toolbar_area == "TopToolBarArea"):
+                self._compile_child(dialect, ret, self.children[i])
+                del self.children[i]
+                break
+
+        for i in range(len(self.children)):
             self._compile_child(dialect, ret, self.children[i])
 
 class QTabWidget(ContainerWithoutLayout):

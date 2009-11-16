@@ -128,7 +128,6 @@ class QMenu(Bar):
     postfix = "_menu"
     Separator = MenuSeparator
 
-
 class ToolBarSeparator(ObjectBase):
     def __init__(self):
         ObjectBase.__init__(self, None, "")
@@ -159,5 +158,9 @@ class QToolBar(Bar):
         ContainerWithoutLayout._init_before_parse(self)
         self.tag_handlers['addaction'] = self._handle_addaction_tag
 
-    def _handle_addaction_tag(self, elt):
-        self.actions.append(elt.attrib['name'])
+    def __handle_toolbar_area(self, elt):
+        self.toolbar_area = elt[0].text
+
+    known_complex_props = {
+        "toolBarArea": __handle_toolbar_area,
+    }

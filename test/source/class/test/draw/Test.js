@@ -38,8 +38,8 @@ qx.Class.define("test.draw.Test", {
             retval.setMargin(1);
             retval.setLayout(this.create___lv());
             retval.add(this.create_menubar());
-            retval.add(this.create_centralwidget(), {flex: 1});
             retval.add(this.create_toolBar());
+            retval.add(this.create_centralwidget(), {flex: 1});
             return retval;
             
         }
