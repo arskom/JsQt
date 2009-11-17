@@ -107,9 +107,8 @@ class QTableWidget(QAbstractItemView):
         WidgetBase.__init__(self,elt,name)
         
     def _compile_instantiation(self, dialect, ret):
-        factory_function_retval = il.primitive.ObjectReference('retval')
         assignment = il.primitive.Assignment()
-        assignment.set_left(factory_function_retval)
+        assignment.set_left(il.primitive.ObjectReference('this.%s' % self.name))
 
         args = [il.primitive.ObjectReference("null")]
 
@@ -123,17 +122,12 @@ class QTableWidget(QAbstractItemView):
             "tableColumnModel": return_tcm
         }))
 
-        #this.tbl_vehicle = new atr.comp.SmallVehicleTable(null,{
-        #    tableColumnModel : function(obj) {
-        #        return new qx.ui.table.columnmodel.Resize(obj);
-        #    }
-        #}); // QTableWidget
-
         instantiation = il.primitive.Instantiation(self.type, args)
 
         assignment.set_right(instantiation)
 
         self.factory_function.add_statement(assignment)
+        self.factory_function.add_statement(il.primitive.ObjectReference("var retval = this.%s" % self.name)) # FIXME: hack
 
         ret.set_member(self.factory_function.name, self.factory_function)
         self.factory_function.set_return_statement(
