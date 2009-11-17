@@ -26,4 +26,6 @@ import form
 import gui
 import layout
 import itemview
-import menu
+import bar
+
+from base import *

@@ -21,21 +21,9 @@
 # 02110-1301, USA.
 #
 
-version   = "trunk"
-copyright = "(c) 2009 Arskom Ltd."
-header_string = """JsQt %s
-%s
-""" % (version, copyright)
+class SimpleProp(object):
+    def __init__(self, function_name, wrapper_type, default_value=None):
+        self.function_name = function_name
+        self.wrapper_type = wrapper_type
+        self.default_value = default_value
 
-loglevel = 0
-
-def debug_print(*args):
-    if loglevel > 0:
-        for i in range(len(args)):
-            sys.stderr.write(str(args[i]))
-            if i != len(args)-1:
-                sys.stderr.write(" ")
-        sys.stderr.write("\n")
-
-
-from base import *

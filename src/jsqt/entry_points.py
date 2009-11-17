@@ -26,7 +26,7 @@ import sys
 import os
 import stat
 
-from misc import JsPp
+from base import JsPp
 from parser import UiParser
 
 import jsqt

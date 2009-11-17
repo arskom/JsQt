@@ -22,11 +22,11 @@
 #
 
 from jsqt import il
-from gui import ObjectBase
+import obj
 
-class QLayout(ObjectBase):
+class QLayout(obj.Base):
     def __init__(self, elt, name=None):
-        ObjectBase .__init__(self, elt, name)
+        obj.Base .__init__(self, elt, name)
 
     def add_child(self, child):
         raise Exception("layouts don't accept children")

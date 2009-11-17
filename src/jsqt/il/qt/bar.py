@@ -22,21 +22,22 @@
 #
 
 from jsqt import il
-from container import ContainerWithoutLayout, SimpleProp
-from gui import ObjectBase
-
-class QMenuBar(ContainerWithoutLayout):
+import container
+import obj
+from base import SimpleProp
+    
+class QMenuBar(container.WithoutLayout):
     type = "qx.ui.menubar.MenuBar"
     ver_stretch_pol = "Fixed"
 
     def add_child(self, instance):
         instance.type = "qx.ui.menubar.Button"
 
-        ContainerWithoutLayout.add_child(self, instance)
+        container.WithoutLayout.add_child(self, instance)
 
-class MenuSeparator(ObjectBase):
+class MenuSeparator(obj.Base):
     def __init__(self):
-        ObjectBase.__init__(self, None, "")
+        obj.Base.__init__(self, None, "")
         self.real = False
 
     def _compile_instantiation(self, dialect, ret):
@@ -46,7 +47,7 @@ class MenuSeparator(ObjectBase):
         add_separator = il.primitive.FunctionCall('retval.addSeparator')
         self.parent.factory_function.add_statement(add_separator)
 
-class MenuButton(ContainerWithoutLayout):
+class MenuButton(container.WithoutLayout):
     type = "qx.ui.menu.Button"
     add_function = "setMenu"
     known_simple_props = {
@@ -56,10 +57,10 @@ class MenuButton(ContainerWithoutLayout):
     def __init__(self, elt, name=None):
         self.menu = None
 
-        ContainerWithoutLayout.__init__(self, elt, name)
+        container.WithoutLayout.__init__(self, elt, name)
 
     def _init_before_parse(self):
-        ContainerWithoutLayout._init_before_parse(self)
+        container.WithoutLayout._init_before_parse(self)
         self.tag_handlers['addaction'] = self._handle_addaction_tag
 
     def _handle_addaction_tag(self, elt):
@@ -75,7 +76,7 @@ class MenuButton(ContainerWithoutLayout):
         self.factory_function.add_statement(set_menu)
 
     def compile(self, dialect, ret):
-        ContainerWithoutLayout.compile(self, dialect, ret)
+        container.WithoutLayout.compile(self, dialect, ret)
 
         if self.menu != None:
             self.menu.compile(dialect, ret)
@@ -92,12 +93,12 @@ class MenuButton(ContainerWithoutLayout):
 
         self.menu.add_child_action(instance)
 
-class Bar(ContainerWithoutLayout):
+class Bar(container.WithoutLayout):
     def __init__(self, elt, name=None):
         self.actions = []
         self.child_actions = {}
 
-        ContainerWithoutLayout.__init__(self, elt, name)
+        container.WithoutLayout.__init__(self, elt, name)
 
     def _handle_addaction_tag(self, elt):
         self.actions.append(elt.attrib['name'])
@@ -120,7 +121,7 @@ class Bar(ContainerWithoutLayout):
             else:
                 self.add_child(self.child_actions[a])
 
-        ContainerWithoutLayout.compile(self, dialect, ret)
+        container.WithoutLayout.compile(self, dialect, ret)
 
 class QMenu(Bar):
     type = "qx.ui.menu.Menu"
@@ -128,9 +129,9 @@ class QMenu(Bar):
     suffix = "_menu"
     Separator = MenuSeparator
 
-class ToolBarSeparator(ObjectBase):
+class ToolBarSeparator(obj.Base):
     def __init__(self):
-        ObjectBase.__init__(self, None, "")
+        obj.Base.__init__(self, None, "")
         self.real = False
 
     def _compile_instantiation(self, dialect, ret):
@@ -141,7 +142,7 @@ class ToolBarSeparator(ObjectBase):
                          [il.primitive.Instantiation('qx.ui.toolbar.Separator')])
         self.parent.factory_function.add_statement(add_separator)
 
-class ToolBarButton(ObjectBase):
+class ToolBarButton(obj.Base):
     type = "qx.ui.toolbar.Button"
     known_simple_props = {
         "title": SimpleProp("setLabel", il.primitive.TranslatableString, ""),
@@ -155,7 +156,7 @@ class QToolBar(Bar):
     Separator = ToolBarSeparator
 
     def _init_before_parse(self):
-        ContainerWithoutLayout._init_before_parse(self)
+        container.WithoutLayout._init_before_parse(self)
         self.tag_handlers['addaction'] = self._handle_addaction_tag
 
     def __handle_toolbar_area(self, elt):

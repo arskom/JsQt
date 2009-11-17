@@ -761,9 +761,9 @@ qx.Class.define("test.draw.Test", {
         }
         
         ,create_menubar: function create_menubar() {
-             /* The 'addaction' tag for widget named 'menubar'of type '<class 'jsqt.il.qt.menu.QMenuBar'>' is not supported (yet?) */
+             /* The 'addaction' tag for widget named 'menubar'of type '<class 'jsqt.il.qt.bar.QMenuBar'>' is not supported (yet?) */
             
-             /* The 'addaction' tag for widget named 'menubar'of type '<class 'jsqt.il.qt.menu.QMenuBar'>' is not supported (yet?) */
+             /* The 'addaction' tag for widget named 'menubar'of type '<class 'jsqt.il.qt.bar.QMenuBar'>' is not supported (yet?) */
             
             this.menubar = new qx.ui.menubar.MenuBar();
             var retval  =  this.menubar;
@@ -1025,7 +1025,7 @@ qx.Class.define("test.draw.Test", {
         }
         
         ,create_tableWidget: function create_tableWidget() {
-            retval = new qx.ui.table.Table(null, {
+            this.tableWidget = new qx.ui.table.Table(null, {
                 tableColumnModel: function(obj) {
                     return new qx.ui.table.columnmodel.Resize(obj);
                     
@@ -1033,6 +1033,7 @@ qx.Class.define("test.draw.Test", {
                 
             }
             );
+            var retval  =  this.tableWidget;
             retval.setHeight(192);
             retval.setWidth(256);
             retval.setMargin(1);

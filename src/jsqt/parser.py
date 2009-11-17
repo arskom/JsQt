@@ -42,8 +42,8 @@ il.qt.gui.widget_dict = {
     "QScrollArea": il.qt.container.QScrollArea,
     "QSplitter": il.qt.container.QSplitter,
 
-    "QWidget": il.qt.gui.QWidget,
-    "QFrame": il.qt.gui.QWidget,
+    "QWidget": il.qt.container.QWidget,
+    "QFrame": il.qt.container.QWidget,
 
     "QRadioButton": il.qt.form.QRadioButton,
     "QPushButton": il.qt.form.QPushButton,
@@ -56,9 +56,9 @@ il.qt.gui.widget_dict = {
     "QGroupBox": il.qt.container.QGroupBox,
     "QLabel": il.qt.form.QLabel,
     "Spacer": il.qt.gui.QSpacer,
-    "QMenuBar": il.qt.menu.QMenuBar,
-    "QMenu": il.qt.menu.MenuButton,
-    "QToolBar": il.qt.menu.QToolBar,
+    "QMenuBar": il.qt.bar.QMenuBar,
+    "QMenu": il.qt.bar.MenuButton,
+    "QToolBar": il.qt.bar.QToolBar,
 
     "QTreeWidget": il.qt.itemview.QTreeWidget,
 
