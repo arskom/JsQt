@@ -347,9 +347,10 @@ qx.Class.define("test.draw.Test", {
         ,create_groupBox_3: function create_groupBox_3() {
             this.groupBox_3 = new qx.ui.groupbox.GroupBox();
             var retval  =  this.groupBox_3;
-            retval.setMinHeight(500);
+            retval.setHeight(500);
             retval.setLegend(this.tr("GroupBox"));
             retval.setMargin(1);
+            retval.setMinHeight(500);
             retval.setLayout(this.create_verticalLayout_8());
             retval.add(this.create_label_3(), {flex: 1});
             retval.add(this.create_label_4(), {flex: 1});
@@ -377,9 +378,10 @@ qx.Class.define("test.draw.Test", {
         ,create_groupBox_6: function create_groupBox_6() {
             this.groupBox_6 = new qx.ui.groupbox.GroupBox();
             var retval  =  this.groupBox_6;
-            retval.setMinHeight(500);
+            retval.setHeight(500);
             retval.setLegend(this.tr("GroupBox"));
             retval.setMargin(1);
+            retval.setMinHeight(500);
             retval.setLayout(this.create_groupBox_6_il());
             return retval;
             
@@ -508,10 +510,12 @@ qx.Class.define("test.draw.Test", {
         ,create_groupBox_tl: function create_groupBox_tl() {
             this.groupBox_tl = new qx.ui.groupbox.GroupBox();
             var retval  =  this.groupBox_tl;
-            retval.setMinHeight(100);
-            retval.setMinWidth(100);
+            retval.setHeight(100);
+            retval.setWidth(100);
             retval.setLegend(this.tr("GroupBox"));
             retval.setMargin(1);
+            retval.setMinWidth(100);
+            retval.setMinHeight(100);
             retval.setAllowGrowX(false);
             retval.setAllowGrowY(false);
             retval.setLayout(this.create_verticalLayout_5());
@@ -522,10 +526,12 @@ qx.Class.define("test.draw.Test", {
         ,create_groupBox_tl_2: function create_groupBox_tl_2() {
             this.groupBox_tl_2 = new qx.ui.groupbox.GroupBox();
             var retval  =  this.groupBox_tl_2;
-            retval.setMinHeight(100);
-            retval.setMinWidth(100);
+            retval.setHeight(100);
+            retval.setWidth(100);
             retval.setLegend(this.tr("GroupBox"));
             retval.setMargin(1);
+            retval.setMinWidth(100);
+            retval.setMinHeight(100);
             retval.setAllowGrowX(false);
             retval.setAllowGrowY(false);
             retval.setLayout(this.create_verticalLayout_9());

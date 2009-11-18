@@ -263,8 +263,9 @@ qx.Class.define("test.draw.Add", {
         ,create_comboSubAddress: function create_comboSubAddress() {
             this.comboSubAddress = new qx.ui.form.SelectBox();
             var retval  =  this.comboSubAddress;
-            retval.setMinWidth(80);
+            retval.setWidth(80);
             retval.setMargin(1);
+            retval.setMinWidth(80);
             retval.setAllowGrowY(false);
             retval.add(new qx.ui.form.ListItem("1",null,null));
             retval.add(new qx.ui.form.ListItem("2",null,null));
@@ -280,8 +281,9 @@ qx.Class.define("test.draw.Add", {
         ,create_comboSubAddress_2: function create_comboSubAddress_2() {
             this.comboSubAddress_2 = new qx.ui.form.SelectBox();
             var retval  =  this.comboSubAddress_2;
-            retval.setMinWidth(80);
+            retval.setWidth(80);
             retval.setMargin(1);
+            retval.setMinWidth(80);
             retval.setAllowGrowY(false);
             retval.add(new qx.ui.form.ListItem("1",null,null));
             retval.add(new qx.ui.form.ListItem("2",null,null));
@@ -347,9 +349,10 @@ qx.Class.define("test.draw.Add", {
         ,create_edtCompany: function create_edtCompany() {
             this.edtCompany = new qx.ui.form.TextField();
             var retval  =  this.edtCompany;
+            retval.setWidth(300);
             retval.setMaxWidth(5);
-            retval.setMinWidth(300);
             retval.setMargin(1);
+            retval.setMinWidth(300);
             return retval;
             
         }
@@ -367,8 +370,9 @@ qx.Class.define("test.draw.Add", {
         ,create_edtDNID: function create_edtDNID() {
             this.edtDNID = new qx.ui.form.TextField();
             var retval  =  this.edtDNID;
-            retval.setMinWidth(50);
+            retval.setWidth(50);
             retval.setMargin(1);
+            retval.setMinWidth(50);
             return retval;
             
         }
@@ -376,8 +380,9 @@ qx.Class.define("test.draw.Add", {
         ,create_edtDNID_2: function create_edtDNID_2() {
             this.edtDNID_2 = new qx.ui.form.TextField();
             var retval  =  this.edtDNID_2;
-            retval.setMinWidth(50);
+            retval.setWidth(50);
             retval.setMargin(1);
+            retval.setMinWidth(50);
             return retval;
             
         }
@@ -417,8 +422,9 @@ qx.Class.define("test.draw.Add", {
         ,create_edtMN: function create_edtMN() {
             this.edtMN = new qx.ui.form.TextField();
             var retval  =  this.edtMN;
-            retval.setMinWidth(30);
+            retval.setWidth(30);
             retval.setMargin(1);
+            retval.setMinWidth(30);
             return retval;
             
         }
@@ -426,8 +432,9 @@ qx.Class.define("test.draw.Add", {
         ,create_edtMN_2: function create_edtMN_2() {
             this.edtMN_2 = new qx.ui.form.TextField();
             var retval  =  this.edtMN_2;
-            retval.setMinWidth(30);
+            retval.setWidth(30);
             retval.setMargin(1);
+            retval.setMinWidth(30);
             return retval;
             
         }
@@ -443,9 +450,10 @@ qx.Class.define("test.draw.Add", {
         ,create_edtName_2: function create_edtName_2() {
             this.edtName_2 = new qx.ui.form.TextField();
             var retval  =  this.edtName_2;
+            retval.setWidth(300);
             retval.setMaxWidth(400);
-            retval.setMinWidth(300);
             retval.setMargin(1);
+            retval.setMinWidth(300);
             retval.setAllowGrowY(false);
             return retval;
             
@@ -548,10 +556,11 @@ qx.Class.define("test.draw.Add", {
         ,create_groupBox: function create_groupBox() {
             this.groupBox = new qx.ui.groupbox.GroupBox();
             var retval  =  this.groupBox;
+            retval.setWidth(400);
             retval.setMaxWidth(600);
-            retval.setMinWidth(400);
             retval.setLegend(this.tr("Add"));
             retval.setMargin(1);
+            retval.setMinWidth(400);
             retval.setLayout(this.create_gridLayout());
             retval.add(this.create_lblCompany(), {column: 0,row: 0});
             retval.add(this.create_edtCompany(), {column: 2,row: 0});
