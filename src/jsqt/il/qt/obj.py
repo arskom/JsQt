@@ -73,7 +73,7 @@ class _Meta(type):
                                                                       (name, k))
                 if k in cls.known_complex_props:
                     raise Exception("'%s' already has a complex '%s' handler."%
-                                                                  (name, k))
+                                                                      (name, k))
                 cls.known_complex_props[k] = v
 
 class Base(il.primitive.MultiPartCompilable):
@@ -138,7 +138,8 @@ class Base(il.primitive.MultiPartCompilable):
 
     def _compile_instantiation(self, dialect, ret):
         instantiation = il.primitive.Assignment()
-        instantiation.set_left(il.primitive.ObjectReference('this.%s' % self.name))
+        instantiation.set_left(il.primitive.ObjectReference('this.%s' %
+                                                                     self.name))
         instantiation.set_right(il.primitive.Instantiation(self.type))
 
         self.factory_function.add_statement(instantiation)
@@ -146,7 +147,7 @@ class Base(il.primitive.MultiPartCompilable):
 
         ret.set_member(self.factory_function.name, self.factory_function)
         self.factory_function.set_return_statement(
-                            il.primitive.ObjectReference('retval'))
+                                         il.primitive.ObjectReference('retval'))
 
         ret.set_member(self.name, il.primitive.ObjectReference('null'))
 
@@ -165,7 +166,8 @@ class Base(il.primitive.MultiPartCompilable):
     def _compile_simple_prop(self, prop, data):
         data=prop.wrapper_type.from_elt(data)
         if prop.default_value != data and prop.function_name != "" :
-            fc=il.primitive.FunctionCall("retval.%s"%(prop.function_name),[data])
+            fc = il.primitive.FunctionCall("retval.%s" % (prop.function_name),
+                                                                         [data])
             self.factory_function.add_statement(fc)
             return True
         else:
