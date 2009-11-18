@@ -40,6 +40,9 @@ class MGeometryProperties(object):
         self.__margin_r = etree.fromstring("<number>1</number>")
         self.__margin = etree.fromstring("<number>1</number>")
 
+        self.__min_width = etree.fromstring("<number>0</number>")
+        self.__min_height = etree.fromstring("<number>0</number>")
+
     def get_geometry_top(self):
         if "geometry.y" in self.simple_prop_data:
             return int(self.simple_prop_data["geometry.y"].text)
@@ -75,12 +78,30 @@ class MGeometryProperties(object):
             jsqt.debug_print("\t\t", "WARNING: property 'sizePolicy' doesn't "
                                                       "have a 'sizepolicy' tag")
 
+    #
+    # hacking around qooxdoo bug 3075
+    # http://bugzilla.qooxdoo.org/show_bug.cgi?id=3075
+    #
+    def __handle_minimum_size(self, elt):
+        if elt[0].tag == 'size':
+            self.__min_width = elt[0][0]
+            self.__min_height = elt[0][1]
+            self.simple_prop_data['geometry.width'] = self.__min_width
+            self.simple_prop_data['geometry.height'] = self.__min_height
+
+        else:
+            jsqt.debug_print("\t\t", "WARNING: property 'sizePolicy' doesn't "
+                                                      "have a 'sizepolicy' tag")
+
     def _compile_geometry(self, dialect, ret):
         if not self._compile_simple_prop(SimpleProp("setMargin", il.primitive.DecimalInteger, 0), self.__margin):
             self._compile_simple_prop(SimpleProp("setMarginTop", il.primitive.DecimalInteger, 0), self.__margin_t)
             self._compile_simple_prop(SimpleProp("setMarginLeft", il.primitive.DecimalInteger, 0), self.__margin_l)
             self._compile_simple_prop(SimpleProp("setMarginRight", il.primitive.DecimalInteger, 0), self.__margin_r)
             self._compile_simple_prop(SimpleProp("setMarginBottom", il.primitive.DecimalInteger, 0), self.__margin_b)
+
+        self._compile_simple_prop(SimpleProp("setMinWidth", il.primitive.DecimalInteger, 0), self.__min_width)
+        self._compile_simple_prop(SimpleProp("setMinHeight", il.primitive.DecimalInteger, 0), self.__min_height)
 
         xml_false = etree.fromstring("<bool>false</bool>")
         if self.hor_stretch_pol == "Fixed":
@@ -97,10 +118,6 @@ class MGeometryProperties(object):
             "width": SimpleProp("setWidth", il.primitive.DecimalInteger, 0),
             "height": SimpleProp("setHeight", il.primitive.DecimalInteger, 0),
         },
-        "minimumSize": {
-            "width": SimpleProp("setMinWidth", il.primitive.DecimalInteger, 0),
-            "height": SimpleProp("setMinHeight", il.primitive.DecimalInteger, 0),
-        },
         "maximumSize": {
             "width": SimpleProp("setMaxWidth", il.primitive.DecimalInteger, 16777215),
             "height": SimpleProp("setMaxHeight", il.primitive.DecimalInteger, 16777215),
@@ -109,6 +126,7 @@ class MGeometryProperties(object):
 
     known_complex_props = {
         "sizePolicy": __handle_size_policy,
+        "minimumSize": __handle_minimum_size,
     }
 
 class WidgetBase(obj.Base, MGeometryProperties):
