@@ -647,9 +647,9 @@ qx.Class.define("test.draw.Test", {
         ,create_label: function create_label() {
             this.label = new qx.ui.basic.Label();
             var retval  =  this.label;
-            retval.setHeight(31);
-            retval.setWidth(131);
-            retval.setValue(this.tr("This wil be cleared"));
+            retval.setHeight(21);
+            retval.setWidth(161);
+            retval.setValue(this.tr("Signals do not work yet."));
             retval.setMargin(1);
             return retval;
             
@@ -855,7 +855,7 @@ qx.Class.define("test.draw.Test", {
             this.scrollAreaWidgetContents = new qx.ui.container.Composite();
             var retval  =  this.scrollAreaWidgetContents;
             retval.setHeight(518);
-            retval.setWidth(211);
+            retval.setWidth(765);
             retval.setMargin(1);
             retval.setLayout(this.create_verticalLayout_2());
             retval.add(this.create_groupBox_3(), {flex: 1});
@@ -983,7 +983,7 @@ qx.Class.define("test.draw.Test", {
             retval.setMargin(1);
             retval.setLayout(this.create_tab_6_il());
             retval.add(this.create_pushButton(), {left: 30,top: 30});
-            retval.add(this.create_label(), {left: 230,top: 40});
+            retval.add(this.create_label(), {left: 170,top: 40});
             return retval;
             
         }
