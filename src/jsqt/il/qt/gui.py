@@ -84,14 +84,18 @@ class MGeometryProperties(object):
     #
     def __handle_minimum_size(self, elt):
         if elt[0].tag == 'size':
-            self.__min_width = elt[0][0]
-            self.__min_height = elt[0][1]
+            tmp = {}
+            for e in elt[0]:
+                tmp[e.tag]=e
+
+            self.__min_width = tmp['width']
+            self.__min_height = tmp['height']
             self.simple_prop_data['geometry.width'] = self.__min_width
             self.simple_prop_data['geometry.height'] = self.__min_height
 
         else:
-            jsqt.debug_print("\t\t", "WARNING: property 'sizePolicy' doesn't "
-                                                      "have a 'sizepolicy' tag")
+            jsqt.debug_print("\t\t", "WARNING: property 'minimumSize' doesn't "
+                                                            "have a 'size' tag")
 
     def _compile_geometry(self, dialect, ret):
         if not self._compile_simple_prop(SimpleProp("setMargin", il.primitive.DecimalInteger, 0), self.__margin):
@@ -119,8 +123,10 @@ class MGeometryProperties(object):
             "height": SimpleProp("setHeight", il.primitive.DecimalInteger, 0),
         },
         "maximumSize": {
-            "width": SimpleProp("setMaxWidth", il.primitive.DecimalInteger, 16777215),
-            "height": SimpleProp("setMaxHeight", il.primitive.DecimalInteger, 16777215),
+            "width": SimpleProp("setMaxWidth", il.primitive.DecimalInteger,
+                                                                      16777215),
+            "height": SimpleProp("setMaxHeight", il.primitive.DecimalInteger,
+                                                                      16777215),
         }
     }
 

@@ -153,6 +153,11 @@ class String(SinglePartCompilable):
         return js.primitive.String(self._string.replace("\n","\\n"))
 
 class TranslatableString(String):
+    def __init__(self, string):
+        SinglePartCompilable.__init__(self)
+
+        self._string=unicode(string)
+
     @staticmethod
     def from_elt(elt):
         return TranslatableString(elt.text)

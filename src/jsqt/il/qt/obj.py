@@ -69,10 +69,10 @@ class _Meta(type):
 
             for k,v in b.known_complex_props.items():
                 if k in cls.known_simple_props:
-                    raise Exception("'%s' already has a simple '%s' handler."%
+                    raise Exception("'%s' already has a simple '%s' handler." %
                                                                       (name, k))
                 if k in cls.known_complex_props:
-                    raise Exception("'%s' already has a complex '%s' handler."%
+                    raise Exception("'%s' already has a complex '%s' handler." %
                                                                       (name, k))
                 cls.known_complex_props[k] = v
 
@@ -107,6 +107,7 @@ class Base(il.primitive.MultiPartCompilable):
             self.name = elt.attrib['name']
 
             jsqt.debug_print("\tQWidget.__init__:", elt.tag, elt.attrib)
+            jsqt.debug_print("\t\treading xml...")
             self._init_before_parse()
             self._loop_children(elt)
 
@@ -137,6 +138,7 @@ class Base(il.primitive.MultiPartCompilable):
                                         % (e.tag, self.name, type(self) )))
 
     def _compile_instantiation(self, dialect, ret):
+        jsqt.debug_print("\t\t\tinstantiation")
         instantiation = il.primitive.Assignment()
         instantiation.set_left(il.primitive.ObjectReference('this.%s' %
                                                                      self.name))
@@ -155,6 +157,7 @@ class Base(il.primitive.MultiPartCompilable):
         keys = self.simple_prop_data.keys()
         keys.sort()
         for k in keys:
+            jsqt.debug_print("\t\t\tsimple_prop: %s" % k)
             if "." in k:
                 tmp = k.split(".")
                 prop = self.known_simple_props[tmp[0]][tmp[1]]
@@ -164,16 +167,20 @@ class Base(il.primitive.MultiPartCompilable):
             self._compile_simple_prop(prop, self.simple_prop_data[k])
 
     def _compile_simple_prop(self, prop, data):
+        retval = False
+
         data=prop.wrapper_type.from_elt(data)
         if prop.default_value != data and prop.function_name != "" :
             fc = il.primitive.FunctionCall("retval.%s" % (prop.function_name),
                                                                          [data])
             self.factory_function.add_statement(fc)
-            return True
-        else:
-            return False
+
+            retval = True
+
+        return retval
 
     def compile(self, dialect, ret):
+        jsqt.debug_print("\t\tcompiling '%s'..." % self.name)
         self._compile_instantiation(dialect, ret)
         self._compile_simple_props(dialect, ret)
 
@@ -183,6 +190,7 @@ class Base(il.primitive.MultiPartCompilable):
     def set_property(self, elt):
         prop_name = elt.attrib['name']
 
+        jsqt.debug_print("\t\t\t%s" % prop_name)
         if prop_name in self.known_simple_props:
             prop = self.known_simple_props[prop_name]
             if isinstance(prop,dict):
