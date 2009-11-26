@@ -40,7 +40,7 @@ class Item(object):
         if name == None:
             self.__name = il.primitive.ObjectReference("null")
         else:
-            self.__name = il.primitive.String(name)
+            self.__name = il.primitive.TranslatableString(name)
 
     def set_icon(self,icon):
         if icon == None:
