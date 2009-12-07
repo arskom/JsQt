@@ -66,11 +66,11 @@ class MGeometryProperties(object):
             self.ver_stretch_pol = elt[0].attrib['vsizetype']
             self.ver_stretch_coef = int(tmp['verstretch'].text)
 
-            if self.hor_stretch_pol != "Fixed":
+            if not self.hor_stretch_pol in ("Fixed", "Minimum"):
                 if self.hor_stretch_coef == 0:
                     self.hor_stretch_coef = 1
 
-            if self.ver_stretch_pol != "Fixed":
+            if not self.ver_stretch_pol in ("Fixed", "Minimum"):
                 if self.ver_stretch_coef == 0:
                     self.ver_stretch_coef = 1
 

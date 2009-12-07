@@ -92,6 +92,7 @@ class Base(gui.WidgetBase):
         gui.WidgetBase.compile(self, dialect, ret)
         self._compile_layout(dialect, ret)
         self._compile_children(dialect, ret)
+        self.layout.post_fill_ops(dialect, ret, self.factory_function)
 
     def _handle_layout_tag(self, elt):
         instance = self.get_instance(elt)

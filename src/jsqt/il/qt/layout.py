@@ -7,7 +7,7 @@
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
-# as published by the Free Software Foundation; either version 2
+# as published by the Free Ssetoftware Foundation; either version 2
 # of the License, or (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
@@ -41,6 +41,9 @@ class QLayout(obj.Base):
         raise Exception("please inherit and override.")
 
     def meet_child(self, inst):
+        pass
+
+    def post_fill_ops(self, dialect, ret, factory_function):
         pass
     
 class CanvasLayout(QLayout):
@@ -93,6 +96,7 @@ class FlexProp(object):
     def __init__(self, pol, coef):
         self.pol = pol
         self.coef = coef
+
     def __repr__(self):
         return "FlexProp(pol=%s, coef=%d)" % (self.pol,self.coef)
 
@@ -108,36 +112,39 @@ class QGridLayout(QLayout):
         lp = inst.layout_properties.value
         if self.row_flex[lp['row'].value] == None:
             self.row_flex[lp['row'].value] = \
-                                    FlexProp("Expanding", inst.ver_stretch_coef)
+                                        FlexProp("Fixed", inst.ver_stretch_coef)
 
         if self.col_flex[lp['column'].value] == None:
             self.col_flex[lp['column'].value] = \
-                                    FlexProp("Expanding", inst.hor_stretch_coef)
+                                        FlexProp("Fixed", inst.hor_stretch_coef)
 
-        if inst.hor_stretch_pol == "Fixed":
-            self.row_flex[lp['row'].value].pol = "Fixed"
+        if inst.hor_stretch_pol in ("Expanding","Preferred"):
+            self.row_flex[lp['row'].value].pol = "Expanding"
 
-        if inst.ver_stretch_pol == "Fixed":
-            self.col_flex[lp['column'].value].pol = "Fixed"
+        if inst.ver_stretch_pol in ("Expanding","Preferred"):
+            self.col_flex[lp['column'].value].pol = "Expanding"
 
     def compile(self, dialect, ret):
         QLayout.compile(self, dialect, ret)
 
+    def post_fill_ops(self, dialect, ret, factory_function):
+        factory_function.add_statement(il.primitive.ObjectReference("var layout = retval.getLayout()")) # FIXME: hack
+
         for i in range(len(self.row_flex)):
             if self.row_flex[i] and self.row_flex[i].pol == "Expanding":
-                fc = il.primitive.FunctionCall("retval.setRowFlex",
+                fc = il.primitive.FunctionCall("layout.setRowFlex",
                     [il.primitive.DecimalInteger(i),
                      il.primitive.DecimalInteger(self.row_flex[i].coef)],
                 )
-                self.factory_function.add_statement(fc)
+                factory_function.add_statement(fc)
 
         for i in range(len(self.col_flex)):
             if self.col_flex[i] and self.col_flex[i].pol == "Expanding":
-                fc=il.primitive.FunctionCall("retval.setColumnFlex",
+                fc=il.primitive.FunctionCall("layout.setColumnFlex",
                     [il.primitive.DecimalInteger(i),
                      il.primitive.DecimalInteger(self.col_flex[i].coef)],
                 )
-                self.factory_function.add_statement(fc)
+                factory_function.add_statement(fc)
 
 
     def get_properties(self, elt, inst):

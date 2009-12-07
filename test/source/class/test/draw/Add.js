@@ -267,13 +267,13 @@ qx.Class.define("test.draw.Add", {
             retval.setMargin(1);
             retval.setMinWidth(80);
             retval.setAllowGrowY(false);
-            retval.add(new qx.ui.form.ListItem("1",null,null));
-            retval.add(new qx.ui.form.ListItem("2",null,null));
-            retval.add(new qx.ui.form.ListItem("3",null,null));
-            retval.add(new qx.ui.form.ListItem("4",null,null));
-            retval.add(new qx.ui.form.ListItem("5",null,null));
-            retval.add(new qx.ui.form.ListItem("6",null,null));
-            retval.add(new qx.ui.form.ListItem("7",null,null));
+            retval.add(new qx.ui.form.ListItem(this.tr("1"),null,null));
+            retval.add(new qx.ui.form.ListItem(this.tr("2"),null,null));
+            retval.add(new qx.ui.form.ListItem(this.tr("3"),null,null));
+            retval.add(new qx.ui.form.ListItem(this.tr("4"),null,null));
+            retval.add(new qx.ui.form.ListItem(this.tr("5"),null,null));
+            retval.add(new qx.ui.form.ListItem(this.tr("6"),null,null));
+            retval.add(new qx.ui.form.ListItem(this.tr("7"),null,null));
             return retval;
             
         }
@@ -285,13 +285,13 @@ qx.Class.define("test.draw.Add", {
             retval.setMargin(1);
             retval.setMinWidth(80);
             retval.setAllowGrowY(false);
-            retval.add(new qx.ui.form.ListItem("1",null,null));
-            retval.add(new qx.ui.form.ListItem("2",null,null));
-            retval.add(new qx.ui.form.ListItem("3",null,null));
-            retval.add(new qx.ui.form.ListItem("4",null,null));
-            retval.add(new qx.ui.form.ListItem("5",null,null));
-            retval.add(new qx.ui.form.ListItem("6",null,null));
-            retval.add(new qx.ui.form.ListItem("7",null,null));
+            retval.add(new qx.ui.form.ListItem(this.tr("1"),null,null));
+            retval.add(new qx.ui.form.ListItem(this.tr("2"),null,null));
+            retval.add(new qx.ui.form.ListItem(this.tr("3"),null,null));
+            retval.add(new qx.ui.form.ListItem(this.tr("4"),null,null));
+            retval.add(new qx.ui.form.ListItem(this.tr("5"),null,null));
+            retval.add(new qx.ui.form.ListItem(this.tr("6"),null,null));
+            retval.add(new qx.ui.form.ListItem(this.tr("7"),null,null));
             return retval;
             
         }
@@ -540,6 +540,7 @@ qx.Class.define("test.draw.Add", {
         ,create_gridLayout_3: function create_gridLayout_3() {
             this.gridLayout_3 = new qx.ui.layout.Grid();
             var retval  =  this.gridLayout_3;
+            retval.setRowFlex(0,1);
             retval.setRowFlex(1,1);
             retval.setRowFlex(2,1);
             retval.setRowFlex(3,1);
@@ -549,6 +550,7 @@ qx.Class.define("test.draw.Add", {
             retval.setRowFlex(7,1);
             retval.setRowFlex(8,1);
             retval.setColumnFlex(0,1);
+            retval.setColumnFlex(2,0);
             return retval;
             
         }

@@ -191,7 +191,7 @@ qx.Class.define("test.draw.Test", {
             var retval  =  this.comboBox;
             retval.setMargin(1);
             retval.setAllowGrowY(false);
-            retval.add(new qx.ui.form.ListItem("asd",null,null));
+            retval.add(new qx.ui.form.ListItem(this.tr("asd"),null,null));
             return retval;
             
         }
@@ -221,7 +221,9 @@ qx.Class.define("test.draw.Test", {
         ,create_gridLayout_2: function create_gridLayout_2() {
             this.gridLayout_2 = new qx.ui.layout.Grid();
             var retval  =  this.gridLayout_2;
+            retval.setRowFlex(0,0);
             retval.setRowFlex(1,1);
+            retval.setColumnFlex(0,0);
             retval.setColumnFlex(1,1);
             return retval;
             
@@ -233,6 +235,7 @@ qx.Class.define("test.draw.Test", {
             retval.setRowFlex(0,1);
             retval.setRowFlex(1,1);
             retval.setRowFlex(2,1);
+            retval.setColumnFlex(0,1);
             retval.setColumnFlex(1,1);
             return retval;
             
@@ -241,7 +244,9 @@ qx.Class.define("test.draw.Test", {
         ,create_gridLayout_4: function create_gridLayout_4() {
             this.gridLayout_4 = new qx.ui.layout.Grid();
             var retval  =  this.gridLayout_4;
+            retval.setRowFlex(0,0);
             retval.setRowFlex(1,1);
+            retval.setColumnFlex(0,0);
             retval.setColumnFlex(1,1);
             return retval;
             

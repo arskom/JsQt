@@ -61,7 +61,7 @@ class DuckTypedList(list):
 
 class DuckTypedDict(dict):
     """
-        Not exactly duck typing, but it comes close.
+    Not exactly duck typing, but it comes close.
     """
     def __init__(self,attr_list):
         for a in attr_list:
@@ -138,7 +138,7 @@ class JsPp(object):
             elif c == ")":
                 self.__comma_causes_new_line.pop()
                 os.write(c)
-            
+
             elif what[i-1] == '*' and c=='/':
                 os.write(c)
                 self.newline()
