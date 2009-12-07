@@ -124,9 +124,6 @@ class QGridLayout(QLayout):
         if inst.ver_stretch_pol in ("Expanding","Preferred"):
             self.col_flex[lp['column'].value].pol = "Expanding"
 
-    def compile(self, dialect, ret):
-        QLayout.compile(self, dialect, ret)
-
     def post_fill_ops(self, dialect, ret, factory_function):
         factory_function.add_statement(il.primitive.ObjectReference("var layout = retval.getLayout()")) # FIXME: hack
 
