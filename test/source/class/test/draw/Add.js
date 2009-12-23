@@ -478,11 +478,6 @@ qx.Class.define("test.draw.Add", {
         ,create_formLayout: function create_formLayout() {
             this.formLayout = new qx.ui.layout.Grid();
             var retval  =  this.formLayout;
-            retval.setRowFlex(0,1);
-            retval.setRowFlex(1,1);
-            retval.setRowFlex(2,1);
-            retval.setColumnFlex(0,1);
-            retval.setColumnFlex(1,1);
             return retval;
             
         }
@@ -494,6 +489,12 @@ qx.Class.define("test.draw.Add", {
             retval.setLayout(this.create_formLayout());
             retval.add(this.create_pushButton_3(), {column: 0,row: 0});
             retval.add(this.create_label_2(), {column: 1,row: 0});
+            var layout  =  retval.getLayout();
+            layout.setRowFlex(0,1);
+            layout.setRowFlex(1,1);
+            layout.setRowFlex(2,1);
+            layout.setColumnFlex(0,1);
+            layout.setColumnFlex(1,1);
             return retval;
             
         }
@@ -501,17 +502,6 @@ qx.Class.define("test.draw.Add", {
         ,create_gridLayout: function create_gridLayout() {
             this.gridLayout = new qx.ui.layout.Grid();
             var retval  =  this.gridLayout;
-            retval.setRowFlex(0,1);
-            retval.setRowFlex(1,1);
-            retval.setRowFlex(2,1);
-            retval.setRowFlex(3,1);
-            retval.setRowFlex(4,1);
-            retval.setRowFlex(5,1);
-            retval.setRowFlex(6,1);
-            retval.setRowFlex(7,1);
-            retval.setRowFlex(8,1);
-            retval.setColumnFlex(0,1);
-            retval.setColumnFlex(2,1);
             return retval;
             
         }
@@ -519,9 +509,6 @@ qx.Class.define("test.draw.Add", {
         ,create_gridLayout_2: function create_gridLayout_2() {
             this.gridLayout_2 = new qx.ui.layout.Grid();
             var retval  =  this.gridLayout_2;
-            retval.setRowFlex(0,1);
-            retval.setColumnFlex(0,1);
-            retval.setColumnFlex(1,1);
             return retval;
             
         }
@@ -533,6 +520,10 @@ qx.Class.define("test.draw.Add", {
             retval.setLayout(this.create_gridLayout_2());
             retval.add(this.create_pushButton_2(), {column: 0,row: 0});
             retval.add(this.create_tabWidget_2(), {column: 1,row: 0});
+            var layout  =  retval.getLayout();
+            layout.setRowFlex(0,1);
+            layout.setColumnFlex(0,1);
+            layout.setColumnFlex(1,1);
             return retval;
             
         }
@@ -540,17 +531,6 @@ qx.Class.define("test.draw.Add", {
         ,create_gridLayout_3: function create_gridLayout_3() {
             this.gridLayout_3 = new qx.ui.layout.Grid();
             var retval  =  this.gridLayout_3;
-            retval.setRowFlex(0,1);
-            retval.setRowFlex(1,1);
-            retval.setRowFlex(2,1);
-            retval.setRowFlex(3,1);
-            retval.setRowFlex(4,1);
-            retval.setRowFlex(5,1);
-            retval.setRowFlex(6,1);
-            retval.setRowFlex(7,1);
-            retval.setRowFlex(8,1);
-            retval.setColumnFlex(0,1);
-            retval.setColumnFlex(2,0);
             return retval;
             
         }
@@ -582,6 +562,18 @@ qx.Class.define("test.draw.Add", {
             retval.add(this.create_label(), {column: 0,row: 8});
             retval.add(this.create_horizontalLayout_4_implicit_container(), {column: 2,row: 8});
             retval.add(this.create_VLEmail_implicit_container(), {column: 2,row: 4});
+            var layout  =  retval.getLayout();
+            layout.setRowFlex(0,1);
+            layout.setRowFlex(1,1);
+            layout.setRowFlex(2,1);
+            layout.setRowFlex(3,1);
+            layout.setRowFlex(4,1);
+            layout.setRowFlex(5,1);
+            layout.setRowFlex(6,1);
+            layout.setRowFlex(7,1);
+            layout.setRowFlex(8,1);
+            layout.setColumnFlex(0,1);
+            layout.setColumnFlex(2,1);
             return retval;
             
         }
@@ -621,6 +613,18 @@ qx.Class.define("test.draw.Add", {
             retval.add(this.create_label_3(), {column: 0,row: 8});
             retval.add(this.create_horizontalLayout_9_implicit_container(), {column: 2,row: 8});
             retval.add(this.create_VLEmail_2_implicit_container(), {column: 2,row: 4});
+            var layout  =  retval.getLayout();
+            layout.setRowFlex(0,1);
+            layout.setRowFlex(1,1);
+            layout.setRowFlex(2,1);
+            layout.setRowFlex(3,1);
+            layout.setRowFlex(4,1);
+            layout.setRowFlex(5,1);
+            layout.setRowFlex(6,1);
+            layout.setRowFlex(7,1);
+            layout.setRowFlex(8,1);
+            layout.setColumnFlex(0,1);
+            layout.setColumnFlex(2,0);
             return retval;
             
         }

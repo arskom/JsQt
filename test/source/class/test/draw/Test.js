@@ -207,13 +207,6 @@ qx.Class.define("test.draw.Test", {
         ,create_gridLayout: function create_gridLayout() {
             this.gridLayout = new qx.ui.layout.Grid();
             var retval  =  this.gridLayout;
-            retval.setRowFlex(0,1);
-            retval.setRowFlex(1,1);
-            retval.setRowFlex(2,1);
-            retval.setRowFlex(3,1);
-            retval.setColumnFlex(0,1);
-            retval.setColumnFlex(1,1);
-            retval.setColumnFlex(2,1);
             return retval;
             
         }
@@ -221,10 +214,6 @@ qx.Class.define("test.draw.Test", {
         ,create_gridLayout_2: function create_gridLayout_2() {
             this.gridLayout_2 = new qx.ui.layout.Grid();
             var retval  =  this.gridLayout_2;
-            retval.setRowFlex(0,0);
-            retval.setRowFlex(1,1);
-            retval.setColumnFlex(0,0);
-            retval.setColumnFlex(1,1);
             return retval;
             
         }
@@ -232,11 +221,6 @@ qx.Class.define("test.draw.Test", {
         ,create_gridLayout_3: function create_gridLayout_3() {
             this.gridLayout_3 = new qx.ui.layout.Grid();
             var retval  =  this.gridLayout_3;
-            retval.setRowFlex(0,1);
-            retval.setRowFlex(1,1);
-            retval.setRowFlex(2,1);
-            retval.setColumnFlex(0,1);
-            retval.setColumnFlex(1,1);
             return retval;
             
         }
@@ -244,10 +228,6 @@ qx.Class.define("test.draw.Test", {
         ,create_gridLayout_4: function create_gridLayout_4() {
             this.gridLayout_4 = new qx.ui.layout.Grid();
             var retval  =  this.gridLayout_4;
-            retval.setRowFlex(0,0);
-            retval.setRowFlex(1,1);
-            retval.setColumnFlex(0,0);
-            retval.setColumnFlex(1,1);
             return retval;
             
         }
@@ -376,6 +356,12 @@ qx.Class.define("test.draw.Test", {
             retval.add(this.create_textEdit(), {column: 1,row: 0,rowSpan: 4});
             retval.add(this.create_lineEdit(), {column: 0,row: 2});
             retval.add(this.create_spinBox(), {column: 0,row: 1});
+            var layout  =  retval.getLayout();
+            layout.setRowFlex(0,1);
+            layout.setRowFlex(1,1);
+            layout.setRowFlex(2,1);
+            layout.setColumnFlex(0,1);
+            layout.setColumnFlex(1,1);
             return retval;
             
         }
@@ -977,6 +963,14 @@ qx.Class.define("test.draw.Test", {
             retval.add(this.create_groupBox_11(), {colSpan: 2,column: 0,row: 3});
             retval.add(this.create_groupBox_15(), {colSpan: 2,column: 0,row: 0});
             retval.add(this.create_groupBox_16(), {column: 2,row: 0,rowSpan: 4});
+            var layout  =  retval.getLayout();
+            layout.setRowFlex(0,1);
+            layout.setRowFlex(1,1);
+            layout.setRowFlex(2,1);
+            layout.setRowFlex(3,1);
+            layout.setColumnFlex(0,1);
+            layout.setColumnFlex(1,1);
+            layout.setColumnFlex(2,1);
             return retval;
             
         }
@@ -1010,6 +1004,11 @@ qx.Class.define("test.draw.Test", {
             retval.add(this.create_groupBox_tr(), {column: 1,row: 0});
             retval.add(this.create_groupBox_br(), {column: 1,row: 1});
             retval.add(this.create_groupBox_bl(), {column: 0,row: 1});
+            var layout  =  retval.getLayout();
+            layout.setRowFlex(0,0);
+            layout.setRowFlex(1,1);
+            layout.setColumnFlex(0,0);
+            layout.setColumnFlex(1,1);
             return retval;
             
         }
@@ -1024,6 +1023,11 @@ qx.Class.define("test.draw.Test", {
             retval.add(this.create_groupBox_tr_2(), {column: 1,row: 0});
             retval.add(this.create_groupBox_bl_2(), {column: 0,row: 1});
             retval.add(this.create_groupBox_br_2(), {column: 1,row: 1});
+            var layout  =  retval.getLayout();
+            layout.setRowFlex(0,0);
+            layout.setRowFlex(1,1);
+            layout.setColumnFlex(0,0);
+            layout.setColumnFlex(1,1);
             return retval;
             
         }
