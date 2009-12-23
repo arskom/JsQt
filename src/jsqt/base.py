@@ -172,3 +172,15 @@ class JsPp(object):
         self.__os.write("\n")
         for i in range(self.__indent):
             self.__os.write("    ")
+
+class AutoExpandingList(list):
+    def __getitem__(self, key):
+        retval = None
+
+        try:
+            retval = list.__getitem__(self,key)
+
+        except IndexError:
+            self.extend( [None] * (key-len(self)+1))
+
+        return retval

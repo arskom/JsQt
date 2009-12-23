@@ -21,7 +21,7 @@
 # 02110-1301, USA.
 #
 
-from jsqt import il
+from jsqt import il,AutoExpandingList
 import obj
 
 class QLayout(obj.Base):
@@ -79,18 +79,6 @@ class QHBoxLayout(QLayout):
                                                 {"flex": inst.hor_stretch_coef})
         else:
             return None
-
-class AutoExpandingList(list):
-    def __getitem__(self, key):
-        retval = None
-
-        try:
-            retval = list.__getitem__(self,key)
-
-        except IndexError:
-            self.extend( [None] * (key-len(self)+1))
-
-        return retval
 
 class FlexProp(object):
     def __init__(self, pol, coef):
