@@ -155,10 +155,13 @@ class WidgetBase(obj.Base, MGeometryProperties):
     def get_class(class_name):
         if class_name in widget_dict:
             return widget_dict[class_name]
+
         elif class_name in layout_dict:
             return layout_dict[class_name]
+
         elif class_name in custom_dict:
             return custom_dict[class_name]
+
         else:
             return Stub
 

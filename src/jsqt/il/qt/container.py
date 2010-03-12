@@ -59,14 +59,15 @@ class Base(gui.WidgetBase):
         instance.set_parent(self)
 
     def _compile_layout(self, dialect, ret):
-        for c in self.children:
-            self.layout.meet_child(c)
+        if len(self.children) > 0:
+            for c in self.children:
+                self.layout.meet_child(c)
 
-        self.layout.compile(dialect, ret)
-        set_layout = il.primitive.FunctionCall('retval.setLayout',
-               [il.primitive.FunctionCall("this.create_%s" % self.layout.name)])
+            self.layout.compile(dialect, ret)
+            set_layout = il.primitive.FunctionCall('retval.setLayout',
+                   [il.primitive.FunctionCall("this.create_%s" % self.layout.name)])
 
-        self.factory_function.add_statement(set_layout)
+            self.factory_function.add_statement(set_layout)
 
     def _compile_child(self, dialect, ret, c):
         c.compile(dialect, ret)
