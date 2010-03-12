@@ -123,6 +123,10 @@ class Boolean(Base):
         else:
             os.write("false")
 
+class Null(Base):
+    def to_stream(self, os):
+        os.write("null")
+
 class Object(Base):
     def __init__(self):
         self.__members = DuckTypedDict(['to_stream'])
@@ -218,5 +222,3 @@ class FunctionDefinition(Base):
             if not isinstance(st, Comment):
                 os.write(';')
         os.write("}")
-
-

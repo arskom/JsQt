@@ -21,8 +21,6 @@
 # 02110-1301, USA.
 #
 
-import sys
-
 class DuckTypedList(list):
     """
     Not exactly duck typing, but it comes close.
@@ -55,7 +53,8 @@ class DuckTypedList(list):
     def __setitem__(self, k, v):
         for a in self.__attr_list:
             if not hasattr(v, a):
-                raise TypeError, 'This DuckTypedList instance requires objects to have a "%s" member' % a
+                raise TypeError('This DuckTypedList instance requires objects '
+                            'to have a "%s" member' % a)
 
         list.__setitem__(self,k,v)
 
@@ -184,3 +183,4 @@ class AutoExpandingList(list):
             self.extend( [None] * (key-len(self)+1))
 
         return retval
+

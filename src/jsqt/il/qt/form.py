@@ -21,20 +21,21 @@
 # 02110-1301, USA.
 #
 
-from gui import WidgetBase, SimpleProp
+from gui import WidgetBase
+from base import SimpleProp
 from itemview import MItemView
 from jsqt import il
 
 class QLabel(WidgetBase):
     type = "qx.ui.basic.Label"
     known_simple_props = {
-        "text": SimpleProp("setValue", il.primitive.TranslatableString),
+        "text": SimpleProp("setValue", il.primitive.TranslatableString, ""),
     }
 
 class QPushButton(WidgetBase):
     type = "qx.ui.form.Button"
     known_simple_props = {
-        "text": SimpleProp("setLabel", il.primitive.TranslatableString),
+        "text": SimpleProp("setLabel", il.primitive.TranslatableString, ""),
     }
 
 class QLineEdit(WidgetBase):
@@ -87,4 +88,3 @@ class QComboBox(WidgetBase, MItemView):
     def compile(self, dialect, ret):
         WidgetBase.compile(self, dialect, ret)
         MItemView.compile(self, dialect, ret)
-

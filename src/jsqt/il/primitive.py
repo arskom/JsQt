@@ -116,6 +116,25 @@ class Boolean(SinglePartCompilable):
     def compile(self, dialect):
         return js.primitive.Boolean(self.__value)
 
+class Null(SinglePartCompilable):
+    def __init__(self):
+        SinglePartCompilable.__init__(self)
+
+    def __eq__(self, other):
+        if isinstance(other, Null):
+            return true
+        else:
+            return (other is None)
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __repr__(self):
+        return "<il.None()>"
+
+    def compile(self, dialect):
+        return js.primitive.Null()
+
 class ObjectReference(SinglePartCompilable):
     def __init__(self, object_name):
         SinglePartCompilable.__init__(self)
@@ -158,9 +177,15 @@ class TranslatableString(String):
 
         self._string=unicode(string)
 
+    def __repr__(self):
+        return "<il.TranslatableString('%s')>" % self._string
+
     @staticmethod
     def from_elt(elt):
-        return TranslatableString(elt.text)
+        if elt.text is None:
+            return TranslatableString("")
+        else:
+            return TranslatableString(elt.text)
 
     def compile(self, dialect):
         return js.primitive.FunctionCall("this.tr",[
