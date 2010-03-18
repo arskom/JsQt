@@ -21,6 +21,8 @@
 # 02110-1301, USA.
 #
 
+import sys
+
 version   = "trunk"
 copyright = "(c) 2009 Arskom Ltd."
 header_string = """JsQt %s

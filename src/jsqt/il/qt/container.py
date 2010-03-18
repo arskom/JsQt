@@ -29,9 +29,11 @@ import obj
 
 class Base(gui.WidgetBase):
     add_method_name = "add"
+    layout_in_ctor = True
 
     def _init_before_parse(self):
         gui.WidgetBase._init_before_parse(self)
+
         self.tag_handlers["widget"] = self._handle_widget_tag
         self.tag_handlers['layout'] = self._handle_layout_tag
         self.tag_handlers['item'] = self._handle_item_tag
@@ -59,15 +61,25 @@ class Base(gui.WidgetBase):
         instance.set_parent(self)
 
     def _compile_layout(self, dialect, ret):
-        if len(self.children) > 0:
-            for c in self.children:
-                self.layout.meet_child(c)
+        for c in self.children:
+            self.layout.meet_child(c)
 
-            self.layout.compile(dialect, ret)
+        self.layout.compile(dialect, ret)
+        
+        if not self.layout_in_ctor:
             set_layout = il.primitive.FunctionCall('retval.setLayout',
                    [il.primitive.FunctionCall("this.create_%s" % self.layout.name)])
 
             self.factory_function.add_statement(set_layout)
+
+    def _compile_instantiation(self, dialect, ret):
+        gui.WidgetBase._compile_instantiation(self, dialect, ret)
+
+        if self.layout_in_ctor:
+            layout_call = il.primitive.FunctionCall("this.create_%s" %
+                                                               self.layout.name)
+
+            self.instantiation.right.args.append(layout_call)
 
     def _compile_child(self, dialect, ret, c):
         c.compile(dialect, ret)
@@ -81,9 +93,9 @@ class Base(gui.WidgetBase):
                 if c.layout_properties != None:
                     args.append(c.layout_properties)
 
-            add_children=il.primitive.FunctionCall('retval.%s' %
+            add_child = il.primitive.FunctionCall('retval.%s' %
                                                      self.add_method_name, args)
-            self.factory_function.add_statement(add_children)
+            self.factory_function.add_statement(add_child)
 
     def _compile_children(self, dialect, ret):
         for c in self.children:
@@ -110,6 +122,8 @@ class Base(gui.WidgetBase):
     layout = property(get_layout, set_layout)
 
 class WithoutLayout(Base):
+    layout_in_ctor = False
+    
     def __init__(self, elt, name=None):
         Base.__init__(self, elt, name)
 
@@ -164,6 +178,7 @@ class QTabWidget(WithoutLayout):
 
 class TabPage(Base):
     type = "qx.ui.tabview.Page"
+    layout_in_ctor = False
     known_simple_props = {
         "title": SimpleProp("setLabel", il.primitive.TranslatableString),
     }
@@ -199,9 +214,9 @@ class QSplitter(Base):
 
     def _compile_instantiation(self, dialect, ret):
         instantiation = il.primitive.Assignment()
-        instantiation.set_left(il.primitive.ObjectReference('this.%s' % self.name))
-        instantiation.set_right(il.primitive.Instantiation(self.type,[
-            il.primitive.String(self.__orientation)]))
+        instantiation.left = il.primitive.ObjectReference('this.%s' % self.name)
+        instantiation.right = il.primitive.Instantiation(self.type,[
+            il.primitive.String(self.__orientation)])
 
         self.factory_function.add_statement(instantiation)
         self.factory_function.add_statement(il.primitive.ObjectReference("var retval = this.%s" % self.name)) # FIXME: hack
@@ -218,6 +233,7 @@ class QGroupBox(Base):
     known_simple_props = {
         "title": SimpleProp("setLegend", il.primitive.TranslatableString),
     }
+    layout_in_ctor = False
 
     def __init__(self, elt, name=None):
         self.layout_properties = None

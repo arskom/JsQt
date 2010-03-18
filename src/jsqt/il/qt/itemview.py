@@ -108,7 +108,7 @@ class QTableWidget(QAbstractItemView):
         
     def _compile_instantiation(self, dialect, ret):
         assignment = il.primitive.Assignment()
-        assignment.set_left(il.primitive.ObjectReference('this.%s' % self.name))
+        assignment.left = il.primitive.ObjectReference('this.%s' % self.name)
 
         args = [il.primitive.ObjectReference("null")]
 
@@ -124,7 +124,7 @@ class QTableWidget(QAbstractItemView):
 
         instantiation = il.primitive.Instantiation(self.type, args)
 
-        assignment.set_right(instantiation)
+        assignment.right = instantiation
 
         self.factory_function.add_statement(assignment)
         self.factory_function.add_statement(il.primitive.ObjectReference("var retval = this.%s" % self.name)) # FIXME: hack

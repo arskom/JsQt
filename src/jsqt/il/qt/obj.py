@@ -78,6 +78,7 @@ class _Meta(type):
 
 class Base(il.primitive.MultiPartCompilable):
     __metaclass__ = _Meta
+
     type = None
     likes_to_flex = True
     real = True
@@ -139,12 +140,13 @@ class Base(il.primitive.MultiPartCompilable):
 
     def _compile_instantiation(self, dialect, ret):
         jsqt.debug_print("\t\t\tinstantiation")
-        instantiation = il.primitive.Assignment()
-        instantiation.set_left(il.primitive.ObjectReference('this.%s' %
-                                                                     self.name))
-        instantiation.set_right(il.primitive.Instantiation(self.type))
 
-        self.factory_function.add_statement(instantiation)
+        self.instantiation = il.primitive.Assignment()
+        self.instantiation.left = il.primitive.ObjectReference('this.%s' %
+                                                                     self.name)
+        self.instantiation.right = il.primitive.Instantiation(self.type)
+
+        self.factory_function.add_statement(self.instantiation)
         self.factory_function.add_statement(il.primitive.ObjectReference("var retval = this.%s" % self.name)) # FIXME: hack
 
         ret.set_member(self.factory_function.name, self.factory_function)

@@ -207,11 +207,11 @@ class Instantiation(SinglePartCompilable):
         if len(class_name) ==0:
             raise Exception("Empty class name not allowed")
         self.__class_name = class_name
-        self.__args = DuckTypedList(['compile'],init_arguments)
+        self.args = DuckTypedList(['compile'],init_arguments)
 
     def compile(self, dialect):
         return js.primitive.Instantiation(self.__class_name,
-                                      [a.compile(dialect) for a in self.__args])
+                                      [a.compile(dialect) for a in self.args])
 
 class Concatenation(SinglePartCompilable):
     def __init__(self, sub_strings):
@@ -227,18 +227,12 @@ class Assignment(SinglePartCompilable):
     def __init__(self, left=None, right=None):
         SinglePartCompilable.__init__(self)
 
-        self.__left = left
-        self.__right = right
-
-    def set_left(self, left):
-        self.__left = left
-
-    def set_right(self, right):
-        self.__right = right
+        self.left = left
+        self.right = right
 
     def compile(self, dialect):
-        return js.primitive.Assignment(self.__left.compile(dialect),
-                                     self.__right.compile(dialect))
+        return js.primitive.Assignment(self.left.compile(dialect),
+                                     self.right.compile(dialect))
 
 class FunctionCall(object):
     def __init__(self, function_name, arguments=[]):
