@@ -49,12 +49,11 @@ qx.Class.define("test.draw.Add", {
         ,comboTrackingMethod: null
         ,comboTrackingMethod_2: null
         ,create_Add: function create_Add() {
-            this.Add = new qx.ui.container.Composite();
+            this.Add = new qx.ui.container.Composite(this.create___lv());
             var retval  =  this.Add;
             retval.setHeight(484);
             retval.setWidth(629);
             retval.setMargin(1);
-            retval.setLayout(this.create___lv());
             retval.add(this.create_centralwidget(), {flex: 1});
             return retval;
             
@@ -75,10 +74,9 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_HLTest_2_implicit_container: function create_HLTest_2_implicit_container() {
-            this.HLTest_2_implicit_container = new qx.ui.container.Composite();
+            this.HLTest_2_implicit_container = new qx.ui.container.Composite(this.create_HLTest_2());
             var retval  =  this.HLTest_2_implicit_container;
             retval.setMargin(1);
-            retval.setLayout(this.create_HLTest_2());
             retval.add(this.create_chkLRITTest_2(), {flex: 1});
             retval.add(this.create_radioButton_6(), {flex: 1});
             retval.add(this.create_radioButton_7(), {flex: 1});
@@ -87,10 +85,9 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_HLTest_implicit_container: function create_HLTest_implicit_container() {
-            this.HLTest_implicit_container = new qx.ui.container.Composite();
+            this.HLTest_implicit_container = new qx.ui.container.Composite(this.create_HLTest());
             var retval  =  this.HLTest_implicit_container;
             retval.setMargin(1);
-            retval.setLayout(this.create_HLTest());
             retval.add(this.create_chkLRITTest(), {flex: 1});
             retval.add(this.create_radioButton_2(), {flex: 1});
             retval.add(this.create_radioButton(), {flex: 1});
@@ -113,10 +110,9 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_HLTrackingMethod_2_implicit_container: function create_HLTrackingMethod_2_implicit_container() {
-            this.HLTrackingMethod_2_implicit_container = new qx.ui.container.Composite();
+            this.HLTrackingMethod_2_implicit_container = new qx.ui.container.Composite(this.create_HLTrackingMethod_2());
             var retval  =  this.HLTrackingMethod_2_implicit_container;
             retval.setMargin(1);
-            retval.setLayout(this.create_HLTrackingMethod_2());
             retval.add(this.create_comboTrackingMethod_2(), {flex: 1});
             retval.add(this.create_horizontalSpacer(), {flex: 1});
             retval.add(this.create_lblInterval_2(), {flex: 1});
@@ -127,10 +123,9 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_HLTrackingMethod_implicit_container: function create_HLTrackingMethod_implicit_container() {
-            this.HLTrackingMethod_implicit_container = new qx.ui.container.Composite();
+            this.HLTrackingMethod_implicit_container = new qx.ui.container.Composite(this.create_HLTrackingMethod());
             var retval  =  this.HLTrackingMethod_implicit_container;
             retval.setMargin(1);
-            retval.setLayout(this.create_HLTrackingMethod());
             retval.add(this.create_comboTrackingMethod(), {flex: 1});
             retval.add(this.create_horizontalSpacer(), {flex: 1});
             retval.add(this.create_lblInterval(), {flex: 1});
@@ -155,10 +150,9 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_VLEmail_2_implicit_container: function create_VLEmail_2_implicit_container() {
-            this.VLEmail_2_implicit_container = new qx.ui.container.Composite();
+            this.VLEmail_2_implicit_container = new qx.ui.container.Composite(this.create_VLEmail_2());
             var retval  =  this.VLEmail_2_implicit_container;
             retval.setMargin(1);
-            retval.setLayout(this.create_VLEmail_2());
             retval.add(this.create_edtEmail_2(), {flex: 1});
             retval.add(this.create_horizontalLayout_10_implicit_container(), {flex: 1});
             return retval;
@@ -166,10 +160,9 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_VLEmail_implicit_container: function create_VLEmail_implicit_container() {
-            this.VLEmail_implicit_container = new qx.ui.container.Composite();
+            this.VLEmail_implicit_container = new qx.ui.container.Composite(this.create_VLEmail());
             var retval  =  this.VLEmail_implicit_container;
             retval.setMargin(1);
-            retval.setLayout(this.create_VLEmail());
             retval.add(this.create_edtEmail(), {flex: 1});
             retval.add(this.create_horizontalLayout_5_implicit_container(), {flex: 1});
             return retval;
@@ -184,10 +177,9 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_centralwidget: function create_centralwidget() {
-            this.centralwidget = new qx.ui.container.Composite();
+            this.centralwidget = new qx.ui.container.Composite(this.create_horizontalLayout_3());
             var retval  =  this.centralwidget;
             retval.setMargin(1);
-            retval.setLayout(this.create_horizontalLayout_3());
             retval.add(this.create_tabWidget(), {flex: 1});
             return retval;
             
@@ -483,10 +475,9 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_formLayout_implicit_container: function create_formLayout_implicit_container() {
-            this.formLayout_implicit_container = new qx.ui.container.Composite();
+            this.formLayout_implicit_container = new qx.ui.container.Composite(this.create_formLayout());
             var retval  =  this.formLayout_implicit_container;
             retval.setMargin(1);
-            retval.setLayout(this.create_formLayout());
             retval.add(this.create_pushButton_3(), {column: 0,row: 0});
             retval.add(this.create_label_2(), {column: 1,row: 0});
             var layout  =  retval.getLayout();
@@ -514,10 +505,9 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_gridLayout_2_implicit_container: function create_gridLayout_2_implicit_container() {
-            this.gridLayout_2_implicit_container = new qx.ui.container.Composite();
+            this.gridLayout_2_implicit_container = new qx.ui.container.Composite(this.create_gridLayout_2());
             var retval  =  this.gridLayout_2_implicit_container;
             retval.setMargin(1);
-            retval.setLayout(this.create_gridLayout_2());
             retval.add(this.create_pushButton_2(), {column: 0,row: 0});
             retval.add(this.create_tabWidget_2(), {column: 1,row: 0});
             var layout  =  retval.getLayout();
@@ -644,10 +634,9 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_horizontalLayout_10_implicit_container: function create_horizontalLayout_10_implicit_container() {
-            this.horizontalLayout_10_implicit_container = new qx.ui.container.Composite();
+            this.horizontalLayout_10_implicit_container = new qx.ui.container.Composite(this.create_horizontalLayout_10());
             var retval  =  this.horizontalLayout_10_implicit_container;
             retval.setMargin(1);
-            retval.setLayout(this.create_horizontalLayout_10());
             retval.add(this.create_radioButton_8(), {flex: 1});
             retval.add(this.create_chkEmail_2(), {flex: 1});
             retval.add(this.create_radioButton_9(), {flex: 1});
@@ -663,10 +652,9 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_horizontalLayout_2_implicit_container: function create_horizontalLayout_2_implicit_container() {
-            this.horizontalLayout_2_implicit_container = new qx.ui.container.Composite();
+            this.horizontalLayout_2_implicit_container = new qx.ui.container.Composite(this.create_horizontalLayout_2());
             var retval  =  this.horizontalLayout_2_implicit_container;
             retval.setMargin(1);
-            retval.setLayout(this.create_horizontalLayout_2());
             retval.add(this.create_lblDNID(), {flex: 1});
             retval.add(this.create_edtDNID(), {flex: 1});
             retval.add(this.create_lblMN(), {flex: 1});
@@ -692,10 +680,9 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_horizontalLayout_4_implicit_container: function create_horizontalLayout_4_implicit_container() {
-            this.horizontalLayout_4_implicit_container = new qx.ui.container.Composite();
+            this.horizontalLayout_4_implicit_container = new qx.ui.container.Composite(this.create_horizontalLayout_4());
             var retval  =  this.horizontalLayout_4_implicit_container;
             retval.setMargin(1);
-            retval.setLayout(this.create_horizontalLayout_4());
             retval.add(this.create_dateEdit(), {flex: 1});
             retval.add(this.create_spinBox(), {flex: 1});
             return retval;
@@ -710,10 +697,9 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_horizontalLayout_5_implicit_container: function create_horizontalLayout_5_implicit_container() {
-            this.horizontalLayout_5_implicit_container = new qx.ui.container.Composite();
+            this.horizontalLayout_5_implicit_container = new qx.ui.container.Composite(this.create_horizontalLayout_5());
             var retval  =  this.horizontalLayout_5_implicit_container;
             retval.setMargin(1);
-            retval.setLayout(this.create_horizontalLayout_5());
             retval.add(this.create_radioButton_4(), {flex: 1});
             retval.add(this.create_chkEmail(), {flex: 1});
             retval.add(this.create_radioButton_3(), {flex: 1});
@@ -736,10 +722,9 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_horizontalLayout_7_implicit_container: function create_horizontalLayout_7_implicit_container() {
-            this.horizontalLayout_7_implicit_container = new qx.ui.container.Composite();
+            this.horizontalLayout_7_implicit_container = new qx.ui.container.Composite(this.create_horizontalLayout_7());
             var retval  =  this.horizontalLayout_7_implicit_container;
             retval.setMargin(1);
-            retval.setLayout(this.create_horizontalLayout_7());
             retval.add(this.create_lblIOWN_2(), {flex: 1});
             retval.add(this.create_edtIOWN_2(), {flex: 1});
             retval.add(this.create_lblTerminalSN_2(), {flex: 1});
@@ -756,10 +741,9 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_horizontalLayout_8_implicit_container: function create_horizontalLayout_8_implicit_container() {
-            this.horizontalLayout_8_implicit_container = new qx.ui.container.Composite();
+            this.horizontalLayout_8_implicit_container = new qx.ui.container.Composite(this.create_horizontalLayout_8());
             var retval  =  this.horizontalLayout_8_implicit_container;
             retval.setMargin(1);
-            retval.setLayout(this.create_horizontalLayout_8());
             retval.add(this.create_lblDNID_2(), {flex: 1});
             retval.add(this.create_edtDNID_2(), {flex: 1});
             retval.add(this.create_lblMN_2(), {flex: 1});
@@ -778,10 +762,9 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_horizontalLayout_9_implicit_container: function create_horizontalLayout_9_implicit_container() {
-            this.horizontalLayout_9_implicit_container = new qx.ui.container.Composite();
+            this.horizontalLayout_9_implicit_container = new qx.ui.container.Composite(this.create_horizontalLayout_9());
             var retval  =  this.horizontalLayout_9_implicit_container;
             retval.setMargin(1);
-            retval.setLayout(this.create_horizontalLayout_9());
             retval.add(this.create_spinBox_2(), {flex: 1});
             retval.add(this.create_dateEdit_2(), {flex: 1});
             return retval;
@@ -789,10 +772,9 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_horizontalLayout_implicit_container: function create_horizontalLayout_implicit_container() {
-            this.horizontalLayout_implicit_container = new qx.ui.container.Composite();
+            this.horizontalLayout_implicit_container = new qx.ui.container.Composite(this.create_horizontalLayout());
             var retval  =  this.horizontalLayout_implicit_container;
             retval.setMargin(1);
-            retval.setLayout(this.create_horizontalLayout());
             retval.add(this.create_lblIOWN(), {flex: 1});
             retval.add(this.create_edtIOWN(), {flex: 1});
             retval.add(this.create_lblTerminalSN(), {flex: 1});
@@ -1213,7 +1195,7 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_scrollArea: function create_scrollArea() {
-            this.scrollArea = new qx.ui.container.Scroll();
+            this.scrollArea = new qx.ui.container.Scroll(this.create_scrollArea_il());
             var retval  =  this.scrollArea;
             retval.setMargin(1);
             retval.add(this.create_scrollAreaWidgetContents(), {left: 0,top: 0});
@@ -1222,31 +1204,29 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_scrollAreaWidgetContents: function create_scrollAreaWidgetContents() {
-            this.scrollAreaWidgetContents = new qx.ui.container.Composite();
+            this.scrollAreaWidgetContents = new qx.ui.container.Composite(this.create_verticalLayout_2());
             var retval  =  this.scrollAreaWidgetContents;
             retval.setHeight(478);
             retval.setWidth(569);
             retval.setMargin(1);
-            retval.setLayout(this.create_verticalLayout_2());
             retval.add(this.create_groupBox_2(), {flex: 1});
             return retval;
             
         }
         
         ,create_scrollAreaWidgetContents_2: function create_scrollAreaWidgetContents_2() {
-            this.scrollAreaWidgetContents_2 = new qx.ui.container.Composite();
+            this.scrollAreaWidgetContents_2 = new qx.ui.container.Composite(this.create_verticalLayout_5());
             var retval  =  this.scrollAreaWidgetContents_2;
             retval.setHeight(366);
             retval.setWidth(438);
             retval.setMargin(1);
-            retval.setLayout(this.create_verticalLayout_5());
             retval.add(this.create_groupBox_3(), {flex: 1});
             return retval;
             
         }
         
         ,create_scrollArea_2: function create_scrollArea_2() {
-            this.scrollArea_2 = new qx.ui.container.Scroll();
+            this.scrollArea_2 = new qx.ui.container.Scroll(this.create_scrollArea_2_il());
             var retval  =  this.scrollArea_2;
             retval.setMargin(1);
             retval.setAllowGrowY(false);

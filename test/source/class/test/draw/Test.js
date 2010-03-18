@@ -42,12 +42,11 @@ qx.Class.define("test.draw.Test", {
         }
         
         ,create_MainWindow: function create_MainWindow() {
-            this.MainWindow = new qx.ui.container.Composite();
+            this.MainWindow = new qx.ui.container.Composite(this.create___lv());
             var retval  =  this.MainWindow;
             retval.setHeight(521);
             retval.setWidth(774);
             retval.setMargin(1);
-            retval.setLayout(this.create___lv());
             retval.add(this.create_menubar());
             retval.add(this.create_toolBar());
             retval.add(this.create_toolBar_2());
@@ -141,10 +140,9 @@ qx.Class.define("test.draw.Test", {
         }
         
         ,create_centralwidget: function create_centralwidget() {
-            this.centralwidget = new qx.ui.container.Composite();
+            this.centralwidget = new qx.ui.container.Composite(this.create_verticalLayout());
             var retval  =  this.centralwidget;
             retval.setMargin(1);
-            retval.setLayout(this.create_verticalLayout());
             retval.add(this.create_splitter(), {flex: 1});
             return retval;
             
@@ -580,10 +578,9 @@ qx.Class.define("test.draw.Test", {
         }
         
         ,create_horizontalLayout_2_implicit_container: function create_horizontalLayout_2_implicit_container() {
-            this.horizontalLayout_2_implicit_container = new qx.ui.container.Composite();
+            this.horizontalLayout_2_implicit_container = new qx.ui.container.Composite(this.create_horizontalLayout_2());
             var retval  =  this.horizontalLayout_2_implicit_container;
             retval.setMargin(1);
-            retval.setLayout(this.create_horizontalLayout_2());
             retval.add(this.create_groupBox_centered(), {flex: 1});
             return retval;
             
@@ -604,10 +601,9 @@ qx.Class.define("test.draw.Test", {
         }
         
         ,create_horizontalLayout_4_implicit_container: function create_horizontalLayout_4_implicit_container() {
-            this.horizontalLayout_4_implicit_container = new qx.ui.container.Composite();
+            this.horizontalLayout_4_implicit_container = new qx.ui.container.Composite(this.create_horizontalLayout_4());
             var retval  =  this.horizontalLayout_4_implicit_container;
             retval.setMargin(1);
-            retval.setLayout(this.create_horizontalLayout_4());
             retval.add(this.create_horizontalSpacer(), {flex: 1});
             retval.add(this.create_groupBox_4(), {flex: 1});
             retval.add(this.create_horizontalSpacer_2(), {flex: 1});
@@ -833,7 +829,7 @@ qx.Class.define("test.draw.Test", {
         }
         
         ,create_scrollArea: function create_scrollArea() {
-            this.scrollArea = new qx.ui.container.Scroll();
+            this.scrollArea = new qx.ui.container.Scroll(this.create_scrollArea_il());
             var retval  =  this.scrollArea;
             retval.setMaxHeight(200);
             retval.setMargin(1);
@@ -843,31 +839,29 @@ qx.Class.define("test.draw.Test", {
         }
         
         ,create_scrollAreaWidgetContents: function create_scrollAreaWidgetContents() {
-            this.scrollAreaWidgetContents = new qx.ui.container.Composite();
+            this.scrollAreaWidgetContents = new qx.ui.container.Composite(this.create_verticalLayout_2());
             var retval  =  this.scrollAreaWidgetContents;
             retval.setHeight(518);
             retval.setWidth(765);
             retval.setMargin(1);
-            retval.setLayout(this.create_verticalLayout_2());
             retval.add(this.create_groupBox_3(), {flex: 1});
             return retval;
             
         }
         
         ,create_scrollAreaWidgetContents_2: function create_scrollAreaWidgetContents_2() {
-            this.scrollAreaWidgetContents_2 = new qx.ui.container.Composite();
+            this.scrollAreaWidgetContents_2 = new qx.ui.container.Composite(this.create_verticalLayout_3());
             var retval  =  this.scrollAreaWidgetContents_2;
             retval.setHeight(518);
             retval.setWidth(458);
             retval.setMargin(1);
-            retval.setLayout(this.create_verticalLayout_3());
             retval.add(this.create_groupBox_6(), {flex: 1});
             return retval;
             
         }
         
         ,create_scrollArea_2: function create_scrollArea_2() {
-            this.scrollArea_2 = new qx.ui.container.Scroll();
+            this.scrollArea_2 = new qx.ui.container.Scroll(this.create_scrollArea_2_il());
             var retval  =  this.scrollArea_2;
             retval.setMaxHeight(200);
             retval.setMaxWidth(500);
