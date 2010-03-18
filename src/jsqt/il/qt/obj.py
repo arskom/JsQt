@@ -113,6 +113,8 @@ class Base(il.primitive.MultiPartCompilable):
             self._loop_children(elt)
 
     def set_name(self, name):
+        if name is None or len(name) == 0:
+            raise Exception("the object name is empty")
         self.__name = name
         self.factory_function = il.primitive.FunctionDefinition(
                                                         "create_%s" % self.name)
