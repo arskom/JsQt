@@ -3,7 +3,7 @@
 #
 # This file is part of JsQt.
 #
-# Copyright (C) 2009 Arskom Ltd. www.arskom.com.tr
+# Copyright (C) 2009-2010 Arskom Ltd. www.arskom.com.tr
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -143,7 +143,7 @@ class Base(il.primitive.MultiPartCompilable):
 
         self.instantiation = il.primitive.Assignment()
         self.instantiation.left = il.primitive.ObjectReference('this.%s' %
-                                                                     self.name)
+                                                                      self.name)
         self.instantiation.right = il.primitive.Instantiation(self.type)
 
         self.factory_function.add_statement(self.instantiation)

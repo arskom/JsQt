@@ -4,7 +4,7 @@
 #
 # This file is part of JsQt.
 #
-# Copyright (C) 2009 Arskom Ltd. www.arskom.com.tr
+# Copyright (C) 2009-2010 Arskom Ltd. www.arskom.com.tr
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
