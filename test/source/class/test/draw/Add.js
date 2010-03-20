@@ -1195,7 +1195,7 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_scrollArea: function create_scrollArea() {
-            this.scrollArea = new qx.ui.container.Scroll(this.create_scrollArea_il());
+            this.scrollArea = new qx.ui.container.Scroll();
             var retval  =  this.scrollArea;
             retval.setMargin(1);
             retval.add(this.create_scrollAreaWidgetContents(), {left: 0,top: 0});
@@ -1226,7 +1226,7 @@ qx.Class.define("test.draw.Add", {
         }
         
         ,create_scrollArea_2: function create_scrollArea_2() {
-            this.scrollArea_2 = new qx.ui.container.Scroll(this.create_scrollArea_2_il());
+            this.scrollArea_2 = new qx.ui.container.Scroll();
             var retval  =  this.scrollArea_2;
             retval.setMargin(1);
             retval.setAllowGrowY(false);

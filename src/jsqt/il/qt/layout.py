@@ -35,7 +35,7 @@ class QLayout(obj.Base):
         pass
 
     def _compile_props(self, dialect, ret):
-        pass
+        p
 
     def get_properties(self, elt, inst):
         raise Exception("please inherit and override.")

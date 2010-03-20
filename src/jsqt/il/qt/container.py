@@ -127,7 +127,7 @@ class WithoutLayout(Base):
     def __init__(self, elt, name=None):
         Base.__init__(self, elt, name)
 
-        self.layout = il.qt.layout.DummyLayout(None, "")
+        self.layout = il.qt.layout.DummyLayout(None, "dummy_layout")
 
     def _compile_layout(self, dialect, ret):
         pass
@@ -241,6 +241,7 @@ class QGroupBox(Base):
 
 class QScrollArea(Base):
     type = "qx.ui.container.Scroll"
+    layout_in_ctor=False
     
     def _compile_layout(self, dialect, ret):
         pass

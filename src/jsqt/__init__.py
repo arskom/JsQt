@@ -29,7 +29,7 @@ header_string = """JsQt %s
 %s
 """ % (version, copyright)
 
-loglevel = 0
+loglevel = 1
 
 def debug_print(*args):
     if loglevel > 0:

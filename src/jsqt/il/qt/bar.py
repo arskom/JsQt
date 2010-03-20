@@ -37,7 +37,7 @@ class QMenuBar(container.WithoutLayout):
 
 class MenuSeparator(obj.Base):
     def __init__(self):
-        obj.Base.__init__(self, None, "")
+        obj.Base.__init__(self, None, "dummy_layout")
         self.real = False
 
     def _compile_instantiation(self, dialect, ret):
@@ -131,7 +131,7 @@ class QMenu(Bar):
 
 class ToolBarSeparator(obj.Base):
     def __init__(self):
-        obj.Base.__init__(self, None, "")
+        obj.Base.__init__(self, None, "dummy_layout")
         self.real = False
 
     def _compile_instantiation(self, dialect, ret):

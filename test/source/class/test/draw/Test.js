@@ -829,7 +829,7 @@ qx.Class.define("test.draw.Test", {
         }
         
         ,create_scrollArea: function create_scrollArea() {
-            this.scrollArea = new qx.ui.container.Scroll(this.create_scrollArea_il());
+            this.scrollArea = new qx.ui.container.Scroll();
             var retval  =  this.scrollArea;
             retval.setMaxHeight(200);
             retval.setMargin(1);
@@ -861,7 +861,7 @@ qx.Class.define("test.draw.Test", {
         }
         
         ,create_scrollArea_2: function create_scrollArea_2() {
-            this.scrollArea_2 = new qx.ui.container.Scroll(this.create_scrollArea_2_il());
+            this.scrollArea_2 = new qx.ui.container.Scroll();
             var retval  =  this.scrollArea_2;
             retval.setMaxHeight(200);
             retval.setMaxWidth(500);
