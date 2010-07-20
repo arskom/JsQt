@@ -49,7 +49,7 @@ def walktree(top = ".", depthfirst = False):
         yield top, names
 
 def usage_jsqt():
-    print "Usage:", sys.argv[0], "xml_input_path js_output_path root_namespace"
+    print "Usage:", sys.argv[0], "xml_input_path js_output_path root_namespace [base_class]"
 
 def compile(ui_file_name, js_file_name, base_class, root_namespace, dialect):
     print ui_file_name
