@@ -51,7 +51,7 @@ def walktree(top = ".", depthfirst = False):
 def usage_jsqt():
     print "Usage:", sys.argv[0], "xml_input_path js_output_path root_namespace"
 
-def compile(ui_file_name, js_file_name, root_namespace, dialect):
+def compile(ui_file_name, js_file_name, base_class, root_namespace, dialect):
     print ui_file_name
 
     if js_file_name.rfind(root_namespace) == -1:
@@ -62,6 +62,7 @@ def compile(ui_file_name, js_file_name, root_namespace, dialect):
                                     os.sep*2, os.sep).replace(os.sep, ".")[0:-3]
     parser = UiParser(object_name)
     parser.parse(ui_file_name)
+    parser.clazz.base_class = base_class
     compiled_object = parser.clazz.compile(dialect)
 
     f=open(js_file_name, 'w')
@@ -75,7 +76,7 @@ def main_jsqt():
     print jsqt.header_string
     print "cwd:",os.getcwd()
 
-    if len(argv) == 4:
+    if len(argv) >= 4:
         if os.path.isdir(argv[1]):
             if not argv[1].endswith(os.sep):
                 argv[1]+=os.sep
@@ -88,13 +89,16 @@ def main_jsqt():
                         ui_file_name=os.path.join(basepath, c)
                         js_file_name=ui_file_name.replace(argv[1],argv[2],1)[0:-3]+".js"
                         root_namespace = argv[3]
+                        base_class = 'qx.core.Object'
+                        if len(argv) == 5:
+                            base_class = args[4]
 
                         try:
                             os.makedirs(os.path.dirname(js_file_name))
                         except OSError,e:
                             pass
 
-                        compile(ui_file_name, js_file_name, root_namespace, 'javascript-qooxdoo-0.8.3')
+                        compile(ui_file_name, js_file_name, root_namespace, base_class, 'javascript-qooxdoo-1.1')
         else:
             usage_jsqt()
             print '       First argument must be a directory!'
