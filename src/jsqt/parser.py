@@ -105,19 +105,19 @@ class UiParser(object):
         if self.clazz.name == "":
             self.clazz.name = elt.text
 
-    def parse_ui(self,elements):
+    def parse_ui(self,elt):
         # <customwidgets> tag needs to be parsed first
-        for i in range(len(elements)):
-            if elements[i].tag == 'customwidgets':
-                self.parse_custom_widgets(elements[i])
-                del elements[i]
+        for i in range(len(elt)):
+            if elt[i].tag == 'customwidgets':
+                self.parse_custom_widgets(elt[i])
+                del elt[i]
                 break
 
-        for elt in elements:
-            if elt.tag in self.handlers:
-                self.handlers[elt.tag](elt)
+        for e in elt:
+            if e.tag in self.handlers:
+                self.handlers[e.tag](e)
             else:
-                self.parse_unknown_tag(elt)
+                self.parse_unknown_tag(e)
 
     def parse_widget(self, elt):
         instance = il.qt.gui.widget_dict[elt.attrib['class']](elt)
