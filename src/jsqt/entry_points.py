@@ -114,6 +114,7 @@ def usage_jsuic():
 Usage: %s [options] <.ui file>"
     -o <file>                 place the output into <file>
     -v                        enable verbose output
+    -b                        specify the base class (default: qx.core.Object)
     """ % sys.argv[0]
     #-tr <func>                use func() for i18n
     sys.exit(1)
@@ -122,6 +123,7 @@ def main_jsuic():
     argv = sys.argv
     input_file_name = "-"
     output_file_name = "-"
+    base_class = None
     i18n_function = ""
 
     for i in range(len(sys.argv)):
@@ -144,6 +146,8 @@ def main_jsuic():
         elif argv[i] == "-h":
             usage_jsuic()
 
+        elif argv[i] == "-b":
+            base_class = argv[i+1]
         elif argv[i] == "-v":
             pass
 
@@ -171,6 +175,8 @@ def main_jsuic():
 
     parser = UiParser()
     parser.parse(input_file)
+    parser.clazz.base_class = base_class
+    compiled_object = parser.clazz.compile('javascript-qooxdoo-1.1')
     compiled_object = parser.clazz.compile('javascript-qooxdoo-0.8.3')
 
     if output_file_name == "-":
