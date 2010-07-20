@@ -347,7 +347,7 @@ class ClassDefinition(SinglePartCompilable):
         if self.base_class == None:
             base_class = js.primitive.ObjectReference('qx.core.Object')
         else:
-            base_class = self.base_class
+            base_class = js.primitive.ObjectReference(self.base_class)
 
         class_members = js.primitive.Object()
 

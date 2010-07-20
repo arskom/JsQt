@@ -52,7 +52,7 @@ def walktree(top = ".", depthfirst = False):
 def usage_jsqt():
     print "Usage:", sys.argv[0], "xml_input_path js_output_path root_namespace [base_class]"
 
-def compile(ui_file_name, js_file_name, base_class, root_namespace, dialect):
+def compile(ui_file_name, js_file_name, root_namespace, base_class, dialect):
     print ui_file_name
 
     if js_file_name.rfind(root_namespace) == -1:
@@ -90,9 +90,10 @@ def main_jsqt():
                         ui_file_name=os.path.join(basepath, c)
                         js_file_name=ui_file_name.replace(argv[1],argv[2],1)[0:-3]+".js"
                         root_namespace = argv[3]
-                        base_class = 'qx.core.Object'
+
+                        base_class = None
                         if len(argv) == 5:
-                            base_class = args[4]
+                            base_class = argv[4]
 
                         try:
                             os.makedirs(os.path.dirname(js_file_name))
