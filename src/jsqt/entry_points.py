@@ -26,6 +26,7 @@ import os
 import stat
 
 from base import JsPp
+from base import NoTrailingSpace
 from parser import UiParser
 
 import jsqt
@@ -66,7 +67,7 @@ def compile(ui_file_name, js_file_name, base_class, root_namespace, dialect):
     compiled_object = parser.clazz.compile(dialect)
 
     f=open(js_file_name, 'w')
-    compiled_object.to_stream(JsPp(f))
+    compiled_object.to_stream(JsPp(NoTrailingSpace(f)))
     f.write(";\n") # FIXME: Hack!
     f.close()
 
@@ -173,7 +174,7 @@ def main_jsuic():
     else:
         output_file = open(output_file_name, 'w')
 
-    compiled_object.to_stream(JsPp(output_file))
+    compiled_object.to_stream(JsPp(NoTrailingSpace(output_file)))
     output_file.write(";\n") # FIXME: Hack!
 
     if output_file_name != "-":

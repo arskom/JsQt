@@ -78,6 +78,31 @@ class DuckTypedDict(dict):
 
         dict.__setitem__(self,k,v)
 
+class NoTrailingSpace(object):
+    def __init__(self,os):
+        self.__os = os;
+        self.__seen_space = 0
+        self.__seen_newline = 0
+
+    def write(self,what):
+        os=self.__os
+
+        for c in what:
+            if c == " ":
+                self.__seen_space += 1
+            
+            elif c == "\n":
+                self.__seen_space = 0
+                self.__seen_newline += 1
+                if self.__seen_newline <3:
+                    os.write(c)
+            
+            else:
+                os.write(" " * self.__seen_space)
+                self.__seen_space = 0
+                self.__seen_newline = 0
+                os.write(c)
+
 class JsPp(object):
     """
     A simple pretty printer for javascript.
