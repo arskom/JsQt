@@ -124,7 +124,6 @@ def main_jsuic():
     input_file_name = "-"
     output_file_name = "-"
     base_class = None
-    i18n_function = ""
 
     for i in range(len(sys.argv)):
         if sys.argv[i] == "-v":
@@ -148,15 +147,6 @@ def main_jsuic():
 
         elif argv[i] == "-b":
             base_class = argv[i+1]
-        elif argv[i] == "-v":
-            pass
-
-        elif argv[i] == "-tr":
-            try:
-                i18n_function = argv[i+1]
-            except IndexError:
-                usage()
-            i+=1
 
         elif argv[i][0] == "-":
             usage_jsuic()
@@ -177,7 +167,6 @@ def main_jsuic():
     parser.parse(input_file)
     parser.clazz.base_class = base_class
     compiled_object = parser.clazz.compile('javascript-qooxdoo-1.1')
-    compiled_object = parser.clazz.compile('javascript-qooxdoo-0.8.3')
 
     if output_file_name == "-":
         output_file = sys.stdout
@@ -189,5 +178,3 @@ def main_jsuic():
 
     if output_file_name != "-":
         output_file.close()
-
-
