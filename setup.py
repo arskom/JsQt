@@ -1,9 +1,6 @@
 #!/bin/env python
 # encoding: utf-8
 
-__author__ = "Burak Arslan"
-__date__  = "$Nov 13, 2009 10:38:45 PM$"
-
 from setuptools import setup,find_packages
 import sys
 sys.path.insert(0,"src")

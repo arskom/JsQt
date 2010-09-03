@@ -64,7 +64,8 @@ class MultiPartCompilable(Compilable):
         Returns nothing
         """
 
-        raise Exception("Please override for class '%s.%s'" % (self.__module__,self.__class__.__name__))
+        raise Exception("Please override for class '%s.%s'" %
+                                      (self.__module__,self.__class__.__name__))
 
 class DecimalInteger(SinglePartCompilable):
     def __init__(self, value):
