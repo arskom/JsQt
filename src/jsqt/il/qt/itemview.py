@@ -106,35 +106,5 @@ class QTableWidget(QAbstractItemView):
     def __init__(self, elt, name=None):
         WidgetBase.__init__(self,elt,name)
         
-    def _compile_instantiation(self, dialect, ret):
-        assignment = il.primitive.Assignment()
-        assignment.left = il.primitive.ObjectReference('this.%s' % self.name)
-
-        args = [il.primitive.ObjectReference("null")]
-
-        return_tcm = il.primitive.FunctionDefinition("",["obj"])
-        return_tcm.set_return_statement(il.primitive.Instantiation(
-            "qx.ui.table.columnmodel.Resize",
-            [il.primitive.ObjectReference("obj")]
-        ))
-
-        args.append(il.primitive.AssociativeArrayInitialization({
-            "tableColumnModel": return_tcm
-        }))
-
-        instantiation = il.primitive.Instantiation(self.type, args)
-
-        assignment.right = instantiation
-
-        self.factory_function.add_statement(assignment)
-        self.factory_function.add_statement(il.primitive.ObjectReference("var retval = this.%s" % self.name)) # FIXME: hack
-
-        ret.set_member(self.factory_function.name, self.factory_function)
-        self.factory_function.set_return_statement(
-                            il.primitive.ObjectReference('retval'))
-
-        ret.set_member(self.name, il.primitive.ObjectReference('null'))
-
 class QTreeWidget(QAbstractItemView):
     type="qx.ui.tree.Tree"
-
