@@ -38,6 +38,14 @@ class QPushButton(WidgetBase):
         "text": SimpleProp("setLabel", il.primitive.TranslatableString, ""),
     }
 
+    def _handle_checkable(self, elt):
+        if elt.find('bool').text == 'true':
+            self.type = 'qx.ui.form.ToggleButton'
+
+    known_complex_props = {
+        "checkable": _handle_checkable
+    }
+
 class QLineEdit(WidgetBase):
     type="qx.ui.form.TextField"
     likes_to_flex = False

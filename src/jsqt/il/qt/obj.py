@@ -105,7 +105,13 @@ class Base(il.primitive.MultiPartCompilable):
             self.name = name
 
         else:
-            self.name = elt.attrib['name']
+            try:
+                self.name = elt.attrib['name']
+
+            except ValueError,e:
+                from lxml import etree
+                print etree.tostring(elt)
+                raise
 
             jsqt.debug_print("\tQWidget.__init__:", elt.tag, elt.attrib)
             jsqt.debug_print("\t\treading xml...")
@@ -114,7 +120,7 @@ class Base(il.primitive.MultiPartCompilable):
 
     def set_name(self, name):
         if name is None or len(name) == 0:
-            raise Exception("the object name is empty")
+            raise ValueError("the object name is empty")
         self.__name = name
         self.factory_function = il.primitive.FunctionDefinition(
                                                         "create_%s" % self.name)
