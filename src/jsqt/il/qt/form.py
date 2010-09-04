@@ -36,6 +36,7 @@ class QPushButton(WidgetBase):
     type = "qx.ui.form.Button"
     known_simple_props = {
         "text": SimpleProp("setLabel", il.primitive.TranslatableString, ""),
+        "checked": SimpleProp("setValue", il.primitive.Boolean, ""),
     }
 
     def _handle_checkable(self, elt):
