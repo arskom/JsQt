@@ -214,6 +214,13 @@ class Base(il.primitive.MultiPartCompilable):
         elif prop_name in self.known_complex_props:
             self.known_complex_props[prop_name](self, elt)
 
+        else:
+            self.factory_function.add_statement(
+                    il.primitive.Comment("The '%s' property for widget named '%s'"
+                             "of type '%s' is not supported (yet?)"
+                                        % (prop_name, self.name, type(self)) ))
+
+
 class Action(Base):
     def _handle_text(self, elt):
         self.prop_text = elt[0]

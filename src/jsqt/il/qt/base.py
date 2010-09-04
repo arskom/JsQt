@@ -26,4 +26,3 @@ class SimpleProp(object):
         self.function_name = function_name
         self.wrapper_type = wrapper_type
         self.default_value = default_value
-

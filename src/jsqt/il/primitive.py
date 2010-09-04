@@ -436,4 +436,3 @@ class ContiguousArrayInitialization(SinglePartCompilable):
             retval.append(v.compile(dialect))
 
         return retval
-
