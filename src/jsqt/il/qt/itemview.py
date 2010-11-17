@@ -23,6 +23,7 @@
 
 from gui import WidgetBase
 from jsqt import il
+from base import SimpleProp
 
 class QAbstractItemView(WidgetBase):
     def __init__(self, elt, name=None):
@@ -67,6 +68,15 @@ class Item(object):
     icon = property(get_icon, set_icon)
     value = property(get_value, set_value)
 
+class EnumSelectionMode(il.primitive.Enum):
+    value_map = {
+        "QAbstractItemView::SingleSelection": il.primitive.String("single"),
+        "QAbstractItemView::ContiguousSelection": il.primitive.String("multi"),
+        "QAbstractItemView::ExtendedSelection": il.primitive.String("additive"),
+        "QAbstractItemView::MultiSelection": il.primitive.String("additive"),
+        "QAbstractItemView::NoSelection": il.primitive.String("single"),
+    }
+
 class MItemView(object):
     def __init__(self):
         self.__items = []
@@ -78,7 +88,6 @@ class MItemView(object):
                                                        [a.name,a.icon,a.value])]
             )
             self.factory_function.add_statement(fc)
-            
 
     def add_child(self, elt):
         name = elt[0][0].text
@@ -108,6 +117,10 @@ class QListWidget(QAbstractItemView, MItemView):
     def compile(self, dialect, ret):
         QAbstractItemView.compile(self, dialect, ret)
         MItemView.compile(self, dialect, ret)
+
+    known_simple_props = {
+        "selectionMode": SimpleProp("setSelectionMode", EnumSelectionMode),
+    }
 
 class QTableWidget(QAbstractItemView):
     type="qx.ui.table.Table"
