@@ -152,7 +152,7 @@ class Null(SinglePartCompilable):
 
     def __eq__(self, other):
         if isinstance(other, Null):
-            return true
+            return True
         else:
             return (other is None)
 
