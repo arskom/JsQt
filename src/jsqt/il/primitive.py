@@ -30,13 +30,10 @@ class Compilable(object):
         self.parent = parent
 
 class SinglePartCompilable(Compilable):
-    """
-    Objects that can be compiled into one language element
-    """
+    """Objects that can be compiled into one language element"""
 
     def compile(self, dialect):
-        """
-        Pure virtual method for invocation of the compilation task
+        """Pure virtual method for invocation of the compilation task
 
         dialect -- a string representing the dialect of the output
 
@@ -47,14 +44,11 @@ class SinglePartCompilable(Compilable):
         raise Exception("Please override for class '%s.%s'" % (self.__module__,self.__class__.__name__))
 
 class MultiPartCompilable(Compilable):
-    """
-    Objects that require modifications to multiple parts of the object.
-    """
+    """Objects that require modifications to multiple parts of the object."""
 
 
     def compile(self, dialect, ret=None):
-        """
-        Pure virtual method for invocation of the compilation task
+        """Pure virtual method for invocation of the compilation task
 
         dialect -- a string representing the dialect of the output
         ret -- an optional ClassDefinition object. If it's not
