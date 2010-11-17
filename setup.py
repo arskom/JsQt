@@ -2,14 +2,10 @@
 # encoding: utf-8
 
 from setuptools import setup,find_packages
-import sys
-sys.path.insert(0,"src")
-
-import jsqt
 
 setup(
     name = 'JsQt',
-    version = jsqt.version,
+    version = '0.4.3.13',
     packages = find_packages('src'),
     package_dir = {'':'src'},
 
@@ -33,4 +29,3 @@ which is targeted to work with the Qooxdoo framework.
     license = 'GPLv2',
     platforms = ['Linux','Mac OSX','Windows 7/Vista/XP/2000/NT','Windows 95/98/ME'],
 )
-
