@@ -117,6 +117,35 @@ class Boolean(SinglePartCompilable):
     def compile(self, dialect):
         return js.primitive.Boolean(self.__value)
 
+class Enum(SinglePartCompilable):
+    """Need to sublass this and add mapping values. It's not useful as it is."""
+
+    value_map = None
+    
+    def __init__(self, value):
+        SinglePartCompilable.__init__(self)
+
+        self.__value = self.value_map[value]
+
+    @classmethod
+    def from_elt(cls, elt):
+        return cls(elt.text)
+
+    def __eq__(self, other):
+        if isinstance(other, str) or isinstance(other, unicode):
+            return self.__value == other
+        else:
+            return id(self) == id(other)
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __repr__(self):
+        return "<il.Enum(%r)>" % self.__value
+
+    def compile(self, dialect):
+        return self.__value.compile(dialect)
+
 class Null(SinglePartCompilable):
     def __init__(self):
         SinglePartCompilable.__init__(self)
