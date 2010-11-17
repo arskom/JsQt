@@ -171,5 +171,4 @@ class DummyLayout(QLayout):
     
     def get_properties(self, elt, inst):
         return None
-
     

@@ -41,7 +41,8 @@ class SinglePartCompilable(Compilable):
 
         """
 
-        raise Exception("Please override for class '%s.%s'" % (self.__module__,self.__class__.__name__))
+        raise Exception("Please override for class '%s.%s'" % (self.__module__,
+                                                       self.__class__.__name__))
 
 class MultiPartCompilable(Compilable):
     """Objects that require modifications to multiple parts of the object."""
@@ -256,7 +257,7 @@ class Assignment(SinglePartCompilable):
 
     def compile(self, dialect):
         return js.primitive.Assignment(self.left.compile(dialect),
-                                     self.right.compile(dialect))
+                                                    self.right.compile(dialect))
 
 class FunctionCall(object):
     def __init__(self, function_name, arguments=[]):
@@ -269,10 +270,12 @@ class FunctionCall(object):
         self.__arguments.append(argument)
 
     def __repr__(self):
-        return '<il.FunctionCall("%s", %s)>' %(self.__function_name, self.__arguments)
+        return '<il.FunctionCall("%s", %s)>' %(self.__function_name,
+                                                               self.__arguments)
 
     def compile(self, dialect):
-        return js.primitive.FunctionCall(self.__function_name, [a.compile(dialect) for a in self.__arguments])
+        return js.primitive.FunctionCall(self.__function_name,
+                                 [a.compile(dialect) for a in self.__arguments])
 
 class Return(SinglePartCompilable):
     def __init__(self, what):
@@ -391,7 +394,8 @@ class ClassDefinition(SinglePartCompilable):
 
         properties = js.primitive.Object()
         widget_property = js.primitive.Object()
-        widget_property.set_member("check", js.primitive.String('qx.ui.container.Composite'))
+        widget_property.set_member("check",
+                               js.primitive.String('qx.ui.container.Composite'))
         properties.set_member("widget", widget_property)
 
         mixins = js.primitive.Array()
