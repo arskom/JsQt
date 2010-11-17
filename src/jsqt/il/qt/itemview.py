@@ -94,11 +94,20 @@ class MItemView(object):
     def _handle_item_tag(self, elt):
         self.add_child(elt)
         
-class QListWidget(QAbstractItemView):
+class QListWidget(QAbstractItemView, MItemView):
     type = "qx.ui.form.List"
 
     def __init__(self, elt, name=None):
-        WidgetBase.__init__(self,elt,name)
+        MItemView.__init__(self)
+        QAbstractItemView.__init__(self,elt,name)
+
+    def _init_before_parse(self):
+        MItemView._init_before_parse(self)
+        QAbstractItemView._init_before_parse(self)
+
+    def compile(self, dialect, ret):
+        QAbstractItemView.compile(self, dialect, ret)
+        MItemView.compile(self, dialect, ret)
 
 class QTableWidget(QAbstractItemView):
     type="qx.ui.table.Table"
