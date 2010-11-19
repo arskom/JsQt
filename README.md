@@ -6,7 +6,7 @@ which is targeted to work with the [qooxdoo](http://qooxdoo.org) framework.
 
 There's still a lot of remaining work to support QtDesigner's feature
 set, yet some promising results can be obtained for a number of
-frequent use cases.
+common use cases.
 
 
 Installation
