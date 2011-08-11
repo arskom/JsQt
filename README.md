@@ -16,9 +16,9 @@ Just run:
 
     python setup.py install
 
-in a shell with root privileges, (this means you may need to prepend sudo
-to the above command) inside the package root directory. The setup script 
-will generate two executables, namely "jsqt" and "jsuic".
+in a shell with root privileges, (this means you may need to prefix the 
+above command with sudo) inside the package root directory. The setup 
+script will generate two executables, namely "jsqt" and "jsuic".
 
 'jsqt' is the main executable whose functionality is described in the below 
 website. 'jsuic' is the tool that seeks to implement an interface similar 
