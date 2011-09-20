@@ -66,13 +66,13 @@
             <widget class="QLineEdit" name="edtCompany">
              <property name="minimumSize">
               <size>
-               <width>300</width>
+               <width>5</width>
                <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>5</width>
+               <width>300</width>
                <height>16777215</height>
               </size>
              </property>
@@ -484,8 +484,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>569</width>
-             <height>478</height>
+             <width>301</width>
+             <height>406</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -582,9 +582,9 @@
                         <property name="geometry">
                          <rect>
                           <x>0</x>
-                          <y>-16</y>
-                          <width>438</width>
-                          <height>366</height>
+                          <y>0</y>
+                          <width>414</width>
+                          <height>314</height>
                          </rect>
                         </property>
                         <layout class="QVBoxLayout" name="verticalLayout_5">

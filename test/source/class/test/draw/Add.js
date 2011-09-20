@@ -352,10 +352,10 @@ qx.Class.define("test.draw.Add", {
 
             this.edtCompany = new qx.ui.form.TextField();
             var retval  =  this.edtCompany;
-            retval.setWidth(300);
-            retval.setMaxWidth(5);
+            retval.setWidth(5);
+            retval.setMaxWidth(300);
             retval.setMargin(1);
-            retval.setMinWidth(300);
+            retval.setMinWidth(5);
             return retval;
 
         }
@@ -1229,8 +1229,8 @@ qx.Class.define("test.draw.Add", {
         ,create_scrollAreaWidgetContents: function create_scrollAreaWidgetContents() {
             this.scrollAreaWidgetContents = new qx.ui.container.Composite(this.create_verticalLayout_2());
             var retval  =  this.scrollAreaWidgetContents;
-            retval.setHeight(478);
-            retval.setWidth(569);
+            retval.setHeight(406);
+            retval.setWidth(301);
             retval.setMargin(1);
             retval.add(this.create_groupBox_2(), {flex: 1});
             return retval;
@@ -1240,8 +1240,8 @@ qx.Class.define("test.draw.Add", {
         ,create_scrollAreaWidgetContents_2: function create_scrollAreaWidgetContents_2() {
             this.scrollAreaWidgetContents_2 = new qx.ui.container.Composite(this.create_verticalLayout_5());
             var retval  =  this.scrollAreaWidgetContents_2;
-            retval.setHeight(366);
-            retval.setWidth(438);
+            retval.setHeight(314);
+            retval.setWidth(414);
             retval.setMargin(1);
             retval.add(this.create_groupBox_3(), {flex: 1});
             return retval;
@@ -1255,7 +1255,7 @@ qx.Class.define("test.draw.Add", {
             var retval  =  this.scrollArea_2;
             retval.setMargin(1);
             retval.setAllowGrowY(false);
-            retval.add(this.create_scrollAreaWidgetContents_2(), {left: 0,top: -16});
+            retval.add(this.create_scrollAreaWidgetContents_2(), {left: 0,top: 0});
             return retval;
 
         }
