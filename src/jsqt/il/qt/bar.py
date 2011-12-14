@@ -115,7 +115,6 @@ class Bar(container.WithoutLayout):
                 action = ret.main_widget.actions[a]
                 button = self.Button(None, action.name + self.suffix, action)
                 button.simple_prop_data['title'] = action.prop_text
-
                 self.add_child(button)
 
             else:
@@ -141,6 +140,7 @@ class ToolBarSeparator(obj.Base):
         add_separator = il.primitive.FunctionCall('retval.add',
                          [il.primitive.Instantiation('qx.ui.toolbar.Separator')])
         self.parent.factory_function.add_statement(add_separator)
+
 
 class ToolBarButton(obj.Base):
     type = "qx.ui.toolbar.Button"

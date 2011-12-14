@@ -166,6 +166,7 @@ class QMainWindow(Base):
                              self.children[i].toolbar_area == "TopToolBarArea"):
                 self._compile_child(dialect, ret, self.children[i])
                 del self.children[i]
+
             else:
                 i+=1
 
@@ -248,7 +249,7 @@ class QGroupBox(Base):
 
 class QScrollArea(Base):
     type = "qx.ui.container.Scroll"
-    layout_in_ctor=False
+    layout_in_ctor = False
     
     def _compile_layout(self, dialect, ret):
         pass
