@@ -113,7 +113,7 @@ class Bar(container.WithoutLayout):
 
             elif a in ret.main_widget.actions:
                 action = ret.main_widget.actions[a]
-                button = self.Button(None, action.name + self.suffix)
+                button = self.Button(None, action.name + self.suffix, action)
                 button.simple_prop_data['title'] = action.prop_text
 
                 self.add_child(button)
@@ -147,6 +147,12 @@ class ToolBarButton(obj.Base):
     known_simple_props = {
         "title": SimpleProp("setLabel", il.primitive.TranslatableString, ""),
     }
+
+    def __init__(self, elt, name=None, action=None):
+        obj.Base.__init__(self, elt, name)
+        if action and action.checkable:
+            self.type = 'qx.ui.toolbar.CheckBox'
+
 
 class QToolBar(Bar):
     type = "qx.ui.toolbar.ToolBar"

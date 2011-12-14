@@ -225,9 +225,18 @@ class Base(il.primitive.MultiPartCompilable):
 
 
 class Action(Base):
+    def __init__(self, elt, name=None):
+        self.checkable = False
+
+        Base.__init__(self, elt, name)
+
     def _handle_text(self, elt):
         self.prop_text = elt[0]
 
+    def _handle_checkable(self, elt):
+        self.checkable = (elt.find('bool').text == 'true')
+
     known_complex_props = {
-        "text": _handle_text
+        "text": _handle_text,
+        "checkable": _handle_checkable,
     }
