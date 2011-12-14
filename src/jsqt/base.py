@@ -83,6 +83,8 @@ class NoTrailingSpace(object):
         self.__os = os;
         self.__seen_space = 0
         self.__seen_newline = 0
+        self.__depth = 0
+        self.__prev_char = None
 
     def write(self,what):
         os=self.__os
@@ -94,13 +96,20 @@ class NoTrailingSpace(object):
             elif c == "\n":
                 self.__seen_space = 0
                 self.__seen_newline += 1
-                if self.__seen_newline <3:
+                if self.__seen_newline < 2 or self.__prev_char in ('{','}'):
                     os.write(c)
-            
+
             else:
+                if c == "{":
+                    self.__depth += 1
+
+                elif c == "}":
+                    self.__depth -= 1
+
                 os.write(" " * self.__seen_space)
                 self.__seen_space = 0
                 self.__seen_newline = 0
+                self.__prev_char = c
                 os.write(c)
 
 class JsPp(object):
