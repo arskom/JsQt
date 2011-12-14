@@ -41,7 +41,7 @@ class SinglePartCompilable(Compilable):
 
         """
 
-        raise Exception("Please override for class '%s.%s'" % (self.__module__,
+        raise NotImplementedError("Please override for class '%s.%s'" % (self.__module__,
                                                        self.__class__.__name__))
 
 class MultiPartCompilable(Compilable):
@@ -59,7 +59,7 @@ class MultiPartCompilable(Compilable):
         Returns nothing
         """
 
-        raise Exception("Please override for class '%s.%s'" %
+        raise NotImplementedError("Please override for class '%s.%s'" %
                                       (self.__module__,self.__class__.__name__))
 
 class DecimalInteger(SinglePartCompilable):

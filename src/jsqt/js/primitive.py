@@ -32,7 +32,7 @@ class Base(object):
         return retval.getvalue()
 
     def to_stream(self, os):
-        raise Exception("Please inherit and override")
+        raise NotImplementedError("Please inherit and override")
 
 class Comment(Base):
     def __init__(self, comment):
