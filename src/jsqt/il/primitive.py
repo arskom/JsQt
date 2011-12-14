@@ -258,6 +258,15 @@ class Assignment(SinglePartCompilable):
     def compile(self, dialect):
         return js.primitive.Assignment(self.left.compile(dialect),
                                                     self.right.compile(dialect))
+class VariableDeclaration(SinglePartCompilable):
+    def __init__(self, var_name, initializer=None):
+        SinglePartCompilable.__init__(self)
+
+        self.left = var_name
+        self.right = initializer
+
+    def compile(self, dialect):
+        return js.primitive.VariableDeclaration(self.left, self.right.compile(dialect))
 
 class FunctionCall(object):
     def __init__(self, function_name, arguments=[]):

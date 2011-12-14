@@ -155,7 +155,9 @@ class Base(il.primitive.MultiPartCompilable):
         self.instantiation.right = il.primitive.Instantiation(self.type)
 
         self.factory_function.add_statement(self.instantiation)
-        self.factory_function.add_statement(il.primitive.ObjectReference("var retval = this.%s" % self.name)) # FIXME: hack
+        self.factory_function.add_statement(il.primitive.VariableDeclaration(
+            "retval", il.primitive.ObjectReference("this.%s" % self.name)
+        ))
 
         ret.set_member(self.factory_function.name, self.factory_function)
         self.factory_function.set_return_statement(

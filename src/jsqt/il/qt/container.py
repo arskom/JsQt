@@ -219,7 +219,9 @@ class QSplitter(Base):
             il.primitive.String(self.__orientation)])
 
         self.factory_function.add_statement(instantiation)
-        self.factory_function.add_statement(il.primitive.ObjectReference("var retval = this.%s" % self.name)) # FIXME: hack
+        self.factory_function.add_statement(il.primitive.VariableDeclaration(
+            "retval", il.primitive.ObjectReference("this.%s" % self.name)
+        ))
 
         ret.set_member(self.factory_function.name, self.factory_function)
 

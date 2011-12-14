@@ -75,8 +75,17 @@ class Assignment(Base):
         
     def to_stream(self, os):
         self.__left.to_stream(os)
-        os.write("=")
-        self.__right.to_stream(os)
+        if self.__right:
+            os.write("=")
+            self.__right.to_stream(os)
+
+class VariableDeclaration(Assignment):
+    def __init__(self, left, right=None):
+        Assignment.__init__(self, ObjectReference(left), right)
+
+    def to_stream(self, os):
+        os.write("var ")
+        Assignment.to_stream(self, os)
 
 class Return(Base):
     def __init__(self, what):
