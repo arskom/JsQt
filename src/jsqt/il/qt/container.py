@@ -21,6 +21,8 @@
 # 02110-1301, USA.
 #
 
+import jsqt
+
 from jsqt import il
 from jsqt.xml import etree
 from base import SimpleProp
@@ -157,7 +159,8 @@ class QMainWindow(Base):
                 self._compile_child(dialect, ret, self.children[i])
                 del self.children[i]
                 break
-        i=0
+
+        i = 0
         while i < len(self.children):
             if (self.children[i]._elt.attrib['class'] == 'QToolBar' and
                              self.children[i].toolbar_area == "TopToolBarArea"):
@@ -213,6 +216,8 @@ class QSplitter(Base):
         pass
 
     def _compile_instantiation(self, dialect, ret):
+        jsqt.debug_print("\t\tinstantiation")
+
         instantiation = il.primitive.Assignment()
         instantiation.left = il.primitive.ObjectReference('this.%s' % self.name)
         instantiation.right = il.primitive.Instantiation(self.type,[

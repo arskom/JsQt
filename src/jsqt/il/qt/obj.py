@@ -147,7 +147,7 @@ class Base(il.primitive.MultiPartCompilable):
                                         % (e.tag, self.name, type(self) )))
 
     def _compile_instantiation(self, dialect, ret):
-        jsqt.debug_print("\t\t\tinstantiation")
+        jsqt.debug_print("\t\tinstantiation")
 
         self.instantiation = il.primitive.Assignment()
         self.instantiation.left = il.primitive.ObjectReference('this.%s' %
@@ -169,7 +169,7 @@ class Base(il.primitive.MultiPartCompilable):
         keys = self.simple_prop_data.keys()
         keys.sort()
         for k in keys:
-            jsqt.debug_print("\t\t\tsimple_prop: %s" % k)
+            jsqt.debug_print("\t\tcompile simple prop: %s" % k)
             if "." in k:
                 tmp = k.split(".")
                 prop = self.known_simple_props[tmp[0]][tmp[1]]
@@ -192,7 +192,7 @@ class Base(il.primitive.MultiPartCompilable):
         return retval
 
     def compile(self, dialect, ret):
-        jsqt.debug_print("\t\tcompiling '%s'..." % self.name)
+        jsqt.debug_print("\tcompiling '%s'..." % self.name)
         self._compile_instantiation(dialect, ret)
         self._compile_simple_props(dialect, ret)
 
@@ -202,8 +202,8 @@ class Base(il.primitive.MultiPartCompilable):
     def set_property(self, elt):
         prop_name = elt.attrib['name']
 
-        jsqt.debug_print("\t\t\t%s" % prop_name)
         if prop_name in self.known_simple_props:
+            jsqt.debug_print("\t\t\tread simple prop: %s" % prop_name)
             prop = self.known_simple_props[prop_name]
             if isinstance(prop,dict):
                 tmp = self._decode_nested_prop(elt[0])
@@ -214,6 +214,7 @@ class Base(il.primitive.MultiPartCompilable):
                 self.simple_prop_data[prop_name] = elt[0]
 
         elif prop_name in self.known_complex_props:
+            jsqt.debug_print("\t\t\tread complex prop: %s" % prop_name)
             self.known_complex_props[prop_name](self, elt)
 
         else:

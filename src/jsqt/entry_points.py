@@ -64,6 +64,10 @@ def compile(ui_file_name, js_file_name, root_namespace, base_class, dialect):
     parser = UiParser(object_name)
     parser.parse(ui_file_name)
     parser.clazz.base_class = base_class
+
+    jsqt.debug_print("")
+    jsqt.debug_print("\tcompiling....")
+    jsqt.debug_print("\t"+"="*20)
     compiled_object = parser.clazz.compile(dialect)
 
     f=open(js_file_name, 'w')
@@ -168,7 +172,7 @@ def main_jsuic():
     parser = UiParser()
     parser.parse(input_file)
     parser.clazz.base_class = base_class
-    compiled_object = parser.clazz.compile('javascript-qooxdoo-1.1')
+    compiled_object = parser.clazz.compile('javascript-qooxdoo-1.6')
 
     if output_file_name == "-":
         output_file = sys.stdout

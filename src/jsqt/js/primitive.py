@@ -108,7 +108,7 @@ class Instantiation(Base):
 
 class ObjectReference(Base):
     def __init__(self, object_name):
-        if len(object_name) ==0:
+        if len(object_name) == 0:
             raise Exception("Empty object name not allowed")
         self.__object_name = object_name
 
