@@ -262,14 +262,17 @@ class Action(Base):
 
     def _handle_icon(self, elt):
         iconset = elt.find('iconset')
-        base_icon = [iconset.text]
-        base_icon.extend([e.tail for e in iconset.getchildren()])
-        base_icon = ''.join(base_icon).strip()
+        if 'resource' in iconset.attrib:
+            base_icon = [iconset.text]
+            base_icon.extend([e.tail for e in iconset.getchildren()])
+            base_icon = ''.join(base_icon).strip()
 
-        assert base_icon[0] == ':',("JsQt only supports importing resources from"
-                                    " import files. Hey, at least I warned ya.")
+            assert base_icon[0] == ':',("JsQt only supports importing resources "
+                                        "from resource (.qrc) files. Hey, at "
+                                        "least I warned ya.")
 
-        self.icons.base = (iconset.attrib['resource'], base_icon)
+            print etree.tostring(iconset)
+            self.icons.base = (iconset.attrib['resource'], base_icon)
 
     known_complex_props = {
         "text": _handle_text,
