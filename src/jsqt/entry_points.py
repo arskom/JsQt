@@ -72,6 +72,8 @@ def compile(ui_file_name, js_file_name, root_namespace, base_class, dialect):
     compiled_object = parser.clazz.compile(dialect)
 
     f=open(js_file_name, 'w')
+    for p in parser.clazz.preamble:
+        p.compile(dialect).to_stream(f)
     compiled_object.to_stream(JsPp(NoTrailingSpace(f)))
     f.write(";\n") # FIXME: Hack!
     f.close()
