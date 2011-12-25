@@ -52,11 +52,11 @@ class _Meta(type):
 
             for k,v in b.known_simple_props.items():
                 if k in cls.known_simple_props:
-                    raise Exception("'%s' already has a simple '%s' handler."%
-                                                                      (name, k))
+                    raise Exception("'%s(%r)' already has a simple '%s' handler."%
+                                                          (name, cls, k))
                 if k in cls.known_complex_props:
-                    raise Exception("'%s' already has a complex '%s' handler."%
-                                                                      (name, k))
+                    raise Exception("'%s(%r)' already has a complex '%s' handler."%
+                                                          (name, cls, k))
                 cls.known_simple_props[k] = v
 
         for b in bases:
