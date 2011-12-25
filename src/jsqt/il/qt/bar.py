@@ -54,7 +54,7 @@ class MenuButton(container.WithoutLayout):
         "title": SimpleProp("setLabel", il.primitive.TranslatableString, ""),
     }
 
-    def __init__(self, elt, name=None):
+    def __init__(self, elt, name=None, action=None):
         self.menu = None
 
         container.WithoutLayout.__init__(self, elt, name)
