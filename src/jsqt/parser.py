@@ -114,6 +114,14 @@ class UiParser(object):
             self.clazz.name = elt.text
 
     def parse_resources(self, elt):
+        project_path = os.path.dirname(self.file_name)
+        while not (os.path.isfile(os.path.join(project_path,'config.json')) and
+                   os.path.isfile(os.path.join(project_path,'Manifest.json'))):
+            assert len(project_path) > 0, "Qooxdoo project not found!"
+            project_path = os.path.dirname(project_path)
+
+        resource_path = os.path.join(project_path,'source','resource')
+
         for e in elt.findall("include"):
             location = e.attrib['location']
             if location == '-':
@@ -123,8 +131,19 @@ class UiParser(object):
                 location = os.path.abspath(os.path.join(
                                      os.path.dirname(self.file_name), location))
 
-            self.resources[str(e.attrib['location'])] = etree.fromstring(
-                                                      open(location,'r').read())
+            rcc = etree.fromstring(open(location,'r').read())
+
+            assert rcc.tag == "RCC", "%r is not a valid resource file" % location
+
+            for qresource in rcc.findall('qresource'):
+                resource_id = ":" + str(qresource.attrib['prefix']) + "/"
+
+                for file in qresource.findall('file'):
+                    file_id = resource_id + str(file.text)
+
+                    self.resources[file_id] = os.path.relpath(
+                            os.path.join(os.path.dirname(location), file.text),
+                            resource_path)
 
     def parse_ui(self,elt):
         # <customwidgets> tag needs to be parsed first

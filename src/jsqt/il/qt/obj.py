@@ -245,8 +245,12 @@ class Action(Base):
         iconset = elt.find('iconset')
         base_icon = [iconset.text]
         base_icon.extend([e.tail for e in iconset.getchildren()])
-        self.icons.base = (iconset.attrib['resource'], ''.join(base_icon).strip())
-        print self.icons.base
+        base_icon = ''.join(base_icon).strip()
+
+        assert base_icon[0] == ':',("JsQt only supports importing resources from"
+                                    " import files. Hey, at least I warned ya.")
+
+        self.icons.base = (iconset.attrib['resource'], base_icon)
 
     known_complex_props = {
         "text": _handle_text,
