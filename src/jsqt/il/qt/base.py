@@ -1,5 +1,4 @@
 # encoding: utf8
-
 #
 # This file is part of JsQt.
 #
