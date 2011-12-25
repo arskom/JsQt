@@ -223,10 +223,15 @@ class Base(il.primitive.MultiPartCompilable):
                              "of type '%s' is not supported (yet?)"
                                         % (prop_name, self.name, type(self)) ))
 
-
 class Action(Base):
     def __init__(self, elt, name=None):
+        class Icons(object):
+            def __init__(self):
+                self.base = None
+                self.normaloff = None
+
         self.checkable = False
+        self.icons = Icons()
 
         Base.__init__(self, elt, name)
 
@@ -236,7 +241,15 @@ class Action(Base):
     def _handle_checkable(self, elt):
         self.checkable = (elt.find('bool').text == 'true')
 
+    def _handle_icon(self, elt):
+        iconset = elt.find('iconset')
+        base_icon = [iconset.text]
+        base_icon.extend([e.tail for e in iconset.getchildren()])
+        self.icons.base = (iconset.attrib['resource'], ''.join(base_icon).strip())
+        print self.icons.base
+
     known_complex_props = {
         "text": _handle_text,
+        "icon": _handle_icon,
         "checkable": _handle_checkable,
     }
