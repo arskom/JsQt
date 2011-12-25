@@ -21,13 +21,14 @@
 # 02110-1301, USA.
 #
 
+__version__ = '0.5.0'
+
 import sys
 
-version   = "trunk"
 copyright = "(c) 2009 Arskom Ltd."
 header_string = """JsQt %s
 %s
-""" % (version, copyright)
+""" % (__version__, copyright)
 
 loglevel = 0
 

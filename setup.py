@@ -1,11 +1,15 @@
 #!/bin/env python
 # encoding: utf-8
 
+import os,re
 from setuptools import setup,find_packages
+
+v = open(os.path.join(os.path.dirname(__file__), 'src', 'jsqt', '__init__.py'), 'r')
+VERSION = re.match(r".*__version__ = '(.*?)'", v.read(), re.S).group(1)
 
 setup(
     name = 'JsQt',
-    version = '0.4.3.13',
+    version = VERSION,
     packages = find_packages('src'),
     package_dir = {'':'src'},
 
