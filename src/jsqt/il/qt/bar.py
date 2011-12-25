@@ -1,5 +1,4 @@
 # encoding: utf8
-
 #
 # This file is part of JsQt.
 #
@@ -122,11 +121,13 @@ class Bar(container.WithoutLayout):
 
         container.WithoutLayout.compile(self, dialect, ret)
 
+
 class QMenu(Bar):
     type = "qx.ui.menu.Menu"
     Button = MenuButton
     suffix = "_menu"
     Separator = MenuSeparator
+
 
 class ToolBarSeparator(obj.Base):
     def __init__(self):

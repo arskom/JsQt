@@ -195,4 +195,3 @@ class QSpacer(WidgetBase):
             "height": SimpleProp("setHeight", il.primitive.DecimalInteger, 0),
         },
     }
-

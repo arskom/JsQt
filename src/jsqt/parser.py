@@ -97,7 +97,6 @@ class UiParser(object):
             'ui': self.parse_ui,
             'class': self.parse_class,
             'widget': self.parse_widget,
-            'customwidgets': self.parse_custom_widgets,
             'resources': self.parse_resources,
         }
         self.resources = {}
@@ -167,7 +166,7 @@ class UiParser(object):
         instance = il.qt.gui.widget_dict[elt.attrib['class']](elt)
         instance.set_layout(il.qt.layout.QVBoxLayout(None,"__lv"))
 
-        set_main_widget=il.primitive.FunctionCall('this.setWidget',
+        set_main_widget = il.primitive.FunctionCall('this.setWidget',
                   [il.primitive.FunctionCall("this.create_%s" % instance.name)])
 
         self.clazz.ctor.add_statement(set_main_widget)

@@ -26,7 +26,7 @@ import obj
 
 class QLayout(obj.Base):
     def __init__(self, elt, name=None):
-        obj.Base .__init__(self, elt, name)
+        obj.Base.__init__(self, elt, name)
 
     def add_child(self, child):
         raise Exception("layouts don't accept children")
@@ -35,7 +35,7 @@ class QLayout(obj.Base):
         pass
 
     def _compile_props(self, dialect, ret):
-        p
+        pass
 
     def get_properties(self, elt, inst):
         raise Exception("please inherit and override.")

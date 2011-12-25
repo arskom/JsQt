@@ -205,7 +205,7 @@ class Base(il.primitive.MultiPartCompilable):
     def _compile_simple_prop(self, prop, data):
         retval = False
 
-        data=prop.wrapper_type.from_elt(data)
+        data = prop.wrapper_type.from_elt(data)
         if prop.default_value != data and prop.function_name != "" :
             fc = il.primitive.FunctionCall("retval.%s" % (prop.function_name),
                                                                          [data])

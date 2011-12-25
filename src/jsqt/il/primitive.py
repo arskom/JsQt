@@ -38,7 +38,6 @@ class SinglePartCompilable(Compilable):
         dialect -- a string representing the dialect of the output
 
         Returns the compiled language fragment
-
         """
 
         raise NotImplementedError("Please override for class '%s.%s'" % (self.__module__,
@@ -178,7 +177,7 @@ class String(SinglePartCompilable):
     def __init__(self, string):
         SinglePartCompilable.__init__(self)
 
-        self._string=str(string)
+        self._string = str(string)
 
     @staticmethod
     def from_elt(elt):
@@ -392,11 +391,11 @@ class ClassDefinition(SinglePartCompilable):
         # anywhere, including members dict.
         for k,v in self.members.items():
             if isinstance(v, MultiPartCompilable): # FIXME!
-                v.compile(dialect,self)
+                v.compile(dialect, self)
 
         for k,v in self.members.items():
             if isinstance(v, SinglePartCompilable): # FIXME!
-                class_members.set_member(k,v.compile(dialect))
+                class_members.set_member(k, v.compile(dialect))
 
         st = FunctionCall('this.base')
         st.add_argument(ObjectReference('arguments'))
