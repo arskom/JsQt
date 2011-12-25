@@ -94,8 +94,10 @@ class UiParser(object):
             'widget': self.parse_widget,
             'customwidgets': self.parse_custom_widgets,
         }
+        self.file_name = None
 
-    def parse(self, file_handle):
+    def parse(self, file_handle, file_name):
+        self.file_name = file_name
         tree = etree.parse(file_handle)
         root = tree.getroot()
         self.handlers[root.tag](root)

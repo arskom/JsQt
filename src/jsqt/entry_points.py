@@ -62,7 +62,7 @@ def compile(ui_file_name, js_file_name, root_namespace, base_class, dialect):
     object_name= js_file_name[js_file_name.rfind(root_namespace):].replace(
                                     os.sep*2, os.sep).replace(os.sep, ".")[0:-3]
     parser = UiParser(object_name)
-    parser.parse(ui_file_name)
+    parser.parse(ui_file_name, ui_file_name)
     parser.clazz.base_class = base_class
 
     jsqt.debug_print("")
@@ -170,7 +170,7 @@ def main_jsuic():
 
 
     parser = UiParser()
-    parser.parse(input_file)
+    parser.parse(input_file, input_file_name)
     parser.clazz.base_class = base_class
     compiled_object = parser.clazz.compile('javascript-qooxdoo-1.6')
 
