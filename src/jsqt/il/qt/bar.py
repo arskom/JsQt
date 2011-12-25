@@ -152,6 +152,7 @@ class ToolBarButton(obj.Base):
         obj.Base.__init__(self, elt, name)
         if action and action.checkable:
             self.type = 'qx.ui.toolbar.CheckBox'
+        self.icons.base = action.icons.base
 
 
 class QToolBar(Bar):

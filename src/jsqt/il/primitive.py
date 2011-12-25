@@ -358,6 +358,7 @@ class ClassDefinition(SinglePartCompilable):
         self.mixins = DuckTypedList(['compile'])
         self.mixins.append(ObjectReference("qx.locale.MTranslation"))
         self.base_class = None
+        self.assets = set()
 
     def set_name(self, name):
         self.__name = name
@@ -420,6 +421,8 @@ class ClassDefinition(SinglePartCompilable):
         class_dict.set_member("include", mixins)
 
         lang.add_argument(class_dict)
+        self.preamble.insert(0,
+            Comment("".join(["\n#asset(%s)" % a for a in sorted(self.assets)])+"\n"))
 
         return lang
 

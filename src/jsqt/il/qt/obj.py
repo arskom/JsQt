@@ -84,9 +84,15 @@ class Base(il.primitive.MultiPartCompilable):
     real = True
 
     def __init__(self, elt, name=None):
+        class Icons(object):
+            def __init__(self):
+                self.base = None
+                self.normaloff = None
+
         il.primitive.MultiPartCompilable.__init__(self)
 
-        self.simple_prop_data={}
+        self.icons = Icons()
+        self.simple_prop_data = {}
 
         self.children = DuckTypedList(['compile'])
         self.parent = None
@@ -96,6 +102,7 @@ class Base(il.primitive.MultiPartCompilable):
         self.tag_handlers["attribute"] = self._handle_property_tag
         self._elt = None
         self.layout_properties = {}
+        self.parser = None
 
         if name != None:
             if elt != None:
@@ -165,6 +172,23 @@ class Base(il.primitive.MultiPartCompilable):
 
         ret.set_member(self.name, il.primitive.ObjectReference('null'))
 
+    def _compile_icon(self, dialect, ret):
+        def _recurse_parent(arg):
+            if getattr(arg, 'parser', None) is None:
+                if getattr(arg, 'parent', None) is None:
+                    arg.parser = arg
+                else:
+                    _recurse_parent(arg.parent)
+                    arg.parser = arg.parent.parser
+
+        if self.icons.base is not None:
+            _recurse_parent(self)
+            icon_uri = self.parser.resources[self.icons.base[0]][self.icons.base[1]]
+            fc = il.primitive.FunctionCall("retval.setIcon",[
+                                    il.primitive.String(str(icon_uri))])
+            self.factory_function.add_statement(fc)
+            self.parser.clazz.assets.add(icon_uri)
+
     def _compile_simple_props(self, dialect, ret):
         keys = self.simple_prop_data.keys()
         keys.sort()
@@ -195,6 +219,7 @@ class Base(il.primitive.MultiPartCompilable):
         jsqt.debug_print("\tcompiling '%s'..." % self.name)
         self._compile_instantiation(dialect, ret)
         self._compile_simple_props(dialect, ret)
+        self._compile_icon(dialect, ret)
 
     def set_parent(self, parent):
         self.parent = parent
@@ -225,13 +250,7 @@ class Base(il.primitive.MultiPartCompilable):
 
 class Action(Base):
     def __init__(self, elt, name=None):
-        class Icons(object):
-            def __init__(self):
-                self.base = None
-                self.normaloff = None
-
         self.checkable = False
-        self.icons = Icons()
 
         Base.__init__(self, elt, name)
 

@@ -89,6 +89,7 @@ class CodeBlocks(DuckTypedList):
 class UiParser(object):
     def __init__(self,object_name=""):
         self.clazz = il.primitive.ClassDefinition(object_name)
+        self.clazz.set_parent(self)
         self.lang = CodeBlocks()
         il.qt.gui.custom_dict = {}
 
@@ -124,6 +125,7 @@ class UiParser(object):
 
         for e in elt.findall("include"):
             location = e.attrib['location']
+            resource_file_id = str(e.attrib['location'])
             if location == '-':
                 pass
 
@@ -132,6 +134,8 @@ class UiParser(object):
                                      os.path.dirname(self.file_name), location))
 
             rcc = etree.fromstring(open(location,'r').read())
+            if self.resources.get(resource_file_id, None) is None:
+                self.resources[resource_file_id] = {}
 
             assert rcc.tag == "RCC", "%r is not a valid resource file" % location
 
@@ -141,7 +145,7 @@ class UiParser(object):
                 for file in qresource.findall('file'):
                     file_id = resource_id + str(file.text)
 
-                    self.resources[file_id] = os.path.relpath(
+                    self.resources[resource_file_id][file_id] = os.path.relpath(
                             os.path.join(os.path.dirname(location), file.text),
                             resource_path)
 
