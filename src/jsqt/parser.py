@@ -139,7 +139,11 @@ class UiParser(object):
             assert rcc.tag == "RCC", "%r is not a valid resource file" % location
 
             for qresource in rcc.findall('qresource'):
-                resource_id = ":" + str(qresource.attrib['prefix']) + "/"
+                if qresource.attrib['prefix'].startswith('/'):
+                    slash = ''
+                else:
+                    slash = '/'
+                resource_id = ":" + slash + str(qresource.attrib['prefix']) + "/"
 
                 for file in qresource.findall('file'):
                     file_id = resource_id + str(file.text)
