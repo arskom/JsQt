@@ -97,7 +97,9 @@ class UiParser(object):
             'class': self.parse_class,
             'widget': self.parse_widget,
             'customwidgets': self.parse_custom_widgets,
+            'resources': self.parse_resources,
         }
+        self.resources = {}
         self.file_name = None
 
     def parse(self, file_handle, file_name):
@@ -110,6 +112,19 @@ class UiParser(object):
         jsqt.debug_print("\tclass:", elt.text)
         if self.clazz.name == "":
             self.clazz.name = elt.text
+
+    def parse_resources(self, elt):
+        for e in elt.findall("include"):
+            location = e.attrib['location']
+            if location == '-':
+                pass
+
+            elif location[0] != '/':
+                location = os.path.abspath(os.path.join(
+                                     os.path.dirname(self.file_name), location))
+
+            self.resources[str(e.attrib['location'])] = etree.fromstring(
+                                                      open(location,'r').read())
 
     def parse_ui(self,elt):
         # <customwidgets> tag needs to be parsed first
