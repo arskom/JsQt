@@ -22,10 +22,13 @@
 #
 
 import sys
+import os.path
 
 import jsqt
+
 from jsqt import il
 import il.qt
+
 from jsqt import DuckTypedList
 
 il.qt.gui.layout_dict = {

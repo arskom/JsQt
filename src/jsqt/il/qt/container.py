@@ -25,9 +25,10 @@ import jsqt
 
 from jsqt import il
 from jsqt.xml import etree
+from jsqt.il.qt import gui
+from jsqt.il.qt import obj
+
 from base import SimpleProp
-import gui
-import obj
 
 class Base(gui.WidgetBase):
     add_method_name = "add"

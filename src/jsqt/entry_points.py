@@ -25,11 +25,12 @@ import sys
 import os
 import stat
 
-from base import JsPp
-from base import NoTrailingSpace
-from parser import UiParser
-
 import jsqt
+
+from jsqt.base import JsPp
+from jsqt.base import NoTrailingSpace
+from jsqt.parser import UiParser
+
 
 def walktree(top = ".", depthfirst = False):
     names = os.listdir(top)
