@@ -131,6 +131,7 @@ class UiParser(object):
 
         set_main_widget=il.primitive.FunctionCall('this.setWidget',
                   [il.primitive.FunctionCall("this.create_%s" % instance.name)])
+
         self.clazz.ctor.add_statement(set_main_widget)
 
         self.clazz.set_member(elt.attrib['name'], instance)
@@ -154,10 +155,9 @@ class UiParser(object):
 
             il.qt.gui.custom_dict[class_name].type= class_name.replace("::",".")
 
-        self.clazz.preamble.append(il.primitive.Comment("WARNING: '%s' tag is "
-                                                     "not supported" % elt.tag))
+        self.clazz.preamble.append(il.primitive.Comment(
+                                "WARNING: '%s' tag is not supported" % elt.tag))
 
     def parse_unknown_tag(self,elt):
-        self.clazz.preamble.append(il.primitive.Comment("WARNING: '%s' tag is "
-                                                     "not supported" % elt.tag))
-
+        self.clazz.preamble.append(il.primitive.Comment(
+                                "WARNING: '%s' tag is not supported" % elt.tag))
