@@ -69,6 +69,7 @@ il.qt.gui.widget_dict = {
     #"QTimeEdit": NoQooxdooEquivalent,
 
     "QTableWidget": il.qt.itemview.QTableWidget,
+    "QTableView": il.qt.itemview.QTableWidget,
     "QListWidget": il.qt.itemview.QListWidget,
 }
 
