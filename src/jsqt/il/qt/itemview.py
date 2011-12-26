@@ -1,5 +1,4 @@
 # encoding: utf8
-
 #
 # This file is part of JsQt.
 #
@@ -21,29 +20,153 @@
 # 02110-1301, USA.
 #
 
+import re
+
+from base import SimpleProp
 from gui import WidgetBase
 from jsqt import il
-from base import SimpleProp
+from obj import Base
+
+
+class EnumSelectionMode(il.primitive.Enum):
+    value_map = {
+        "QAbstractItemView::SingleSelection": il.primitive.String("single"),
+        "QAbstractItemView::ExtendedSelection": il.primitive.String("additive"),
+        "QAbstractItemView::ContiguousSelection": il.primitive.String("multi"),
+        "QAbstractItemView::MultiSelection": il.primitive.String("additive"),
+        "QAbstractItemView::NoSelection": il.primitive.String("single"),
+    }
+
+
+class Item(Base):
+    counter = 0
+
+    def __init__(self, elt, name=None):
+        if name is None:
+            Item.counter += 1
+            elt.attrib['name'] = 'item_%d' % self.counter
+
+        self.value = None
+        self.text = None
+
+        Base.__init__(self, elt, name)
+
+    def _handle_text(self, elt):
+        string = elt.find('string')
+
+        self.text = unicode(string.text)
+        self.name = "item_%s" % re.sub(r'[^\w]', '_', self.text).lower()
+        if 'extracomment' in string.attrib:
+            self.value = unicode(string.attrib['extracomment'])
+            self.name = "item_%s" % re.sub(r'[^\w]', '_', self.value).lower()
+
+
+    def _compile_instantiation(self, dialect, ret):
+        Base._compile_instantiation(self, dialect, ret)
+        if self.text is None:
+            text = il.primitive.ObjectReference("null")
+        else:
+            text = il.primitive.TranslatableString(self.text)
+
+        if self.value == None:
+            value = il.primitive.ObjectReference("null")
+        else:
+            value = il.primitive.String(self.value)
+
+        self.instantiation.right.args.append(text)
+        self.instantiation.right.args.append(il.primitive.ObjectReference("null"))
+        self.instantiation.right.args.append(value)
+
+    known_complex_props = {
+        "text": _handle_text
+    }
+
 
 class QAbstractItemView(WidgetBase):
-    def __init__(self, elt, name=None):
-        WidgetBase.__init__(self,elt,name)
+    add_function_name = 'add'
+    known_simple_props = {
+        "selectionMode": SimpleProp("setSelectionMode", EnumSelectionMode),
+    }
 
-class Item(object):
+    def _handle_item(self, elt):
+        item = self.Item(elt)
+        item.set_parent(self)
+        self.children.append(item)
+
+    def _compile_children(self, dialect, ret):
+        for c in self.children:
+            c.compile(dialect, ret)
+            args = [il.primitive.FunctionCall("this.create_%s" % c.name)]
+            add_child = il.primitive.FunctionCall('retval.%s' %
+                                                self.add_function_name, args)
+            self.factory_function.add_statement(add_child)
+
+    def compile(self, dialect, ret):
+        WidgetBase.compile(self, dialect, ret)
+        self._compile_children(dialect, ret)
+
+    def _init_before_parse(self):
+        self.tag_handlers['item'] = self._handle_item
+
+
+class ListItem(Item):
+    type = "qx.ui.form.ListItem"
+
+class QListWidget(QAbstractItemView):
+    type = "qx.ui.form.List"
+    Item = ListItem
+
+
+class TreeItem(Item):
+    type = "qx.ui.tree.TreeFolder"
+
+    def _handle_item(self, elt):
+        item = TreeItem(elt)
+        item.set_parent(self)
+        self.children.append(item)
+
+    def _compile_children(self, dialect, ret):
+        for c in self.children:
+            c.compile(dialect, ret)
+            args = [il.primitive.FunctionCall("this.create_%s" % c.name)]
+            add_child = il.primitive.FunctionCall('retval.add', args)
+            self.factory_function.add_statement(add_child)
+
+    def compile(self, dialect, ret):
+        if len(self.children) == 0:
+            self.type = "qx.ui.tree.TreeFile"
+
+        Item.compile(self, dialect, ret)
+        self._compile_children(dialect, ret)
+
+    def _init_before_parse(self):
+        self.tag_handlers['item'] = self._handle_item
+
+class QTreeWidget(QAbstractItemView):
+    type = "qx.ui.tree.Tree"
+    Item = TreeItem
+    add_function_name = 'setRoot'
+
+class QTableWidget(WidgetBase):
+    type = "qx.ui.table.Table"
+
+
+# DEPRECATED
+class _Item(object):
     def __init__(self, name, icon, value):
         object.__init__(self)
-        
+
         self.name = name
         self.icon = icon
         self.value = value
-    
-    def set_name(self,name):
+
+    def set_name(self, name):
         if name == None:
             self.__name = il.primitive.ObjectReference("null")
         else:
             self.__name = il.primitive.TranslatableString(name)
 
-    def set_icon(self,icon):
+    def set_icon(self, icon):
         if icon == None:
             self.__icon = il.primitive.ObjectReference("null")
         else:
@@ -68,25 +191,16 @@ class Item(object):
     icon = property(get_icon, set_icon)
     value = property(get_value, set_value)
 
-class EnumSelectionMode(il.primitive.Enum):
-    value_map = {
-        "QAbstractItemView::SingleSelection": il.primitive.String("single"),
-        "QAbstractItemView::ContiguousSelection": il.primitive.String("multi"),
-        "QAbstractItemView::ExtendedSelection": il.primitive.String("additive"),
-        "QAbstractItemView::MultiSelection": il.primitive.String("additive"),
-        "QAbstractItemView::NoSelection": il.primitive.String("single"),
-    }
 
 class MItemView(object):
     def __init__(self):
         self.__items = []
 
-    def compile(self, dialect, elt, function_name = "setLabel"):
+    def compile(self, dialect, elt, function_name="setLabel"):
         for a in self.__items:
             fc = il.primitive.FunctionCall("retval.add",
-                [il.primitive.Instantiation("qx.ui.form.ListItem",
-                                                       [a.name,a.icon,a.value])]
-            )
+                    [il.primitive.Instantiation("qx.ui.form.ListItem",
+                                                    [a.name, a.icon, a.value])])
             self.factory_function.add_statement(fc)
 
     def add_child(self, elt):
@@ -95,38 +209,10 @@ class MItemView(object):
         value = None
         if 'extracomment' in elt[0][0].attrib:
             value = elt[0][0].attrib['extracomment']
-        self.__items.append(Item(name,icon,value))
+        self.__items.append(_Item(name, icon, value))
 
     def _init_before_parse(self):
         self.tag_handlers['item'] = self._handle_item_tag
 
     def _handle_item_tag(self, elt):
         self.add_child(elt)
-        
-class QListWidget(QAbstractItemView, MItemView):
-    type = "qx.ui.form.List"
-
-    def __init__(self, elt, name=None):
-        MItemView.__init__(self)
-        QAbstractItemView.__init__(self,elt,name)
-
-    def _init_before_parse(self):
-        MItemView._init_before_parse(self)
-        QAbstractItemView._init_before_parse(self)
-
-    def compile(self, dialect, ret):
-        QAbstractItemView.compile(self, dialect, ret)
-        MItemView.compile(self, dialect, ret)
-
-    known_simple_props = {
-        "selectionMode": SimpleProp("setSelectionMode", EnumSelectionMode),
-    }
-
-class QTableWidget(QAbstractItemView):
-    type="qx.ui.table.Table"
-    
-    def __init__(self, elt, name=None):
-        WidgetBase.__init__(self,elt,name)
-        
-class QTreeWidget(QAbstractItemView):
-    type="qx.ui.tree.Tree"

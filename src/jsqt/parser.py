@@ -63,14 +63,16 @@ il.qt.gui.widget_dict = {
     "QMenu": il.qt.bar.MenuButton,
     "QToolBar": il.qt.bar.QToolBar,
 
-    "QTreeWidget": il.qt.itemview.QTreeWidget,
 
     #"QDateTimeEdit": NoQooxdooEquivalent,
     #"QTimeEdit": NoQooxdooEquivalent,
 
     "QTableWidget": il.qt.itemview.QTableWidget,
     "QTableView": il.qt.itemview.QTableWidget,
+    "QTreeWidget": il.qt.itemview.QTreeWidget,
+    "QTreeView": il.qt.itemview.QTreeWidget,
     "QListWidget": il.qt.itemview.QListWidget,
+    "QListView": il.qt.itemview.QListWidget,
 }
 
 # http://codespeak.net/lxml/tutorial.html
