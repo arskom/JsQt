@@ -53,6 +53,9 @@ class QLineEdit(WidgetBase):
 class QTextEdit(WidgetBase):
     type="qx.ui.form.TextArea"
 
+class QTextBrowser(WidgetBase):
+    type="qx.ui.embed.Html"
+
 class QSpinBox(WidgetBase):
     type="qx.ui.form.Spinner"
     ver_stretch_pol = "Fixed"
