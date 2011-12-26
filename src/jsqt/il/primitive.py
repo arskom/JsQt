@@ -120,6 +120,9 @@ class Enum(SinglePartCompilable):
 
         self.__value = self.value_map[value]
 
+    def get_value(self):
+        return self.__value
+
     @classmethod
     def from_elt(cls, elt):
         return cls(elt.text)
