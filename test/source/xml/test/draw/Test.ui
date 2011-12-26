@@ -37,16 +37,6 @@
        </column>
        <item>
         <property name="text">
-         <string>Layout</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Signals</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
          <string>Gobbledygook</string>
         </property>
         <item>
@@ -79,11 +69,6 @@
           <string>Second Level</string>
          </property>
         </item>
-       </item>
-       <item>
-        <property name="text">
-         <string>Top Level</string>
-        </property>
        </item>
       </widget>
       <widget class="QTabWidget" name="tabWidget">
@@ -278,8 +263,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>765</width>
-              <height>518</height>
+              <width>94</width>
+              <height>508</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -392,8 +377,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>458</width>
-              <height>518</height>
+              <width>94</width>
+              <height>508</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -670,7 +655,7 @@
      <x>0</x>
      <y>0</y>
      <width>774</width>
-     <height>28</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMenu1">
