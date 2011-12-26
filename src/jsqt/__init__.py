@@ -1,5 +1,4 @@
 # encoding: utf8
-
 #
 # This file is part of JsQt.
 #
@@ -25,7 +24,7 @@ __version__ = '0.5.0'
 
 import sys
 
-copyright = "(c) 2009 Arskom Ltd."
+copyright = "(c) Arskom Ltd."
 header_string = """JsQt %s
 %s
 """ % (__version__, copyright)
@@ -39,6 +38,5 @@ def debug_print(*args):
             if i != len(args)-1:
                 sys.stderr.write(" ")
         sys.stderr.write("\n")
-
 
 from base import *
