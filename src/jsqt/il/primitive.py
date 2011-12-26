@@ -112,8 +112,7 @@ class Boolean(SinglePartCompilable):
         return js.primitive.Boolean(self.__value)
 
 class Enum(SinglePartCompilable):
-    """Need to sublass this and add mapping values. It's not useful as it is."""
-
+    """You need to sublass this and add mapping values."""
     value_map = None
     
     def __init__(self, value):
