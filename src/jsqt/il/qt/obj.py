@@ -248,6 +248,23 @@ class Base(il.primitive.MultiPartCompilable):
                              "of type '%s' is not supported (yet?)"
                                         % (prop_name, self.name, type(self)) ))
 
+    def _handle_icon(self, elt):
+        iconset = elt.find('iconset')
+        if 'resource' in iconset.attrib:
+            base_icon = [iconset.text]
+            base_icon.extend([e.tail for e in iconset.getchildren()])
+            base_icon = ''.join(base_icon).strip()
+            assert base_icon[0] == ':',("JsQt only supports importing resources "
+                                        "from resource (.qrc) files. Hey, at "
+                                        "least I warned ya.")
+
+            self.icons.base = (iconset.attrib['resource'], base_icon)
+
+    known_complex_props = {
+        "icon": _handle_icon,
+    }
+
+
 class Action(Base):
     def __init__(self, elt, name=None):
         self.checkable = False
@@ -260,22 +277,7 @@ class Action(Base):
     def _handle_checkable(self, elt):
         self.checkable = (elt.find('bool').text == 'true')
 
-    def _handle_icon(self, elt):
-        iconset = elt.find('iconset')
-        if 'resource' in iconset.attrib:
-            base_icon = [iconset.text]
-            base_icon.extend([e.tail for e in iconset.getchildren()])
-            base_icon = ''.join(base_icon).strip()
-
-            assert base_icon[0] == ':',("JsQt only supports importing resources "
-                                        "from resource (.qrc) files. Hey, at "
-                                        "least I warned ya.")
-
-            print etree.tostring(iconset)
-            self.icons.base = (iconset.attrib['resource'], base_icon)
-
     known_complex_props = {
         "text": _handle_text,
-        "icon": _handle_icon,
         "checkable": _handle_checkable,
     }
