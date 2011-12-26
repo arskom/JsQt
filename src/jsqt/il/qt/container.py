@@ -191,6 +191,13 @@ class TabPage(Base):
         self.layout_properties = None
         Base.__init__(self, elt, name)
 
+class EnumOrientation(il.primitive.Enum):
+    value_map = {
+        "Qt::Vertical": "vertical",
+        "Qt::Horizontal": "horizontal",
+    }
+
+
 class QSplitter(Base):
     type = "qx.ui.splitpane.Pane"
 
@@ -222,7 +229,7 @@ class QSplitter(Base):
         instantiation = il.primitive.Assignment()
         instantiation.left = il.primitive.ObjectReference('this.%s' % self.name)
         instantiation.right = il.primitive.Instantiation(self.type,[
-            il.primitive.String(self.__orientation)])
+            il.primitive.String(self.__orientation.get_value())])
 
         self.factory_function.add_statement(instantiation)
         self.factory_function.add_statement(il.primitive.VariableDeclaration(
@@ -235,6 +242,13 @@ class QSplitter(Base):
                             il.primitive.ObjectReference('retval'))
 
         ret.set_member(self.name, il.primitive.ObjectReference('null'))
+
+    def _handle_prop_orientation(self, elt):
+        self.__orientation = EnumOrientation(elt.find('enum').text)
+
+    known_complex_props = {
+        "orientation": _handle_prop_orientation,
+    }
 
 class QGroupBox(Base):
     type = "qx.ui.groupbox.GroupBox"
