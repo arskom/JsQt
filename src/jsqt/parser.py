@@ -64,6 +64,7 @@ il.qt.gui.widget_dict = {
     "QMenu": il.qt.bar.MenuButton,
     "QToolBar": il.qt.bar.QToolBar,
     "QTextBrowser": il.qt.form.QTextBrowser,
+    "QPlainTextEdit": il.qt.form.QTextEdit,
 
 
     #"QDateTimeEdit": NoQooxdooEquivalent,
