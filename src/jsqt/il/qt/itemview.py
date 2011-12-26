@@ -147,6 +147,11 @@ class QTreeWidget(QAbstractItemView):
     Item = TreeItem
     add_function_name = 'setRoot'
 
+    def _compile_children(self, dialect, ret):
+        assert len(self.children) == 1, "Qooxdoo only supports one child in a " \
+                                        "tree widget."
+        QAbstractItemView._compile_children(self, dialect, ret)
+
 class QTableWidget(WidgetBase):
     type = "qx.ui.table.Table"
 
