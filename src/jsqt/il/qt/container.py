@@ -137,7 +137,7 @@ class WithoutLayout(Base):
 class QWidget(Base):
     type = "qx.ui.container.Composite"
 
-class QMainWindow(Base):
+class QDialog(Base):
     type = "qx.ui.container.Composite"
 
     def __init__(self, elt, name=None):
@@ -172,6 +172,10 @@ class QMainWindow(Base):
 
         for i in range(len(self.children)):
             self._compile_child(dialect, ret, self.children[i])
+
+# FIXME: QMainWindow should generate its own window?
+class QMainWindow(QDialog):
+    pass
 
 class QTabWidget(WithoutLayout):
     type = "qx.ui.tabview.TabView"

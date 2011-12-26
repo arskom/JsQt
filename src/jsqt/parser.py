@@ -39,6 +39,7 @@ il.qt.gui.layout_dict = {
 }
 
 il.qt.gui.widget_dict = {
+    "QDialog": il.qt.container.QDialog,
     "QMainWindow": il.qt.container.QMainWindow,
     "QTabWidget": il.qt.container.QTabWidget,
     "TabPage": il.qt.container.TabPage,
