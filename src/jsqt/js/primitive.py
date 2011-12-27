@@ -47,8 +47,12 @@ class String(Base):
 
     def to_stream(self, os):
         os.write('"')
-        os.write(self.__string.replace("\\", "\\\\").replace("\n","\\n")
-                              .replace("\r","\\r").replace('"','\\"'))
+        os.write(self.__string
+                .replace("\\", "\\\\")
+                .replace("\r","")
+                .replace("\n","\\\n")
+                .replace('"','\\"')
+            )
         os.write('"')
 
 class Concatenation(Base):
