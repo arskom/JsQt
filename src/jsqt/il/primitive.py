@@ -207,7 +207,9 @@ class TranslatableString(String):
 
     @staticmethod
     def from_elt(elt):
-        if elt.text is None:
+        if elt.attrib.get('notr', None) == 'true':
+            return String.from_elt(elt)
+        elif elt.text is None:
             return TranslatableString("")
         else:
             return TranslatableString(elt.text)
