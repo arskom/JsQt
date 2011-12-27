@@ -122,10 +122,11 @@ class JsPp(object):
         self.__comma_causes_new_line=[]
         self.__brace_causes_new_line=[True]
         self.__in_comment = False
+        self.__pc = None
+        self.__in_string_literal = None
 
     def write(self,what):
-        os=self.__os
-        i=0
+        os = self.__os
 
         if not self.__in_comment:
             if not self.__brace_causes_new_line[-1]:
@@ -136,18 +137,18 @@ class JsPp(object):
                 self.__brace_causes_new_line=[False]
 
         for c in what:
-            c=c.replace(u"−","-").encode("utf8");
+            c = c.replace(u"−","-").encode("utf8");
 
-            if what[i-1] == '/' and c=='*':
+            if self.__pc == '/' and c=='*':
                 self.__in_comment = True
 
-            elif what[i-1] == '*' and c=='/':
+            elif self.__pc == '*' and c=='/':
                 self.__in_comment = False
 
             if self.__in_comment:
                 os.write(c)
 
-            elif c == '{':
+            elif c == '{' and self.__in_string_literal is None:
                 os.write(" ")
                 os.write(c)
                 if self.__brace_causes_new_line[-1]:
@@ -155,7 +156,7 @@ class JsPp(object):
                     self.newline()
                     self.__comma_causes_new_line.append(True)
 
-            elif c == "}":
+            elif c == "}" and self.__in_string_literal is None:
                 if self.__brace_causes_new_line[-1]:
                     self.__indent-=1
                     self.newline()
@@ -164,42 +165,51 @@ class JsPp(object):
                     self.newline()
                     self.__comma_causes_new_line.pop()
 
-            elif c == "(":
+            elif c == "(" and self.__in_string_literal is None:
                 self.__comma_causes_new_line.append(False)
                 os.write(c)
 
-            elif c == ")":
+            elif c == ")" and self.__in_string_literal is None:
                 self.__comma_causes_new_line.pop()
                 os.write(c)
 
-            elif what[i-1] == '*' and c=='/':
+            elif self.__pc == '*' and c=='/'  and self.__in_string_literal is None:
                 os.write(c)
                 self.newline()
 
-            elif c == ',':
+            elif c == ',' and self.__in_string_literal is None:
                 if self.__comma_causes_new_line[-1]:
                     self.newline()
                 os.write(c)
 
-            elif c == ";":
+            elif c == ";" and self.__in_string_literal is None:
                 os.write(c)
                 self.newline()
 
-            elif c == ":":
+            elif c == ":" and self.__in_string_literal is None:
                 os.write(c)
                 os.write(" ")
 
-            elif c == "=":
+            elif c == "=" and self.__in_string_literal is None:
                 os.write(" ")
                 os.write(c)
                 os.write(" ")
 
-            elif c =="\n":
+            elif c in ('"', "'") and self.__pc != '\\':
+                if self.__in_string_literal is None:
+                    self.__in_string_literal = c
+
+                elif self.__in_string_literal == c:
+                    self.__in_string_literal = None
+
+                os.write(c)
+
+            elif c =="\n" and self.__in_string_literal is None:
                 self.newline()
 
             else:
                 os.write(c)
-            i+=1
+            self.__pc = c
 
     def newline(self):
         self.__os.write("\n")
