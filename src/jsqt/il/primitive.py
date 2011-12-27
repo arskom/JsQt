@@ -407,7 +407,7 @@ class ClassDefinition(SinglePartCompilable):
         properties = js.primitive.Object()
         widget_property = js.primitive.Object()
         widget_property.set_member("check",
-                               js.primitive.String('qx.ui.container.Composite'))
+                               js.primitive.String('qx.ui.core.Widget'))
         properties.set_member("widget", widget_property)
 
         mixins = js.primitive.Array()
