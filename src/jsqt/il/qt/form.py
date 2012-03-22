@@ -31,12 +31,24 @@ class QLabel(WidgetBase):
         "text": SimpleProp("setValue", il.primitive.TranslatableString, ""),
     }
 
+    def __init__(self, *args, **kwargs):
+        WidgetBase.__init__(self, *args, **kwargs)
+
+        self.ver_stretch_pol='Fixed'
+        self.hor_stretch_pol='Fixed'
+
 class QPushButton(WidgetBase):
     type = "qx.ui.form.Button"
     known_simple_props = {
         "text": SimpleProp("setLabel", il.primitive.TranslatableString, ""),
         "checked": SimpleProp("setValue", il.primitive.Boolean, ""),
     }
+
+    def __init__(self, *args, **kwargs):
+        WidgetBase.__init__(self, *args, **kwargs)
+
+        self.ver_stretch_pol='Fixed'
+        self.hor_stretch_pol='Fixed'
 
     def _handle_checkable(self, elt):
         if elt.find('bool').text == 'true':
@@ -49,6 +61,11 @@ class QPushButton(WidgetBase):
 class QLineEdit(WidgetBase):
     type="qx.ui.form.TextField"
     likes_to_flex = False
+
+    def __init__(self, *args, **kwargs):
+        WidgetBase.__init__(self, *args, **kwargs)
+
+        self.ver_stretch_pol='Fixed'
 
 class QTextEdit(WidgetBase):
     type="qx.ui.form.TextArea"
@@ -67,8 +84,18 @@ class QSpinBox(WidgetBase):
         "singleStep": SimpleProp("setSingleStep", il.primitive.DecimalInteger),
     }
 
+    def __init__(self, *args, **kwargs):
+        WidgetBase.__init__(self, *args, **kwargs)
+
+        self.ver_stretch_pol='Fixed'
+
 class QDateEdit(WidgetBase):
     type="qx.ui.form.DateField"
+
+    def __init__(self, *args, **kwargs):
+        WidgetBase.__init__(self, *args, **kwargs)
+
+        self.ver_stretch_pol='Fixed'
 
 class QCheckBox(WidgetBase):
     type="qx.ui.form.CheckBox"

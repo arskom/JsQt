@@ -1,7 +1,7 @@
 {
   "info" : 
   {
-    "name" : "sample",
+    "name" : "test",
 
     "summary" : "Custom Application",
     "description" : "This is a skeleton for a custom application with qooxdoo.",
@@ -23,7 +23,7 @@
   
   "provides" : 
   {
-    "namespace"   : "sample",
+    "namespace"   : "test",
     "encoding"    : "utf-8",
     "class"       : "source/class",
     "resource"    : "source/resource",

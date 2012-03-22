@@ -173,9 +173,14 @@ class QDialog(Base):
         for i in range(len(self.children)):
             self._compile_child(dialect, ret, self.children[i])
 
-# FIXME: QMainWindow should generate its own window?
+class _FakeAttrib(object):
+    def __init__(self, value):
+        self.value = value
+
 class QMainWindow(QDialog):
-    pass
+    def __init__(self, elt, name=None):
+        QDialog.__init__(self, elt, name)
+        self.set_layout(il.qt.layout.QVBoxLayout(None,"__lv"))
 
 class QTabWidget(WithoutLayout):
     type = "qx.ui.tabview.TabView"

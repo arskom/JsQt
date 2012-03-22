@@ -4,7 +4,7 @@ qx.Class.define("test.Application", {  extend : qx.application.Standalone
         main : function() {
             this.base(arguments);
 
-            if (qx.core.Variant.isSet("qx.debug", "on")) {
+            if ((qx.core.Environment.get("qx.debug"))) {
                 qx.log.appender.Native;
                 qx.log.appender.Console;
             }

@@ -1,5 +1,3 @@
- /* 
- */
  /* WARNING: 'tabstops' tag is not supported */
  /* WARNING: 'connections' tag is not supported */
 qx.Class.define("test.draw.Test", {
@@ -183,6 +181,7 @@ qx.Class.define("test.draw.Test", {
             this.dateEdit = new qx.ui.form.DateField();
             var retval = this.dateEdit;
             retval.setMargin(1);
+            retval.setAllowGrowY(false);
             return retval;
         }
 
@@ -310,8 +309,8 @@ qx.Class.define("test.draw.Test", {
             retval.setMargin(1);
             retval.setMinHeight(500);
             retval.setLayout(this.create_verticalLayout_8());
-            retval.add(this.create_label_3(), {flex: 1});
-            retval.add(this.create_label_4(), {flex: 1});
+            retval.add(this.create_label_3());
+            retval.add(this.create_label_4());
             retval.add(this.create_verticalSpacer_2(), {flex: 1});
             return retval;
         }
@@ -329,11 +328,10 @@ qx.Class.define("test.draw.Test", {
             retval.add(this.create_lineEdit(), {column: 0,row: 2});
             retval.add(this.create_spinBox(), {column: 0,row: 1});
             var layout  =  retval.getLayout();
-            layout.setRowFlex(0,1);
             layout.setRowFlex(1,1);
-            layout.setRowFlex(2,1);
             layout.setColumnFlex(0,1);
             layout.setColumnFlex(1,1);
+            layout.setColumnFlex(2,1);
             return retval;
         }
 
@@ -632,6 +630,8 @@ qx.Class.define("test.draw.Test", {
             retval.setWidth(161);
             retval.setValue(this.tr("Signals do not work yet."));
             retval.setMargin(1);
+            retval.setAllowGrowX(false);
+            retval.setAllowGrowY(false);
             return retval;
         }
 
@@ -642,6 +642,8 @@ qx.Class.define("test.draw.Test", {
             retval.setWidth(131);
             retval.setValue(this.tr("hello"));
             retval.setMargin(1);
+            retval.setAllowGrowX(false);
+            retval.setAllowGrowY(false);
             return retval;
         }
 
@@ -650,6 +652,8 @@ qx.Class.define("test.draw.Test", {
             var retval = this.label_3;
             retval.setValue(this.tr("TextLabel"));
             retval.setMargin(1);
+            retval.setAllowGrowX(false);
+            retval.setAllowGrowY(false);
             return retval;
         }
 
@@ -658,6 +662,8 @@ qx.Class.define("test.draw.Test", {
             var retval = this.label_4;
             retval.setValue(this.tr("TextLabel"));
             retval.setMargin(1);
+            retval.setAllowGrowX(false);
+            retval.setAllowGrowY(false);
             return retval;
         }
 
@@ -665,6 +671,7 @@ qx.Class.define("test.draw.Test", {
             this.lineEdit = new qx.ui.form.TextField();
             var retval = this.lineEdit;
             retval.setMargin(1);
+            retval.setAllowGrowY(false);
             return retval;
         }
 
@@ -756,6 +763,8 @@ qx.Class.define("test.draw.Test", {
             retval.setWidth(81);
             retval.setLabel(this.tr("Clear"));
             retval.setMargin(1);
+            retval.setAllowGrowX(false);
+            retval.setAllowGrowY(false);
             return retval;
         }
 
@@ -764,8 +773,10 @@ qx.Class.define("test.draw.Test", {
             var retval = this.pushButton_2;
             retval.setHeight(28);
             retval.setWidth(81);
-            retval.setLabel(this.tr("nothing"));
+            retval.setLabel("nothing");
             retval.setMargin(1);
+            retval.setAllowGrowX(false);
+            retval.setAllowGrowY(false);
             return retval;
         }
 
@@ -928,10 +939,10 @@ qx.Class.define("test.draw.Test", {
             layout.setRowFlex(0,1);
             layout.setRowFlex(1,1);
             layout.setRowFlex(2,1);
-            layout.setRowFlex(3,1);
             layout.setColumnFlex(0,1);
             layout.setColumnFlex(1,1);
             layout.setColumnFlex(2,1);
+            layout.setColumnFlex(3,1);
             return retval;
         }
 
@@ -1225,7 +1236,7 @@ qx.Class.define("test.draw.Test", {
 
     ,properties:  {
         widget:  {
-            check: "qx.ui.container.Composite"
+            check: "qx.ui.core.Widget"
         }
 
     }
