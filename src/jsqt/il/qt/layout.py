@@ -98,19 +98,19 @@ class QGridLayout(QLayout):
 
     def meet_child(self, inst):
         lp = inst.layout_properties.value
-        if self.row_flex[lp['row'].value] == None:
-            self.row_flex[lp['row'].value] = \
+        if self.col_flex[lp['row'].value] == None:
+            self.col_flex[lp['row'].value] = \
                                         FlexProp("Fixed", inst.ver_stretch_coef)
 
-        if self.col_flex[lp['column'].value] == None:
-            self.col_flex[lp['column'].value] = \
+        if self.row_flex[lp['column'].value] == None:
+            self.row_flex[lp['column'].value] = \
                                         FlexProp("Fixed", inst.hor_stretch_coef)
 
         if inst.hor_stretch_pol in ("Expanding","Preferred"):
-            self.row_flex[lp['row'].value].pol = "Expanding"
+            self.col_flex[lp['row'].value].pol = "Expanding"
 
         if inst.ver_stretch_pol in ("Expanding","Preferred"):
-            self.col_flex[lp['column'].value].pol = "Expanding"
+            self.row_flex[lp['column'].value].pol = "Expanding"
 
     def post_fill_ops(self, dialect, ret, factory_function):
         factory_function.add_statement(il.primitive.ObjectReference("var layout = retval.getLayout()")) # FIXME: hack
@@ -130,7 +130,6 @@ class QGridLayout(QLayout):
                      il.primitive.DecimalInteger(self.col_flex[i].coef)],
                 )
                 factory_function.add_statement(fc)
-
 
     def get_properties(self, elt, inst):
         attr = dict(elt.attrib)
