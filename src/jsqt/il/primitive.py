@@ -234,7 +234,7 @@ class Instantiation(SinglePartCompilable):
         if len(class_name) ==0:
             raise Exception("Empty class name not allowed")
         self.__class_name = class_name
-        self.args = DuckTypedList(['compile'],init_arguments)
+        self.args = DuckTypedList(['compile'], init_arguments)
 
     def compile(self, dialect):
         return js.primitive.Instantiation(self.__class_name,

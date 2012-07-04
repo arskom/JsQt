@@ -89,6 +89,15 @@ class QSpinBox(WidgetBase):
 
         self.ver_stretch_pol='Fixed'
 
+    def _compile_instantiation(self, dialect, ret):
+        WidgetBase._compile_instantiation(self, dialect, ret)
+        self.instantiation.right.args.append(il.primitive.ObjectReference(
+                                                          "-Number.MAX_VALUE"))
+        self.instantiation.right.args.append(il.primitive.ObjectReference("0"))
+        self.instantiation.right.args.append(il.primitive.ObjectReference(
+                                                           "Number.MAX_VALUE"))
+
+
 class QDateEdit(WidgetBase):
     type="qx.ui.form.DateField"
 

@@ -113,7 +113,8 @@ class QGridLayout(QLayout):
             self.row_flex[lp['column'].value].pol = "Expanding"
 
     def post_fill_ops(self, dialect, ret, factory_function):
-        factory_function.add_statement(il.primitive.ObjectReference("var layout = retval.getLayout()")) # FIXME: hack
+        factory_function.add_statement(il.primitive.ObjectReference(
+                                             "var layout = retval.getLayout()")) # FIXME: hack
 
         for i in range(len(self.row_flex)):
             if self.row_flex[i] and self.row_flex[i].pol == "Expanding":
