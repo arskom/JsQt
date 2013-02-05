@@ -51,8 +51,8 @@ It's a non-optimizing (:)) declarative-to-imperative compiler.
 The call to ``parser.clazz.compile()`` in ``jsqt.parser.compile`` is probably
 made to a ``jsqt.il.container.QMainWindow``.
 
-The ``compile()`` functions in object from the ``il`` package (the il objects)
-are for generating objects' own ``create_*()`` functions.
+The ``compile()`` functions in objects from the ``il`` package (the il objects)
+are for generating objects' own javascript ``create_*()`` functions.
 
 ``_compile_children()`` calls call objects' own ``compile()`` functions and
 adds calls to these functions in its own constructor.
