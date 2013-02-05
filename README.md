@@ -26,7 +26,7 @@ to Qt's well-known uic tool. It takes a single .ui file as argument and writes
 the resulting qooxdoo class to stdout.
 
 Usage
-------
+-----
 
 Head over to
 
@@ -34,3 +34,14 @@ Head over to
 
 to see how to create javascript code from the sample xml files that can
 be found inside test/xml/draw directory.
+
+Code
+----
+
+At a very high level, Here's how JsQt works:
+
+1) Convert the incoming xml tree into a higher level object tree composed of
+   objects from from the Interlingua package (``jsqt.il``).
+2) Compile the interlingua to Javascript primitives.
+3) Convert the javascript primitives to a ``.js`` file, applying miscellanous
+   code beautification operators.
