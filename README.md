@@ -40,8 +40,24 @@ Code
 
 At a very high level, Here's how JsQt works:
 
-1) Convert the incoming xml tree into a higher level object tree composed of
-   objects from from the Interlingua package (``jsqt.il``).
-2) Compile the interlingua to Javascript primitives.
-3) Convert the javascript primitives to a ``.js`` file, applying miscellanous
+1. Convert the incoming xml tree into a higher level object tree composed of
+   objects from from the Interlingua (``jsqt.il``) package.
+2. Compile the interlingua to a tree of Javascript primitives from ``jsqt.js``.
+3. Convert the javascript primitives to a ``.js`` file, applying miscellanous
    code beautification operators.
+
+It's a non-optimizing (:)) declarative-to-imperative compiler.
+
+The call to ``parser.clazz.compile()`` in ``jsqt.parser.compile`` is probably
+made to a ``jsqt.il.container.QMainWindow``.
+
+The ``compile()`` functions in object from the ``il`` package (the il objects)
+are for generating objects' own ``create_*()`` functions.
+
+``_compile_children()`` calls call objects' own ``compile()`` functions and
+adds calls to these functions in its own constructor.
+
+The rest is hacks and infrastructure to make this design work.
+
+Note: As of now, the ``dialect`` parameter passed to the ``compile()`` call does not
+have any effect.
