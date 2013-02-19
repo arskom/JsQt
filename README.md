@@ -43,8 +43,10 @@ single .ui file as argument and writes the resulting qooxdoo class to stdout.
 directory to .js files in the target directory preserving directory structure
 and file names.
 
-Here's the canonical way to work with jsqt is illustrated in the test project in
+The canonical way to work with jsqt is illustrated in the test project in
 https://github.com/arskom/JsQt/tree/master/test:
+
+Here's the explanation:
 
 1. Have your .ui files under source/xml/<root_ns>/draw/Sample.ui
 2. Compile them using:
@@ -54,6 +56,9 @@ https://github.com/arskom/JsQt/tree/master/test:
 3. Have overriding classes in `source/class/<root_ns>/impl` where you customize
    JsQt-generated widgets according to the needs of your application. Never use
    draw.* classes but always use impl.* classes in your code.
+
+4. Make sure that the impl directory has the same directory structure as the
+   `source/class/<root_ns>/draw` and `source/xml/<root_ns>`
 
 An example about how an impl.* class overrides a draw.* class can be seen in
 the test project: https://github.com/arskom/JsQt/tree/master/test/source/class/test/impl/Test.js
