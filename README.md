@@ -49,7 +49,7 @@ https://github.com/arskom/JsQt/tree/master/test:
 1. Have your .ui files under source/xml/<root_ns>/draw/Sample.ui
 2. Compile them using:
 
-    jsqt source/xml source/class <root_ns>
+        jsqt source/xml source/class <root_ns>
 
 3. Have overriding classes in `source/class/<root_ns>/impl` where you customize
    JsQt-generated widgets according to the needs of your application. Never use
