@@ -9,6 +9,8 @@ qx.Class.define("test.impl.Test", { extend: test.draw.Test
         create_lbl_custom: function() {
             var retval = this.base(arguments);
 
+            // JsQt doesn't translate the wrap property from Qt Designer.
+            // Here's the workaround for it. Patches are welcome!
             retval.setWrap(true);
             retval.setRich(true);
 
