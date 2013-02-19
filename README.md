@@ -48,7 +48,7 @@ https://github.com/arskom/JsQt/tree/master/test:
 
 Here's the explanation:
 
-1. Have your .ui files under source/xml/<root_ns>/draw/Sample.ui
+1. Have your .ui files under source/xml/&lt;root_ns&gt;/draw/Sample.ui
 2. Compile them using:
 
         jsqt source/xml source/class <root_ns>
