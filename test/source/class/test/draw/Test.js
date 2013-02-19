@@ -26,6 +26,7 @@ qx.Class.define("test.draw.Test", {
         ,actionSubMenuItem3_menu: null
         ,actionToolBarAction1_toolbar: null
         ,actionZopa_toolbar: null
+        ,btn_custom: null
         ,centralwidget: null
         ,checkBox: null
         ,checkBox_2: null
@@ -125,6 +126,18 @@ qx.Class.define("test.draw.Test", {
             this.actionZopa_toolbar = new qx.ui.toolbar.Button();
             var retval = this.actionZopa_toolbar;
             retval.setLabel(this.tr("zopa"));
+            return retval;
+        }
+
+        ,create_btn_custom: function create_btn_custom() {
+            this.btn_custom = new qx.ui.form.Button();
+            var retval = this.btn_custom;
+            retval.setHeight(28);
+            retval.setWidth(81);
+            retval.setLabel(this.tr("Custom"));
+            retval.setMargin(1);
+            retval.setAllowGrowX(false);
+            retval.setAllowGrowY(false);
             return retval;
         }
 
@@ -581,21 +594,11 @@ qx.Class.define("test.draw.Test", {
             return retval;
         }
 
-        ,create_item_gobbledygook: function create_item_gobbledygook() {
-            this.item_gobbledygook = new qx.ui.tree.TreeFolder(this.tr("Gobbledygook"),null,null);
-            var retval = this.item_gobbledygook;
-            retval.add(this.create_item_a_new_sub());
-            retval.add(this.create_item_inside());
-            retval.add(this.create_item_hey());
-            retval.add(this.create_item_second_level());
-            return retval;
-        }
-
         ,create_item_hey: function create_item_hey() {
             this.item_hey = new qx.ui.tree.TreeFolder(this.tr("Hey"),null,null);
             var retval = this.item_hey;
             retval.add(this.create_item_nested());
-            retval.add(this.create_item_up_to_three_levels());
+            retval.add(this.create_item_so_much());
             return retval;
         }
 
@@ -611,15 +614,25 @@ qx.Class.define("test.draw.Test", {
             return retval;
         }
 
+        ,create_item_open_me: function create_item_open_me() {
+            this.item_open_me = new qx.ui.tree.TreeFolder(this.tr("Open Me"),null,null);
+            var retval = this.item_open_me;
+            retval.add(this.create_item_a_new_sub());
+            retval.add(this.create_item_inside());
+            retval.add(this.create_item_hey());
+            retval.add(this.create_item_second_level());
+            return retval;
+        }
+
         ,create_item_second_level: function create_item_second_level() {
             this.item_second_level = new qx.ui.tree.TreeFile(this.tr("Second Level"),null,null);
             var retval = this.item_second_level;
             return retval;
         }
 
-        ,create_item_up_to_three_levels: function create_item_up_to_three_levels() {
-            this.item_up_to_three_levels = new qx.ui.tree.TreeFile(this.tr("Up to Three Levels"),null,null);
-            var retval = this.item_up_to_three_levels;
+        ,create_item_so_much: function create_item_so_much() {
+            this.item_so_much = new qx.ui.tree.TreeFile(this.tr("So much"),null,null);
+            var retval = this.item_so_much;
             return retval;
         }
 
@@ -627,8 +640,8 @@ qx.Class.define("test.draw.Test", {
             this.label = new qx.ui.basic.Label();
             var retval = this.label;
             retval.setHeight(21);
-            retval.setWidth(161);
-            retval.setValue(this.tr("Signals do not work yet."));
+            retval.setWidth(321);
+            retval.setValue(this.tr("JsQt does not translate signals from the .ui file."));
             retval.setMargin(1);
             retval.setAllowGrowX(false);
             retval.setAllowGrowY(false);
@@ -661,6 +674,19 @@ qx.Class.define("test.draw.Test", {
             this.label_4 = new qx.ui.basic.Label();
             var retval = this.label_4;
             retval.setValue(this.tr("TextLabel"));
+            retval.setMargin(1);
+            retval.setAllowGrowX(false);
+            retval.setAllowGrowY(false);
+            return retval;
+        }
+
+        ,create_lbl_custom: function create_lbl_custom() {
+             /* The 'wordWrap' property for widget named 'lbl_custom'of type '<class 'jsqt.il.qt.form.QLabel'>' is not supported (yet?) */
+            this.lbl_custom = new qx.ui.basic.Label();
+            var retval = this.lbl_custom;
+            retval.setHeight(111);
+            retval.setWidth(161);
+            retval.setValue(this.tr("You can add your signals and do other customizations by overriding the relevant constructor."));
             retval.setMargin(1);
             retval.setAllowGrowX(false);
             retval.setAllowGrowY(false);
@@ -826,7 +852,7 @@ qx.Class.define("test.draw.Test", {
             this.scrollAreaWidgetContents = new qx.ui.container.Composite(this.create_verticalLayout_2());
             var retval = this.scrollAreaWidgetContents;
             retval.setHeight(508);
-            retval.setWidth(94);
+            retval.setWidth(88);
             retval.setMargin(1);
             retval.add(this.create_groupBox_3(), {flex: 1});
             return retval;
@@ -836,7 +862,7 @@ qx.Class.define("test.draw.Test", {
             this.scrollAreaWidgetContents_2 = new qx.ui.container.Composite(this.create_verticalLayout_3());
             var retval = this.scrollAreaWidgetContents_2;
             retval.setHeight(508);
-            retval.setWidth(94);
+            retval.setWidth(88);
             retval.setMargin(1);
             retval.add(this.create_groupBox_6(), {flex: 1});
             return retval;
@@ -854,7 +880,7 @@ qx.Class.define("test.draw.Test", {
         }
 
         ,create_spinBox: function create_spinBox() {
-            this.spinBox = new qx.ui.form.Spinner();
+            this.spinBox = new qx.ui.form.Spinner(-Number.MAX_VALUE,0,Number.MAX_VALUE);
             var retval = this.spinBox;
             retval.setMargin(1);
             retval.setAllowGrowY(false);
@@ -954,6 +980,8 @@ qx.Class.define("test.draw.Test", {
             retval.setLayout(this.create_tab_6_il());
             retval.add(this.create_pushButton(), {left: 30,top: 30});
             retval.add(this.create_label(), {left: 170,top: 40});
+            retval.add(this.create_btn_custom(), {left: 40,top: 180});
+            retval.add(this.create_lbl_custom(), {left: 170,top: 150});
             return retval;
         }
 
@@ -1060,7 +1088,7 @@ qx.Class.define("test.draw.Test", {
             var retval = this.treeWidget;
             retval.setMaxWidth(250);
             retval.setMargin(1);
-            retval.setRoot(this.create_item_gobbledygook());
+            retval.setRoot(this.create_item_open_me());
             return retval;
         }
 
@@ -1175,16 +1203,17 @@ qx.Class.define("test.draw.Test", {
         ,horizontalSpacer: null
         ,horizontalSpacer_2: null
         ,item_a_new_sub: null
-        ,item_gobbledygook: null
         ,item_hey: null
         ,item_inside: null
         ,item_nested: null
+        ,item_open_me: null
         ,item_second_level: null
-        ,item_up_to_three_levels: null
+        ,item_so_much: null
         ,label: null
         ,label_2: null
         ,label_3: null
         ,label_4: null
+        ,lbl_custom: null
         ,lineEdit: null
         ,listWidget: null
         ,menuMenu1: null

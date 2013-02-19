@@ -9,7 +9,7 @@ qx.Class.define("test.Application", {  extend : qx.application.Standalone
                 qx.log.appender.Console;
             }
 
-            var sample = new test.draw.Test();
+            var sample = new test.impl.Test();
             var doc = this.getRoot();
             doc.add(sample.getWidget(), {edge: 0});
         }

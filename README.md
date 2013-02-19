@@ -12,28 +12,51 @@ common use cases.
 Installation
 -------------
 
-Just run:
+JsQt is written in Python-2.7, using lxml as the xml library of choice.
 
-    python setup.py install
+The recommended way to install JsQt is to run:
 
-in a shell with root privileges, (this means you may need to prefix the 
-above command with sudo) inside the package root directory. The setup 
-script will generate two executables, namely "jsqt" and "jsuic".
+    easy_install --user JsQt
 
-'jsqt' is the main executable whose functionality is described in the below 
-website. 'jsuic' is the tool that seeks to implement an interface similar 
-to Qt's well-known uic tool. It takes a single .ui file as argument and writes
-the resulting qooxdoo class to stdout.
+This command requires a recent version of setuptools, so it may or may
+not work with your setup. It's the recommended way because it installs
+JsQt in your home directory, helping to keep your file system free from
+files unknown to your package manager. It installes the 'jsqt' and
+'jsuic' commands in ``~/.local/bin`` so make sure to add this path to
+your ``PATH`` variable.
+
+You can of course use:
+
+    sudo easy_install JsQt
+
+or an equivalent command to install JsQt to the central site-packages directory
+of the Python interpreter.
 
 Usage
 -----
 
-Head over to
+JsQt has two entry points: 'jsqt' and 'jsuic' commands. 'jsuic' is the tool that
+seeks to implement an interface similar to Qt's well-known uic tool. It takes a
+single .ui file as argument and writes the resulting qooxdoo class to stdout.
 
-    http://code.google.com/p/jsqt/wiki/Tutorial
+'jsqt' is a convenience wrapper around 'jsuic' that compiles .ui files in source
+directory to .js files in the target directory preserving directory structure
+and file names.
 
-to see how to create javascript code from the sample xml files that can
-be found inside test/xml/draw directory.
+Here's the canonical way to work with jsqt is illustrated in the test project in
+https://github.com/arskom/JsQt/tree/master/test:
+
+1. Have your .ui files under source/xml/<root_ns>/draw/Sample.ui
+2. Compile them using:
+
+    jsqt source/xml source/class <root_ns>
+
+3. Have overriding classes in `source/class/<root_ns>/impl` where you customize
+   JsQt-generated widgets according to the needs of your application. Never use
+   draw.* classes but always use impl.* classes in your code.
+
+An example about how an impl.* class overrides a draw.* class can be seen in
+the test project: https://github.com/arskom/JsQt/tree/master/test/source/class/test/impl/Test.js
 
 Code
 ----

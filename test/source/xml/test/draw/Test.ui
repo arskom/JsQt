@@ -37,7 +37,7 @@
        </column>
        <item>
         <property name="text">
-         <string>Gobbledygook</string>
+         <string>Open Me</string>
         </property>
         <item>
          <property name="text">
@@ -60,7 +60,7 @@
          </item>
          <item>
           <property name="text">
-           <string>Up to Three Levels</string>
+           <string>So much</string>
           </property>
          </item>
         </item>
@@ -263,7 +263,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>94</width>
+              <width>88</width>
               <height>508</height>
              </rect>
             </property>
@@ -377,7 +377,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>94</width>
+              <width>88</width>
               <height>508</height>
              </rect>
             </property>
@@ -635,12 +635,41 @@
           <rect>
            <x>170</x>
            <y>40</y>
-           <width>161</width>
+           <width>321</width>
            <height>21</height>
           </rect>
          </property>
          <property name="text">
-          <string>Signals do not work yet.</string>
+          <string>JsQt does not translate signals from the .ui file.</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btn_custom">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>180</y>
+           <width>81</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Custom</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lbl_custom">
+         <property name="geometry">
+          <rect>
+           <x>170</x>
+           <y>150</y>
+           <width>161</width>
+           <height>111</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>You can add your signals and do other customizations by overriding the relevant constructor.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
          </property>
         </widget>
        </widget>
